@@ -2,10 +2,11 @@
 	using System.Collections;
 	using System.Collections.Generic;
 	public class RandomSquiggles : MonoBehaviour {
-	public Texture2D myTexture;
+
 	public Vector3 walkIntensityRange = new Vector3(1f,1f,1f);
 	public int numberOfWalkers = 3;
 	public int numberOfWalks = 10;
+	public Texture2D myTexture;
 		// Runs once at the start, when you hit play
 		void Start () {
 
@@ -95,6 +96,7 @@
 		gameObject.renderer.material.mainTexture = myTexture;
 		//Changes the shader to be self-illuminated (no lighting)
 		gameObject.renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
+		//Debug.Log (myTexture);
 	}
 
 	}
