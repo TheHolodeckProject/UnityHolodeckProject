@@ -67,8 +67,8 @@ public class OVRCameraController : OVRComponent
 	private float  		verticalFOV = 90.0f;	 			// in degrees
 	public 	float		VerticalFOV
 	{
-		get{return 90.0f;}
-		set{ UpdateCamerasDirtyFlag = true;}
+		get{return verticalFOV;}
+		set{verticalFOV = value; UpdateCamerasDirtyFlag = true;}
 	}
 	
 	// Camera positioning:

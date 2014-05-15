@@ -212,7 +212,6 @@ public class OVRCamera : OVRComponent
 	// SetCameraOrientation
 	void SetCameraOrientation()
 	{
-		return;
 		Quaternion q   = Quaternion.identity;
 		Vector3    dir = Vector3.forward;		
 		
