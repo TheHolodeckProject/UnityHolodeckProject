@@ -1,18 +1,18 @@
 ﻿	using UnityEngine;
 	using System.Collections;
 	using System.Collections.Generic;
-	
-//Must be run on a game object that has a Mesh Filter and a Mesh Renderer
-//Running it on an object with a texture will give the created stimulus a texture, too
-
 	public class RandomSquiggles : MonoBehaviour {
-		
-		public Vector3 walkIntensityRange = new Vector3(1f,1f,1f);
-		public int numberOfWalkers = 3;
-		public int numberOfWalks = 10;
-		
+	public Texture2D myTexture;
+	public Vector3 walkIntensityRange = new Vector3(1f,1f,1f);
+	public int numberOfWalkers = 3;
+	public int numberOfWalks = 10;
 		// Runs once at the start, when you hit play
 		void Start () {
+
+		//Adds a mesh filter and a renderer to the game object
+		MeshFilter filter = gameObject.AddComponent< MeshFilter > ();
+		MeshRenderer renderer = gameObject.AddComponent< MeshRenderer > ();
+
 		//??? Not sure
 			List<CombineInstance> combinedMeshes = new List<CombineInstance> ();
 		//Creates a sphere at (0,0,0)	
@@ -91,6 +91,10 @@
 		//Optimizes the triangles of the mesh by caching them locally, which I know exactly enough about computers to not understand
 		//Basically trade better runtime performance for longer load times
 			transform.GetComponent<MeshFilter> ().mesh.Optimize ();
-		}
+		//Adds a texture to the gameobject
+		gameObject.renderer.material.mainTexture = myTexture;
+		//Changes the shader to be self-illuminated (no lighting)
+		gameObject.renderer.material.shader = Shader.Find("Self-Illumin/Diffuse");
+	}
 
 	}

@@ -7,8 +7,6 @@ public class GenerateStimuli : MonoBehaviour {
 
 //Defines the texture to be used for the sphere
 public Texture stimTexture;
-
-
 //Defines the radius of the circle
 public float radius = 1f;
 	public float modradius = 2f;
