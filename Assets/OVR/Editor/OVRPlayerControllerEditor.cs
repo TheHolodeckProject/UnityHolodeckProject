@@ -6,22 +6,11 @@ Content     :   Player controller interface.
 Created     :   January 17, 2013
 Authors     :   Peter Giokaris
 
-Copyright   :   Copyright 2014 Oculus VR, Inc. All Rights reserved.
+Copyright   :   Copyright 2013 Oculus VR, Inc. All Rights reserved.
 
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
-you may not use the Oculus VR Rift SDK except in compliance with the License, 
-which is provided at the time of installation or download, or which 
+Use of this software is subject to the terms of the Oculus LLC license
+agreement provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
-
-You may obtain a copy of the License at
-
-http://www.oculusvr.com/licenses/LICENSE-3.1 
-
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK 
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
 
 ************************************************************************************/
 using UnityEditor;
@@ -57,8 +46,8 @@ public class OVRPlayerControllerEditor : Editor
 	{
 		GUI.color = Color.white;
 		
-		Undo.RecordObject(m_Component, "OVRPlayerController");
-
+		Undo.SetSnapshotTarget(m_Component, "OVRPlayerController");
+		
 		{
 			m_Component.Acceleration 	  = EditorGUILayout.Slider("Acceleration", 			m_Component.Acceleration, 	  0, 1);
 			m_Component.Damping 		  = EditorGUILayout.Slider("Damping", 				m_Component.Damping, 		  0, 1);
@@ -75,8 +64,12 @@ public class OVRPlayerControllerEditor : Editor
 		
 		if (GUI.changed)
 		{
+			Undo.CreateSnapshot();
+			Undo.RegisterSnapshot();
 			EditorUtility.SetDirty(m_Component);
 		}
+		
+		Undo.ClearSnapshotTarget();
 	}		
 }
 

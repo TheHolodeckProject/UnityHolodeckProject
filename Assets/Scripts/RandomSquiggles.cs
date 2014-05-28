@@ -19,6 +19,8 @@
 				List<CombineInstance> combinedMeshes = new List<CombineInstance> ();
 				//Creates a sphere at (0,0,0)	
 				GameObject origin = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+                //ADDED - Scales the created sphere down to the walkintensity scale 
+                origin.transform.localScale = walkIntensityRange;
 				//Creates a sphere mesh filter, which gives the object a sphere collider as well
 				MeshFilter originMesh = origin.GetComponent<MeshFilter> ();
 				//Initializes a CombineInstance
@@ -52,14 +54,18 @@
 								position.z += directionvector.normalized.z * walkIntensityRange.z;
 								//Creates a new sphere and a cylinder at the new coordinates 
 								GameObject sph = GameObject.CreatePrimitive (PrimitiveType.Sphere);
-								GameObject cyl = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+                                GameObject cyl = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                                //ADDED - trying to scale the created cylinder and sphere to the walk intensity range 
+                                //sph.transform.localScale = walkIntensityRange;
+                                //cyl.transform.localScale = walkIntensityRange;
+
 								//Moves the cylinder halfway to the new coordinates so that it connects the old sphere with the new one
 								cyl.transform.position = (prevPosition - position) / 2.0f + position;
 								//Copies the localScale and other information to the cylinder connnecting the two spheres
 								//Currently not doing anything because the scale is (1,1,1)
-								Vector3 sca = cyl.transform.localScale;
+							Vector3 sca = cyl.transform.localScale;
 								sca.y = (prevPosition - position).magnitude * 0.5f;
-								cyl.transform.localScale = sca;
+                            cyl.transform.localScale = sca;
 								//Rotates the cylinder so that it actually connects the two spheres
 								cyl.transform.rotation = Quaternion.FromToRotation (Vector3.up, prevPosition - position);
 								//Moves the sphere to its new position
@@ -87,6 +93,8 @@
 								//Destroys the creates sphere and cylinder, leaving only the new mesh					
 								DestroyObject (sph);
 								DestroyObject (cyl);
+                            //ADDED - destroys the original sphere, too
+                                DestroyObject(origin);
 						}
 				}
 				// Combines all the meshes in the combinedMeshes array
