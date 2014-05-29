@@ -17,10 +17,12 @@
 				//Instantiates a list of CombineInstance objects, which will each represent a mesh that should be combined.
 				//We're going to populate this list with each mesh we want to merge
 				List<CombineInstance> combinedMeshes = new List<CombineInstance> ();
-				//Creates a sphere at (0,0,0)	
+				//Creates a sphere
 				GameObject origin = GameObject.CreatePrimitive (PrimitiveType.Sphere);
                 //ADDED - Scales the created sphere down to the walkintensity scale 
                 origin.transform.localScale = walkIntensityRange;
+                //ADDED - noves the sphere to 0,0,0
+                origin.transform.position = new Vector3(0, 0, 0);
 				//Creates a sphere mesh filter, which gives the object a sphere collider as well
 				MeshFilter originMesh = origin.GetComponent<MeshFilter> ();
 				//Initializes a CombineInstance
@@ -39,9 +41,11 @@
 						//Returns a random position somewhere inside a sphere with a radius of 1 and the center at 0
 						Vector3 directionvector = Random.insideUnitSphere;
 						//For every walk (every time the walkers move)
+                        Debug.Log("Original position is " + position);
 						for (int j = 0; j < numberOfWalks; j++) {
 								//Updates the position as the one from the last walk
 								Vector3 prevPosition = position;
+                                Debug.Log("prevPosition is now " + prevPosition);
 								//Returns a random position somewhere intisde a sphere with a radius of 1 and the center at 0
 								//Basically generatesa  random number
 								Vector3 rand = Random.insideUnitSphere;
@@ -56,8 +60,8 @@
 								GameObject sph = GameObject.CreatePrimitive (PrimitiveType.Sphere);
                                 GameObject cyl = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                                 //ADDED - trying to scale the created cylinder and sphere to the walk intensity range 
-                                //sph.transform.localScale = walkIntensityRange;
-                                //cyl.transform.localScale = walkIntensityRange;
+                                sph.transform.localScale = walkIntensityRange;
+                                cyl.transform.localScale = walkIntensityRange;
 
 								//Moves the cylinder halfway to the new coordinates so that it connects the old sphere with the new one
 								cyl.transform.position = (prevPosition - position) / 2.0f + position;
@@ -69,6 +73,7 @@
 								//Rotates the cylinder so that it actually connects the two spheres
 								cyl.transform.rotation = Quaternion.FromToRotation (Vector3.up, prevPosition - position);
 								//Moves the sphere to its new position
+                                Debug.Log("position of sph is " + position);
 								sph.transform.position = position;
 								//As we make each object, sets it as a child of the parent object
 								//Currently unnecessary because we later merge and delete the objects
@@ -93,8 +98,7 @@
 								//Destroys the creates sphere and cylinder, leaving only the new mesh					
 								DestroyObject (sph);
 								DestroyObject (cyl);
-                            //ADDED - destroys the original sphere, too
-                                DestroyObject(origin);
+
 						}
 				}
 				// Combines all the meshes in the combinedMeshes array
@@ -104,12 +108,14 @@
 				transform.GetComponent<MeshFilter> ().mesh.Optimize ();
 				//Adds a texture to the gameobject
 				gameObject.renderer.material.mainTexture = myTexture;
-				//Changes the shader to be self-illuminated (no lighting)
-				gameObject.renderer.material.shader = Shader.Find ("Self-Illumin/Diffuse");
-				//??? - Couldn't figure out how to add a mesh collider to the object
+				//Changes the shader
+				//gameObject.renderer.material.shader = Shader.Find ("Self-Illumin/Diffuse");
+                gameObject.renderer.material.shader = Shader.Find ("Specular");
+					
+            //??? - Couldn't figure out how to add a mesh collider to the object
 				//MeshCollider stimMesh = gameObject.AddComponent(typeof(MeshCollider)) as MeshCollider;
-				//Moves the object to a random position in a 40x20x40 cube
-				transform.position = new Vector3 (Random.Range (-20, 20), Random.Range (0, 20), Random.Range (-20, 20));
+				//Moves the object to a random position on the tabletop
+				transform.position = new Vector3 (Random.Range (-.33F, .33F), Random.Range (-.1F, .1F), Random.Range (-.33F, .33F));
 				//Debug.Log (myTexture);
 		}
 }
