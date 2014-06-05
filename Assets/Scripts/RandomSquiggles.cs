@@ -45,7 +45,7 @@
 						for (int j = 0; j < numberOfWalks; j++) {
 								//Updates the position as the one from the last walk
 								Vector3 prevPosition = position;
-                                Debug.Log("prevPosition is now " + prevPosition);
+                                //Debug.Log("prevPosition is now " + prevPosition);
 								//Returns a random position somewhere intisde a sphere with a radius of 1 and the center at 0
 								//Basically generatesa  random number
 								Vector3 rand = Random.insideUnitSphere;

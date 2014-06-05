@@ -20,7 +20,7 @@ public class Logger : MonoBehaviour {
 		//Get the list of objects - this is a one-time function. If new objects are created, there is currently no way to log them without creating a new logger.
 		List<ILoggable> logObjs = new List<ILoggable> ();
 		GameObject[] objs = (GameObject[])FindObjectsOfType (typeof(GameObject));
-		Debug.Log ("Searching " + objs.Length + " GameObject objects for ILoggable interfaces.");
+		//Debug.Log ("Searching " + objs.Length + " GameObject objects for ILoggable interfaces.");
 		for (int i = 0; i < objs.Length; i++) {
 						List<ILoggable> logScripts = new List<ILoggable> ();
 						GetInterfaces<ILoggable> (out logScripts, objs [i]);
@@ -29,7 +29,7 @@ public class Logger : MonoBehaviour {
 				}
 
 		loggableObjects = logObjs.ToArray ();
-		Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
+		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 
 		//Create the appropriate filename given the options
 		string filename = logFilename;
