@@ -758,8 +758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabRange: 1
   holdDistance: 1
-  grabbedObjects: []
-  objectforward: {x: 0, y: 0, z: 0}
+  grabKeys: 6500000066000000
 --- !u!1 &28613980
 GameObject:
   m_ObjectHideFlags: 0
