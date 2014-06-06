@@ -14,7 +14,7 @@ var grabRange = 1.0; //Not sure what GrabRange does, as you can grab it from any
 var holdDistance = 0.1; //How far away the object is held from your character
 var grabKeys : List.<KeyCode> = new List.<KeyCode>();
 private var resetParent = new GameObject(); //How far away the object is held from your character
-private var grabbedObject = new GameObject();;
+private var grabbedObject = new GameObject();
 
 static var resetflag = false; //Initiates a flag that will change to true once all the objects have been touched
 
@@ -41,7 +41,7 @@ function FixedUpdate () {
 		//Defines the hitInfo variable using the RaycastHit function (?)
 		var hitInfo : RaycastHit;
 		//If the ray hits an object (?)
-		if(Physics.Raycast(transform.position, transform.forward, hitInfo)) {
+		if(Physics.Raycast(transform.position, transform.forward, hitInfo, grabRange)) {
 			grabbedObject = hitInfo.rigidbody.gameObject;
 			resetParent = grabbedObject.transform.parent.gameObject;
 			grabbedObject.transform.parent = this.transform;
@@ -49,7 +49,10 @@ function FixedUpdate () {
 	}
     //If you ARE holding the object
     if(grabbedObject!=null && grabEventUp){
-   		grabbedObject.transform.parent = resetParent.transform;
+        grabbedObject.transform.parent = resetParent.transform;
+        //DEBUGGING
+//        Debug.Log("Player Rotation = " + this.transform.rotation);
+  //      Debug.Log("OVRCamera rotation=  " + GameObject.Find("OVRCameraController").transform.rotation);
    		grabbedObject = null;
     }
 }
