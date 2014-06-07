@@ -224,6 +224,7 @@ public class OVRPlayerController : OVRComponent
 		if (Input.GetKey(KeyCode.DownArrow))  moveBack 	  = true; 
 		if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true;
         // Joystyick Controls
+        //Uses .1 because the joystick is apparently never at 0. Gotta give it some room for error
         if (Input.GetAxis("Horizontal") > 0) moveRight = true;
         if (Input.GetAxis("Horizontal") < 0) moveLeft = true;
         if (Input.GetAxis("Vertical") > 0) moveForward = true;
@@ -273,9 +274,9 @@ public class OVRPlayerController : OVRComponent
 			YRotation += rotateInfluence * 0.5f;
  
         //ADDED - Joystick Controls
-        if (Input.GetAxis("Twist") < 0)
+        if (Input.GetAxis("Twist") < -.19)
             YRotation -= rotateInfluence * 0.5f;
-            if (Input.GetAxis("Twist") > 0)
+        if (Input.GetAxis("Twist") > .19)
             YRotation += rotateInfluence * 0.5f;
  
 
