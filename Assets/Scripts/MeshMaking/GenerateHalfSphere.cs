@@ -26,7 +26,7 @@ public class GenerateHalfSphere : MonoBehaviour
         //Initializes a vector3 array that will hold the vectors of this sphere
         //Divides by 2 because we're only making a half-sphere
         Vector3[] vertices = new Vector3[((StimRes + 1) * (StimRes/2 + 1) + 1)];
-        Debug.Log("Length of vertices is " + vertices.Length);
+        //Debug.Log("Length of vertices is " + vertices.Length);
         //Defines pi
         float pi = Mathf.PI; 
         //Defines the first vertex as the top of the sphere
@@ -47,7 +47,7 @@ public class GenerateHalfSphere : MonoBehaviour
                 float cos2 = Mathf.Cos(a2);
 				//Defines which vertex we're defining
 				int vertexindex = lon + lat * (StimRes+1) + 1;
-				Debug.Log ("Trying to define vertex # " + vertexindex);
+				//Debug.Log ("Trying to define vertex # " + vertexindex);
 				//Adds the vertices of that triangle to the vertices array
                 vertices[vertexindex] = new Vector3(sin1 * cos2, cos1, sin1 * sin2) * radius;
             }
