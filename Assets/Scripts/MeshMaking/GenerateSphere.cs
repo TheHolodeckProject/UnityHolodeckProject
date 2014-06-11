@@ -61,7 +61,8 @@ void Start () {
 					else
 				{
 				//Adds the vertices of that triangle to the vertices array
-				vertices[ vertexindex ] = new Vector3( sin1 * cos2, cos1, sin1 * sin2 ) * radius;
+					vertices[ vertexindex ] = new Vector3( sin1 * cos2, cos1, sin1 * sin2 ) * radius;
+					Debug.Log ("Defining vertex # " + vertexindex + " as " + vertices[vertexindex]);
 					}
 			}
 		}
@@ -95,41 +96,7 @@ void Start () {
 				//Defines the current value in the UV array (which'll be 0 to 65282]
 				uvs[lon + lat * (StimRes + 1) + 1] = new Vector2( (float)lon / StimRes, 1f - (float)(lat+1) / (StimRes+1) );
 
-		
 //Creates the triangles
-        Debug.Log(uvs[0]);
-        Debug.Log(uvs[1]);
-        Debug.Log(uvs[2]);
-        Debug.Log(uvs[3]);
-        Debug.Log(uvs[4]);
-        Debug.Log(uvs[5]);
-        Debug.Log(uvs[6]);
-        Debug.Log(uvs[7]);
-        Debug.Log(uvs[8]);
-        Debug.Log(uvs[9]);
-        Debug.Log(uvs[10]);
-        Debug.Log(uvs[11]);
-        Debug.Log(uvs[12]);
-        Debug.Log(uvs[13]);
-        Debug.Log(uvs[14]);
-        Debug.Log(uvs[15]);
-        Debug.Log(uvs[16]);
-        Debug.Log(uvs[17]);
-        Debug.Log(uvs[18]);
-        Debug.Log(uvs[19]);
-        Debug.Log(uvs[20]);
-        Debug.Log(uvs[21]);
-        Debug.Log(uvs[22]);
-        Debug.Log(uvs[23]);
-        Debug.Log(uvs[24]);
-        Debug.Log(uvs[25]);
-        Debug.Log(uvs[26]);
-        Debug.Log(uvs[27]);
-        Debug.Log(uvs[28]);
-        Debug.Log(uvs[29]);
-        Debug.Log(uvs[30]);
-        Debug.Log(uvs[31]);
-        Debug.Log(uvs.Length);
 		//Defines the number of faces (65282 by default)
 		int nbFaces = vertices.Length;
 		//Defines the number of triangles there'll be (130564 by default)
@@ -178,12 +145,34 @@ void Start () {
 			triangles[i++] = vertices.Length - (lon+2) - 1;
 			triangles[i++] = vertices.Length - (lon+1) - 1;
 		}
+		Debug.Log(vertices[0]);
+		Debug.Log(vertices[1]);
+		Debug.Log(vertices[2]);
+		Debug.Log(vertices[3]);
+		Debug.Log(vertices[4]);
+		Debug.Log(vertices[5]);
+		Debug.Log(vertices[6]);
+		Debug.Log(vertices[7]);
+		Debug.Log(vertices[8]);
+		Debug.Log(vertices[9]);
+		Debug.Log(vertices[10]);
+		Debug.Log(vertices[11]);
+		Debug.Log(vertices[12]);
+		Debug.Log(vertices[13]);
+		Debug.Log(vertices[14]);
+		Debug.Log(vertices[15]);
+		Debug.Log(vertices[16]);
+		Debug.Log(vertices[17]);
+		Debug.Log(vertices[18]);
+		Debug.Log(vertices[19]);
+		Debug.Log(vertices[20]);
+		Debug.Log(vertices[21]);
+		Debug.Log(vertices[22]);
 		//Assigns all the things we created to the mesh we created earlier
 		mesh.vertices = vertices;
 		mesh.normals = normales;
 		//mesh.uv = uvs;
 		mesh.triangles = triangles;
-		
 		mesh.RecalculateBounds();
 		mesh.Optimize();
 	}
