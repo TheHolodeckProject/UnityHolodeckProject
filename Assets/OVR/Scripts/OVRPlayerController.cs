@@ -52,6 +52,9 @@ public class OVRPlayerController : OVRComponent
 	protected CharacterController 	Controller 		 = null;
 	protected OVRCameraController 	CameraController = null;
 
+	//MODIFIED - changed from private to public variable to make it easier to modify.
+	//1 is too fast with the joystick but .5 is too slow with number keys
+	public float MoveScaleMultiplier     = 1.0f;
 	public float Acceleration 	   = 0.1f;
 	public float Damping 		   = 0.15f;
 	public float BackAndSideDampen = 0.5f;
@@ -74,7 +77,9 @@ public class OVRPlayerController : OVRComponent
 	protected Transform DirXform = null;
 	
 	// We can adjust these to influence speed and rotation of player controller
-	private float MoveScaleMultiplier     = 1.0f; 
+
+
+	//private float MoveScaleMultiplier     = 1.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	private bool  AllowMouseRotation      = true;
 	private bool  HaltUpdateMovement      = false;
@@ -233,9 +238,7 @@ public class OVRPlayerController : OVRComponent
 
         if ((moveForward && moveLeft) || (moveForward && moveRight) ||
              (moveBack && moveLeft) || (moveBack && moveRight))
-            //MODIFIED Movement felt really slow, so I upped the speed
-            MoveScale = 1f;
-            //MoveScale = 0.70710678f;
+            MoveScale = 0.70710678f;
 			
 		// No positional movement if we are in the air
 		if (!Controller.isGrounded)	

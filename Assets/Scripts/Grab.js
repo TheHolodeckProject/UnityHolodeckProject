@@ -1,7 +1,5 @@
 ﻿//TO DO
-//Make it so you can move objects up and down
 //Make it so objects don't go through walls
-//Transfer the part where it counts stimuli to the Stimuli script
 //Get it to output starting and finish position
 
 #pragma strict

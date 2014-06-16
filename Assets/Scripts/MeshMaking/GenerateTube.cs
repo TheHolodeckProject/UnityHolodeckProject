@@ -1,8 +1,4 @@
-﻿//Figure out how to apply mesh collider
-//Figure out how to combine meshes OR combine the scripts into one
-//Get the walks to turn
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class GenerateTube : MonoBehaviour
