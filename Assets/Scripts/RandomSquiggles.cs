@@ -12,8 +12,8 @@
 		void Start () {
 
 				//Adds a mesh filter and a renderer to the game object
-				MeshFilter filter = gameObject.AddComponent< MeshFilter > ();
-				MeshRenderer renderer = gameObject.AddComponent< MeshRenderer > ();
+				//MeshFilter filter = gameObject.AddComponent< MeshFilter > ();
+				//MeshRenderer renderer = gameObject.AddComponent< MeshRenderer > ();
 				//Instantiates a list of CombineInstance objects, which will each represent a mesh that should be combined.
 				//We're going to populate this list with each mesh we want to merge
 				List<CombineInstance> combinedMeshes = new List<CombineInstance> ();
