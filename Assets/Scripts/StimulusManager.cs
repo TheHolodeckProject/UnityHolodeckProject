@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class StimulusManager : MonoBehaviour {
 
-	public static int numberOfStimuli = 5; //Static value representing number of stimuli for task
+	private int numberOfStimuli; //Static value representing number of stimuli for task
 	private GameObject[] stimuli; //List of game objects (populated on Start())
-	private int[] activeStimIndicies = new int[numberOfStimuli]; //List of active stimuli indicies
+	private int[] activeStimIndicies; //List of active stimuli indicies
 	//Reset positions form a line between points P0 and P1 with even distribution (starting at end points)
 	public Vector3 resetPositionP0; //Position for obj0
 	public Vector3 resetPositionP1; //Position for objN
@@ -18,6 +18,10 @@ public class StimulusManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		numberOfStimuli = PlayerPrefs.GetInt("Number of Stimuli");
+		activeStimIndicies = new int[numberOfStimuli];
+		expectedNumberOfTrials = PlayerPrefs.GetInt ("Number of Trials");
+
 		//Generate list of stimuli which are available
 		List<GameObject> objs = new List<GameObject> ();
 		foreach (Transform child in transform) {
@@ -47,25 +51,29 @@ public class StimulusManager : MonoBehaviour {
 		for (int i = 0; i < activeStimIndicies.Length; i++)
 			stimuli [activeStimIndicies [i]].GetComponentInChildren<MeshRenderer>().enabled = true;
 		
+		generateRandomPositions ();
+
+	}
+
+	void generateRandomPositions(){
 		//Position stimuli randomly according to settings (no overlaps)
 		List<Rect> overlapCheckList = new List<Rect> ();
 		for (int i = 0; i < activeStimIndicies.Length; i++) {
-						stimuli [activeStimIndicies [i]].transform.localPosition = new Vector3 (
+			stimuli [activeStimIndicies [i]].transform.localPosition = new Vector3 (
 				Random.Range (randomBoundsP0.x > randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x,
-			             	  randomBoundsP0.x < randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x),
+			              randomBoundsP0.x < randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x),
 				Random.Range (randomBoundsP0.y > randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y,
-			             	  randomBoundsP0.y < randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y),
+			              randomBoundsP0.y < randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y),
 				Random.Range (randomBoundsP0.z > randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z,
-			             	  randomBoundsP0.z < randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z));
+			              randomBoundsP0.z < randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z));
 			//Check for overlapping boxes and regenerate box location if overlap occurs
-				Rect newBox = new Rect(stimuli[activeStimIndicies[i]].transform.localPosition.x,
+			Rect newBox = new Rect(stimuli[activeStimIndicies[i]].transform.localPosition.x,
 			                       stimuli[activeStimIndicies[i]].transform.localPosition.z,
 			                       stimuli[activeStimIndicies[i]].transform.localScale.x,
 			                       stimuli[activeStimIndicies[i]].transform.localScale.z);
 			if(boxesOverlapArray(newBox,overlapCheckList)) i--;
 			else overlapCheckList.Add (newBox);
-				}
-
+		}
 	}
 
 	bool boxesOverlapArray(Rect box, List<Rect> boxArray) {
@@ -85,12 +93,88 @@ public class StimulusManager : MonoBehaviour {
 
 
 
-
+	private int phase = 0;
+	private float phaseWaitTime = 1.000f; //in s
+	private float phaseWaitTimeStart;
+	private bool phaseInit = false;
+	private float timerStart;
+	private float testTime = 25.000f; //in s
+	private float restTime = 10.000f; //in s
+	private int numberOfCompletedTrials = 0;
+	private int expectedNumberOfTrials;
 	// Update is called once per frame
 	void Update () {
-		objectTouchedCondition ();
+				if (phase == 0) {
+						objectTouchedCondition ();
+
+						int numObjectsTouched = 0;
+						for (int i = 0; i < activeStimIndicies.Length; i++)
+								if (stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched)
+										numObjectsTouched++;
+
+						if (numObjectsTouched == activeStimIndicies.Length){
+								phase = 1;
+								phaseWaitTimeStart = Time.time;
+								phaseInit = true;
+						}
+				}
+				if (phase == 1) {
+					if(Time.time - phaseWaitTimeStart>=phaseWaitTime){
+						if(phaseInit){
+							//Reset stimuli positions
+							for(int i = 0; i < activeStimIndicies.Length;i++)
+								stimuli[activeStimIndicies[i]].transform.localPosition = Vector3.Lerp (resetPositionP0,resetPositionP1,(((float)i)*(1f/((float)activeStimIndicies.Length))));
+							timerStart = Time.time;
+							phaseInit = false;
+						}
+						if(Time.time-timerStart<testTime){
+							//Test is going
+							labelString = (testTime - (Time.time-timerStart))+"";
+						}
+						else{
+							labelString = "Test Over";
+							phase = 2;
+							phaseWaitTimeStart = Time.time;
+							phaseInit = true;
+						}
+					}
+				}
+				if (phase == 2) {
+					if(Time.time - phaseWaitTimeStart>=phaseWaitTime){
+						if(phaseInit){
+							timerStart = Time.time;
+							phaseInit = false;
+						}
+						if(Time.time-timerStart<restTime){
+							//Test is going
+							labelString = "Resetting in " + (restTime - (Time.time-timerStart));
+						}
+						else{
+							numberOfCompletedTrials++;
+							if(numberOfCompletedTrials<expectedNumberOfTrials){
+								labelString = "Click Objects";
+								phase = 0;
+								for (int i = 0; i < activeStimIndicies.Length; i++)
+									stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched = false;
+								generateRandomPositions();
+								phaseWaitTimeStart = Time.time;
+								phaseInit = true;
+							}
+							else{
+								//Trials all complete
+								Application.LoadLevel (1);
+							}
+						}
+					}
+				}
+		}
+
+	private string labelString = "Click Objects";
+	void OnGUI () {
+		// Make a background box
+		GUI.Label(new Rect(10,10,100,90), labelString);
 	}
-	
+
 	void objectTouchedCondition(){
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

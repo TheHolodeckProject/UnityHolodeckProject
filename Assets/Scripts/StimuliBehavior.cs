@@ -26,5 +26,6 @@ public class StimuliBehavior : MonoBehaviour {
 			float lerp = Mathf.PingPong (Time.time-startT, duration) / duration;
 			GetComponentInChildren<Renderer>().material.color = Color.Lerp (colorStart, colorEnd, lerp);
 		}
+		else GetComponentInChildren<Renderer>().material.color = colorStart;
 	}
 }
