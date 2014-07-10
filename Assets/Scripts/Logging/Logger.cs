@@ -5,6 +5,7 @@ using System.IO;
 using UnityEditor;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 public class Logger : MonoBehaviour {
 	
@@ -41,15 +42,21 @@ public class Logger : MonoBehaviour {
 		writer.AutoFlush = true;
 	}
 
+	string previousTickOutput = "";
 	// Update is called once per frame
 	void Update () {
 				if (!(loggableObjects == null || loggableObjects.Length <= 0 || writer == null)) {
 						//Write a timestamp for data stability
 						writer.WriteLine (DateTime.Now.ToBinary () + "");
 						//Output all object information
+						StringBuilder tickOutputBuilder = new StringBuilder();
 						for (int i = 0; i < loggableObjects.Length; i++) {
-								writer.WriteLine (loggableObjects [i].getObjectStateLogData ());
+								tickOutputBuilder.AppendLine (loggableObjects [i].getObjectStateLogData ());
 						}
+						string tickOutput = tickOutputBuilder.ToString ();
+						if(!tickOutput.Equals(previousTickOutput))
+							writer.Write(tickOutput);
+						previousTickOutput = tickOutput;
 				}
 		}
 

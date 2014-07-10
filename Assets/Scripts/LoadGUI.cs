@@ -26,22 +26,22 @@ public class LoadGUI : MonoBehaviour {
 		GUI.Label (new Rect (200, 20, 300, 30), "Subject Identifier");
 		subjectIdentifierString = GUI.TextField (new Rect (200, 50, 120, 20), subjectIdentifierString);
 
-		GUI.Label (new Rect (200, 80, 300, 30), "Number of Stimuli");
-		string tmp = GUI.TextField (new Rect (200, 120, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
+		GUI.Label (new Rect (100, 140, 300, 30), "Number of Stimuli");
+		string tmp = GUI.TextField (new Rect (100, 160, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
 		if (tmp == "")
 			numberOfStimuliInt = -1;
 		else
 			try{numberOfStimuliInt = int.Parse (tmp); }catch(UnityException){numberOfStimuliInt = -1;};
 
-		GUI.Label (new Rect (200, 150, 300, 30), "Number of Trials");
-		tmp = GUI.TextField (new Rect (200, 180, 120, 20), numberofTrialsInt == -1?"":""+numberofTrialsInt);
+		GUI.Label (new Rect (100, 180, 300, 30), "Number of Trials");
+		tmp = GUI.TextField (new Rect (100, 200, 120, 20), numberofTrialsInt == -1?"":""+numberofTrialsInt);
 		if (tmp == "")
 			numberofTrialsInt = -1;
 		else
 		try{numberofTrialsInt = int.Parse (tmp); }catch(UnityException){numberofTrialsInt = -1;};
 
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-		if (GUI.Button (new Rect (200,210,120,20), "Enter Simulation")) {
+		if (GUI.Button (new Rect (100,240,120,20), "Enter Simulation")) {
 			//Store copy of current values for processing
 			string comPort = comPortFieldString;
 			string subjectIdentifier = subjectIdentifierString;

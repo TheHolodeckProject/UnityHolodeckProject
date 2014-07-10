@@ -17,7 +17,10 @@ public class StimulusManager : MonoBehaviour {
 	public Vector3 stimuliScale = new Vector3 (0.1f, 0.1f, 0.1f); //Override scale for all stimuli
 	public Vector3 overlapPaddingFactor = new Vector3(0.5f,0.5f,0.5f);
 
-	// Use this for initialization
+	/// /////////////////////////////////////////
+	/// INITIALIZATION CODE /////////////////////
+	/// /////////////////////////////////////////
+	
 	void Start () {
 		numberOfStimuli = PlayerPrefs.GetInt("Number of Stimuli");
 		activeStimIndicies = new int[numberOfStimuli];
@@ -55,7 +58,7 @@ public class StimulusManager : MonoBehaviour {
 		generateRandomPositions ();
 
 	}
-	private int numRetries = 10;
+	private int numRetries = 100;
 	void generateRandomPositions(){
 		//Position stimuli randomly according to settings (no overlaps)
 		List<Rect> overlapCheckList = new List<Rect> ();
@@ -105,7 +108,9 @@ public class StimulusManager : MonoBehaviour {
 		return true;
 	}
 
-
+	/// /////////////////////////////////////////
+	/// TEST PROCEDURE CODE /////////////////////
+	/// /////////////////////////////////////////
 
 	private int phase = 0;
 	private float phaseWaitTime = 0.500f; //in s
@@ -140,6 +145,10 @@ public class StimulusManager : MonoBehaviour {
 								stimuli[activeStimIndicies[i]].transform.localPosition = Vector3.Lerp (resetPositionP0,resetPositionP1,(((float)i)*(1f/((float)activeStimIndicies.Length))));
 							timerStart = Time.time;
 							phaseInit = false;
+							//Mouse Grab Code (enable grabbing)
+							ForceUngrab();
+							allowGrab = true;
+							//End Mouse Grab Code
 						}
 						if(Time.time-timerStart<testTime){
 							//Test is going
@@ -150,6 +159,10 @@ public class StimulusManager : MonoBehaviour {
 							phase = 2;
 							phaseWaitTimeStart = Time.time;
 							phaseInit = true;
+							//Mouse Grab Code (disable grabbing)
+							ForceUngrab();
+							allowGrab = false;
+							//End Mouse Grab Code
 						}
 					}
 				}
@@ -181,13 +194,22 @@ public class StimulusManager : MonoBehaviour {
 						}
 					}
 				}
+			DragUpdate (); //Part of mouse drag code
 		}
+
+	/// /////////////////////////////////////////
+	/// GUI OUTPUT CODE ////////////////////////
+	/// /////////////////////////////////////////
 
 	private string labelString = "Click Objects";
 	void OnGUI () {
 		// Make a background box
 		GUI.Label(new Rect(10,10,100,90), labelString);
 	}
+
+	/// /////////////////////////////////////////
+	/// TOUCH CODE //////////////////////////////
+	/// /////////////////////////////////////////
 
 	void objectTouchedCondition(){
 		if (Input.GetMouseButtonDown (0)) {
@@ -200,6 +222,64 @@ public class StimulusManager : MonoBehaviour {
 					}
 				}
 			}
+		}
+	}
+
+	/// /////////////////////////////////////////
+	/// CLICK AND DRAG CODE /////////////////////
+	/// /////////////////////////////////////////
+
+	Transform grabbed;
+	float grabDistance = 100.0f;
+	bool allowGrab = false;
+	void DragUpdate () {
+		UpdateHoldDrag();
+	}
+	
+	// Drags when user holds down button
+	void UpdateHoldDrag () {
+		if (Input.GetMouseButton (0)) 
+				if (grabbed)
+					Drag ();
+				else 
+					Grab ();
+				else
+					grabbed = null;
+	}
+
+	void ForceUngrab()
+	{
+		grabbed = null;
+	}
+
+	void Grab() {
+		if (allowGrab) {
+			if (grabbed)
+				grabbed = null;
+			else {
+				RaycastHit hit;
+					Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+					if (Physics.Raycast (ray, out hit)) {
+						for (int i = 0; i < activeStimIndicies.Length; i++) {
+							if (hit.collider.gameObject == stimuli [activeStimIndicies [i]]) {
+								grabbed = hit.transform;
+							}
+						}
+					}
+				}
+		}
+	}
+	
+	void Drag() {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Vector3 position = transform.position + transform.forward * grabDistance;
+		Plane plane = new Plane (new Vector3(0,1,0),position);
+		float distance;
+		if (plane.Raycast(ray, out distance)) {
+			float planarLock = grabbed.position.y;
+			grabbed.position = new Vector3(ray.origin.x + ray.direction.x * distance,
+			                               planarLock,
+			                               ray.origin.z + ray.direction.z * distance);
 		}
 	}
 }
