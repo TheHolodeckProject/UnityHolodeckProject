@@ -1814,8 +1814,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2f42f0d1852274d9f27355839a8815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetPositionP0: {x: 0, y: 0, z: -.331}
-  resetPositionP1: {x: 0, y: 0, z: .331}
+  resetPositionP0: {x: -.331, y: 0, z: -.550000012}
+  resetPositionP1: {x: .400000006, y: 0, z: -.550000012}
   randomBoundsP0: {x: .200000003, y: 0, z: -.200000003}
   randomBoundsP1: {x: -.200000003, y: 0, z: .200000003}
   stimuliScale: {x: .0500000007, y: .0500000007, z: .0500000007}

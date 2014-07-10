@@ -117,7 +117,8 @@ public class StimulusManager : MonoBehaviour {
 	private float phaseWaitTimeStart;
 	private bool phaseInit = false;
 	private float timerStart;
-	private float testTime = 5.000f; //in s
+	private float testTime = -1f; //If negative, test will be triggered only. If positive, there will be both timer and trigger
+	private float studyTime = 20.000f;//in s
 	private float restTime = 3.000f; //in s
 	private int numberOfCompletedTrials = 0;
 	private int expectedNumberOfTrials;
@@ -130,8 +131,15 @@ public class StimulusManager : MonoBehaviour {
 						for (int i = 0; i < activeStimIndicies.Length; i++)
 								if (stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched)
 										numObjectsTouched++;
-
-						if (numObjectsTouched == activeStimIndicies.Length){
+						if(phaseInit){
+							timerStart = Time.time;
+							phaseInit = false;
+						}
+						//if (numObjectsTouched == activeStimIndicies.Length){
+						if(Time.time-timerStart<studyTime){
+							labelString = (studyTime - (Time.time-timerStart))+"";
+						}
+						else{
 								phase = 1;
 								phaseWaitTimeStart = Time.time;
 								phaseInit = true;
@@ -143,6 +151,8 @@ public class StimulusManager : MonoBehaviour {
 							//Reset stimuli positions
 							for(int i = 0; i < activeStimIndicies.Length;i++)
 								stimuli[activeStimIndicies[i]].transform.localPosition = Vector3.Lerp (resetPositionP0,resetPositionP1,(((float)i)*(1f/((float)activeStimIndicies.Length))));
+							for (int i = 0; i < activeStimIndicies.Length; i++)
+								stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched = false;
 							timerStart = Time.time;
 							phaseInit = false;
 							//Mouse Grab Code (enable grabbing)
@@ -150,9 +160,10 @@ public class StimulusManager : MonoBehaviour {
 							allowGrab = true;
 							//End Mouse Grab Code
 						}
-						if(Time.time-timerStart<testTime){
+						if((testTime>0?Time.time-timerStart<testTime:false)||!phaseTransitionTrigger()){
 							//Test is going
-							labelString = (testTime - (Time.time-timerStart))+"";
+							//Counting down; labelString = (testTime - (Time.time-timerStart))+"";
+							labelString = (Time.time-timerStart).ToString ("0.00000")+", press Space to move on.";
 						}
 						else{
 							labelString = "Test Over";
@@ -196,6 +207,10 @@ public class StimulusManager : MonoBehaviour {
 				}
 			DragUpdate (); //Part of mouse drag code
 		}
+
+	bool phaseTransitionTrigger(){
+		return Input.GetKeyDown(KeyCode.Space);
+	}
 
 	/// /////////////////////////////////////////
 	/// GUI OUTPUT CODE ////////////////////////
