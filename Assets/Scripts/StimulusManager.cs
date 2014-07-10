@@ -15,6 +15,7 @@ public class StimulusManager : MonoBehaviour {
 	public Vector3 randomBoundsP0; //One corner of the bounding box
 	public Vector3 randomBoundsP1; //The opposite corner of the bounding box
 	public Vector3 stimuliScale = new Vector3 (0.1f, 0.1f, 0.1f); //Override scale for all stimuli
+	public Vector3 overlapPaddingFactor = new Vector3(0.5f,0.5f,0.5f);
 
 	// Use this for initialization
 	void Start () {
@@ -54,10 +55,11 @@ public class StimulusManager : MonoBehaviour {
 		generateRandomPositions ();
 
 	}
-
+	private int numRetries = 10;
 	void generateRandomPositions(){
 		//Position stimuli randomly according to settings (no overlaps)
 		List<Rect> overlapCheckList = new List<Rect> ();
+		int retries = numRetries;
 		for (int i = 0; i < activeStimIndicies.Length; i++) {
 			stimuli [activeStimIndicies [i]].transform.localPosition = new Vector3 (
 				Random.Range (randomBoundsP0.x > randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x,
@@ -69,10 +71,22 @@ public class StimulusManager : MonoBehaviour {
 			//Check for overlapping boxes and regenerate box location if overlap occurs
 			Rect newBox = new Rect(stimuli[activeStimIndicies[i]].transform.localPosition.x,
 			                       stimuli[activeStimIndicies[i]].transform.localPosition.z,
-			                       stimuli[activeStimIndicies[i]].transform.localScale.x,
-			                       stimuli[activeStimIndicies[i]].transform.localScale.z);
-			if(boxesOverlapArray(newBox,overlapCheckList)) i--;
-			else overlapCheckList.Add (newBox);
+			                       stimuli[activeStimIndicies[i]].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x*stimuli[activeStimIndicies[i]].transform.localScale.x,
+			                       stimuli[activeStimIndicies[i]].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z*stimuli[activeStimIndicies[i]].transform.localScale.z);
+			if(boxesOverlapArray(newBox,overlapCheckList)){
+				retries--;
+				if(retries <= 0){
+					//Force quit and overlap to prevent hang
+					retries = numRetries;
+					overlapCheckList.Add (newBox);
+					Debug.Log ("Unable to find proper placement of object. Too many objects or incorrect mesh bounds?");
+				}
+				else i--;
+			}
+			else{
+				retries = numRetries;
+				overlapCheckList.Add (newBox);
+			}
 		}
 	}
 
@@ -94,12 +108,12 @@ public class StimulusManager : MonoBehaviour {
 
 
 	private int phase = 0;
-	private float phaseWaitTime = 1.000f; //in s
+	private float phaseWaitTime = 0.500f; //in s
 	private float phaseWaitTimeStart;
 	private bool phaseInit = false;
 	private float timerStart;
-	private float testTime = 25.000f; //in s
-	private float restTime = 10.000f; //in s
+	private float testTime = 5.000f; //in s
+	private float restTime = 3.000f; //in s
 	private int numberOfCompletedTrials = 0;
 	private int expectedNumberOfTrials;
 	// Update is called once per frame

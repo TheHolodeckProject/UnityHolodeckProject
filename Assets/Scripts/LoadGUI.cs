@@ -18,7 +18,8 @@ public class LoadGUI : MonoBehaviour {
 
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 		if (GUI.Button (new Rect (20,80,120,20), "Test Haptics")) {
-			string comPort = comPortFieldString;
+			//string comPort = comPortFieldString;
+			//Use comPort as needed
 			testHaptics();
 		}
 
@@ -32,7 +33,7 @@ public class LoadGUI : MonoBehaviour {
 		else
 			try{numberOfStimuliInt = int.Parse (tmp); }catch(UnityException){numberOfStimuliInt = -1;};
 
-		GUI.Label (new Rect (200, 150, 300, 30), "Number of Stimuli");
+		GUI.Label (new Rect (200, 150, 300, 30), "Number of Trials");
 		tmp = GUI.TextField (new Rect (200, 180, 120, 20), numberofTrialsInt == -1?"":""+numberofTrialsInt);
 		if (tmp == "")
 			numberofTrialsInt = -1;
