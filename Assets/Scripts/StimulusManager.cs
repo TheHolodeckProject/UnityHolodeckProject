@@ -115,10 +115,10 @@ public class StimulusManager : MonoBehaviour {
 	private int phase = 0;
 	private float phaseWaitTime = 0.500f; //in s
 	private float phaseWaitTimeStart;
-	private bool phaseInit = false;
+	private bool phaseInit = true;
 	private float timerStart;
 	private float testTime = -1f; //If negative, test will be triggered only. If positive, there will be both timer and trigger
-	private float studyTime = 20.000f;//in s
+	private float studyTime = 2.000f;//in s
 	private float restTime = 3.000f; //in s
 	private int numberOfCompletedTrials = 0;
 	private int expectedNumberOfTrials;
@@ -189,6 +189,8 @@ public class StimulusManager : MonoBehaviour {
 						}
 						else{
 							numberOfCompletedTrials++;
+							GameObject.Find ("Logger").GetComponent<Logger>().GenerateSummaryFile ();
+							GameObject.Find ("Logger").GetComponent<Logger>().Reset ();
 							if(numberOfCompletedTrials<expectedNumberOfTrials){
 								labelString = "Click Objects";
 								phase = 0;
