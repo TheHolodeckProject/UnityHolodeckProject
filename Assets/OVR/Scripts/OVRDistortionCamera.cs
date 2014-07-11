@@ -253,7 +253,7 @@ public class OVRDistortionCamera : OVRComponent
 	/// </summary>
 	/// <param name="material">The material to render to the quad.</param>
 	/// <param name="rect">An optional rectangle region of the screen to render to.</param>
-	public static void DrawFullScreenQuad(Material material, Rect? rect)
+	public static void DrawFullScreenQuad(Material material, Rect? rect = null)
 	{
 		if (rect == null)
 			rect = new Rect (0, 0, 1, 1);

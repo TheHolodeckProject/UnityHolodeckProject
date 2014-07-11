@@ -24,6 +24,8 @@ public class StimulusManager : MonoBehaviour {
 	void Start () {
 		numberOfStimuli = PlayerPrefs.GetInt("Number of Stimuli");
 		activeStimIndicies = new int[numberOfStimuli];
+		//??? Why do you initialize numberOfStimuli but not expectedNumberOfTrials? Why do I get an error when I try to call subjectIdentifier the same way?
+		//subID = PlayerPrefs.GetInt ("subjectIdentifier");
 		expectedNumberOfTrials = PlayerPrefs.GetInt ("Number of Trials");
 
 		//Generate list of stimuli which are available

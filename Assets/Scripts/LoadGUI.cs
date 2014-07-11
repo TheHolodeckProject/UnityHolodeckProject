@@ -4,7 +4,7 @@ using System.Collections;
 public class LoadGUI : MonoBehaviour {
 
 	string comPortFieldString = "COM1";
-	string subjectIdentifierString = "1234567890";
+	int subjectIdentifierInt = 1234567890;
 	int numberOfStimuliInt = 5;
 	int numberofTrialsInt = 3;
 	string errorString = "";
@@ -24,10 +24,17 @@ public class LoadGUI : MonoBehaviour {
 		}
 
 		GUI.Label (new Rect (200, 20, 300, 30), "Subject Identifier");
-		subjectIdentifierString = GUI.TextField (new Rect (200, 50, 120, 20), subjectIdentifierString);
+			///??? The second argument has to be a string. The last part with the -1?"":"", is that somehow converting the int to a string?
+		string tmp = GUI.TextField (new Rect (200, 50, 120, 20), subjectIdentifierInt == -1?"":""+subjectIdentifierInt);
+			//??? What is this part doing? Without this part, I couldn't modify subjectIdentifier in the Load screen, and it couldn't call it with Debug.Log later
+		if (tmp == "")
+			subjectIdentifierInt = -1;
+		else
+		try{subjectIdentifierInt = int.Parse (tmp); }catch(UnityException){subjectIdentifierInt = -1;};
+
 
 		GUI.Label (new Rect (100, 140, 300, 30), "Number of Stimuli");
-		string tmp = GUI.TextField (new Rect (100, 160, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
+		tmp = GUI.TextField (new Rect (100, 160, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
 		if (tmp == "")
 			numberOfStimuliInt = -1;
 		else
@@ -44,13 +51,13 @@ public class LoadGUI : MonoBehaviour {
 		if (GUI.Button (new Rect (100,240,120,20), "Enter Simulation")) {
 			//Store copy of current values for processing
 			string comPort = comPortFieldString;
-			string subjectIdentifier = subjectIdentifierString;
+			int subjectIdentifier = subjectIdentifierInt;
 			int numberOfStimuli = numberOfStimuliInt;
 			int numberOfTrials = numberofTrialsInt;
 
 			//Save to player preferences
 			PlayerPrefs.SetString ("COM Port",comPort);
-			PlayerPrefs.SetString ("Subject Identifier",subjectIdentifier);
+			PlayerPrefs.SetInt ("Subject Identifier",subjectIdentifier);
 			PlayerPrefs.SetInt ("Number of Stimuli",numberOfStimuli);
 			PlayerPrefs.SetInt ("Number of Trials",numberOfTrials);
 

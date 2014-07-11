@@ -52,9 +52,6 @@ public class OVRPlayerController : OVRComponent
 	protected CharacterController 	Controller 		 = null;
 	protected OVRCameraController 	CameraController = null;
 
-	//MODIFIED - changed from private to public variable to make it easier to modify.
-	//1 is too fast with the joystick but .5 is too slow with number keys
-	public float MoveScaleMultiplier     = 1.0f;
 	public float Acceleration 	   = 0.1f;
 	public float Damping 		   = 0.15f;
 	public float BackAndSideDampen = 0.5f;
@@ -77,9 +74,7 @@ public class OVRPlayerController : OVRComponent
 	protected Transform DirXform = null;
 	
 	// We can adjust these to influence speed and rotation of player controller
-
-
-	//private float MoveScaleMultiplier     = 1.0f; 
+	private float MoveScaleMultiplier     = 1.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
 	private bool  AllowMouseRotation      = true;
 	private bool  HaltUpdateMovement      = false;
@@ -148,7 +143,6 @@ public class OVRPlayerController : OVRComponent
 	new public virtual void Update()
 	{
 		base.Update();
-
 
 		UpdateMovement();
 
@@ -227,18 +221,11 @@ public class OVRPlayerController : OVRComponent
 		if (Input.GetKey(KeyCode.UpArrow))    moveForward = true;
 		if (Input.GetKey(KeyCode.LeftArrow))  moveLeft 	  = true;
 		if (Input.GetKey(KeyCode.DownArrow))  moveBack 	  = true; 
-		if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true;
-        // Joystyick Controls
-        //Uses .1 because the joystick is apparently never at 0. Gotta give it some room for error
-        if (Input.GetAxis("Horizontal") > 0) moveRight = true;
-        if (Input.GetAxis("Horizontal") < 0) moveLeft = true;
-        if (Input.GetAxis("Vertical") > 0) moveForward = true;
-        if (Input.GetAxis("Vertical") < 0) moveBack = true;
-
-
-        if ((moveForward && moveLeft) || (moveForward && moveRight) ||
-             (moveBack && moveLeft) || (moveBack && moveRight))
-            MoveScale = 0.70710678f;
+		if (Input.GetKey(KeyCode.RightArrow)) moveRight   = true; 
+			
+		if ( (moveForward && moveLeft) || (moveForward && moveRight) ||
+			 (moveBack && moveLeft)    || (moveBack && moveRight) )
+			MoveScale = 0.70710678f;
 			
 		// No positional movement if we are in the air
 		if (!Controller.isGrounded)	
@@ -274,15 +261,8 @@ public class OVRPlayerController : OVRComponent
 		if (Input.GetKey(KeyCode.Q)) 
 			YRotation -= rotateInfluence * 0.5f;  
 		if (Input.GetKey(KeyCode.E)) 
-			YRotation += rotateInfluence * 0.5f;
- 
-        //ADDED - Joystick Controls
-        if (Input.GetAxis("Twist") < -.19)
-            YRotation -= rotateInfluence * 0.5f;
-        if (Input.GetAxis("Twist") > .19)
-            YRotation += rotateInfluence * 0.5f;
- 
-
+			YRotation += rotateInfluence * 0.5f; 
+		
 		// * * * * * * * * * * *
 		// Mouse input
 			

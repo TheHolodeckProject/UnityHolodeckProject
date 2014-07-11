@@ -8,14 +8,12 @@ using System.Collections.Generic;
 using System.Text;
 
 public class Logger : MonoBehaviour {
-	
-	public string logFilename = "log.dat"; //The filename for logging this file will always be overwritten if name is identical (enable appendDateTimeToFilename to ensure filename independence)
-	public bool appendDateTimeToFilename = true; //When true, the DateTime will be appended to the filename so it remains unique
 
 	private ILoggable[] loggableObjects; //This collection contains objects whose state should be logged on Update
-	private const string dateTimeFormat = "_hh-mm-ss_dd-MM-yyyy"; //This string represents the DateTime output format for the filename
+	private const string dateTimeFormat = "HH_mm_ss_dd-MM-yyyy"; //This string represents the DateTime output format for the filename
 	private StreamWriter writer = null; //This writer is used to write to file
 	private string currentFileTimestamp = "";
+	private int subID;
 
 	public void Reset() {
 		writer.Close ();
@@ -28,6 +26,10 @@ public class Logger : MonoBehaviour {
 	}
 
 	void Start() {
+
+		///ADDED - Calls the subject ID entered in the Loader and converts it to a string
+		subID = PlayerPrefs.GetInt ("Subject Identifier");
+	 	string substring = ("Sub" + subID);
 
 		//Get the list of objects - this is a one-time function. If new objects are created, there is currently no way to log them without creating a new logger.
 		List<ILoggable> logObjs = new List<ILoggable> ();
@@ -44,11 +46,10 @@ public class Logger : MonoBehaviour {
 		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 
 		//Create the appropriate filename given the options
-		string filename = logFilename;
-		if (appendDateTimeToFilename){
+		string filename = "RawLog.dat";
 			currentFileTimestamp = DateTime.Now.ToString (dateTimeFormat);
+			filename = appendTextToFilename (filename,substring);
 			filename = appendTextToFilename (filename,currentFileTimestamp);
-		}
 
 		//Create the file writer
 		writer = new StreamWriter (filename, false);
@@ -82,11 +83,14 @@ public class Logger : MonoBehaviour {
 		}
 
 	public void GenerateSummaryFile(){
+
+		///??? Is there any way to only define this once?
+		subID = PlayerPrefs.GetInt ("Subject Identifier");
+		string substring = ("Sub" + subID);
 		//Create the appropriate filename given the options
-		string filename = logFilename;
-		if (appendDateTimeToFilename)
-			filename = appendTextToFilename (filename,currentFileTimestamp);
-		filename = appendTextToFilename (filename, "_Summary");
+		string filename = "SummaryLog.dat";
+		filename = appendTextToFilename (filename,substring);
+		filename = appendTextToFilename (filename,currentFileTimestamp);
 
 		StreamWriter summaryWriter = new StreamWriter (filename);
 		summaryWriter.WriteLine ("-------Initial Position-------");
@@ -105,7 +109,7 @@ public class Logger : MonoBehaviour {
 		string[] fileTokens = filename.Split(new string[]{"."},System.StringSplitOptions.None);
 		string output = "";
 		for (int i = 0; i < fileTokens.Length - 1; i++)
-			output += fileTokens [i] + ".";
+			output += fileTokens [i] + "_";
 		return output + text + "." + fileTokens [fileTokens.Length - 1];
 	}
 
