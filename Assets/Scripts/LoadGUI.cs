@@ -25,10 +25,14 @@ public class LoadGUI : MonoBehaviour {
 		// Make a background box
 		GUI.BeginGroup (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 500, 500));
 
+
 		//ADDED - Draw the box that tells you if the Oculus is plugged in or not
+		bool oculusCheck = OVRDevice.IsSensorPresent
+
+		Debug.Log ("oculusCheck = " + oculusCheck);
 		GUI.Label (new Rect (20, 140, 300, 30), "Oculus Plugged In");
-		//Debug.Log ("oculusCheckColor" + oculusCheckColor);
-		GUI.Label(new Rect(60, 140, 30, 30), oculusCheckColor);
+//		//Debug.Log ("oculusCheckColor" + oculusCheckColor);
+//		GUI.Label(new Rect(60, 140, 30, 30), oculusCheckColor);
 
 
 		//GUI.Box (new Rect (10,10,500,500), "");
@@ -96,25 +100,21 @@ public class LoadGUI : MonoBehaviour {
 
 	
 	//ADDED - Checks if the Oculus is present and changes the color of a GUI.Box accordingly
-	public static void OculusCheck(Rect position, Color color)
-	{
-		//ADDED - Changes the GUI.Box color depending on if the Oculus is plugged in or not
-		if (OVRDevice.IsSensorPresent ()) 
-		{
-
-			oculusCheckColor = oculusPresentColor;
-			Debug.Log ("Found the Oculus!");
-		} 
-		else {
-			Debug.Log ("No Oculus Present");
-			oculusCheckColor = oculusAbsentColor;
-		}
-		if (oculusCheckColor == null)
-		{
-			oculusCheckColor = new Texture2D	
-				//Put in checks for if the Oculus is plugged in, only if it's not already		
-		}
-	}
+//	public static void OculusCheck(Rect position, Color color)
+//	{
+//		//Establishes the style of the GUIbox
+//
+//		//Changes the GUI.Box color depending on if the Oculus is plugged in or not
+//		if (OVRDevice.IsSensorPresent ()) 
+//		{
+//			oculusCheckColor = Texture2D.SetPixels();
+//			Debug.Log ("Found the Oculus!");
+//		} 
+//		else {
+//			oculusCheckColor = Color.red;
+//			Debug.Log ("No Oculus Present");
+//		}
+//	}
 
 	void testHaptics(){
 		//INSERT TEST CODE FOR HAPTICS HERE!
