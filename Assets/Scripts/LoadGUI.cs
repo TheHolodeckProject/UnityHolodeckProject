@@ -8,10 +8,29 @@ public class LoadGUI : MonoBehaviour {
 	int numberOfStimuliInt = 5;
 	int numberofTrialsInt = 3;
 	string errorString = "";
+	//ADDED
+	private static Texture2D oculusCheckColor;
+	private static GUIStyle oculusCheckStyle;
+	//bool oculusPresent = false;
+	//GUIContent content = new GUIContent();
+	//Color oculusColorCheck = Color.red;
+
+	//MOVE THESE LINES TO THE ACTUAL SCRIPT
+	//normalCamera.SetActive (false);
+	//riftCamera.SetActive (true); // OVRCameraController
+	
 
 	void OnGUI() {
+
 		// Make a background box
 		GUI.BeginGroup (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 500, 500));
+
+		//ADDED - Draw the box that tells you if the Oculus is plugged in or not
+		GUI.Label (new Rect (20, 140, 300, 30), "Oculus Plugged In");
+		//Debug.Log ("oculusCheckColor" + oculusCheckColor);
+		GUI.Label(new Rect(60, 140, 30, 30), oculusCheckColor);
+
+
 		//GUI.Box (new Rect (10,10,500,500), "");
 		GUI.Label (new Rect (20, 20, 300, 30), "Haptics Com Port");
 		comPortFieldString = GUI.TextField (new Rect (20, 50, 120, 20), comPortFieldString);
@@ -33,15 +52,15 @@ public class LoadGUI : MonoBehaviour {
 		try{subjectIdentifierInt = int.Parse (tmp); }catch(UnityException){subjectIdentifierInt = -1;};
 
 
-		GUI.Label (new Rect (100, 140, 300, 30), "Number of Stimuli");
-		tmp = GUI.TextField (new Rect (100, 160, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
+		GUI.Label (new Rect (200, 140, 300, 30), "Number of Stimuli");
+		tmp = GUI.TextField (new Rect (200, 160, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
 		if (tmp == "")
 			numberOfStimuliInt = -1;
 		else
 			try{numberOfStimuliInt = int.Parse (tmp); }catch(UnityException){numberOfStimuliInt = -1;};
 
-		GUI.Label (new Rect (100, 180, 300, 30), "Number of Trials");
-		tmp = GUI.TextField (new Rect (100, 200, 120, 20), numberofTrialsInt == -1?"":""+numberofTrialsInt);
+		GUI.Label (new Rect (200, 180, 300, 30), "Number of Trials");
+		tmp = GUI.TextField (new Rect (200, 200, 120, 20), numberofTrialsInt == -1?"":""+numberofTrialsInt);
 		if (tmp == "")
 			numberofTrialsInt = -1;
 		else
@@ -75,7 +94,30 @@ public class LoadGUI : MonoBehaviour {
 		GUI.EndGroup ();
 	}
 
+	
+	//ADDED - Checks if the Oculus is present and changes the color of a GUI.Box accordingly
+	public static void OculusCheck(Rect position, Color color)
+	{
+		//ADDED - Changes the GUI.Box color depending on if the Oculus is plugged in or not
+		if (OVRDevice.IsSensorPresent ()) 
+		{
+
+			oculusCheckColor = oculusPresentColor;
+			Debug.Log ("Found the Oculus!");
+		} 
+		else {
+			Debug.Log ("No Oculus Present");
+			oculusCheckColor = oculusAbsentColor;
+		}
+		if (oculusCheckColor == null)
+		{
+			oculusCheckColor = new Texture2D	
+				//Put in checks for if the Oculus is plugged in, only if it's not already		
+		}
+	}
+
 	void testHaptics(){
 		//INSERT TEST CODE FOR HAPTICS HERE!
 	}
 }
+
