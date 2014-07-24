@@ -27,7 +27,7 @@ public class LoadGUI : MonoBehaviour {
 
 
 		//ADDED - Draw the box that tells you if the Oculus is plugged in or not
-		bool oculusCheck = OVRDevice.IsSensorPresent
+        bool oculusCheck = OVRDevice.IsSensorPresent();
 
 		Debug.Log ("oculusCheck = " + oculusCheck);
 		GUI.Label (new Rect (20, 140, 300, 30), "Oculus Plugged In");
