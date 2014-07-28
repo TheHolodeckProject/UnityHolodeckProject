@@ -57,11 +57,13 @@ public class StimulusManager : MonoBehaviour {
 			activeStimuli[i].transform.localScale = stimuliScale;
 			activeStimuli[i].transform.parent = this.gameObject.transform;
 			activeStimuli[i].transform.GetChild (0).gameObject.AddComponent<SphereCollider>();
+			activeStimuli[i].AddComponent<SimpleObjectLogger>();
 			activeStimuli[i].AddComponent<StimuliBehavior>();
 				}
 
 		generateRandomPositions ();
 
+		GameObject.Find ("Logger").GetComponent<Logger> ().BeginLogging ();
 	}
 	private int numRetries = 100;
 	void generateRandomPositions(){
@@ -194,8 +196,7 @@ public class StimulusManager : MonoBehaviour {
 						}
 						else{
 							numberOfCompletedTrials++;
-							GameObject.Find ("Logger").GetComponent<Logger>().GenerateSummaryFile ();
-							GameObject.Find ("Logger").GetComponent<Logger>().Reset ();
+							GameObject.Find ("Logger").GetComponent<Logger> ().FinishTrial (numberOfCompletedTrials);
 							if(numberOfCompletedTrials<expectedNumberOfTrials){
 								labelString = "Click Objects";
 								phase = 0;
@@ -206,6 +207,7 @@ public class StimulusManager : MonoBehaviour {
 								phaseInit = true;
 							}
 							else{
+								GameObject.Find ("Logger").GetComponent<Logger>().Finish ();
 								//Trials all complete
 								Application.LoadLevel (1);
 							}

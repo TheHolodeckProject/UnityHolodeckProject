@@ -8,7 +8,8 @@ public class SimpleObjectLogger : MonoBehaviour, ILoggable {
 	public virtual string getObjectStateLogData ()
 	{
 		StringBuilder builder = new StringBuilder ();
-		
+		builder.Append (gameObject.name.Replace ("(Clone)",""));
+		builder.Append (':');
 		builder.Append(gameObject.transform.position.x);
 		builder.Append(',');
 		builder.Append(gameObject.transform.position.y);
