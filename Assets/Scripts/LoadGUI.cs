@@ -9,10 +9,18 @@ public class LoadGUI : MonoBehaviour {
 	int numberofTrialsInt = 3;
 	string errorString = "";
 
+	//For checkbox
+	bool objectRegionToggle = true;
+	public Texture uncheckedTexture;
+	public Texture checkedTexture;
+	GUIContent objectRegionContent = new GUIContent();
+
 	void OnGUI() {
 		// Make a background box
 		GUI.BeginGroup (new Rect (Screen.width / 2 - 50, Screen.height / 2 - 50, 500, 500));
 		//GUI.Box (new Rect (10,10,500,500), "");
+
+		//Haptics Section
 		GUI.Label (new Rect (20, 20, 300, 30), "Haptics Com Port");
 		comPortFieldString = GUI.TextField (new Rect (20, 50, 120, 20), comPortFieldString);
 
@@ -23,6 +31,7 @@ public class LoadGUI : MonoBehaviour {
 			testHaptics();
 		}
 
+		//Subject Identifier
 		GUI.Label (new Rect (200, 20, 300, 30), "Subject Identifier");
 			///??? The second argument has to be a string. The last part with the -1?"":"", is that somehow converting the int to a string?
 		string tmp = GUI.TextField (new Rect (200, 50, 120, 20), subjectIdentifierInt == -1?"":""+subjectIdentifierInt);
@@ -32,7 +41,7 @@ public class LoadGUI : MonoBehaviour {
 		else
 		try{subjectIdentifierInt = int.Parse (tmp); }catch(UnityException){subjectIdentifierInt = -1;};
 
-
+		//Stimuli/Trials
 		GUI.Label (new Rect (100, 140, 300, 30), "Number of Stimuli");
 		tmp = GUI.TextField (new Rect (100, 160, 120, 20), numberOfStimuliInt == -1?"":""+numberOfStimuliInt);
 		if (tmp == "")
@@ -47,6 +56,11 @@ public class LoadGUI : MonoBehaviour {
 		else
 		try{numberofTrialsInt = int.Parse (tmp); }catch(UnityException){numberofTrialsInt = -1;};
 
+		//Object Field Toggle
+		GUI.Label(new Rect(250, 140, 300, 30), "Oculus Mounted?");
+		if(GUI.Button (new Rect(250, 160, 20, 20), objectRegionContent.image, new GUIStyle()))
+			objectRegionToggle = !objectRegionToggle;
+
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 		if (GUI.Button (new Rect (100,240,120,20), "Enter Simulation")) {
 			//Store copy of current values for processing
@@ -54,12 +68,14 @@ public class LoadGUI : MonoBehaviour {
 			int subjectIdentifier = subjectIdentifierInt;
 			int numberOfStimuli = numberOfStimuliInt;
 			int numberOfTrials = numberofTrialsInt;
+			bool objectRegion = objectRegionToggle;
 
 			//Save to player preferences
 			PlayerPrefs.SetString ("COM Port",comPort);
 			PlayerPrefs.SetInt ("Subject Identifier",subjectIdentifier);
 			PlayerPrefs.SetInt ("Number of Stimuli",numberOfStimuli);
 			PlayerPrefs.SetInt ("Number of Trials",numberOfTrials);
+			PlayerPrefs.SetInt ("Object Region",objectRegion?1:0);
 
 			if(numberOfTrials != -1 && numberOfStimuli != -1){
 				//Pass values
@@ -73,6 +89,15 @@ public class LoadGUI : MonoBehaviour {
 		GUI.Label (new Rect (20, 240, 300, 30), errorString,style);
 
 		GUI.EndGroup ();
+	}
+
+	void Update()
+	{
+		//For checkbox display state
+		if (objectRegionToggle)
+			objectRegionContent.image = checkedTexture;
+				else
+			objectRegionContent.image = uncheckedTexture;
 	}
 
 	void testHaptics(){

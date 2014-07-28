@@ -5,15 +5,20 @@ using System.Collections.Generic;
 public class StimulusManager : MonoBehaviour {
 
 	private int numberOfStimuli; //Static value representing number of stimuli for task
-	private GameObject[] stimuli; //List of game objects (populated on Start())
-	private int[] activeStimIndicies; //List of active stimuli indicies
+	public GameObject[] stimuli; //List of game objects (populated on Start())
+	private GameObject[] activeStimuli; //List of active stimuli indicies
+	private bool objectRegionSetting;
 	//Reset positions form a line between points P0 and P1 with even distribution (starting at end points)
 	public Vector3 resetPositionP0; //Position for obj0
 	public Vector3 resetPositionP1; //Position for objN
 	//Random Bounds determines the 3D box which bounds the possible random positions of each object
 	//The point P0 determines one corner of the box while the point P1 determines the opposite corner
-	public Vector3 randomBoundsP0; //One corner of the bounding box
-	public Vector3 randomBoundsP1; //The opposite corner of the bounding box
+	public Vector3 standardRandomBoundsP0; //One corner of the standard bounding box
+	public Vector3 standardRandomBoundsP1; //The opposite corner of the standard bounding box
+	public Vector3 reducedRandomBoundsP0; //One corner of the reduced bounding box
+	public Vector3 reducedRandomBoundsP1; //The opposite corner of the reduced bounding box
+	private Vector3 randomBoundsP0; //One corner of the bounding box being used
+	private Vector3 randomBoundsP1; //The opposite corner of the bounding box being used
 	public Vector3 stimuliScale = new Vector3 (0.1f, 0.1f, 0.1f); //Override scale for all stimuli
 	public Vector3 overlapPaddingFactor = new Vector3(0.5f,0.5f,0.5f);
 
@@ -23,20 +28,18 @@ public class StimulusManager : MonoBehaviour {
 	
 	void Start () {
 		numberOfStimuli = PlayerPrefs.GetInt("Number of Stimuli");
-		activeStimIndicies = new int[numberOfStimuli];
+		objectRegionSetting = PlayerPrefs.GetInt ("Object Region")!=0;
+		if (objectRegionSetting) {
+			randomBoundsP0 = standardRandomBoundsP0;
+			randomBoundsP1 = standardRandomBoundsP1;
+		} else {
+			randomBoundsP0 = reducedRandomBoundsP0;
+			randomBoundsP1 = reducedRandomBoundsP1;
+		}
+		activeStimuli = new GameObject[numberOfStimuli];
 		//??? Why do you initialize numberOfStimuli but not expectedNumberOfTrials? Why do I get an error when I try to call subjectIdentifier the same way?
 		//subID = PlayerPrefs.GetInt ("subjectIdentifier");
 		expectedNumberOfTrials = PlayerPrefs.GetInt ("Number of Trials");
-
-		//Generate list of stimuli which are available
-		List<GameObject> objs = new List<GameObject> ();
-		foreach (Transform child in transform) {
-			//Set each stimulus scale to be the override setting the stimulus manager contains
-					child.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-					child.localScale = stimuliScale;
-					objs.Add (child.gameObject);
-				}
-		stimuli = objs.ToArray ();
 
 		//Create a knuth shuffle index list of random indicies within the range of possible stimuli
 		int[] knuthShuffleList = new int[stimuli.Length];
@@ -49,14 +52,14 @@ public class StimulusManager : MonoBehaviour {
 			knuthShuffleList[i] = tmp;
 				}
 
-		//Choose random stimuli to be the active ones
-		for (int i = 0; i < numberOfStimuli; i++)
-						activeStimIndicies [i] = knuthShuffleList [i];
+		for (int i = 0; i < numberOfStimuli; i++) {
+			activeStimuli[i] = (GameObject)Instantiate(stimuli[knuthShuffleList[i]]);
+			activeStimuli[i].transform.localScale = stimuliScale;
+			activeStimuli[i].transform.parent = this.gameObject.transform;
+			activeStimuli[i].transform.GetChild (0).gameObject.AddComponent<SphereCollider>();
+			activeStimuli[i].AddComponent<StimuliBehavior>();
+				}
 
-		//Set activeated stimuli to be active game objects (all others are inactive by default)
-		for (int i = 0; i < activeStimIndicies.Length; i++)
-			stimuli [activeStimIndicies [i]].GetComponentInChildren<MeshRenderer>().enabled = true;
-		
 		generateRandomPositions ();
 
 	}
@@ -65,8 +68,8 @@ public class StimulusManager : MonoBehaviour {
 		//Position stimuli randomly according to settings (no overlaps)
 		List<Rect> overlapCheckList = new List<Rect> ();
 		int retries = numRetries;
-		for (int i = 0; i < activeStimIndicies.Length; i++) {
-			stimuli [activeStimIndicies [i]].transform.localPosition = new Vector3 (
+		for (int i = 0; i < activeStimuli.Length; i++) {
+			activeStimuli [i].transform.localPosition = new Vector3 (
 				Random.Range (randomBoundsP0.x > randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x,
 			              randomBoundsP0.x < randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x),
 				Random.Range (randomBoundsP0.y > randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y,
@@ -74,10 +77,10 @@ public class StimulusManager : MonoBehaviour {
 				Random.Range (randomBoundsP0.z > randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z,
 			              randomBoundsP0.z < randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z));
 			//Check for overlapping boxes and regenerate box location if overlap occurs
-			Rect newBox = new Rect(stimuli[activeStimIndicies[i]].transform.localPosition.x,
-			                       stimuli[activeStimIndicies[i]].transform.localPosition.z,
-			                       stimuli[activeStimIndicies[i]].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x*stimuli[activeStimIndicies[i]].transform.localScale.x,
-			                       stimuli[activeStimIndicies[i]].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z*stimuli[activeStimIndicies[i]].transform.localScale.z);
+			Rect newBox = new Rect(activeStimuli[i].transform.localPosition.x,
+			                       activeStimuli[i].transform.localPosition.z,
+			                       activeStimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x*activeStimuli[i].transform.localScale.x,
+			                       activeStimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z*activeStimuli[i].transform.localScale.z);
 			if(boxesOverlapArray(newBox,overlapCheckList)){
 				retries--;
 				if(retries <= 0){
@@ -130,8 +133,8 @@ public class StimulusManager : MonoBehaviour {
 						objectTouchedCondition ();
 
 						int numObjectsTouched = 0;
-						for (int i = 0; i < activeStimIndicies.Length; i++)
-								if (stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched)
+			for (int i = 0; i < activeStimuli.Length; i++)
+				if (activeStimuli [i].GetComponent <StimuliBehavior> ().touched)
 										numObjectsTouched++;
 						if(phaseInit){
 							timerStart = Time.time;
@@ -151,10 +154,10 @@ public class StimulusManager : MonoBehaviour {
 					if(Time.time - phaseWaitTimeStart>=phaseWaitTime){
 						if(phaseInit){
 							//Reset stimuli positions
-							for(int i = 0; i < activeStimIndicies.Length;i++)
-								stimuli[activeStimIndicies[i]].transform.localPosition = Vector3.Lerp (resetPositionP0,resetPositionP1,(((float)i)*(1f/((float)activeStimIndicies.Length))));
-							for (int i = 0; i < activeStimIndicies.Length; i++)
-								stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched = false;
+					for(int i = 0; i < activeStimuli.Length;i++)
+						activeStimuli[i].transform.localPosition = Vector3.Lerp (resetPositionP0,resetPositionP1,(((float)i)*(1f/((float)activeStimuli.Length))));
+					for (int i = 0; i < activeStimuli.Length; i++)
+						activeStimuli [i].GetComponent <StimuliBehavior> ().touched = false;
 							timerStart = Time.time;
 							phaseInit = false;
 							//Mouse Grab Code (enable grabbing)
@@ -196,8 +199,8 @@ public class StimulusManager : MonoBehaviour {
 							if(numberOfCompletedTrials<expectedNumberOfTrials){
 								labelString = "Click Objects";
 								phase = 0;
-								for (int i = 0; i < activeStimIndicies.Length; i++)
-									stimuli [activeStimIndicies [i]].GetComponent <StimuliBehavior> ().touched = false;
+								for (int i = 0; i < activeStimuli.Length; i++)
+									activeStimuli [i].GetComponent <StimuliBehavior> ().touched = false;
 								generateRandomPositions();
 								phaseWaitTimeStart = Time.time;
 								phaseInit = true;
@@ -235,9 +238,9 @@ public class StimulusManager : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit)) {
-				for(int i = 0; i < activeStimIndicies.Length;i++){
-					if(hit.collider.gameObject == stimuli[activeStimIndicies[i]]){
-						stimuli[activeStimIndicies[i]].GetComponent<StimuliBehavior>().touched = true;
+				for(int i = 0; i < activeStimuli.Length;i++){
+					if(hit.collider.gameObject == activeStimuli[i].transform.GetChild (0).gameObject){
+						activeStimuli[i].GetComponent<StimuliBehavior>().touched = true;
 					}
 				}
 			}
@@ -249,6 +252,7 @@ public class StimulusManager : MonoBehaviour {
 	/// /////////////////////////////////////////
 
 	Transform grabbed;
+	bool rightClickGrab = false;
 	float grabDistance = 100.0f;
 	bool allowGrab = false;
 	void DragUpdate () {
@@ -257,13 +261,24 @@ public class StimulusManager : MonoBehaviour {
 	
 	// Drags when user holds down button
 	void UpdateHoldDrag () {
-		if (Input.GetMouseButton (0)) 
-				if (grabbed)
-					Drag ();
-				else 
-					Grab ();
-				else
-					grabbed = null;
+		if (Input.GetMouseButton (0)) {
+			if (grabbed)
+				Drag ();
+			else {
+				rightClickGrab = false;
+				Grab ();
+			}
+		}
+		else if(Input.GetMouseButton (1)){
+			if (grabbed)
+				Drag ();
+			else {
+				rightClickGrab = true;
+				Grab ();
+			}
+		}
+		else
+			grabbed = null;
 	}
 
 	void ForceUngrab()
@@ -279,9 +294,9 @@ public class StimulusManager : MonoBehaviour {
 				RaycastHit hit;
 					Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 					if (Physics.Raycast (ray, out hit)) {
-						for (int i = 0; i < activeStimIndicies.Length; i++) {
-							if (hit.collider.gameObject == stimuli [activeStimIndicies [i]]) {
-								grabbed = hit.transform;
+					for (int i = 0; i < activeStimuli.Length; i++) {
+						if (hit.collider.gameObject == activeStimuli [i].transform.GetChild (0).gameObject) {
+								grabbed = hit.transform.parent;
 							}
 						}
 					}
@@ -292,13 +307,25 @@ public class StimulusManager : MonoBehaviour {
 	void Drag() {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Vector3 position = transform.position + transform.forward * grabDistance;
-		Plane plane = new Plane (new Vector3(0,1,0),position);
 		float distance;
-		if (plane.Raycast(ray, out distance)) {
-			float planarLock = grabbed.position.y;
-			grabbed.position = new Vector3(ray.origin.x + ray.direction.x * distance,
-			                               planarLock,
-			                               ray.origin.z + ray.direction.z * distance);
+		if(rightClickGrab){
+			Plane plane = new Plane (new Vector3(1f,-1f,0f), position);
+			if (plane.Raycast(ray, out distance)) {
+				float planarLockX = grabbed.position.x;
+				float planarLockZ = grabbed.position.z;
+				grabbed.position = new Vector3(planarLockX,
+				                               (ray.origin.y + ray.direction.y * distance)+0.25f,
+				                               planarLockZ);
+			}
+		}
+		else{
+			Plane plane = new Plane (new Vector3(0,1,0),position);
+			if (plane.Raycast(ray, out distance)) {
+				float planarLock = grabbed.position.y;
+				grabbed.position = new Vector3(ray.origin.x + ray.direction.x * distance,
+			                               	   planarLock,
+			                               	   ray.origin.z + ray.direction.z * distance);
+			}
 		}
 	}
 }
