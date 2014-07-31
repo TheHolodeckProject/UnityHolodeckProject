@@ -36,35 +36,49 @@ public class StimulusManager : MonoBehaviour {
 			randomBoundsP0 = reducedRandomBoundsP0;
 			randomBoundsP1 = reducedRandomBoundsP1;
 		}
-		activeStimuli = new GameObject[numberOfStimuli];
+
 		//??? Why do you initialize numberOfStimuli but not expectedNumberOfTrials? Why do I get an error when I try to call subjectIdentifier the same way?
 		//subID = PlayerPrefs.GetInt ("subjectIdentifier");
 		expectedNumberOfTrials = PlayerPrefs.GetInt ("Number of Trials");
 
+		decideRandomStimuli ();
+
+		generateRandomPositions ();
+
+		GameObject.Find ("Logger").GetComponent<Logger> ().BeginLogging ();
+	}
+
+	private void decideRandomStimuli()
+	{
+		if (activeStimuli != null)
+						for (int i = 0; i < activeStimuli.Length; i++) {
+								try {
+										DestroyImmediate (activeStimuli [i]);
+								} catch (UnityException) {
+								}
+						}
+		activeStimuli = new GameObject[numberOfStimuli];
 		//Create a knuth shuffle index list of random indicies within the range of possible stimuli
 		int[] knuthShuffleList = new int[stimuli.Length];
 		for (int i = 0; i < knuthShuffleList.Length; i++)
-						knuthShuffleList [i] = i;
+			knuthShuffleList [i] = i;
 		for (int i = 0; i < stimuli.Length; i++) {
 			int index = Random.Range(i,stimuli.Length-1);
 			int tmp = knuthShuffleList[index];
 			knuthShuffleList[index] = knuthShuffleList[i];
 			knuthShuffleList[i] = tmp;
-				}
-
+		}
+		
 		for (int i = 0; i < numberOfStimuli; i++) {
 			activeStimuli[i] = (GameObject)Instantiate(stimuli[knuthShuffleList[i]]);
 			activeStimuli[i].transform.localScale = stimuliScale;
 			activeStimuli[i].transform.parent = this.gameObject.transform;
 			activeStimuli[i].transform.GetChild (0).gameObject.AddComponent<SphereCollider>();
 			activeStimuli[i].AddComponent<SimpleObjectLogger>();
-			activeStimuli[i].AddComponent<StimuliBehavior>();
-				}
-
-		generateRandomPositions ();
-
-		GameObject.Find ("Logger").GetComponent<Logger> ().BeginLogging ();
+			activeStimuli[i].AddComponent<StimuliBehavior>().touched = false;
+		}
 	}
+
 	private int numRetries = 100;
 	void generateRandomPositions(){
 		//Position stimuli randomly according to settings (no overlaps)
@@ -170,6 +184,7 @@ public class StimulusManager : MonoBehaviour {
 						if((testTime>0?Time.time-timerStart<testTime:false)||!phaseTransitionTrigger()){
 							//Test is going
 							//Counting down; labelString = (testTime - (Time.time-timerStart))+"";
+							objectTouchedCondition();
 							labelString = (Time.time-timerStart).ToString ("0.00000")+", press Space to move on.";
 						}
 						else{
@@ -196,13 +211,15 @@ public class StimulusManager : MonoBehaviour {
 						}
 						else{
 							numberOfCompletedTrials++;
-							GameObject.Find ("Logger").GetComponent<Logger> ().FinishTrial (numberOfCompletedTrials);
 							if(numberOfCompletedTrials<expectedNumberOfTrials){
 								labelString = "Click Objects";
 								phase = 0;
-								for (int i = 0; i < activeStimuli.Length; i++)
-									activeStimuli [i].GetComponent <StimuliBehavior> ().touched = false;
-								generateRandomPositions();
+								GameObject.Find ("Logger").GetComponent<Logger> ().Pause ();
+								GameObject.Find ("Logger").GetComponent<Logger> ().FinishTrial (numberOfCompletedTrials);
+								decideRandomStimuli ();
+								generateRandomPositions ();
+								GameObject.Find ("Logger").GetComponent<Logger> ().GenerateLoggableObjectsList();
+								GameObject.Find ("Logger").GetComponent<Logger> ().Resume ();
 								phaseWaitTimeStart = Time.time;
 								phaseInit = true;
 							}
@@ -218,7 +235,11 @@ public class StimulusManager : MonoBehaviour {
 		}
 
 	bool phaseTransitionTrigger(){
-		return Input.GetKeyDown(KeyCode.Space);
+		int numObjectsTouched = 0;
+		for (int i = 0; i < activeStimuli.Length; i++)
+			if (activeStimuli [i].GetComponent <StimuliBehavior> ().touched)
+				numObjectsTouched++;
+		return Input.GetKeyDown(KeyCode.Space) && activeStimuli.Length==numObjectsTouched;
 	}
 
 	/// /////////////////////////////////////////

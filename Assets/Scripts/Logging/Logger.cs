@@ -18,14 +18,21 @@ public class Logger : MonoBehaviour {
 	string firstTickOutput = "";
 	string lastTickOutput = "";
 	string previousTickOutput = "";
+	private bool paused = false;
 
+	public void Pause(){
+		paused = true;
+	}
+	public void Resume(){
+		paused = false;
+	}
 	void Start() {
 		subID = PlayerPrefs.GetInt ("Subject Identifier");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-				if (!(loggableObjects == null || loggableObjects.Length <= 0 || rawWriter == null)) {
+				if (!(loggableObjects == null || loggableObjects.Length <= 0 || rawWriter == null) && !paused) {
 						//Write a timestamp for data stability
 						string timestamp = DateTime.Now.ToBinary () + "";
 						rawWriter.WriteLine (timestamp);
@@ -46,9 +53,7 @@ public class Logger : MonoBehaviour {
 				}
 		}
 
-	public void BeginLogging(){
-		string substring = ("Sub" + subID);
-		
+	public void GenerateLoggableObjectsList(){
 		//Get the list of objects - this is a one-time function. If new objects are created, there is currently no way to log them without creating a new logger.
 		List<ILoggable> logObjs = new List<ILoggable> ();
 		GameObject[] objs = (GameObject[])FindObjectsOfType (typeof(GameObject));
@@ -59,8 +64,18 @@ public class Logger : MonoBehaviour {
 			if (logScripts.Count > 0)
 				logObjs.AddRange (logScripts);
 		}
-		
-		loggableObjects = logObjs.ToArray ();
+		List<ILoggable> output = new List<ILoggable> ();
+		for (int i = 0; i < logObjs.Count; i++)
+						if (logObjs [i] != null)
+								output.Add (logObjs [i]);
+		loggableObjects = output.ToArray ();
+	}
+
+	public void BeginLogging(){
+		string substring = ("Sub" + subID);
+
+		GenerateLoggableObjectsList ();
+
 		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 		
 		//Create the appropriate filename given the options
@@ -80,7 +95,7 @@ public class Logger : MonoBehaviour {
 
 		//Create the file writer
 		summaryWriter = new StreamWriter (summaryFilename);
-		summaryWriter.WriteLine ("Trial\tStimulus\tBlobNum\tSecondsHeld\tStartPosXYZ\tEndPosXYZ\tStartRotXYZ\tEndRotXYZ");
+		summaryWriter.WriteLine ("Trial\tStimulus\tBlobNum\tStartPosXYZ\tEndPosXYZ\tStartRotXYZ\tEndRotXYZ");
 	}
 
 	public void FinishTrial(int trialNum){

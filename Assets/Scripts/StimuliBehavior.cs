@@ -4,6 +4,7 @@ using System.Collections;
 public class StimuliBehavior : MonoBehaviour {
 
 	public bool touched = false;
+	public bool touchFlashEnabled = false;
 	float duration = 1.0f;
 	Color colorStart = Color.gray;
 	Color colorEnd = Color.Lerp(Color.gray,Color.blue,0.25f);
@@ -17,7 +18,7 @@ public class StimuliBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(touched)
+		if(touched&&touchFlashEnabled)
 		{
 			if(firstTime){
 				firstTime = false;

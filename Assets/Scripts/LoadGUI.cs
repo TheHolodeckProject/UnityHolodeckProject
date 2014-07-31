@@ -9,11 +9,14 @@ public class LoadGUI : MonoBehaviour {
 	int numberofTrialsInt = 3;
 	string errorString = "";
 
-	//For checkbox
+	//For checkboxes
 	bool objectRegionToggle = true;
+	GUIContent objectRegionContent = new GUIContent();
+	bool vibroGlovesEnabled = false;
+	GUIContent vibroGloveContent = new GUIContent();
 	public Texture uncheckedTexture;
 	public Texture checkedTexture;
-	GUIContent objectRegionContent = new GUIContent();
+
 
 	void OnGUI() {
 		// Make a background box
@@ -61,6 +64,11 @@ public class LoadGUI : MonoBehaviour {
 		if(GUI.Button (new Rect(250, 160, 20, 20), objectRegionContent.image, new GUIStyle()))
 			objectRegionToggle = !objectRegionToggle;
 
+		//Vibro Glove Enable Checkbox
+		GUI.Label(new Rect(250, 180, 300, 30), "Vibro Gloves Enabled?");
+		if(GUI.Button (new Rect(250, 200, 20, 20), vibroGloveContent.image, new GUIStyle()))
+			vibroGlovesEnabled = !vibroGlovesEnabled;
+
 		// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 		if (GUI.Button (new Rect (100,240,120,20), "Enter Simulation")) {
 			//Store copy of current values for processing
@@ -69,6 +77,7 @@ public class LoadGUI : MonoBehaviour {
 			int numberOfStimuli = numberOfStimuliInt;
 			int numberOfTrials = numberofTrialsInt;
 			bool objectRegion = objectRegionToggle;
+			bool vibroGloves = vibroGlovesEnabled;
 
 			//Save to player preferences
 			PlayerPrefs.SetString ("COM Port",comPort);
@@ -76,6 +85,7 @@ public class LoadGUI : MonoBehaviour {
 			PlayerPrefs.SetInt ("Number of Stimuli",numberOfStimuli);
 			PlayerPrefs.SetInt ("Number of Trials",numberOfTrials);
 			PlayerPrefs.SetInt ("Object Region",objectRegion?1:0);
+			PlayerPrefs.SetInt ("Vibro Gloves",vibroGloves?1:0);
 
 			if(numberOfTrials != -1 && numberOfStimuli != -1){
 				//Pass values
@@ -98,6 +108,12 @@ public class LoadGUI : MonoBehaviour {
 			objectRegionContent.image = checkedTexture;
 				else
 			objectRegionContent.image = uncheckedTexture;
+
+		//For checkbox display state
+		if (vibroGlovesEnabled)
+			vibroGloveContent.image = checkedTexture;
+		else
+			vibroGloveContent.image = uncheckedTexture;
 	}
 
 	void testHaptics(){
