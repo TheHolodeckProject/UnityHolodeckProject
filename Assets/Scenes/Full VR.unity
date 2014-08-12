@@ -77,8 +77,8 @@ NavMeshSettings:
 --- !u!1 &112136118
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 100000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+  m_PrefabInternal: {fileID: 396101601}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 112136119}
@@ -93,8 +93,8 @@ GameObject:
 --- !u!4 &112136119
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+  m_PrefabInternal: {fileID: 396101601}
   m_GameObject: {fileID: 112136118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -105,8 +105,9 @@ Transform:
 --- !u!114 &112136120
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400000, guid: 47c154f62e01124438a7439142ebbf8a,
+    type: 2}
+  m_PrefabInternal: {fileID: 396101601}
   m_GameObject: {fileID: 112136118}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -115,11 +116,103 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoneMaterial: {fileID: 2100000, guid: f2ea145c63353784985576f08398a815, type: 2}
   BodySourceManager: {fileID: 1698423884}
+--- !u!1001 &396101601
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+      propertyPath: BodySourceManager
+      value: 
+      objectReference: {fileID: 1698423884}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 47c154f62e01124438a7439142ebbf8a, type: 2}
+  m_RootGameObject: {fileID: 112136118}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1001 &860019438
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.87308502
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 182.067398
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+  m_RootGameObject: {fileID: 1698423884}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1698423884
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 100000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+  m_PrefabInternal: {fileID: 860019438}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1698423886}
@@ -134,8 +227,9 @@ GameObject:
 --- !u!114 &1698423885
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400000, guid: 378045e9ffc3a1846963484f12b52960,
+    type: 2}
+  m_PrefabInternal: {fileID: 860019438}
   m_GameObject: {fileID: 1698423884}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -145,8 +239,8 @@ MonoBehaviour:
 --- !u!4 &1698423886
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 378045e9ffc3a1846963484f12b52960, type: 2}
+  m_PrefabInternal: {fileID: 860019438}
   m_GameObject: {fileID: 1698423884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.87308502, y: 0, z: 182.067398}

@@ -11,8 +11,8 @@ public class AlignOculusCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-         GameObject.Find("Object_1").transform.position;
+       //  GameObject.Find("Object_1").transform.position;
 
-        debug.log("Oculus Position = " +)
+        //debug.log("Oculus Position = " +)
 	}
 }

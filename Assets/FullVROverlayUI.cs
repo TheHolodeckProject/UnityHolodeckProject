@@ -10,7 +10,8 @@ public class FullVROverlayUI : MonoBehaviour {
 
 	void positionSync(){
 		GameObject head = GameObject.Find ("Head");
-		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		sphere.transform.position = head.transform.position;
+        GameObject.Find("OVRPlayerController").transform.position = head.transform.position;
 	}
+
+    void Update() { positionSync(); }
 }
