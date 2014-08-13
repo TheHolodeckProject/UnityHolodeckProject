@@ -109,7 +109,7 @@ public class OVRPlayerController : MonoBehaviour
 	// We can adjust these to influence speed and rotation of player controller
 	private float MoveScaleMultiplier     = 1.0f; 
 	private float RotationScaleMultiplier = 1.0f; 
-	private bool  SkipMouseRotation       = false;
+	private bool  SkipMouseRotation       = true;
 	private bool  HaltUpdateMovement      = false;
 
 	// For rachet rotation using d-pad

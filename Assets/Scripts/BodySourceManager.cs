@@ -17,7 +17,7 @@ public class BodySourceManager : MonoBehaviour
     void Start () 
     {
         _Sensor = KinectSensor.GetDefault();
-
+        
         if (_Sensor != null)
         {
             _Reader = _Sensor.BodyFrameSource.OpenReader();
