@@ -10,7 +10,8 @@ public class BodySourceView : MonoBehaviour
     
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     private BodySourceManager _BodyManager;
-    
+    private Plane mirrorPlane = new Plane(Vector3.zero,Vector3.up,Vector3.forward);
+
     private Dictionary<Kinect.JointType, Kinect.JointType> _BoneMap = new Dictionary<Kinect.JointType, Kinect.JointType>()
     {
         { Kinect.JointType.FootLeft, Kinect.JointType.AnkleLeft },
@@ -45,6 +46,9 @@ public class BodySourceView : MonoBehaviour
     
     void Update () 
     {
+        
+
+
         if (BodySourceManager == null)
         {
             return;
@@ -129,7 +133,7 @@ public class BodySourceView : MonoBehaviour
     }
     
     private void RefreshBodyObject(Kinect.Body body, GameObject bodyObject)
-    {
+    {    
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
             Kinect.Joint sourceJoint = body.Joints[jt];
@@ -174,6 +178,7 @@ public class BodySourceView : MonoBehaviour
     
     private static Vector3 GetVector3FromJoint(Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * 10);
+        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * -10);
+
     }
 }
