@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Windows.Kinect;
+using System;
 
 public class KinectGrab : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class KinectGrab : MonoBehaviour
     void Start()
     {
         ranOnce = false;
+        GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().SetSkipMouseRotation(true);
     }
 
     // Update is called once per frame
@@ -51,56 +53,68 @@ public class KinectGrab : MonoBehaviour
 
     void detectGrabs()
     {
+        //Get body objects (hands) and grabbable objects for manipulation
         BodySourceManager bodyManager = GameObject.Find("BodyManager").GetComponent<BodySourceManager>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Grabbable"); ;
         GameObject leftHand = GameObject.Find("HandLeft");
         GameObject rightHand = GameObject.Find("HandRight");
-        Body[] bodies = bodyManager.GetData();
-        Body activeBody = null;
-        for (int i = 0; i < bodies.Length; i++)
-            if (bodies[i].IsTracked) {
-                activeBody = bodies[i];
-            }
-        GameObject lhObj = getClosestObject(leftHand.transform.position, objs);
-        GameObject rhObj = getClosestObject(rightHand.transform.position, objs);
+        //Check to make sure the objects exist before continuing
+        if (leftHand == null || rightHand == null) return;
+        try
+        {
+            //Get the nearest objects to the body
+            Body[] bodies = bodyManager.GetData();
+            Body activeBody = null;
+            for (int i = 0; i < bodies.Length; i++)
+                if (bodies[i].IsTracked)
+                {
+                    activeBody = bodies[i];
+                }
+            GameObject lhObj = getClosestObject(leftHand.transform.position, objs);
+            GameObject rhObj = getClosestObject(rightHand.transform.position, objs);
 
-        if (activeBody.HandLeftState == HandState.Closed)
-        {
-            
-            float dist = Vector3.Distance(lhObj.transform.position, leftHand.transform.position);
-            Debug.Log("Left Hand Closed " + dist);
-            if (dist < minGrabDist)
+            //Check the hand state to activate a grab
+            //Changes in the condition need to be made so that instead of just checking the state, we determine if there was a "rising edge" (going from open to closed where the new closed state has high confidence)
+            Debug.Log(activeBody.HandLeftConfidence+"");
+            if (activeBody.HandLeftState == HandState.Closed)
             {
-                lhgObj = lhObj;
-                //ADDED
-                Debug.Log("Closing hand on object");
-                lhgObj.transform.parent = leftHand.transform;
+
+                float dist = Vector3.Distance(lhObj.transform.position, leftHand.transform.position);
+                Debug.Log("Left Hand Closed " + dist);
+                if (dist < minGrabDist)
+                {
+                    lhgObj = lhObj;
+                    //ADDED
+                    Debug.Log("Closing hand on object");
+                    lhgObj.transform.parent = leftHand.transform;
+                }
             }
-        }
-        else if (activeBody.HandLeftState != HandState.Closed)
-        {
-            if (lhgObj != null)
+            else if (activeBody.HandLeftState != HandState.Closed)
             {
-                lhgObj.transform.parent = null;
-                lhgObj = null;
+                if (lhgObj != null)
+                {
+                    lhgObj.transform.parent = null;
+                    lhgObj = null;
+                }
             }
-        }
-        if (activeBody.HandRightState == HandState.Closed) { 
-            Debug.Log("Right Hand Closed");
-            if(Vector3.Distance(rhObj.transform.position, rightHand.transform.position) < minGrabDist)
+            if (activeBody.HandRightState == HandState.Closed)
             {
-                rhgObj = rhObj;
-                rhgObj.transform.parent = rightHand.transform;
+                Debug.Log("Right Hand Closed");
+                if (Vector3.Distance(rhObj.transform.position, rightHand.transform.position) < minGrabDist)
+                {
+                    rhgObj = rhObj;
+                    rhgObj.transform.parent = rightHand.transform;
+                }
             }
-        }
-        else if (activeBody.HandRightState != HandState.Closed)
-        {
-            if (rhgObj != null)
+            else if (activeBody.HandRightState != HandState.Closed)
             {
-                rhgObj.transform.parent = null;
-                rhgObj = null;
+                if (rhgObj != null)
+                {
+                    rhgObj.transform.parent = null;
+                    rhgObj = null;
+                }
             }
-        }
+        }catch(NullReferenceException){Debug.Log("Skeleton has left the scene mid processing.");}
     }
 
     GameObject getClosestObject(Vector3 pos, GameObject[] objs)

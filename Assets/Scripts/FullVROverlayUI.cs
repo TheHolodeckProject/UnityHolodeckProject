@@ -12,6 +12,10 @@ public class FullVROverlayUI : MonoBehaviour {
         //Finds a stable point on the body, near the collarbone
         GameObject center = GameObject.Find("SpineShoulder");
         //Moves the in-game Oculus camera to that position
-        GameObject.Find("OVRPlayerController").transform.position = center.transform.position;
+        if (center != null)
+        {
+            Vector3 position = new Vector3(center.transform.position.x, center.transform.position.y + 0.5f, center.transform.position.z + 0.6f);
+            GameObject.Find("OVRPlayerController").transform.position = position;
+        }
     }
 }
