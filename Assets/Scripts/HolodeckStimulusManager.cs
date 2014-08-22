@@ -57,7 +57,7 @@ public class HolodeckStimulusManager : MonoBehaviour
             //Gives the blob the tag to make it grabbable
             blob.gameObject.tag = "Grabbable";
             //Instantiates that GameObject at the location defined earlier
-            Instantiate(blob, stimLocation, Quaternion.identity);
+            GameObject = Instantiate(blob, stimLocation, Quaternion.identity);
             //Makes the object a child of the StimulusManager parent
             blob.transform.parent = this.gameObject.transform;
 
