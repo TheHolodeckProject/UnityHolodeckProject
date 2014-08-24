@@ -289,8 +289,11 @@ public class Ovrvision : MonoBehaviour
 			return;
 
 		//Close camera
-		if(ovClose () != 0)
-			Debug.LogError ("Ovrvision close error!!");
+        if (ovClose() != 0)
+        {
+            Debug.LogError("Testing GitHub");
+            Debug.LogError("Ovrvision close error!!");
+        }
 
 		//free
 		go_pixelsHandleLeft.Free ();
