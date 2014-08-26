@@ -10,7 +10,7 @@ public class BodySourceView : MonoBehaviour
     
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     private BodySourceManager _BodyManager;
-    private Plane mirrorPlane = new Plane(Vector3.zero,Vector3.up,Vector3.forward);
+//    private Plane mirrorPlane = new Plane(Vector3.zero,Vector3.up,Vector3.forward);
 
     private Dictionary<Kinect.JointType, Kinect.JointType> _BoneMap = new Dictionary<Kinect.JointType, Kinect.JointType>()
     {

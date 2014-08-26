@@ -5,55 +5,31 @@ using System;
 
 public class KinectGrab : MonoBehaviour
 {
-    public GameObject cube;
-    public Vector3 StimOffset;
+    //Initialize variables
+    const float minGrabDist = 1.5f;
+    private GameObject rhgObj = null;
+    private GameObject lhgObj = null;
+    private bool grabReadyRight = false;
+    private bool grabReadyLeft = false;
+    //ADDED - Made these public so they can be accessed by other scripts
+    public bool grabStateRight = false;
+    public bool grabStateLeft = false;
     private GameObject neck;
     private bool ranOnce;
     private Vector3 spinePosition;
     private Vector3 cubePosition;
-
+    private bool readyToTrialReset = false;
+    private bool readyToStimReset = false;
 
     // Use this for initialization
     void Start()
     {
-        ranOnce = false;
         GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().SetSkipMouseRotation(true);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        //If the stimulus hasn't been generated
-        if (!ranOnce)
-        {
-            //If the kinect-generated body exists
-            if (GameObject.Find("SpineMid") != null)
-            {
-                //Grabs the position of the spine
-                GameObject spine = GameObject.Find("SpineMid");
-                //Defines the position of the cube relative to the player
-                cubePosition = new Vector3(spine.transform.position.x + 5, spine.transform.position.y, spine.transform.position.z - 13);
-                //Creates the cube and puts it at that position 
-                //Instantiate(cube, cubePosition, Quaternion.identity);
-                //Debug.Log("Cube Position: " + cubePosition);
-                //Changes the flag to true so it doesn't run again
-                ranOnce = true;
-            }
-        }
-       detectGrabs();
-    }
-
-    //Initialize variables
-    const float minGrabDist = 3.0f;
-    private GameObject rhgObj = null;
-    private GameObject lhgObj = null;
-    private bool grabStateRight = false;
-    private bool grabReadyRight = false;
-    private bool grabStateLeft = false;
-    private bool grabReadyLeft = false;
-
-    void detectGrabs()
-    {
+    {        
         //Get body objects (hands) and grabbable objects for manipulation
         BodySourceManager bodyManager = GameObject.Find("BodyManager").GetComponent<BodySourceManager>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Grabbable"); ;
@@ -86,7 +62,8 @@ public class KinectGrab : MonoBehaviour
                 grabReadyRight = false;
             }
             //If the closest object IS in the grabbable distance and the hand is open
-            else if (activeBody.HandRightState == HandState.Open && activeBody.HandRightConfidence == TrackingConfidence.High)
+            //CHANGED FROM ELSE IF TO IF
+            if (activeBody.HandRightState == HandState.Open && activeBody.HandRightConfidence == TrackingConfidence.High)
             {
                 //Establishes that it's possible to grab something now
                 grabReadyRight = true;
@@ -124,14 +101,11 @@ public class KinectGrab : MonoBehaviour
                 grabReadyLeft = false;
             }
             //If the closest object IS in the grabbable distance and the hand is open
-            else if (activeBody.HandLeftState == HandState.Open && activeBody.HandLeftConfidence == TrackingConfidence.High)
+            if (activeBody.HandLeftState == HandState.Open && activeBody.HandLeftConfidence == TrackingConfidence.High)
             {
                 //Establishes that it's possible to grab something now
                 grabReadyLeft = true;
             }
-            // ??? You mentioned that boolean checks were super efficent to do in updates
-            // ??? Would it be more efficient to do the boolean checks for grabReady and grabState in a separate if statement
-            // ??? and only do the handstate checks if they're true?
             //If nothing is currently being grabbed, an object is ready to be grabbed, and the Kinect is confident the hand is closed
             if (grabStateLeft == false && grabReadyLeft == true && activeBody.HandLeftState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
             {
@@ -150,10 +124,38 @@ public class KinectGrab : MonoBehaviour
                 lhgObj = null;
                 grabStateLeft = false;
             }
+
+            Debug.Log(activeBody.HandRightState);
+
+            // ??? This happens in any state. The simplest thing would be to call the phase variable from the stimulus manager, but I seem to remember you saying that was a bad practice
+
+            //Stimulus Reset Cue
+            if (grabStateRight == false
+              && grabStateLeft == false
+              && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
+              && activeBody.HandRightState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
+            {
+                Debug.Log("Resetting Stimuli");
+                GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckStimulusReset();
+                readyToTrialReset = true;
+            }
+
+            // ??? Because it uses the same hand state (both closed, not grabbing anything), it keeps quickly switching between resetting stimulus and trial. How to fix?
+
+            ////Trial Reset Cue
+            //if (readyToTrialReset = true && grabStateRight == false && grabStateLeft == false
+            //  && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
+            //  && activeBody.HandRightState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
+            //{
+            //    Debug.Log("Resetting Trial");
+            //    GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckTrialReset();
+            //    readyToTrialReset = false;
+            //}
+
         }
         catch (NullReferenceException)
         {
-            Debug.Log("Skeleton has left the scene mid processing.");
+            //Debug.Log("Skeleton has left the scene mid processing.");
         }
     }
 

@@ -1,26 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Windows.Kinect;
 
 public class HolodeckStimulusManager : MonoBehaviour
 {
-
     public int numberOfStimuli = 3; //Static value representing number of stimuli for task
-    public float Transparency = .9f;
-    private Texture blobTex;
-    private GameObject blob;
+    public float Transparency = .9f; //How transparent the stimuli are (0 = invisible, 1 = opaque)
+    private int[] colorNums; //A to-be-randomized list of numbers
+    //private GameObject blob;
+    private Texture[] colors;
     private int stimNum;
-    //public GameObject[] stimuli; //List of game objects (populated on Start())
-    //private GameObject[] activeStimuli; //List of active stimuli indicies
+    private GameObject[] stimuli;
     ////Reset positions form a line between points P0 and P1 with even distribution (starting at end points)
-    public Vector3 resetPositionP0; //Position for obj0
-    public Vector3 resetPositionP1; //Position for objN
+    private Vector3 resetPositionP0 = new Vector3(-4f, -2f, -8f); //Position for obj0
+    private Vector3 resetPositionP1 = new Vector3(4f, -2f, -8f); //Position for objN
     //Random Bounds determines the 3D box which bounds the possible random positions of each object
     //The point P0 determines one corner of the box while the point P1 determines the opposite corner
-    private Vector3 randomBoundsP0 = new Vector3(-6f, -2f, -4f); //One corner of the bounding box being used
-    private Vector3 randomBoundsP1 = new Vector3(6f, 4f, 2f); //The opposite corner of the bounding box being used
-    private Vector3 stimLocation;
-    //    public Vector3 overlapPaddingFactor = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 randomBoundsP0 = new Vector3(-3f, 1f, -10f); //One corner of the bounding box being used
+    private Vector3 randomBoundsP1 = new Vector3(9f, 4f, -7f); //The opposite corner of the bounding box being used
 
     /// /////////////////////////////////////////
     /// INITIALIZATION CODE /////////////////////
@@ -28,107 +26,183 @@ public class HolodeckStimulusManager : MonoBehaviour
 
     void Start()
     {
-        ////Creates the material to be used for the blobs
-//        Material blobMat = new Material(Shader.Find("Transparent/Diffuse"));
-        Material blobMat = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
- 
-        //Grabs a texture for the blob
-        blobTex = Resources.Load("Red", typeof(Texture2D)) as Texture;
-        blobMat.mainTexture = blobTex;
 
-        ////Makes the color slightly transparent
-      blobMat.color= new Color(blobMat.color.r, blobMat.color.g, blobMat.color.b, Transparency);
+        //Generate timestamp 
 
+        // Initializes an array of GameObjects of the appropriate length
+        stimuli = new GameObject[numberOfStimuli];
+    }
+  
+    /// /////////////////////////////////////////
+    /// TEST PROCEDURE CODE /////////////////////
+    /// /////////////////////////////////////////
+
+    private int phase = 0;
+    private bool runOncePhase1;
+    private bool runOncePhase2;
+    void Update()
+    {
+        // ??? Any difference between multiple if statements and using if else?
+
+        //If it's in the setup phase
+        if (phase == 0)
+        {
+            //Resets the flags so it can run through the phases properly
+            runOncePhase1 = false;
+            runOncePhase2 = false;
+            //Picks random blobs, so that it never picks the same one twice in the same trial
+            //Generates the blobs with appropriate shaders and colors
+            generateRandomStimuli();
+            //Generates random locations within specified bounds, so that they never overlap
+            generateRandomPositions();
+            //for (int i = 0; i < numberOfStimuli; i++)
+            //{
+            //    stimuli[i].gameObject.tag = "Untagged";
+            //}
+            phase = 1;
+        }
+
+        // Study Phase
+        if (phase == 1)
+        {
+            if (runOncePhase1 == false)
+            {
+                Debug.Log("Entering study phase");
+                //For every stimulus
+                for (int i = 0; i < numberOfStimuli; i++)
+                    //Changes the tag so that the objects can't be grabbed in the study phase
+                   // stimuli[i].gameObject.tag = "Untagged";
+                runOncePhase1 = true;
+            }
+        }
+
+        // Recall Phase
+        if (phase == 2)
+        {
+            if (runOncePhase2==false)
+            {
+            Debug.Log("Entering recall phase");
+            //For every stimulus
+            for (int i = 0; i < numberOfStimuli; i++)
+            { //Changes the tag so that the objects can now be grabbed
+                stimuli[i].gameObject.tag = "Grabbable";
+                //Resets the object positions
+                stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
+            }
+            runOncePhase2 = true;
+            }
+        }
+
+
+    }
+    public void HolodeckTrialReset() { phase = 0; }
+    public void HolodeckStimulusReset() { phase = 2; }
+
+      private void generateRandomStimuli()
+    {
+        if (stimuli != null)
+            for (int i = 0; i < stimuli.Length; i++)
+            {
+                try
+                {
+                    DestroyImmediate(stimuli[i]);
+                }
+                catch (UnityException)
+                {
+                }
+            }
+        //Creates a list of integers, 1 for each color
+        //Create a knuth shuffle index list of random indicies within the range of possible colors
+        int[] stimNums = new int[100];
+        for (int i = 0; i < 100; i++)
+            stimNums[i] = i;
         for (int i = 0; i < numberOfStimuli; i++)
         {
-            //Defines a random location within the stimulus bounds
-            stimLocation = new Vector3(
-    Random.Range(randomBoundsP0.x, randomBoundsP1.x),
-    Random.Range(randomBoundsP0.y,randomBoundsP1.y),
-    Random.Range(randomBoundsP0.z,randomBoundsP1.z)
-    );
-            //Debug.Log("stimLocation: " + stimLocation)
-        //Defines a random integer between 1 and 100
-            stimNum = Random.Range(1, 100);
-            //Creates a game object using that simulus #
-            GameObject blob = Resources.Load("Blob" + stimNum) as GameObject;
-            //Assigns the material we created earlier to the object
-            blob.gameObject.renderer.material = blobMat;    
-            //Gives the blob the tag to make it grabbable
-            blob.gameObject.tag = "Grabbable";
-            //Instantiates that GameObject at the location defined earlier
-            //GameObject = Instantiate(blob, stimLocation, Quaternion.identity);
-            //Makes the object a child of the StimulusManager parent
-            blob.transform.parent = this.gameObject.transform;
+            int index = Random.Range(i, 100 - 1);
+            int tmp = stimNums[index];
+            stimNums[index] = stimNums[i];
+            stimNums[i] = tmp;
+        }
+        //Initializes an list to hold textures created 
+        // ??? Lists vs Arrays
+        List<Texture> colors = new List<Texture>();
+        colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Yellow", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
+        //TO DO - Figure out how to dynamically create textures based on randomly generated RGB values (within certain ranges to only get pretty colors)
+        // ??? Would it be more efficient to make a 1x1 color texture and repeat it or make a single 1000x1000 color texture?
 
-
-            
+        //Create a knuth shuffle index list of random indicies within the range of possible colors
+        int[] colorNums = new int[colors.Count];
+        for (int i = 0; i < colors.Count; i++)
+            colorNums[i] = i;
+        for (int i = 0; i < colors.Count; i++)
+        {
+            int index = Random.Range(i, colorNums.Length - 1);
+            int tmp = colorNums[index];
+            colorNums[index] = colorNums[i];
+            colorNums[i] = tmp;
+        }
+        //Actually creates the stimuli
+        for (int i = 0; i < numberOfStimuli; i++)
+        {
+            ////Creates the material to be used for the blobs
+            stimuli[i] = Resources.Load("Blob" + stimNums[i]) as GameObject;
+            stimuli[i].gameObject.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+            stimuli[i].gameObject.renderer.material.mainTexture = colors[colorNums[i]];
+            stimuli[i].gameObject.renderer.material.color = new Color(stimuli[i].gameObject.renderer.material.color.r, stimuli[i].gameObject.renderer.material.color.g, stimuli[i].gameObject.renderer.material.color.b, Transparency);
+            //stimuli[i] = (GameObject)Instantiate(stimuli[i], stimLocation, Quaternion.identity);
+            stimuli[i] = (GameObject)Instantiate(stimuli[i]);
         }
     }
-//        //Create a knuth shuffle index list of random indicies within the range of possible stimuli
-//        int[] knuthShuffleList = new int[stimuli.Length];
-//        for (int i = 0; i < knuthShuffleList.Length; i++)
-//            knuthShuffleList[i] = i;
-//        for (int i = 0; i < stimuli.Length; i++)
-//        {
-//            int index = Random.Range(i, stimuli.Length - 1);
-//            int tmp = knuthShuffleList[index];
-//            knuthShuffleList[index] = knuthShuffleList[i];
-//            knuthShuffleList[i] = tmp;
-//        }
 
-//        for (int i = 0; i < numberOfStimuli; i++)
-//        {
-//            activeStimuli[i] = (GameObject)Instantiate(stimuli[knuthShuffleList[i]]);
-//            activeStimuli[i].transform.localScale = stimuliScale;
-//            activeStimuli[i].transform.parent = this.gameObject.transform;
-//            activeStimuli[i].transform.GetChild(0).gameObject.AddComponent<SphereCollider>();
-//            activeStimuli[i].AddComponent<SimpleObjectLogger>();
-//            activeStimuli[i].AddComponent<StimuliBehavior>().touched = false;
-//        }
-//    }
+    private int numRetries = 100;
+    private void generateRandomPositions()
+    {
+        //Position stimuli randomly according to settings (no overlaps)
+        List<Rect> overlapCheckList = new List<Rect>();
+        int retries = numRetries;
+        for (int i = 0; i < numberOfStimuli; i++)
+        {
+            // ??? Object positions are not in the center of the objects.
+            // ??? localPosition vs. global position?
+            stimuli[i].transform.localPosition = new Vector3(
+            Random.Range(randomBoundsP0.x, randomBoundsP0.y),
+            Random.Range(randomBoundsP0.y, randomBoundsP1.y),
+            Random.Range(randomBoundsP0.z, randomBoundsP1.z));
 
-//    private int numRetries = 100;
-//    void generateRandomPositions()
-//    {
-//        //Position stimuli randomly according to settings (no overlaps)
-//        List<Rect> overlapCheckList = new List<Rect>();
-//        int retries = numRetries;
-//        for (int i = 0; i < activeStimuli.Length; i++)
-//        {
-//            activeStimuli[i].transform.localPosition = 
-//            //Check for overlapping boxes and regenerate box location if overlap occurs
-//            Rect newBox = new Rect(activeStimuli[i].transform.localPosition.x,
-//                                   activeStimuli[i].transform.localPosition.z,
-//                                   activeStimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x * activeStimuli[i].transform.localScale.x,
-//                                   activeStimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z * activeStimuli[i].transform.localScale.z);
-//            if (boxesOverlapArray(newBox, overlapCheckList))
-//            {
-//                retries--;
-//                if (retries <= 0)
-//                {
-//                    //Force quit and overlap to prevent hang
-//                    retries = numRetries;
-//                    overlapCheckList.Add(newBox);
-//                    Debug.Log("Unable to find proper placement of object. Too many objects or incorrect mesh bounds?");
-//                }
-//                else i--;
-//            }
-//            else
-//            {
-//                retries = numRetries;
-//                overlapCheckList.Add(newBox);
-//            }
-//        }
-//    }
-
+            //Check for overlapping boxes and regenerate box location if overlap occurs
+            Rect newBox = new Rect(stimuli[i].transform.localPosition.x,
+                                   stimuli[i].transform.localPosition.z,
+                                   stimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x * stimuli[i].transform.localScale.x,
+                                   stimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z * stimuli[i].transform.localScale.z);
+            if (boxesOverlapArray(newBox, overlapCheckList))
+            {
+                retries--;
+                if (retries <= 0)
+                {
+                    //Force quit and overlap to prevent hang
+                    retries = numRetries;
+                    overlapCheckList.Add(newBox);
+                    Debug.Log("Unable to find proper placement of object. Too many objects or incorrect mesh bounds?");
+                }
+                else i--;
+            }
+            else
+            {
+                retries = numRetries;
+                overlapCheckList.Add(newBox);
+            }
+        }
+    }
     bool boxesOverlapArray(Rect box, List<Rect> boxArray)
     {
         for (var i = 0; i < boxArray.Count; i++)
             if (boxesOverlap(box, boxArray[i])) return true;
         return false;
     }
-
     //Reference: http://gamemath.com/2011/09/detecting-whether-two-boxes-overlap/
     bool boxesOverlap(Rect box0, Rect box1)
     {
@@ -138,6 +212,11 @@ public class HolodeckStimulusManager : MonoBehaviour
         if (box0.y > box1.y + box1.height) return false;
         return true;
     }
-}
 
-    //    private void decideRandomStimuli()
+
+    //  if (phase==1)
+
+    //Find the first instance of the script on the object or any children
+    // GameObject.Find("someName").GetComponentInChildren<ScriptName>().DoSomething();
+
+}
