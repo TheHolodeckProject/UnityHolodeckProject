@@ -690,6 +690,25 @@ public class OVRCameraController : MonoBehaviour
 		return true;
 	}
 
+	public bool AttachGameObjectToStereoCamera(ref GameObject gameObject, string cameraName)
+	{
+		if(CameraMain == null)
+			return false;
+
+		if(cameraName == "Left") {
+			GameObject camera = GameObject.Find("CameraLeft");
+			gameObject.transform.parent = camera.transform;
+		} 
+		else 
+		{
+			GameObject camera = GameObject.Find("CameraRight");
+			gameObject.transform.parent = camera.transform;
+		}
+
+		
+		return true;
+	}
+
 	/// <summary>
 	/// Detachs the game object from the right (main) camera.
 	/// </summary>
