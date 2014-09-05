@@ -18,9 +18,8 @@ public class KinectGrab : MonoBehaviour
     private bool ranOnce;
     private Vector3 spinePosition;
     private Vector3 cubePosition;
-    private bool readyToTrialReset = false;
-    private bool readyToStimReset = false;
-
+    private bool previousResetCueState = false;
+    private int state = 0;
     // Use this for initialization
     void Start()
     {
@@ -32,7 +31,7 @@ public class KinectGrab : MonoBehaviour
     {        
         //Get body objects (hands) and grabbable objects for manipulation
         BodySourceManager bodyManager = GameObject.Find("BodyManager").GetComponent<BodySourceManager>();
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Grabbable"); ;
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Grabbable");
         GameObject leftHand = GameObject.Find("HandLeft");
         GameObject rightHand = GameObject.Find("HandRight");
         //Check to make sure the objects exist before continuing
@@ -129,29 +128,37 @@ public class KinectGrab : MonoBehaviour
 
             // ??? This happens in any state. The simplest thing would be to call the phase variable from the stimulus manager, but I seem to remember you saying that was a bad practice
 
+            bool currentResetCueState = grabStateRight == false
+                                     && grabStateLeft == false
+                                     && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
+                                     && activeBody.HandLeftState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High;
+            bool risingEdge = false;
+            bool fallingEdge = false;
+            bool high = false;
+            bool low = false;
+            if (previousResetCueState == false && currentResetCueState == true) risingEdge = true;
+            else if (previousResetCueState == true && currentResetCueState == false) fallingEdge = true;
+            else if (previousResetCueState == true && currentResetCueState == true) high = true;
+            else if (previousResetCueState == false && currentResetCueState == false) low = true;
             //Stimulus Reset Cue
-            if (grabStateRight == false
-              && grabStateLeft == false
-              && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
-              && activeBody.HandRightState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
+            if (state == 0 && risingEdge)
             {
                 Debug.Log("Resetting Stimuli");
                 GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckStimulusReset();
-                readyToTrialReset = true;
+                state = 1;
             }
-
+            
             // ??? Because it uses the same hand state (both closed, not grabbing anything), it keeps quickly switching between resetting stimulus and trial. How to fix?
 
             ////Trial Reset Cue
-            //if (readyToTrialReset = true && grabStateRight == false && grabStateLeft == false
-            //  && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
-            //  && activeBody.HandRightState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
-            //{
-            //    Debug.Log("Resetting Trial");
-            //    GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckTrialReset();
-            //    readyToTrialReset = false;
-            //}
-
+            else if(state == 1 && risingEdge)
+            {
+                Debug.Log("Resetting Trial");
+                GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckTrialReset();
+                state = 0;
+            }
+            //Debug.Log("Current State: " + (risingEdge ? "Rising" : fallingEdge ? "Falling" : high ? "High" : low ? "Low" : "Error"));
+            previousResetCueState = currentResetCueState;
         }
         catch (NullReferenceException)
         {

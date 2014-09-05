@@ -71,7 +71,7 @@ public class HolodeckStimulusManager : MonoBehaviour
                 //For every stimulus
                 for (int i = 0; i < numberOfStimuli; i++)
                     //Changes the tag so that the objects can't be grabbed in the study phase
-                   // stimuli[i].gameObject.tag = "Untagged";
+                    //stimuli[i].gameObject.tag = "Untagged";
                 runOncePhase1 = true;
             }
         }
@@ -113,12 +113,13 @@ public class HolodeckStimulusManager : MonoBehaviour
             }
         //Creates a list of integers, 1 for each color
         //Create a knuth shuffle index list of random indicies within the range of possible colors
-        int[] stimNums = new int[100];
-        for (int i = 0; i < 100; i++)
+          //MODIFIED - Changed to 20 because the first 20 stimuli have good coordinates
+        int[] stimNums = new int[20];
+        for (int i = 0; i < 20; i++)
             stimNums[i] = i;
         for (int i = 0; i < numberOfStimuli; i++)
         {
-            int index = Random.Range(i, 100 - 1);
+            int index = Random.Range(i, 20 - 1);
             int tmp = stimNums[index];
             stimNums[index] = stimNums[i];
             stimNums[i] = tmp;
