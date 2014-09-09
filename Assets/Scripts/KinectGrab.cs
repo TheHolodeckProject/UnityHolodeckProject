@@ -124,8 +124,6 @@ public class KinectGrab : MonoBehaviour
                 grabStateLeft = false;
             }
 
-            Debug.Log(activeBody.HandRightState);
-
             // ??? This happens in any state. The simplest thing would be to call the phase variable from the stimulus manager, but I seem to remember you saying that was a bad practice
 
             bool currentResetCueState = grabStateRight == false
@@ -176,7 +174,7 @@ public class KinectGrab : MonoBehaviour
         for (int i = 0; i < objs.Length; i++)
         {
             //Figure out how far away it is
-            float dist = Vector3.Distance(objs[i].transform.position, pos);
+           float dist = Vector3.Distance(objs[i].transform.position, pos);
             //If that object's distance is smaller than the current smallest distance
             if (dist < minDist)
             {

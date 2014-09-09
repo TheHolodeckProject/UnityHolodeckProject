@@ -13,12 +13,12 @@ public class HolodeckStimulusManager : MonoBehaviour
     private int stimNum;
     private GameObject[] stimuli;
     ////Reset positions form a line between points P0 and P1 with even distribution (starting at end points)
-    private Vector3 resetPositionP0 = new Vector3(-4f, -2f, -8f); //Position for obj0
-    private Vector3 resetPositionP1 = new Vector3(4f, -2f, -8f); //Position for objN
+    private Vector3 resetPositionP0 = new Vector3(-4f, 0f, -8f); //Position for obj0
+    private Vector3 resetPositionP1 = new Vector3(4f, 0f, -8f); //Position for objN
     //Random Bounds determines the 3D box which bounds the possible random positions of each object
     //The point P0 determines one corner of the box while the point P1 determines the opposite corner
-    private Vector3 randomBoundsP0 = new Vector3(-3f, 1f, -10f); //One corner of the bounding box being used
-    private Vector3 randomBoundsP1 = new Vector3(9f, 4f, -7f); //The opposite corner of the bounding box being used
+    private Vector3 randomBoundsP0 = new Vector3(-2f, 1f, -10f); //One corner of the bounding box being used
+    private Vector3 randomBoundsP1 = new Vector3(1f, 4f, -7f); //The opposite corner of the bounding box being used
 
     /// /////////////////////////////////////////
     /// INITIALIZATION CODE /////////////////////
@@ -70,9 +70,12 @@ public class HolodeckStimulusManager : MonoBehaviour
                 Debug.Log("Entering study phase");
                 //For every stimulus
                 for (int i = 0; i < numberOfStimuli; i++)
-                    //Changes the tag so that the objects can't be grabbed in the study phase
-                    //stimuli[i].gameObject.tag = "Untagged";
-                runOncePhase1 = true;
+                {
+                    //Changes the tags of the parent objects to grabbable, and the mesh children to untagged
+                    stimuli[i].gameObject.tag = "Grabbable";
+                    stimuli[i].gameObject.transform.Find("Meshes").tag = "Untagged";
+                    runOncePhase1 = true;
+                }
             }
         }
 
@@ -84,8 +87,7 @@ public class HolodeckStimulusManager : MonoBehaviour
             Debug.Log("Entering recall phase");
             //For every stimulus
             for (int i = 0; i < numberOfStimuli; i++)
-            { //Changes the tag so that the objects can now be grabbed
-                stimuli[i].gameObject.tag = "Grabbable";
+            {    
                 //Resets the object positions
                 stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
             }
@@ -113,13 +115,12 @@ public class HolodeckStimulusManager : MonoBehaviour
             }
         //Creates a list of integers, 1 for each color
         //Create a knuth shuffle index list of random indicies within the range of possible colors
-          //MODIFIED - Changed to 20 because the first 20 stimuli have good coordinates
-        int[] stimNums = new int[20];
-        for (int i = 0; i < 20; i++)
+        int[] stimNums = new int[100];
+        for (int i = 0; i < 100; i++)
             stimNums[i] = i;
         for (int i = 0; i < numberOfStimuli; i++)
         {
-            int index = Random.Range(i, 20 - 1);
+            int index = Random.Range(i, 100 - 1);
             int tmp = stimNums[index];
             stimNums[index] = stimNums[i];
             stimNums[i] = tmp;
@@ -151,9 +152,11 @@ public class HolodeckStimulusManager : MonoBehaviour
         {
             ////Creates the material to be used for the blobs
             stimuli[i] = Resources.Load("Blob" + stimNums[i]) as GameObject;
-            stimuli[i].gameObject.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
-            stimuli[i].gameObject.renderer.material.mainTexture = colors[colorNums[i]];
-            stimuli[i].gameObject.renderer.material.color = new Color(stimuli[i].gameObject.renderer.material.color.r, stimuli[i].gameObject.renderer.material.color.g, stimuli[i].gameObject.renderer.material.color.b, Transparency);
+            //stimuli[i].gameObject.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+            stimuli[i].gameObject.transform.Find("Meshes").renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+          
+            stimuli[i].gameObject.transform.Find("Meshes").renderer.material.mainTexture = colors[colorNums[i]];
+            stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color = new Color(stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.r, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.g, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.b, Transparency);
             //stimuli[i] = (GameObject)Instantiate(stimuli[i], stimLocation, Quaternion.identity);
             stimuli[i] = (GameObject)Instantiate(stimuli[i]);
         }
