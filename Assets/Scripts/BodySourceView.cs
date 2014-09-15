@@ -119,7 +119,7 @@ public class BodySourceView : MonoBehaviour
         {
             GameObject jointObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
             if (jt == Kinect.JointType.Neck || jt == Kinect.JointType.Head)
-                jointObj.active = false;
+                jointObj.SetActive(false);
             LineRenderer lr = jointObj.AddComponent<LineRenderer>();
             lr.SetVertexCount(2);
             lr.material = BoneMaterial;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Windows.Kinect;
+using System;
 
 public class HolodeckStimulusManager : MonoBehaviour
 {
@@ -120,7 +121,7 @@ public class HolodeckStimulusManager : MonoBehaviour
             stimNums[i] = i;
         for (int i = 0; i < numberOfStimuli; i++)
         {
-            int index = Random.Range(i, 100 - 1);
+            int index = UnityEngine.Random.Range(i, 100 - 1);
             int tmp = stimNums[index];
             stimNums[index] = stimNums[i];
             stimNums[i] = tmp;
@@ -142,7 +143,7 @@ public class HolodeckStimulusManager : MonoBehaviour
             colorNums[i] = i;
         for (int i = 0; i < colors.Count; i++)
         {
-            int index = Random.Range(i, colorNums.Length - 1);
+            int index = UnityEngine.Random.Range(i, colorNums.Length - 1);
             int tmp = colorNums[index];
             colorNums[index] = colorNums[i];
             colorNums[i] = tmp;
@@ -150,15 +151,19 @@ public class HolodeckStimulusManager : MonoBehaviour
         //Actually creates the stimuli
         for (int i = 0; i < numberOfStimuli; i++)
         {
-            ////Creates the material to be used for the blobs
-            stimuli[i] = Resources.Load("Blob" + stimNums[i]) as GameObject;
-            //stimuli[i].gameObject.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
-            stimuli[i].gameObject.transform.Find("Meshes").renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
-          
-            stimuli[i].gameObject.transform.Find("Meshes").renderer.material.mainTexture = colors[colorNums[i]];
-            stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color = new Color(stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.r, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.g, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.b, Transparency);
-            //stimuli[i] = (GameObject)Instantiate(stimuli[i], stimLocation, Quaternion.identity);
-            stimuli[i] = (GameObject)Instantiate(stimuli[i]);
+            try
+            {
+                ////Creates the material to be used for the blobs
+                stimuli[i] = Resources.Load("Blob" + stimNums[i]) as GameObject;
+                //stimuli[i].gameObject.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+                stimuli[i].gameObject.transform.Find("Meshes").renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+
+                stimuli[i].gameObject.transform.Find("Meshes").renderer.material.mainTexture = colors[colorNums[i]];
+                stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color = new Color(stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.r, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.g, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.b, Transparency);
+                //stimuli[i] = (GameObject)Instantiate(stimuli[i], stimLocation, Quaternion.identity);
+                stimuli[i] = (GameObject)Instantiate(stimuli[i]);
+            }
+            catch (NullReferenceException) { Debug.Log("NullReferenceException while attempting to generate stimuli."); /* If there's a null reference exception it means we're missing some dependent object. This shouldn't happen, but as at least once. Keep an eye on it. */ }
         }
     }
 
@@ -173,9 +178,9 @@ public class HolodeckStimulusManager : MonoBehaviour
             // ??? Object positions are not in the center of the objects.
             // ??? localPosition vs. global position?
             stimuli[i].transform.localPosition = new Vector3(
-            Random.Range(randomBoundsP0.x, randomBoundsP0.y),
-            Random.Range(randomBoundsP0.y, randomBoundsP1.y),
-            Random.Range(randomBoundsP0.z, randomBoundsP1.z));
+            UnityEngine.Random.Range(randomBoundsP0.x, randomBoundsP0.y),
+            UnityEngine.Random.Range(randomBoundsP0.y, randomBoundsP1.y),
+            UnityEngine.Random.Range(randomBoundsP0.z, randomBoundsP1.z));
 
             //Check for overlapping boxes and regenerate box location if overlap occurs
             Rect newBox = new Rect(stimuli[i].transform.localPosition.x,
