@@ -9,7 +9,7 @@ using System.Collections;
 using Leap;
 
 // Interface for all hands.
-public abstract class HandModel : MonoBehaviour {
+public abstract class HandModelKinect : MonoBehaviour {
 
   public const int NUM_FINGERS = 5;
 
@@ -20,64 +20,52 @@ public abstract class HandModel : MonoBehaviour {
   private bool mirror_z_axis_ = false;
 
   public Vector3 GetPalmOffset() {
-      
-      //ADDED - only runs the Kinect part if there is a Kinect skeleton in the scene
-      if (GameObject.Find("KinectSkeleton") != null)
+      Vector3 returnValue = Vector3.zero;
+      if (hand_.IsLeft)
       {
-          Vector3 returnValue = Vector3.zero;
-          if (hand_.IsLeft)
-          {
-              GameObject leftHand = GameObject.Find("HandLeft");
-              if (leftHand != null)
-                  returnValue = leftHand.transform.position;
-          }
-          else if (hand_.IsRight)
-          {
-              GameObject rightHand = GameObject.Find("HandRight");
-              if (rightHand != null)
-                  returnValue = rightHand.transform.position;
-          }
-          return returnValue;
+          GameObject leftHand = GameObject.Find("HandLeft");
+          if (leftHand != null)
+              returnValue = leftHand.transform.position;
       }
-      //ADDED - If there's no Kinect, does the normal transformations
-      else
-          if (controller_ == null || hand_ == null)
-              return Vector3.zero;
+      else if (hand_.IsRight)
       {
-          Vector3 additional_movement = controller_.handMovementScale - Vector3.one;
-          Vector3 scaled_palm_position = Vector3.Scale(additional_movement,
-                                                       hand_.PalmPosition.ToUnityScaled(mirror_z_axis_));
+          GameObject rightHand = GameObject.Find("HandRight");
+          if (rightHand != null)
+              returnValue = rightHand.transform.position;
+      }
+      return returnValue;
+      /*
+    Vector3 additional_movement = controller_.handMovementScale - Vector3.one;
+    Vector3 scaled_palm_position = Vector3.Scale(additional_movement,
+                                                 hand_.PalmPosition.ToUnityScaled(mirror_z_axis_));
 
-          return controller_.transform.TransformPoint(scaled_palm_position) -
-                 controller_.transform.position;
-      }
+    return controller_.transform.TransformPoint(scaled_palm_position) -
+           controller_.transform.position;
+       */
+      //return Vector3.zero;
   }
 
   // Returns the palm position of the hand in relation to the controller.
   public Vector3 GetPalmPosition() {
-       //ADDED - only runs the Kinect part if there is a Kinect skeleton in the scene
-      if (GameObject.Find("KinectSkeleton") != null)
-      {
-          Vector3 returnValue = Vector3.zero;
-          if (hand_.IsLeft)
-          {
-              GameObject leftHand = GameObject.Find("HandLeft");
-              if (leftHand != null)
-                  returnValue = leftHand.transform.position;
-          }
-          else if (hand_.IsRight)
-          {
-              GameObject rightHand = GameObject.Find("HandRight");
-              if (rightHand != null)
-                  returnValue = rightHand.transform.position;
-          }
-          return returnValue;
-      }
-      else
-      {
-          return controller_.transform.TransformPoint(hand_.PalmPosition.ToUnityScaled(mirror_z_axis_)) +
+      /*
+       * Original Function, disabled for attaching hands to kinect.
+    return controller_.transform.TransformPoint(hand_.PalmPosition.ToUnityScaled(mirror_z_axis_)) +
            GetPalmOffset();
+       */
+      Vector3 returnValue = Vector3.zero;
+      if (hand_.IsLeft)
+      {
+          GameObject leftHand = GameObject.Find("HandLeft");
+          if (leftHand != null)
+              returnValue = leftHand.transform.position;
       }
+      else if (hand_.IsRight)
+      {
+          GameObject rightHand = GameObject.Find("HandRight");
+          if (rightHand != null)
+              returnValue = rightHand.transform.position;
+      }
+      return returnValue;
   }
 
   // Returns the palm rotation of the hand in relation to the controller.

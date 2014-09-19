@@ -132,13 +132,7 @@ public class KinectGrab : MonoBehaviour
                                      && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
                                      && activeBody.HandLeftState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High;
             bool risingEdge = false;
-            //bool fallingEdge = false;
-            //bool high = false;
-            //bool low = false;
             if (previousResetCueState == false && currentResetCueState == true) risingEdge = true;
-            //else if (previousResetCueState == true && currentResetCueState == false) fallingEdge = true;
-            //else if (previousResetCueState == true && currentResetCueState == true) high = true;
-            //else if (previousResetCueState == false && currentResetCueState == false) low = true;
             //Stimulus Reset Cue
             if (state == 0 && risingEdge)
             {
