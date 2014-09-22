@@ -137,7 +137,7 @@ public class KinectGrab : MonoBehaviour
             if (state == 0 && risingEdge)
             {
                 Debug.Log("Resetting Stimuli");
-                GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckStimulusReset();
+                GameObject.Find("StimulusManager").GetComponent<HolodeckStateMachine>().HolodeckStimulusReset();
                 state = 1;
             }
             
@@ -147,7 +147,7 @@ public class KinectGrab : MonoBehaviour
             else if(state == 1 && risingEdge)
             {
                 Debug.Log("Resetting Trial");
-                GameObject.Find("StimulusManager").GetComponent<HolodeckStimulusManager>().HolodeckTrialReset();
+                GameObject.Find("StimulusManager").GetComponent<HolodeckStateMachine>().HolodeckTrialReset();
                 state = 0;
             }
             //Debug.Log("Current State: " + (risingEdge ? "Rising" : fallingEdge ? "Falling" : high ? "High" : low ? "Low" : "Error"));

@@ -7,8 +7,8 @@ public class PositionLeapMotion : MonoBehaviour {
     private GameObject oculuscamera;
     private GameObject rightcamera;
     private Quaternion camrotation;
-    private bool leftHandLocked = false;
-    private bool rightHandLocked = false;
+//    private bool leftHandLocked = false;
+//    private bool rightHandLocked = false;
 
 	// Use this for initialization
 	void Start () {

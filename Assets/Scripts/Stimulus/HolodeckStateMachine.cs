@@ -33,7 +33,7 @@ public class HolodeckStateMachine : MonoBehaviour
         // Initializes an array of GameObjects of the appropriate length
         stimuli = new GameObject[numberOfStimuli];
     }
-  
+
     /// /////////////////////////////////////////
     /// TEST PROCEDURE CODE /////////////////////
     /// /////////////////////////////////////////
@@ -83,16 +83,16 @@ public class HolodeckStateMachine : MonoBehaviour
         // Recall Phase
         if (phase == 2)
         {
-            if (runOncePhase2==false)
+            if (runOncePhase2 == false)
             {
-            Debug.Log("Entering recall phase");
-            //For every stimulus
-            for (int i = 0; i < numberOfStimuli; i++)
-            {    
-                //Resets the object positions
-                stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
-            }
-            runOncePhase2 = true;
+                Debug.Log("Entering recall phase");
+                //For every stimulus
+                for (int i = 0; i < numberOfStimuli; i++)
+                {
+                    //Resets the object positions
+                    stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
+                }
+                runOncePhase2 = true;
             }
         }
 
@@ -101,7 +101,7 @@ public class HolodeckStateMachine : MonoBehaviour
     public void HolodeckTrialReset() { phase = 0; }
     public void HolodeckStimulusReset() { phase = 2; }
 
-      private void generateRandomStimuli()
+    private void generateRandomStimuli()
     {
         if (stimuli != null)
             for (int i = 0; i < stimuli.Length; i++)

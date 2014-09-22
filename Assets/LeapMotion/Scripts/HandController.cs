@@ -17,7 +17,7 @@ public class HandController : MonoBehaviour
     protected const float GIZMO_SCALE = 5.0f;
 
     public bool separateLeftRight = false;
-    public bool isHeadMounted = true;
+    public bool isHeadMounted = false;
     public HandModel leftGraphicsModel;
     public HandModel leftPhysicsModel;
     public HandModel rightGraphicsModel;
@@ -63,7 +63,7 @@ public class HandController : MonoBehaviour
             policy_flags &= ~Controller.PolicyFlag.POLICY_OPTIMIZE_HMD;
         leap_controller_.SetPolicyFlags(policy_flags);
 
-        //ADDED
+        //ADDED - HeadMounted tracking check
         if (isHeadMounted) 
             Debug.Log("LeapMotion IS head-mounted");
         else
