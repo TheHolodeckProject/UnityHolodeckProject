@@ -4,103 +4,149 @@ using System.Collections.Generic;
 using Windows.Kinect;
 using System;
 
+
+// ??? namespace vs public class? 
+//namespace StateMachineDemoSharp
 public class HolodeckStateMachine : MonoBehaviour
 {
+
+    // ??? Should all of this be here or in TaskStart?
     public int numberOfStimuli = 3; //Static value representing number of stimuli for task
     public float Transparency = .9f; //How transparent the stimuli are (0 = invisible, 1 = opaque)
     private int[] colorNums; //A to-be-randomized list of numbers
-    //private GameObject blob;
     private Texture[] colors;
     private int stimNum;
+    private bool[] stimuliTouchedState;
+    private bool[] stimuliMovedState;
     private GameObject[] stimuli;
+    public int expectedNumberOfTrials = 3;
+    private int currentTrialNumber;
     ////Reset positions form a line between points P0 and P1 with even distribution (starting at end points)
-    private Vector3 resetPositionP0 = new Vector3(-4f, 0f, -8f); //Position for obj0
-    private Vector3 resetPositionP1 = new Vector3(4f, 0f, -8f); //Position for objN
+    public Vector3 resetPositionP0 = new Vector3(-4f, 0f, -8f); //Position for obj0
+    public Vector3 resetPositionP1 = new Vector3(4f, 0f, -8f); //Position for objN
     //Random Bounds determines the 3D box which bounds the possible random positions of each object
     //The point P0 determines one corner of the box while the point P1 determines the opposite corner
-    private Vector3 randomBoundsP0 = new Vector3(-2f, 1f, -10f); //One corner of the bounding box being used
-    private Vector3 randomBoundsP1 = new Vector3(1f, 4f, -7f); //The opposite corner of the bounding box being used
+    public Vector3 randomBoundsP0 = new Vector3(-2f, 1f, -10f); //One corner of the bounding box being used
+    public Vector3 randomBoundsP1 = new Vector3(1f, 4f, -7f); //The opposite corner of the bounding box being used
 
-    /// /////////////////////////////////////////
-    /// INITIALIZATION CODE /////////////////////
-    /// /////////////////////////////////////////
+
+    //public partial class Form1 : Form
+
+    enum State { TaskStart = 0, BeginStudy, IdleStudy, BeginRecall, IdleRecall, Evaluate, BeginTaskEnd, IdleTaskEnd };
+    private State currentState;
 
     void Start()
     {
-
-        //Generate timestamp 
-
-        // Initializes an array of GameObjects of the appropriate length
-        stimuli = new GameObject[numberOfStimuli];
+        currentState = State.TaskStart;
+        currentTrialNumber = 0;
     }
 
-    /// /////////////////////////////////////////
-    /// TEST PROCEDURE CODE /////////////////////
-    /// /////////////////////////////////////////
-
-    private int phase = 0;
-    private bool runOncePhase1;
-    private bool runOncePhase2;
     void Update()
     {
-        // ??? Any difference between multiple if statements and using if else?
-
-        //If it's in the setup phase
-        if (phase == 0)
+        switch (currentState)
         {
-            //Resets the flags so it can run through the phases properly
-            runOncePhase1 = false;
-            runOncePhase2 = false;
-            //Picks random blobs, so that it never picks the same one twice in the same trial
-            //Generates the blobs with appropriate shaders and colors
-            generateRandomStimuli();
-            //Generates random locations within specified bounds, so that they never overlap
-            generateRandomPositions();
-            //for (int i = 0; i < numberOfStimuli; i++)
-            //{
-            //    stimuli[i].gameObject.tag = "Untagged";
-            //}
-            phase = 1;
-        }
+            //??? This is where I put all the things that need to happen as soon as the task starts? Like, void Start()?
+            case State.TaskStart:
 
-        // Study Phase
-        if (phase == 1)
-        {
-            if (runOncePhase1 == false)
-            {
-                Debug.Log("Entering study phase");
+                //Removes the "grabbable" tag from the meshes. Because the meshes are now centered around parent objects, you grab the parents instead.
                 //For every stimulus
-                for (int i = 0; i < numberOfStimuli; i++)
-                {
-                    //Changes the tags of the parent objects to grabbable, and the mesh children to untagged
-                    stimuli[i].gameObject.tag = "Grabbable";
-                    stimuli[i].gameObject.transform.Find("Meshes").tag = "Untagged";
-                    runOncePhase1 = true;
-                }
-            }
-        }
+                //Generates the blobs with appropriate shaders and colors
+                generateRandomStimuli();
 
-        // Recall Phase
-        if (phase == 2)
-        {
-            if (runOncePhase2 == false)
-            {
-                Debug.Log("Entering recall phase");
+                // ??? How do I tell it that it's ready to go to the next state? Do I set Transition.Next = true or something?
+
+                currentState = State.BeginStudy;
+                break;
+
+            // ??? Would it make sense to have a separate state for "Set up stimuli"?
+            case State.BeginStudy:
+                Debug.Log("Study Phase");
+                //Generates random locations within specified bounds, so that they never overlap
+                generateRandomPositions();
+
+                currentState = State.IdleStudy;
+                break;
+            case State.IdleStudy:
+                if (idleStudyConditionIsMet())
+                    currentState = State.BeginRecall;
+                break;
+            case State.BeginRecall:
+                Debug.Log("Recall Phase");
                 //For every stimulus
-                for (int i = 0; i < numberOfStimuli; i++)
+                for (int i = 0; i < stimuli.Length; i++)
                 {
+                    // ??? Should resetting the object positions to a line be at the start of Recall, at the end of Study, or in its own separate Phase? Does it matter?
                     //Resets the object positions
                     stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
+                    //Makes the objects grabbable
+                    stimuli[i].gameObject.tag = "Grabbable";
+
                 }
-                runOncePhase2 = true;
-            }
+                currentState = State.IdleRecall;
+                break;
+            case State.IdleRecall:
+                if (idleRecallConditionIsMet())
+                    currentState = State.Evaluate;
+                break;
+            case State.Evaluate:
+                //output information to logger
+                //generate summary file
+                //etc
+                currentTrialNumber++;
+                if (currentTrialNumber == expectedNumberOfTrials) //End
+                    currentState = State.BeginTaskEnd;
+                else //Reset
+                    currentState = State.TaskStart;
+                break;
+            case State.BeginTaskEnd:
+                //Put the system into a safe state
+                currentState = State.IdleTaskEnd;
+                break;
+            case State.IdleTaskEnd:
+                //Do nothing unless influenced from outside
+                break;
         }
-
-
     }
-    public void HolodeckTrialReset() { phase = 0; }
-    public void HolodeckStimulusReset() { phase = 2; }
+    
+    private bool idleRecallConditionIsMet()
+    {
+        bool allItemsMoved = true;
+        for (int i = 0; i < stimuliMovedState.Length; i++)
+            allItemsMoved = allItemsMoved && stimuliMovedState[i];
 
+        return allItemsMoved;
+    }
+
+    private bool idleStudyConditionIsMet()
+    {
+        bool allItemsTouched = true;
+        for (int i = 0; i < stimuliTouchedState.Length; i++)
+            allItemsTouched = allItemsTouched && stimuliTouchedState[i];
+
+        return allItemsTouched;
+    }
+
+    public void ObjectTouched(GameObject g)
+    {
+        for (int i = 0; i < stimuli.Length; i++)
+        {
+            if (g == stimuli[i]) stimuliTouchedState[i] = true;
+            return;
+        }
+        throw new KeyNotFoundException("No object found in stimuli array that matches touched object.");
+    }
+
+    public void ObjectMoved(GameObject g)
+    {
+        for (int i = 0; i < stimuli.Length; i++)
+        {
+            if (g == stimuli[i]) stimuliMovedState[i] = true;
+            return;
+        }
+        throw new KeyNotFoundException("No object found in stimuli array that matches touched object.");
+    }
+
+    // ??? Where do the functions get defined? Within the relevant state?
     private void generateRandomStimuli()
     {
         if (stimuli != null)
@@ -114,28 +160,34 @@ public class HolodeckStateMachine : MonoBehaviour
                 {
                 }
             }
+
+        stimuli = new GameObject[numberOfStimuli];
+        stimuliTouchedState = new bool[stimuli.Length];
+        stimuliMovedState = new bool[stimuli.Length];
+        for (int i = 0; i < stimuliTouchedState.Length; i++)
+        {
+            stimuliTouchedState[i] = false;
+            stimuliMovedState[i] = false;
+        }
         //Creates a list of integers, 1 for each color
         //Create a knuth shuffle index list of random indicies within the range of possible colors
         int[] stimNums = new int[100];
         for (int i = 0; i < 100; i++)
             stimNums[i] = i;
-        for (int i = 0; i < numberOfStimuli; i++)
+        for (int i = 0; i < stimuli.Length; i++)
         {
             int index = UnityEngine.Random.Range(i, 100 - 1);
             int tmp = stimNums[index];
             stimNums[index] = stimNums[i];
             stimNums[i] = tmp;
         }
-        //Initializes an list to hold textures created 
-        // ??? Lists vs Arrays
+        //Initializes a list to hold textures created 
         List<Texture> colors = new List<Texture>();
         colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("Yellow", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
-        //TO DO - Figure out how to dynamically create textures based on randomly generated RGB values (within certain ranges to only get pretty colors)
-        // ??? Would it be more efficient to make a 1x1 color texture and repeat it or make a single 1000x1000 color texture?
 
         //Create a knuth shuffle index list of random indicies within the range of possible colors
         int[] colorNums = new int[colors.Count];
@@ -148,19 +200,18 @@ public class HolodeckStateMachine : MonoBehaviour
             colorNums[index] = colorNums[i];
             colorNums[i] = tmp;
         }
+        
         //Actually creates the stimuli
-        for (int i = 0; i < numberOfStimuli; i++)
+        for (int i = 0; i < stimuli.Length; i++)
         {
             try
             {
                 ////Creates the material to be used for the blobs
                 stimuli[i] = Resources.Load("Blob" + stimNums[i]) as GameObject;
-                //stimuli[i].gameObject.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
                 stimuli[i].gameObject.transform.Find("Meshes").renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
-
                 stimuli[i].gameObject.transform.Find("Meshes").renderer.material.mainTexture = colors[colorNums[i]];
                 stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color = new Color(stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.r, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.g, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.b, Transparency);
-                //stimuli[i] = (GameObject)Instantiate(stimuli[i], stimLocation, Quaternion.identity);
+                //stimuli[i].gameObject.transform.Find("Meshes").tag = "Untagged";
                 stimuli[i] = (GameObject)Instantiate(stimuli[i]);
             }
             catch (NullReferenceException) { Debug.Log("NullReferenceException while attempting to generate stimuli."); /* If there's a null reference exception it means we're missing some dependent object. This shouldn't happen, but as at least once. Keep an eye on it. */ }
@@ -173,10 +224,8 @@ public class HolodeckStateMachine : MonoBehaviour
         //Position stimuli randomly according to settings (no overlaps)
         List<Rect> overlapCheckList = new List<Rect>();
         int retries = numRetries;
-        for (int i = 0; i < numberOfStimuli; i++)
+        for (int i = 0; i < stimuli.Length; i++)
         {
-            // ??? Object positions are not in the center of the objects.
-            // ??? localPosition vs. global position?
             stimuli[i].transform.localPosition = new Vector3(
             UnityEngine.Random.Range(randomBoundsP0.x, randomBoundsP0.y),
             UnityEngine.Random.Range(randomBoundsP0.y, randomBoundsP1.y),

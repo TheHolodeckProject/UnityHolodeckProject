@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Windows.Kinect;
 using System;
 
-public class HolodeckStateMachine : MonoBehaviour
+public class HolodeckStimulusManager : MonoBehaviour
 {
     public int numberOfStimuli = 3; //Static value representing number of stimuli for task
     public float Transparency = .9f; //How transparent the stimuli are (0 = invisible, 1 = opaque)

@@ -114,7 +114,6 @@ public class BodySourceView : MonoBehaviour
     private GameObject CreateBodyObject(ulong id)
     {
         GameObject body = new GameObject("Body:" + id);
-        
         for (Kinect.JointType jt = Kinect.JointType.SpineBase; jt <= Kinect.JointType.ThumbRight; jt++)
         {
             GameObject jointObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -125,6 +124,9 @@ public class BodySourceView : MonoBehaviour
             lr.SetVertexCount(2);
             lr.material = BoneMaterial;
 
+            //Makes the hands invisible
+            // ??? Can we make this more efficient? Currently we're generating lines, then making them skinny.
+            // ??? Then we're generating cubes and making them invisible
              if(jt == Kinect.JointType.HandLeft ||
                 jt == Kinect.JointType.HandRight ||
                 jt == Kinect.JointType.HandTipLeft ||
@@ -141,8 +143,9 @@ public class BodySourceView : MonoBehaviour
                  jt == Kinect.JointType.HandTipRight ||
                  jt == Kinect.JointType.ThumbLeft ||
                  jt == Kinect.JointType.ThumbRight)
-                 jointObj.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+                 jointObj.GetComponent<MeshRenderer>().enabled = false;
              else
+
                  jointObj.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             jointObj.name = jt.ToString();
             jointObj.transform.parent = body.transform;

@@ -9,27 +9,41 @@ public class KinectGrab : MonoBehaviour
     const float minGrabDist = 1.5f;
     private GameObject rhgObj = null;
     private GameObject lhgObj = null;
-    private bool grabReadyRight = false;
-    private bool grabReadyLeft = false;
+    private bool grabReadyRight;
+    private bool grabReadyLeft;
     //ADDED - Made these public so they can be accessed by other scripts
-    public bool grabStateRight = false;
-    public bool grabStateLeft = false;
+    private bool grabStateRight;
+    private bool grabStateLeft;
     private GameObject neck;
     private bool ranOnce;
     private Vector3 spinePosition;
     private Vector3 cubePosition;
-    private bool previousResetCueState = false;
-    private int state = 0;
+
+    /******************TOUCH CODE******************************/
+    private float rhInitialTouchTime;
+    private float lhInitialTouchTime;
+    private GameObject lhPreviousClosestGameObject;
+    private GameObject rhPreviousClosestGameObject;
+    private bool rhTouching;
+    private bool lhTouching;
+    public float touchTimeRequirement = 1000f; //in ms
+    public float touchDistanceThreshold = 1f;
+    /**********************************************************/
+
+    private HolodeckStateMachine stateMachine;
     // Use this for initialization
     void Start()
     {
-        //!!! - I don't think we need this line anymore, now that we're using the camera controller and not the player controller. Remove if the mouse problem hasn't come up.
-        //GameObject.Find("OVRPlayerController").GetComponent<OVRPlayerController>().SetSkipMouseRotation(true);
+        stateMachine = this.gameObject.GetComponent<HolodeckStateMachine>();
+        grabStateRight = false;
+        grabStateLeft = false;
+        grabReadyRight = false;
+        grabReadyLeft = false;
     }
 
     // Update is called once per frame
     void Update()
-    {        
+    {
         //Get body objects (hands) and grabbable objects for manipulation
         BodySourceManager bodyManager = GameObject.Find("BodyManager").GetComponent<BodySourceManager>();
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Grabbable");
@@ -39,15 +53,19 @@ public class KinectGrab : MonoBehaviour
         if (leftHand == null || rightHand == null) return;
         try
         {
+
+            
             //Get the nearest objects to the body
             Body[] bodies = bodyManager.GetData();
             Body activeBody = null;
+            int activeBodies = 0;
             /// ??? What's this doing? Is it saying "if there's more than one skeleton in the scene, use the first one"?
             for (int i = 0; i < bodies.Length; i++)
             {
                 if (bodies[i].IsTracked)
                 {
                     activeBody = bodies[i];
+                    activeBodies++;
                 }
             }
 
@@ -56,34 +74,28 @@ public class KinectGrab : MonoBehaviour
             GameObject rhObj = getClosestObject(rightHand.transform.position, objs);
             //Figure out how far away the hand is from the closest object
             float rightDist = Vector3.Distance(rhObj.transform.position, rightHand.transform.position);
-            //If the closest object IS NOT in the grabbable distance
-            if (rightDist > minGrabDist)
-            {
-                grabReadyRight = false;
-            }
-            //If the closest object IS in the grabbable distance and the hand is open
-            //CHANGED FROM ELSE IF TO IF
+
             if (activeBody.HandRightState == HandState.Open && activeBody.HandRightConfidence == TrackingConfidence.High)
-            {
-                //Establishes that it's possible to grab something now
                 grabReadyRight = true;
-            }
-            // ??? You mentioned that boolean checks were super efficent to do in updates
-            // ??? Would it be more efficient to do the boolean checks for grabReady and grabState in a separate if statement
-            // ??? and only do the handstate checks if they're true?
             //If nothing is currently being grabbed, an object is ready to be grabbed, and the Kinect is confident the hand is closed
-            if (grabStateRight == false && grabReadyRight == true && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
+            //if (rightDist < minGrabDist && grabStateRight == false && grabReadyRight == true && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
+            if(!grabStateRight && activeBody.HandRightState == HandState.Closed)
             {
+                Debug.Log("Grabbed!");
                 //Assign the closest object to the grabbed object variable
                 rhgObj = rhObj;
                 //Assign the grabbed object as a child of the right hand
                 rhgObj.transform.parent = rightHand.transform;
+                //Notify the state machine that this object was "moved"
+                //stateMachine.ObjectMoved(rhgObj);
                 //Change the grab state to true
                 grabStateRight = true;
+                //grabReadyRight = false;
             }
             //If you had been holding something but Kinect is confident your hand is no longer closed
-            if (grabStateRight == true && activeBody.HandRightState != HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
+            else if (grabStateRight == true && activeBody.HandRightState != HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
             {
+                Debug.Log("Ungrabbed!");
                 //Make the grabbed object no longer be a child of the hand
                 rhgObj.transform.parent = null;
                 rhgObj = null;
@@ -91,7 +103,7 @@ public class KinectGrab : MonoBehaviour
             }
 
             //LEFT HAND
-            //Define the positions of the closest object to the right hand
+            /*//Define the positions of the closest object to the right hand
             GameObject lhObj = getClosestObject(leftHand.transform.position, objs);
             //Figure out how far away the hand is from the closest object
             float leftDist = Vector3.Distance(lhObj.transform.position, leftHand.transform.position);
@@ -101,20 +113,23 @@ public class KinectGrab : MonoBehaviour
                 grabReadyLeft = false;
             }
             //If the closest object IS in the grabbable distance and the hand is open
-            if (activeBody.HandLeftState == HandState.Open && activeBody.HandLeftConfidence == TrackingConfidence.High)
+            else if (activeBody.HandLeftState == HandState.Open && activeBody.HandLeftConfidence == TrackingConfidence.High)
             {
                 //Establishes that it's possible to grab something now
                 grabReadyLeft = true;
             }
             //If nothing is currently being grabbed, an object is ready to be grabbed, and the Kinect is confident the hand is closed
-            if (grabStateLeft == false && grabReadyLeft == true && activeBody.HandLeftState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
+            else if (grabStateLeft == false && grabReadyLeft == true && activeBody.HandLeftState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
             {
                 //Assign the closest object to the grabbed object variable
                 lhgObj = lhObj;
                 //Assign the grabbed object as a child of the right hand
                 lhgObj.transform.parent = leftHand.transform;
+                //Notify the state machine that this object was "moved"
+                stateMachine.ObjectMoved(rhgObj);
                 //Change the grab state to true
                 grabStateLeft = true;
+                grabReadyLeft = false;
             }
             //If you had been holding something but Kinect is confident your hand is no longer closed
             if (grabStateLeft == true && activeBody.HandLeftState != HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
@@ -123,35 +138,83 @@ public class KinectGrab : MonoBehaviour
                 lhgObj.transform.parent = null;
                 lhgObj = null;
                 grabStateLeft = false;
-            }
+            }*/
+            //Define the positions of the closest object to the right hand
+            GameObject lhObj = getClosestObject(leftHand.transform.position, objs);
+            //Figure out how far away the hand is from the closest object
+            float leftDist = Vector3.Distance(lhObj.transform.position, leftHand.transform.position);
 
-            // ??? This happens in any state. The simplest thing would be to call the phase variable from the stimulus manager, but I seem to remember you saying that was a bad practice
-
-            bool currentResetCueState = grabStateRight == false
-                                     && grabStateLeft == false
-                                     && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High
-                                     && activeBody.HandLeftState == HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High;
-            bool risingEdge = false;
-            if (previousResetCueState == false && currentResetCueState == true) risingEdge = true;
-            //Stimulus Reset Cue
-            if (state == 0 && risingEdge)
+            if (activeBody.HandLeftState == HandState.Open && activeBody.HandLeftConfidence == TrackingConfidence.High)
+                grabReadyLeft = true;
+            //If nothing is currently being grabbed, an object is ready to be grabbed, and the Kinect is confident the hand is closed
+            //if (rightDist < minGrabDist && grabStateRight == false && grabReadyRight == true && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
+            if (!grabStateLeft && activeBody.HandLeftState == HandState.Closed)
             {
-                Debug.Log("Resetting Stimuli");
-                GameObject.Find("StimulusManager").GetComponent<HolodeckStateMachine>().HolodeckStimulusReset();
-                state = 1;
+                Debug.Log("Grabbed!");
+                //Assign the closest object to the grabbed object variable
+                lhgObj = lhObj;
+                //Assign the grabbed object as a child of the right hand
+                lhgObj.transform.parent = leftHand.transform;
+                //Notify the state machine that this object was "moved"
+                //stateMachine.ObjectMoved(rhgObj);
+                //Change the grab state to true
+                grabStateLeft = true;
+                //grabReadyRight = false;
             }
-            
-            // ??? Because it uses the same hand state (both closed, not grabbing anything), it keeps quickly switching between resetting stimulus and trial. How to fix?
-
-            ////Trial Reset Cue
-            else if(state == 1 && risingEdge)
+            //If you had been holding something but Kinect is confident your hand is no longer closed
+            else if (grabStateLeft == true && activeBody.HandLeftState != HandState.Closed && activeBody.HandLeftConfidence == TrackingConfidence.High)
             {
-                Debug.Log("Resetting Trial");
-                GameObject.Find("StimulusManager").GetComponent<HolodeckStateMachine>().HolodeckTrialReset();
-                state = 0;
+                Debug.Log("Ungrabbed!");
+                //Make the grabbed object no longer be a child of the hand
+                lhgObj.transform.parent = null;
+                lhgObj = null;
+                grabStateLeft = false;
             }
-            //Debug.Log("Current State: " + (risingEdge ? "Rising" : fallingEdge ? "Falling" : high ? "High" : low ? "Low" : "Error"));
-            previousResetCueState = currentResetCueState;
+            /******************TOUCH CODE******************************/
+            //Right Hand
+            bool previousRhTouchState = rhTouching;
+            if (rightDist < touchDistanceThreshold)
+            {
+                if (rhPreviousClosestGameObject == null || rhPreviousClosestGameObject != rhgObj)
+                {
+                    rhPreviousClosestGameObject = rhgObj;
+                    rhInitialTouchTime = Time.time;
+                }
+                if (Time.time - rhInitialTouchTime > touchTimeRequirement)
+                {
+                    rhTouching = true;
+                }
+            }
+            else
+            {
+                rhPreviousClosestGameObject = null;
+                rhTouching = false;
+            }
+
+            if (previousRhTouchState == false && rhTouching == true) stateMachine.ObjectTouched(rhgObj);
+
+            //Left Hand
+            bool previousLhTouchState = lhTouching;
+            if (leftDist < touchDistanceThreshold)
+            {
+                if (lhPreviousClosestGameObject == null || lhPreviousClosestGameObject != lhgObj)
+                {
+                    lhPreviousClosestGameObject = lhgObj;
+                    lhInitialTouchTime = Time.time;
+                }
+                if (Time.time - lhInitialTouchTime > touchTimeRequirement)
+                {
+                    lhTouching = true;
+                }
+            }
+            else
+            {
+                lhPreviousClosestGameObject = null;
+                lhTouching = false;
+            }
+
+            if (previousLhTouchState == false && lhTouching == true) stateMachine.ObjectTouched(lhgObj);
+            /**********************************************************/
         }
         catch (NullReferenceException)
         {
