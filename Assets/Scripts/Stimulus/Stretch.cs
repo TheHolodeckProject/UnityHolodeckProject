@@ -3,6 +3,7 @@ using System.Collections;
 using Leap;
 
 //TO ADD
+// // Get stretch scripts to output if they're colliding with finger or thumb
 //1) Moving & Rotating - If the thumb and index of a single hand grab different colliders on the cube, then you can move and rotate - how to do?
 //2) Using the Leap pinch gesture from the MagneticPinch script instead of colliders. Might be more stable?
 // Would also make so you cant pinch and wipe your hand through an object to grab. We had the same issue with KinectGrab and solved it by detecting a grab and then looking for a rising edge.
@@ -18,12 +19,11 @@ public class Stretch : MonoBehaviour
     private Vector3 cubeCurrentPosition;
     private Vector3 cubeCurrentScale;
     private Vector3 thumbPreviousPosition;
-
     void Start()
     {
         fingertouch = false;
         thumbtouch = false;
-        cube = GameObject.Find("StrechableCube");
+        cube = GameObject.Find("StrechableCubeBiggerColliders");
     }
 
     //Whenever something starts colliding with the cube, checks if it's the thumb or the index finger.
@@ -32,6 +32,7 @@ public class Stretch : MonoBehaviour
         //Checks the list of all the things colliding with the cube to see if it contains the index fingertip and the thumb fingertip
         foreach (ContactPoint contact in col.contacts)
         {
+            // !!! Make this work with all fingers
             //If the tip of the index finger is touching
             if (contact.otherCollider.gameObject.transform.name == "bone3" && contact.otherCollider.gameObject.transform.parent.name == "index")
             {

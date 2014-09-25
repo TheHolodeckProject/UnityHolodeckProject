@@ -26,7 +26,8 @@ public class MagneticPinch : MonoBehaviour {
   }
 
   void OnPinch(Vector3 pinch_position) {
-    pinching_ = true;
+      Debug.Log("Pinching");
+      pinching_ = true;
 
     // Check if we pinched a movable object and grab the closest one that's not part of the hand.
     Collider[] close_things = Physics.OverlapSphere(pinch_position, magnetDistance);
