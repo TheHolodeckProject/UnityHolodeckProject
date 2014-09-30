@@ -13,7 +13,7 @@ using Leap;
 public class ConfidenceTransparency : MonoBehaviour {
 
   private Material material;
-  public bool Enabled = false;
+
   void Start() {
     material = new Material(Shader.Find("Transparent/Diffuse"));
     Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -23,16 +23,19 @@ public class ConfidenceTransparency : MonoBehaviour {
   }
 
   void Update() {
-      if (Enabled)
-      {
-          Hand leap_hand = GetComponent<HandModel>().GetLeapHand();
+    Hand leap_hand = GetComponent<HandModel>().GetLeapHand();
+    float confidence = leap_hand.Confidence;
 
-          if (leap_hand != null)
-          {
-              Color new_color = material.color;
-              new_color.a = leap_hand.Confidence;
-              material.color = new_color;
-          }
-      }
+    if (leap_hand != null) {
+      Renderer[] renders = GetComponentsInChildren<Renderer>();
+      foreach (Renderer render in renders)
+        SetRendererAlpha(render, confidence);
+    }
+  }
+
+  protected void SetRendererAlpha(Renderer render, float alpha) {
+    Color new_color = render.material.color;
+    new_color.a = alpha;
+    render.material.color = new_color;
   }
 }
