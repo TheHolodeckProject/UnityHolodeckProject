@@ -4,7 +4,7 @@ using Leap;
 
 public class PositionLeapMotion : MonoBehaviour {
 
-    private GameObject oculuscamera;
+    //private GameObject oculuscamera;
     private GameObject rightcamera;
     private Quaternion camrotation;
 //    private bool leftHandLocked = false;
@@ -12,7 +12,7 @@ public class PositionLeapMotion : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        oculuscamera = GameObject.Find("OVRCameraController");
+       // oculuscamera = GameObject.Find("OVRCameraController");
         rightcamera = GameObject.Find("OVRCameraController/CameraRight");
     }
 	
