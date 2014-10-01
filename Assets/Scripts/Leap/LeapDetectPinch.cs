@@ -11,6 +11,8 @@ public class LeapDetectPinch : MonoBehaviour {
   public bool pinching;
   public Vector3 thumbPosition;
   public Vector3 indexPosition;
+  public Vector3 thumbRotation;
+  public Vector3 indexRotation;
 
   void Start() {
     pinching = false;
@@ -31,12 +33,17 @@ public class LeapDetectPinch : MonoBehaviour {
     Hand leap_hand = hand_model.GetLeapHand();
           if (leap_hand == null)
               return;
+
     // Scale trigger distance by thumb proximal bone length.
     Vector leap_thumb_tip = leap_hand.Fingers[0].TipPosition;
     Vector leap_index_tip = leap_hand.Fingers[1].TipPosition;
+    Vector leapThumbDirection = leap_hand.Fingers[0].Direction;
+    Vector leapIndexDirection = leap_hand.Fingers[1].Direction;
                //Defines the position of the pinch as the thumb tip
            thumbPosition = leap_thumb_tip.ToUnityScaled(true);
            indexPosition = leap_index_tip.ToUnityScaled(true);
+           thumbRotation = leapThumbDirection.ToUnity() * 90;
+           indexRotation = leapIndexDirection.ToUnity() * 90;
 
     float proximal_length = leap_hand.Fingers[0].Bone(Bone.BoneType.TYPE_PROXIMAL).Length;
     float trigger_distance = proximal_length * pinchDistanceRatio;
