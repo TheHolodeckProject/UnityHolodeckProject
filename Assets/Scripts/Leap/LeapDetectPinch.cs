@@ -57,7 +57,10 @@ public class LeapDetectPinch : MonoBehaviour {
         {
             Vector leap_joint_position = finger.Bone((Bone.BoneType)j).NextJoint;
             if (leap_joint_position.DistanceTo(leap_thumb_tip) < trigger_distance)
+            {
                 trigger_pinch = true;
+                Debug.Log("trigger distance = " + trigger_distance + ". Finger distance = " + leap_joint_position.DistanceTo(leap_thumb_tip));
+            }
         }
     }
 
