@@ -51,8 +51,10 @@ public class LeapStretchStateMachine : MonoBehaviour
                     pinching = false;
                 break;
             case State.StartStretch:
-                StartStretch();
+                State nextState = StartStretch();
+                currentState = nextState;
                 // ??? Is there a reason to put this in the StartStretch function or here in the switch statement?
+                // Each functino returns the state it wants to move to
                 if (stretchHands == 1)
                     currentState = State.Stretch;
                 else if (stretchHands == 2)
@@ -88,7 +90,7 @@ public class LeapStretchStateMachine : MonoBehaviour
     }
 
     // ??? Does it make sense to define these here, within the function, or at the top of the whole script?
-    private float pinchDistanceRatio = 0.7f;
+    private const float pinchDistanceRatio = 0.7f;
     void LeapDetectPinch()
     {
         onPinch = false;
@@ -132,10 +134,11 @@ public class LeapStretchStateMachine : MonoBehaviour
         }
     }
 
-    void StartStretch()
+    State StartStretch()
     {
         stretching = true;
         stretchHands = stretchHands + 1;
+        return State.Stretch;
         //Debug.Log("Entering stretch state. StretchHands = " + stretchHands);
     }
     private void CheckCubeSize()
@@ -192,12 +195,12 @@ public class LeapStretchStateMachine : MonoBehaviour
         thumbTipPosition = handModel.transform.TransformPoint(leapHand.Fingers[0].TipPosition.ToUnityScaled());
         //Defines how much the thumb has moved since the last frame. This position difference will be used to stretch the cube      
         Vector3 thumbDifference = thumbTipPosition - thumbTipPrevPosition;
-
+        thumbDifference = stretchCube.transform.InverseTransformDirection(thumbDifference);
         // ??? How to modify scale and position based on object rotation?
 
         thumbTipPrevPosition = thumbTipPosition;
         //Moves the cube's position based on how the thumb's moved
-        stretchCube.transform.position = new Vector3(stretchCube.transform.position.x + thumbDifference.x / 2, stretchCube.transform.position.y + thumbDifference.y / 2, stretchCube.transform.position.z + thumbDifference.z / 2);
+        stretchCube.transform.position = stretchCube.transform.position + stretchCube.transform.TransformDirection(thumbDifference / 2);//new Vector3(stretchCube.transform.position.x - thumbDifference.x / 2, stretchCube.transform.position.y - thumbDifference.y / 2, stretchCube.transform.position.z - thumbDifference.z / 2);
         //Applies different transformations to scale depending on which corner is being grabbed
         switch (stretchCorner)
         {
