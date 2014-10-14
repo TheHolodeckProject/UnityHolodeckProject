@@ -1,516 +1,572 @@
-﻿//using UnityEngine;
-//using System.Collections;
-//using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 
-//public struct Phase{
-//    int num;
-//    string pattern;
-//    bool timed;
-//    float length , wait , study , rest , completedTrials ;
+public struct Phase{
+    int num;
+    string pattern;
+    bool timed;
+    float length , wait , study , rest , completedTrials ;
   
 
-//    public Phase(int num, bool timed)
-//    {
-//        this.num = num;
-//        this.timed = timed;
-//        pattern = "";
-//        length =  wait = study = rest = completedTrials = 0;
-//    }
+    public Phase(int num, bool timed)
+    {
+        this.num = num;
+        this.timed = timed;
+        pattern = "";
+        length =  wait = study = rest = completedTrials = 0;
+    }
 
 
-//    public Phase(int num,  bool timed, float length, float wait, float study, float rest)
-//    {
-//        this.num = num;
-//        pattern = "";
-//        this.timed = timed;
-//        this.length = length;
-//        this.wait = wait;
-//        this.study = study;
-//        this.rest = rest;
-//        completedTrials = 0;
-//    }
+    public Phase(int num,  bool timed, float length, float wait, float study, float rest)
+    {
+        this.num = num;
+        pattern = "";
+        this.timed = timed;
+        this.length = length;
+        this.wait = wait;
+        this.study = study;
+        this.rest = rest;
+        completedTrials = 0;
+    }
 
     
-//};
+};
 
 
-//public class SearchSpace : MonoBehaviour {
+public class SearchSpace : MonoBehaviour {
     
-//    // Access Kinect data to make bounds for search space   
-//    /* public GameObject BodySourceView;
-//    private BodySourceView _BodySourceView;
-//    private float shoulderHeight;
-//    private float shoulderWidth;
-//    private float armLength;*/
+    // Access Kinect data to make bounds for search space   
+    /* public GameObject BodySourceView;
+    private BodySourceView _BodySourceView;
+    private float shoulderHeight;
+    private float shoulderWidth;
+    private float armLength;*/
 
-//    /* private float shoulderHeight = 4.396132f;
-//    private float shoulderWidth = Vector3.Distance(new Vector3(-1.540944f, 4.396132f, 15.13844f), new Vector3( 2.052144f, 4.249248f, 15.0819f));
-//    private float armLength = Vector3.Distance(new Vector3(-1.540944f, 4.396132f, 15.13844f), new Vector3(-2.761098f, 2.57422f, 14.22677f)) + Vector3.Distance(new Vector3(-2.761098f, 2.57422f, 14.22677f), new Vector3(-1.349743f, 1.365262f, 11.68927f));*/
+    /* private float shoulderHeight = 4.396132f;
+    private float shoulderWidth = Vector3.Distance(new Vector3(-1.540944f, 4.396132f, 15.13844f), new Vector3( 2.052144f, 4.249248f, 15.0819f));
+    private float armLength = Vector3.Distance(new Vector3(-1.540944f, 4.396132f, 15.13844f), new Vector3(-2.761098f, 2.57422f, 14.22677f)) + Vector3.Distance(new Vector3(-2.761098f, 2.57422f, 14.22677f), new Vector3(-1.349743f, 1.365262f, 11.68927f));*/
 	
     
-//    /* Use this for initialization, 3 parameters received on Start, shoulder height, shoulder distance, and extended arm length
-//         Parameters to be used to position and scale searchspace*/
+    /* Use this for initialization, 3 parameters received on Start, shoulder height, shoulder distance, and extended arm length
+         Parameters to be used to position and scale searchspace*/
 
-//    private enum phaseTypes { Load, SearchBck, Wait, SearchFwd };
-//    private enum modes { Practice, TimedFwd, TimedBckwd, UTimedFwd, UTimedBckwd };
+    private enum phaseTypes { Load, SearchBck, Wait, SearchFwd };
+    private enum modes { Practice, TimedFwd, TimedBckwd, UTimedFwd, UTimedBckwd };
 
-//    private int numSpheres;
-//    [SerializeField] private int activeSphere;
-//    GameObject[] findSpheres;
-//    float sphereRatio;
-//    StimulusScript myStimScript;
-//    StimulusScript activeStimScript;
-//    Phase[] modeAry;
-//    private bool randomPattern;
-//    private bool timed;
-//    private string message = "";
-//    private int numFound;
-//    private int startClick = 0;
-//    private int mode;
-//    private string statusMssg = "";
-//    private Vector3[] corners = new Vector3[4];
-//    private Vector3 rand;
-//    private BluetoothScript rightHand;
-    
+    private int numSpheres;
+    [SerializeField] private int activeSphere;
+    GameObject[] findSpheres;
+    float sphereRatio;
+    StimulusScript myStimScript;
+    StimulusScript activeStimScript;
+    Phase[] modeAry;
+    private bool randomPattern;
+    private bool timed;
+    private string message = "";
+    private int numFound;
+    private int startClick = 0;
+    private int mode;
+    private string statusMssg = "";
+    private Vector3[] gameObjcorners = new Vector3[8];
+	private Vector3 rand;
+	//private BluetoothScript rightHand;
+    GameObject randShape;
+    Vector3[] randShapeCorners = new Vector3[8];
+
+    public GUIStyle myGUIStyle;
 
    
-//    //Trial variables
-//    private int phase = 0;
-//    private float phaseWaitTime = 10; //in s
-//    private float phaseWaitTimeStart;
-//    private bool phaseInit;
-//    private float testTime = 5000f;
-//    private float searchTime = 100000f; //in s
-//    private float restTime = 3.000f; //in s
-//    private float tStart;
-//    private int numberOfCompletedTrials = 0;
-//    private int expectedNumberOfTrials;
+    //Trial variables
+    private int phase = 0;
+    private float phaseWaitTime = 10; //in s
+    private float phaseWaitTimeStart;
+    private bool phaseInit;
+    private float testTime = 5000f;
+    private float searchTime = 5f; //in s
+    private float restTime = 3.000f; //in s
+    private float tStart;
+    private int numberOfCompletedTrials = 0;
+    private int expectedNumberOfTrials;
 
-//    void Awake()
-//    {
+    void Awake()
+    {
+        randShape = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        randShape.layer = 8;
+        randShape.name = "RandShape";
+        randShape.renderer.enabled = false;
+        Destroy(randShape.collider);
+        Destroy(randShape.transform.rigidbody);
+       
+        gameObjcorners = CalcSearchCorners(gameObject);
+        Color temp = new Color();
+        temp.a = .1f;
+        gameObject.renderer.material.color= temp;
+
         
-//        Color tempcolor = gameObject.renderer.material.color;
-//        tempcolor.a = .2f; //0 is invis, 1 is fully visible
-//        gameObject.renderer.material.color = tempcolor;
-//    }
+       // foreach (Vector3 printVec in gameObjcorners) print("Corner is: (" + printVec.x + ", " + printVec.y + ", " + printVec.z + ")"); // for debugging
+    }
     
 
-//     void Start () {
-         
-//        rightHand = new BluetoothScript();
-//        print (rightHand);
-//        sphereRatio = 1f / ( PlayerPrefs.GetInt("Difficulty") * 5);   // scaling purposes
-//         modeAry = new Phase[System.Enum.GetValues(typeof(phaseTypes)).Length];
-//         setPatternBool();
-//         setTimedBool();
+	 void Start () {
+		//rightHand = new BluetoothScript();
+		//print (rightHand);
+		sphereRatio = 1f / ( PlayerPrefs.GetInt("Difficulty") * 5);   // scaling purposes
+         modeAry = new Phase[System.Enum.GetValues(typeof(phaseTypes)).Length];
+         setPatternBool();
+         setTimedBool();
         
-//        for (int i = 0; i < modeAry.Length  ; i++)
-//        {
-//            if (timed & i != 0) modeAry[i] = new Phase(i, true, testTime, phaseWaitTime, searchTime, restTime);
-//            else modeAry[i] = new Phase(i, false);
-//        }
+        for (int i = 0; i < modeAry.Length  ; i++)
+        {
+            if (timed & i != 0) modeAry[i] = new Phase(i, true, testTime, phaseWaitTime, searchTime, restTime);
+            else modeAry[i] = new Phase(i, false);
+        }
          
-//         //Use with Kevin's Kinect scripts
-//        /*
-//        _BodySourceView = BodySourceView.GetComponent<BodySourceView>();
-//        shoulderHeight = _BodySourceView.getShoulderHeight();
-//        shoulderWidth = _BodySourceView.getShoulderWidth();
-//        armLength = _BodySourceView.getArmLength();
-//         */
+         //Use with Kevin's Kinect scripts
+        /*
+        _BodySourceView = BodySourceView.GetComponent<BodySourceView>();
+        shoulderHeight = _BodySourceView.getShoulderHeight();
+        shoulderWidth = _BodySourceView.getShoulderWidth();
+        armLength = _BodySourceView.getArmLength();
+         */
 
-//        numSpheres = PlayerPrefs.GetInt("Number of Stimuli");
+        numSpheres = PlayerPrefs.GetInt("Number of Stimuli");
 
-//        // Array to hold all stimuli
+        // Array to hold all stimuli
          
         
-//         findSpheres = new GameObject[numSpheres];
+         findSpheres = new GameObject[numSpheres];
 
+       
+        if (!randomPattern) PatternSpheres();
+        else GenerateSpheres();
 
-//        if (!randomPattern) PatternSpheres(numSpheres);
-//        else RandomSpheres(numSpheres);
-
-//        GameObject.Find("Logger").GetComponent<Logger>().BeginLogging();
-//        phaseInit = true;
+      //  GameObject.Find("Logger").GetComponent<Logger>().BeginLogging();
+        phaseInit = true;
          
 
         
-//     }
+     }
 	
-//    // Update is called once per frame
-//    void Update () {
+	// Update is called once per frame
+	void Update () {
 
        
        
 
-//        if (phase == 1 )
-//        {
+        if (phase == 1 )
+        {
             
-//            if (phaseInit)
-//            {
+            if (phaseInit)
+            {
                 
-//               if(timed) tStart = Time.time;
-//                phaseInit = false;
-//                activeSphere = 0;
-//                activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
-//                activeStimScript.toggleActive();
+               if(timed) tStart = Time.time;
+                phaseInit = false;
+                activeSphere = 0;
+                activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
+                activeStimScript.setThisActive();
 
-//            }
+            }
+
+            if (!timed && activeStimScript.getFound() && !phaseChangeFlag())
+            {
+                print("ActiveSphere is: " + active);
+                //print("I'm here"); /* For debugging */
+                activeStimScript.setThisActive();
+                activeSphere++;
+                activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
+                activeStimScript.setThisActive();
+            }
             
             
-//            if ((Time.time - tStart < searchTime && timed) )
-//            {
+            if (Time.time - tStart < searchTime && timed)
+            {
                 
-//                if (activeStimScript.getFound() && !phaseChangeFlag())
-//                {
-//                    print("ActiveSphere is: " + active);
-//                    //print("I'm here"); /* For debugging */
-//                    activeStimScript.toggleActive();
-//                    activeSphere++;
-//                    activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
-//                    activeStimScript.toggleActive();
-//                }
-//                float t = (searchTime - (Time.time - tStart));
+                if (activeStimScript.getFound() && !phaseChangeFlag())
+                {
+                    print("ActiveSphere is: " + active);
+                    //print("I'm here"); /* For debugging */
+                    activeStimScript.setThisActive();
+                    activeSphere++;
+                    activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
+                    activeStimScript.setThisActive();
+                }
+                float t = (searchTime - (Time.time - tStart));
 
 
-//                if (t < .02f) timeLeft = 0 + "";
-//                else timeLeft = t + "";
+                if (t < .02f) timeLeft = 0 + "";
+                else timeLeft = t + "";
 
-//            }
+            }
 
-//            if (phaseChangeFlag())
-//            {
+            if (phaseChangeFlag())
+            {
                 
-//                statusMssg = "TRIAL COMPLETED; Please Wait";       
-//                phase = 2;
+                statusMssg = "TRIAL COMPLETED; Please Wait";       
+                phase = 2;
                 
-//                    }
-//            else if (timed && Time.time - tStart > searchTime && !phaseChangeFlag())
-//            {
-//                phase = 0;
-//                statusMssg = " Time expired; Click to reset";
-//                phaseInit = true;
-//            }
+                    }
+            else if (timed && Time.time - tStart > searchTime && !phaseChangeFlag())
+            {
+                phase = 0;
+                statusMssg = " Time expired; Click to reset";
+                phaseInit = true;
+            }
 
-//                    }
-//        if (phase == 2)
-//        {
-//            if (phaseInit)
-//            {
+                    }
+        if (phase == 2)
+        {
+            if (phaseInit)
+            {
                 
-//                tStart = Time.time;
-//                phaseInit = false;
+                tStart = Time.time;
+                phaseInit = false;
                
 
-//            }
+            }
 
 
-//            if (Time.time - tStart > phaseWaitTime)
-//            {
+            if (Time.time - tStart > phaseWaitTime)
+            {
 
-//                numFound = 0;
-//                startClick = 0;
-//                phaseInit = true;
-//                foreach (GameObject sphere in findSpheres)
-//                {
-//                    activeStimScript = sphere.GetComponent("StimulusScript") as StimulusScript;
-//                    activeStimScript.hide();
-//                }
-//                List<GameObject> delList = new List<GameObject>();
-//                delList.AddRange(GameObject.FindGameObjectsWithTag("TestCube"));
-//                foreach (GameObject delObj in delList) Destroy(delObj);
-//                statusMssg = "Click Start for next trial"; 
-//            }
-//        }
+                numFound = 0;
+                startClick = 0;
+                phaseInit = true;
+                foreach (GameObject sphere in findSpheres)
+                {
+                    activeStimScript = sphere.GetComponent("StimulusScript") as StimulusScript;
+                    activeStimScript.hide();
+                }
+                List<GameObject> delList = new List<GameObject>();
+                delList.AddRange(GameObject.FindGameObjectsWithTag("TestCube"));
+                foreach (GameObject delObj in delList) Destroy(delObj);
+                statusMssg = "Click Start for next trial"; 
+            }
+        }
         
 
-//        if (phase == 3)
-//        {
+        if (phase == 3)
+        {
 
             
-//            if (phaseInit)
-//            {
-                
-//                if (timed) tStart = Time.time;
-//                phaseInit = false;
-//                activeSphere = findSpheres.Length - 1;
-//                activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
-//                activeStimScript.toggleActive();
-
-//            }
-//            else
-//            {
-//                activeSphere = findSpheres.Length - numFound;
-//            }
-
-//            if (Time.time - tStart < searchTime && timed)
-//            {
-               
-//                if (activeStimScript.getFound() && !phaseChangeFlag())
-//                {
-//                   // print("Numfound is: " + numFound);
-//                    //print("I'm here"); /* For debugging */
-//                    activeStimScript.toggleActive();
-//                    activeSphere--;
-//                    activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
-//                    activeStimScript.toggleActive();
-//                }
-//                float t = (searchTime - (Time.time - tStart));
-
-
-//                if (t < .02f) timeLeft = 0 + "";
-//                else timeLeft = t + "";
-
-//            }
-
-//            if (phaseChangeFlag())
-//            {
-
-//                statusMssg = "Backward Trial Complete; Click to reset or exit";
-//                phase = 2;
-
-//            }
-//            else if (timed && Time.time - tStart > searchTime && !phaseChangeFlag())
-//            {
-//                phase = 0;
-//                message = "Time Expired";
-//                statusMssg = "Click to reset";
-//                phaseInit = true;
-//            }
            
-//        }
+           
+        }
 
             
 	
-//    }
+	}
 
 
     
-//    //randomly generate # of spheres contained within this gameobject
-//    void RandomSpheres(int num )
-//    {
-		
-		
-//        // creates # of desired spheres, sets their color to yellow, calls isFound method to hide spheres
-//        for (int i = 0; i < num; i++) {
-//            findSpheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-//            findSpheres[i].layer = 8;
-//            findSpheres[i].renderer.enabled = false;
-//            findSpheres[i].collider.isTrigger = true;
-//            findSpheres[i].AddComponent("Rigidbody");
-//            findSpheres[i].rigidbody.useGravity = false;
-//            findSpheres[i].rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-//            findSpheres[i].renderer.material.color = Color.green;
-//            findSpheres[i].tag = "Unfound";
-//            findSpheres[i].AddComponent("StimulusScript");
-//            myStimScript = findSpheres[i].GetComponent("StimulusScript") as StimulusScript;
+    //randomly generate # of spheres contained within this gameobject
+    void GenerateSpheres( bool randFlag = false )
+    {
+        int j = Mathf.RoundToInt(Random.Range(0, randShapeCorners.Length - 1));
+        
+		// creates # of desired spheres, sets their color to yellow, calls isFound method to hide spheres
+		for (int i = 0; i < numSpheres; i++) {
             
+            findSpheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            findSpheres[i].layer = 8;
+            findSpheres[i].renderer.enabled = false;
+            findSpheres[i].collider.isTrigger = true;
+            findSpheres[i].AddComponent("Rigidbody");
+            findSpheres[i].rigidbody.useGravity = false;
+            findSpheres[i].rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            findSpheres[i].renderer.material.color = Color.green;
+            findSpheres[i].tag = "Unfound";
+            findSpheres[i].AddComponent("StimulusScript");
+            myStimScript = findSpheres[i].GetComponent("StimulusScript") as StimulusScript;
+            if (randFlag)
+            {
+                if (!(i > randShapeCorners.Length))
+                {
+                    //print("J is : " + j);    Debug
+                    findSpheres[i].transform.position = randShapeCorners[j];
 
-//            // randomly place spheres, position bounded by searchSpace extents
-//            findSpheres[i].transform.localScale = gameObject.transform.localScale*sphereRatio;
-//            findSpheres [i].transform.localPosition = new Vector3 ( Random.Range(gameObject.transform.position.x-gameObject.transform.localScale.x/2, 
-//                gameObject.transform.position.x + gameObject.transform.localScale.x/2), 
-//                Random.Range(gameObject.transform.position.y-gameObject.transform.localScale.y/2, gameObject.transform.position.y + gameObject.transform.localScale.y/2),
-//                Random.Range(gameObject.transform.position.z-gameObject.transform.localScale.z/2, gameObject.transform.position.z + gameObject.transform.localScale.z/2));
-//            } 
-//        //Do we need to worry about overlap of stimuli?
-// }
+                    if (j != randShapeCorners.Length - 1) j++;
+                    else j = 0;
+                }
+                else print("Cannot place any more stimuli without second pattern");
+                
 
-//    //generate spheres in a polygonal pattern; polygon determined by number of vertices/sides (int sides) parameter
-//    void PatternSpheres(int num)
-//    {
+                
+            }
+            else{
+            // randomly place spheres, position bounded by searchSpace extents
+            
+			findSpheres [i].transform.localPosition = new Vector3 ( Random.Range(gameObject.transform.position.x-gameObject.transform.localScale.x/2, 
+                gameObject.transform.position.x + gameObject.transform.localScale.x/2), 
+                Random.Range(gameObject.transform.position.y-gameObject.transform.localScale.y/2, gameObject.transform.position.y + gameObject.transform.localScale.y/2),
+                Random.Range(gameObject.transform.position.z-gameObject.transform.localScale.z/2, gameObject.transform.position.z + gameObject.transform.localScale.z/2));
+            }
+            findSpheres[i].transform.localScale = gameObject.transform.localScale * sphereRatio;
+        }
+        //Do we need to worry about overlap of stimuli?
+ }
+
+    //generate spheres in a polygonal pattern- just using cube pattern for now; 
+    void PatternSpheres()
+    {
         
-//       /* float intAngle = -1; // -1 will represent that a circular pattern is desired
-//        Vector3 shapeCenter = gameObject.transform.position;  // space center is polygon center
-//        // first vertex point half way between center and maximum extents of search space
-//        Vector3 firstVertex = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.transform.localScale.y / 4, gameObject.transform.position.z);
-//        if (sides != 0)  intAngle = (sides - 2) * 180 / sides;
-//        float trajAngle = 180 - intAngle / 2;
-//        // make side length 1/4 the length of the overal scale ....this shouldn't fall outside bounds, but might for polygons with higher number of vertices
-//        float sideLength = (.5f) * gameObject.transform.localScale.x / Mathf.Cos(((Mathf.Deg2Rad * 180) - (Mathf.Deg2Rad * intAngle)) / 2);
-//        for (int i = 0; i < sides; i++)
-//        {
+        /* float intAngle = -1; // -1 will represent that a circular pattern is desired
+         Vector3 shapeCenter = gameObject.transform.position;  // space center is polygon center
+         // first vertex point half way between center and maximum extents of search space
+         Vector3 firstVertex = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + gameObject.transform.localScale.y / 4, gameObject.transform.position.z);
+         if (sides != 0)  intAngle = (sides - 2) * 180 / sides;
+         float trajAngle = 180 - intAngle / 2;
+         // make side length 1/4 the length of the overal scale ....this shouldn't fall outside bounds, but might for polygons with higher number of vertices
+         float sideLength = (.5f) * gameObject.transform.localScale.x / Mathf.Cos(((Mathf.Deg2Rad * 180) - (Mathf.Deg2Rad * intAngle)) / 2);
+         for (int i = 0; i < sides; i++)
+         {
 
-//        }*/
+         }*/
 
-//         bool outOfBounds = false;
-//         int [] ones = new int[]{1, 0, 0, 1};
-//        GameObject randShape = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-//        do{
-           
-//        randShape.transform.position = new Vector3(Random.Range(gameObject.transform.position.x - gameObject.transform.localScale.x / 2,
-//                gameObject.transform.position.x + gameObject.transform.localScale.x / 2),
-//                Random.Range(gameObject.transform.position.y - gameObject.transform.localScale.y / 2, gameObject.transform.position.y + gameObject.transform.localScale.y / 2),
-//                Random.Range(gameObject.transform.position.z - gameObject.transform.localScale.z / 2, gameObject.transform.position.z + gameObject.transform.localScale.z / 2));
+        bool outOfBounds = false;
         
-//        randShape.transform.localScale =  new Vector3 ( Random.Range(0, gameObject.transform.localScale.x / 4), 
-//                Random.Range(0, gameObject.transform.localScale.y / 4), Random.Range( 0, gameObject.transform.localScale.z / 4));
-
-//            for( int i = 0; i < 4; i++){
-//                corners[i] = new Vector3(randShape.transform.position.x - randShape.transform.localScale.x / 2, randShape.transform.position.y 
-//                    - Mathf.Pow(-1, i) * randShape.transform.localScale.y / 2, randShape.transform.position.z - Mathf.Pow(-1, ones[i]  ));
-
-//                if (!gameObject.renderer.bounds.Contains(corners[i])) outOfBounds = true;
-//            }
-
-//        }
-//        while( !outOfBounds);
         
+        do
+        {
+
+            randShape.transform.position = new Vector3(Random.Range(gameObject.transform.position.x - gameObject.transform.localScale.x / 2,
+                    gameObject.transform.position.x + gameObject.transform.localScale.x / 2),
+                    Random.Range(gameObject.transform.position.y - gameObject.transform.localScale.y / 2, gameObject.transform.position.y + gameObject.transform.localScale.y / 2),
+                    Random.Range(gameObject.transform.position.z - gameObject.transform.localScale.z / 2, gameObject.transform.position.z + gameObject.transform.localScale.z / 2));
+
+            randShape.transform.localScale = new Vector3(Random.Range((gameObject.transform.localScale.x *sphereRatio)*2, gameObject.transform.localScale.x ),
+                    Random.Range((gameObject.transform.localScale.y*sphereRatio)*2, gameObject.transform.localScale.y ), Random.Range((gameObject.transform.localScale.z *sphereRatio)*2, gameObject.transform.localScale.z));
+
+            outOfBounds = CalcOutOfBounds(randShape);
+
+        }
+        while (!outOfBounds);
+        randShapeCorners = CalcSearchCorners(randShape);
+        GenerateSpheres(true);
 
 
 
-//    }
+    }
 
-//    bool phaseChangeFlag()
-//    {
-//        //print("In PhaseChangeFlag");
-//        return numFound == findSpheres.Length;
-//    }
-//    void setPatternBool()
-//    {
-//        int temp = PlayerPrefs.GetInt("Pattern");
-//        randomPattern = (temp == 0) ? true : false;
-//    }
+    bool phaseChangeFlag()
+    {
+        //print("In PhaseChangeFlag");
+        return numFound == findSpheres.Length;
+    }
 
-//    void setTimedBool()
-//    {
-//        int temp = PlayerPrefs.GetInt("Timed");
-//        timed = (temp == 1) ? true : false;
-//    }
+    void setPatternBool()
+    {
+        int temp = PlayerPrefs.GetInt("Pattern");
+        randomPattern = (temp == 0) ? true : false;
+    }
 
-//    void setPhase()
-//    {
-//       phase = PlayerPrefs.GetInt("Phase");
+    void setTimedBool()
+    {
+        int temp = PlayerPrefs.GetInt("Timed");
+        timed = (temp == 1) ? true : false;
+    }
+
+    void setPhase()
+    {
+       phase = PlayerPrefs.GetInt("Phase");
         
-//    }
+    }
 
 
-//    private string timeLeft = "";
-//    void OnGUI()
-//    {
+    private string timeLeft = "";
+    void OnGUI()
+    {
+
+
+        GUI.backgroundColor = Color.black;
+        GUI.color = Color.white;
+
+        GUI.Label(new Rect(0, 25, 350, 20), statusMssg);
         
-//        GUI.Label(new Rect(0, 25, 350, 20), statusMssg);
-//        GUI.Label(new Rect(0 , 0 , 100, 90), message);
-//        if (GUI.Button(new Rect(0, 100, 100, 20), "Reset")) reset();
-//        if (GUI.Button(new Rect(0, 400, 100, 20), "RandPoint")) testRandPoint();
-//        if (GUI.Button(new Rect(150, 60 , 100, 20), "TestSimFound"))
-//        {
-//            blockColTest(startClick);
-//            startClick++;
-//        }
-//        if (GUI.Button(new Rect(0, 140, 100, 20), "Back")) Application.LoadLevel("TreasureHuntLoader");
+        GUI.Label(new Rect(0 , 0 , 100, 90), message);
+       
+        if (GUI.Button(new Rect(0, 100, 100, 20), "Reset")) reset();
+		if (GUI.Button(new Rect(0, 400, 100, 20), "RandPoint")) testRandPoint();
+        if (GUI.Button(new Rect(150, 60 , 100, 20), "TestSimFound"))
+        {
+            blockColTest(startClick);
+            startClick++;
+        }
+        if (GUI.Button(new Rect(0, 140, 100, 20), "Back")) Application.LoadLevel("TreasureHuntLoader");
       
-//        if (timed)
-//        {
-//            GUI.Label(new Rect(130, 0, 100, 90), timeLeft);
-//            message = PlayerPrefs.GetString("Mode") + " Mode";
-//        }
-//            bool startHit = GUI.Button(new Rect(0, 60, 100, 20), "Start");
-//            if (startHit && ! (phase ==2))
-//            {
+        if (timed)
+        {
+            GUI.Label(new Rect(130, 0, 100, 90), timeLeft);
+            message = PlayerPrefs.GetString("Mode") + " Mode";
+        }
+            bool startHit = GUI.Button(new Rect(0, 60, 100, 20), "Start");
+            if (startHit && ! (phase ==2))
+            {
                 
-//                phase = 1;
-//                phaseInit = true;
-//                statusMssg = "Trial in Progress";
+                phase = 1;
+                phaseInit = true;
+                statusMssg = "Trial in Progress";
                 
-//            }
-//            else if (startHit && phase == 2)
-//            {
-//                phase = 3;
-//                phaseInit = true;
-//                statusMssg = "Backward Trial in Progress";
-//            }
+            }
+            else if (startHit && phase == 2)
+            {
+                phase = 3;
+                phaseInit = true;
+                statusMssg = "Backward Trial in Progress";
+            }
 
             
             
 
         
-//    }
+    }
 
 
-//    void reset()
-//    {
-//        List<GameObject> delList= new List<GameObject>(); 
-//        delList.AddRange( GameObject.FindGameObjectsWithTag("Unfound"));
-//        delList.AddRange(GameObject.FindGameObjectsWithTag("Found"));
-//        foreach (GameObject delSphere in delList) Destroy(delSphere);
-//        numFound = startClick = 0;
-//        timeLeft = searchTime.ToString();
-//        statusMssg = "Trial reset!";
-//        phase = 0;
-//        Start();
-//    }
+    void DrawRect(Rect position, Color color)
+    {
+        Texture2D texture = new Texture2D(1, 1);
+        texture.SetPixel(0, 0, color);
+        texture.Apply();
+        GUI.skin.box.normal.background = texture;
+        GUI.Box(position, GUIContent.none);
+    }
 
-//    public int getNumFound()
-//    {
-//        return numFound;
-//    }
+    void reset()
+    {
 
-//    public void incNumFound()
-//    {
-//        numFound++;
-//    }
+        
+        List<GameObject> delList= new List<GameObject>(); 
+        delList.AddRange( GameObject.FindGameObjectsWithTag("Unfound"));
+        delList.AddRange(GameObject.FindGameObjectsWithTag("Found"));
+        delList.AddRange(GameObject.FindGameObjectsWithTag("TestCube"));
+
+       
+        foreach (GameObject delSphere in delList) Destroy(delSphere);
+           
+        numFound = startClick = 0;
+        timeLeft = searchTime.ToString();
+        statusMssg = "Trial reset!";
+        phase = 0;
+        Start();
+    }
+
+    public int getNumFound()
+    {
+        return numFound;
+    }
+
+    public void incNumFound()
+    {
+        numFound++;
+    }
    
-//    private void blockColTest(int clickCount){
-//        try
-//        {
-//            if (phase == 1)
-//            {
-//                Vector3 pos = findSpheres[clickCount].transform.position;
-//                GameObject testCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//                testCube.tag = "TestCube";
-//                testCube.AddComponent("Rigidbody");
-//                testCube.rigidbody.useGravity = false;
-//                testCube.renderer.enabled = false;
-//                testCube.transform.position = pos;
-//            }
-//            else if (phase == 3)
-//            {
-                    
-//                Vector3 pos = findSpheres[findSpheres.Length - clickCount - 1].transform.position;
-//                GameObject testCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-//                testCube.tag = "TestCube";
-//                testCube.AddComponent("Rigidbody");
-//                testCube.rigidbody.useGravity = false;
-//                testCube.renderer.enabled = false;
-//                testCube.transform.position = pos;
-//            }
-//        }
-//        catch (System.IndexOutOfRangeException) { };
-//    }
+    private void blockColTest(int clickCount){   //for testing
+        try
+        {
+            if (phase == 1)
+            {
+                Vector3 pos = findSpheres[clickCount].transform.position;
+                GameObject testCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                testCube.transform.localScale = findSpheres[0].transform.localScale;
+                testCube.tag = "TestCube";
+                testCube.AddComponent("Rigidbody");
+                testCube.rigidbody.useGravity = false;
+                testCube.renderer.enabled = false;
+                testCube.transform.position = pos;
+            }
+            else if (phase == 3)
+            {
+                
+                Vector3 pos = findSpheres[findSpheres.Length - clickCount - 1].transform.position;
+                GameObject testCube2 = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                testCube2.tag = "TestCube";
+                testCube2.AddComponent("Rigidbody");
+                testCube2.rigidbody.useGravity = false;
+                testCube2.renderer.enabled = false;
+                testCube2.transform.position = pos;
+            }
+        }
+        catch (System.IndexOutOfRangeException) { };
+    }
 
-//    private void testRandPoint(){
-//                rand = new Vector3 (Random.Range (gameObject.transform.position.x - gameObject.transform.localScale.x / 2,
-//                       gameObject.transform.position.x + gameObject.transform.localScale.x / 2),
-//                       Random.Range (gameObject.transform.position.y - gameObject.transform.localScale.y / 2, 
-//                        gameObject.transform.position.y + gameObject.transform.localScale.y / 2),
-//                        Random.Range (gameObject.transform.position.z - gameObject.transform.localScale.z / 2, 
-//                        gameObject.transform.position.z + gameObject.transform.localScale.z / 2));
-				
-//        int dist = (int) ( Mathf.Round( activeStimScript.getDistance (rand)));
-//        print ("Distance is: " + dist);
+	private void testRandPoint(){   //for testing
+				rand = new Vector3 (Random.Range (gameObject.transform.position.x - gameObject.transform.localScale.x / 2,
+		               gameObject.transform.position.x + gameObject.transform.localScale.x / 2),
+	                   Random.Range (gameObject.transform.position.y - gameObject.transform.localScale.y / 2, 
+		                gameObject.transform.position.y + gameObject.transform.localScale.y / 2),
+		                Random.Range (gameObject.transform.position.z - gameObject.transform.localScale.z / 2, 
+		                gameObject.transform.position.z + gameObject.transform.localScale.z / 2));
+                        print("Byte sent is: " + activeStimScript.getIntensity(rand));
 
-//        switch(dist)
-//        {
-//        case 1:
-//            rightHand.vibrate("rightHand", "rightThumb",155);
-//            break;
-//        case 2:
-//            rightHand.vibrate("rightHand", "rightThumb",175);
-//            break;
-//        case 3:
-//            rightHand.vibrate("rightHand", "rightThumb",195);
-//            break;
-//        case 4:
-//            rightHand.vibrate("rightHand", "rightThumb",215);
-//            break;
-//        case 5:
-//            rightHand.vibrate("rightHand", "rightThumb",235);
-//            break;
-//        case 6:
-//            rightHand.vibrate("rightHand", "rightThumb",255);
-//            break;
-//        }
 
-//        }
-//    }
+		
+
+		/*switch(dist)
+		{
+		case 1:
+			rightHand.vibrate("rightHand", "rightThumb",155);
+			break;
+		case 2:
+			rightHand.vibrate("rightHand", "rightThumb",175);
+			break;
+		case 3:
+			rightHand.vibrate("rightHand", "rightThumb",195);
+			break;
+		case 4:
+			rightHand.vibrate("rightHand", "rightThumb",215);
+			break;
+		case 5:
+			rightHand.vibrate("rightHand", "rightThumb",235);
+			break;
+		case 6:
+			rightHand.vibrate("rightHand", "rightThumb",255);
+			break;
+		}*/
+
+		}
+
+    public float getMaxDist(){
+
+        float maxDist = 0;
+        foreach(Vector3 compare in gameObjcorners){
+            float temp = Vector3.Distance(gameObjcorners[0], compare);
+            if (temp > maxDist) maxDist = temp;
+            }
+        return maxDist;
+    }
+
+
+
+    private Vector3[] CalcSearchCorners(GameObject shape)
+    {
+        Vector3[] shapeCorners = new Vector3[8];
+        int[] xOnes = new int[] { 0, 0, 0, 0, 1, 1, 1, 1 };
+        int[] yOnes = new int[] { 1, 1, 0, 0, 1, 1, 0, 0 };
+
+        //1,2- top, neg x; 3,4- btm, neg x; 5,6- top, fwd x; 7, 8- btm, fwd x
+
+        for (int i = 0; i < 8; i++)
+        {
+            shapeCorners[i] = new Vector3(shape.transform.position.x - (Mathf.Pow(-1, xOnes[i]) * shape.transform.localScale.x / 2), shape.transform.position.y - Mathf.Pow(-1, yOnes[i]) * shape.transform.localScale.y / 2,
+                shape.transform.position.z - Mathf.Pow(-1, i) * shape.transform.localScale.z / 2);
+
+        }
+
+        return shapeCorners;
+    }
+   private bool CalcOutOfBounds(GameObject shape)
+    {
+        if (shape.transform.position.x + shape.transform.localScale.x / 2 > gameObjcorners[7].x) return false;
+        if (shape.transform.position.x - shape.transform.localScale.x / 2 < gameObjcorners[0].x) return false;
+        if (shape.transform.position.y + shape.transform.localScale.y / 2 > gameObjcorners[0].y) return false;
+        if (shape.transform.position.y - shape.transform.localScale.y / 2 < gameObjcorners[7].y) return false;
+        if (shape.transform.position.z + shape.transform.localScale.z / 2 > gameObjcorners[7].z) return false;
+        if (shape.transform.position.z - shape.transform.localScale.z / 2 < gameObjcorners[0].z) return false;
+        return true;
+
+
+
+    }
+
+	}

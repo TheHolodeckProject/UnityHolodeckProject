@@ -226,11 +226,12 @@ public class HandController : MonoBehaviour {
     }
   }
 
+  public Frame latestFrame = null;
   Frame GetFrame() {
-    if (enableRecordPlayback && recorder_.state == RecorderState.Playing)
-      return recorder_.GetCurrentFrame();
-
-    return leap_controller_.Frame();
+      latestFrame = leap_controller_.Frame();
+      if (enableRecordPlayback && recorder_.state == RecorderState.Playing)
+          latestFrame = recorder_.GetCurrentFrame();
+    return latestFrame;
   }
 
   void Update() {

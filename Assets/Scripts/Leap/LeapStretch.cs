@@ -2,199 +2,223 @@
 using System.Collections;
 using Leap;
 
-//TO ADD
-//1) Moving & Rotating - If the thumb and index of a single hand grab different colliders on the cube, then you can move and rotate - how to do?
-//3) Generate random transparent cube within certain parameters.
-//4) Add visual cue to let you know when you're touching a collider
-
 public class LeapStretch : MonoBehaviour
 {
-    public float MinCubeSize = .05f;
-    public float MaxCubeSize = .3f;
-    public float CubeSizeBuffer = .005f;
-    public bool fingertouch;
-    public bool thumbtouch;
-    private Vector3 cubeCurrentPosition;
-    private Vector3 pinchPositionPrevious;
-    public Vector3 thumbPosition;
-    private Vector3 thumbDifference;
-    public Vector3 indexPosition;
-    //??? Is it more efficient to import the bool variable than the entire component/game object?
-    //    private LeapDetectPinch rightPinch;
-    //    private LeapDetectPinch leftPinch;
+    public static bool stretching;
+    public static int stretchHands = 0;
+    public static float MinCubeSize = .05f;
+    public static float MaxCubeSize = .3f;
+    public float CubeSizeBuffer = .025f;
     private bool pinching;
-    private bool wasPinching;
-    public GameObject activeHand;
-    private bool stretching;
+    private bool triggerPinch;
+    private bool onStretch;
+    private string stretchCorner;
+    private Vector3 thumbTipPrevPosition;
+    private Vector3 thumbTipPosition;
+    private HandModel handModel;
+    private Hand leapHand;
+    private bool moving;
+    enum State { Idle, StartStretch, Stretch, ExitStretch };
+    private State currentState;
 
-    // !!! ADDED
-        private string stretchPoint;
-        private GameObject indexTouchObject;
-
+    // Use this for initialization
     void Start()
     {
-        fingertouch = false;
-        thumbtouch = false;
         pinching = false;
-        activeHand = null;
         stretching = false;
-        wasPinching = false;
+        currentState = State.Idle;
     }
 
-    //Whenever something starts colliding with the cube, checks if it's the thumb or the index finger.
-    void OnCollisionEnter(Collision col)
-    {
-        //Checks the list of all the things colliding with the cube to see if it contains the index fingertip and the thumb fingertip
-        foreach (ContactPoint contact in col.contacts)
-        {
-            // !!! Make this work with fingers
-            //If the tip of the index finger is touching
-            if (contact.otherCollider.gameObject.transform.name == "bone3" && contact.otherCollider.gameObject.transform.parent.name == "index")
-                fingertouch = true;
-
-            // If the thumb tip is touching
-            if (contact.otherCollider.gameObject.transform.name == "bone3" && contact.otherCollider.gameObject.transform.parent.name == "thumb")
-            {
-                thumbtouch = true;
-                stretchPoint = contact.thisCollider.gameObject.name;
-                // ??? This command is ridiculous. Is this ok?
-                activeHand = contact.otherCollider.gameObject.transform.parent.parent.gameObject; 
-            }
-        }
-    }
-
-    void OnCollisionExit(Collision col)
-    {
-        //Whenever something STOPS colliding with the cube, checks if it's the thumb or the index finger.
-        foreach (ContactPoint contact in col.contacts)
-        {
-            if (contact.otherCollider.gameObject.transform.name == "bone3" && contact.otherCollider.gameObject.transform.parent.name == "index")
-                fingertouch = false;
-            if (contact.otherCollider.gameObject.transform.name == "bone3" && contact.otherCollider.gameObject.transform.parent.name == "thumb")
-                thumbtouch = false;
-        }
-    }
-
-    void OnStretch()
-    {
-      //  Debug.Log("Starting stretch");
-        stretching = true;
-        //Gets pinch position from the LeapDetectPinch script
-        pinchPositionPrevious = activeHand.GetComponent<LeapDetectPinch>().thumbPosition;
-    }
-    void WhileStretching()
-    {
-   thumbPosition = activeHand.GetComponent<LeapDetectPinch>().thumbPosition;
-   if (this.transform.localScale.x >= MaxCubeSize)
-   {
-       // !!! INSERT VIBROBUMP
-       Debug.Log("Cube is too big on X axis");
-       this.transform.localScale = new Vector3(this.transform.localScale.x - CubeSizeBuffer, this.transform.localScale.y, this.transform.localScale.z);
-       stretching = false;
-       return;
-   }
-   else if (this.transform.localScale.x <= MinCubeSize)
-   {
-       // !!! INSERT VIBROBUMP
-       Debug.Log("Cube is too small on X axis");
-       this.transform.localScale = new Vector3(this.transform.localScale.x + CubeSizeBuffer, this.transform.localScale.y, this.transform.localScale.z);
-       stretching = false;
-       return;
-   }
-   //Y axis size check
-   if (this.transform.localScale.y >= MaxCubeSize)
-   {
-       // !!! INSERT VIBROBUMP
-       Debug.Log("Cube is too big on Y axis");
-       this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y - CubeSizeBuffer, this.transform.localScale.z);
-       stretching = false;
-       return;
-   }
-   else if (this.transform.localScale.x <= MinCubeSize)
-   {
-       // !!! INSERT VIBROBUMP
-       Debug.Log("Cube is too small on Y axis");
-       this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y + CubeSizeBuffer, this.transform.localScale.z);
-       stretching = false;
-       return;
-   }
-   //Z axis size check
-   if (this.transform.localScale.y >= MaxCubeSize)
-   {
-       // !!! INSERT VIBROBUMP
-       Debug.Log("Cube is too big on Y axis");
-       this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z - CubeSizeBuffer);
-       stretching = false;
-       return;
-   }
-   else if (this.transform.localScale.z <= MinCubeSize)
-   {
-       // !!! INSERT VIBROBUMP
-       Debug.Log("Cube is too small on Z axis");
-       this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z + CubeSizeBuffer);
-       stretching = false;
-       return;
-   }
-        //Defines how much the thumb has moved since the last frame. This position difference will be used to stretch the cube      
-        thumbDifference = thumbPosition - pinchPositionPrevious;
-        pinchPositionPrevious = thumbPosition;
-        //Moves the cube's position based on how the thumb's moved
-        this.transform.position = new Vector3(this.transform.position.x - thumbDifference.x / 2, this.transform.position.y + thumbDifference.y / 2, this.transform.position.z + thumbDifference.z / 2);
-        //Applies different transformations to scale depending on which corner is being grabbed
-        //I'm sure there's a beautiful elegant way to do this, but this way seems to work for now
-        switch (stretchPoint)
-        {
-            case "CornerColliderFrontBottomLeft":
-                    this.transform.localScale = new Vector3(this.transform.localScale.x - thumbDifference.x, this.transform.localScale.y - thumbDifference.y, this.transform.localScale.z + thumbDifference.z); 
-                                        break;
-            case "CornerColliderFrontBottomRight":
-                this.transform.localScale = new Vector3(this.transform.localScale.x + thumbDifference.x, this.transform.localScale.y - thumbDifference.y, this.transform.localScale.z + thumbDifference.z);
-                break;
-            case "CornerColliderFrontTopLeft":
-                this.transform.localScale = new Vector3(this.transform.localScale.x - thumbDifference.x, this.transform.localScale.y + thumbDifference.y, this.transform.localScale.z + thumbDifference.z);
-                break;
-            case "CornerColliderFrontTopRight":
-                this.transform.localScale = new Vector3(this.transform.localScale.x + thumbDifference.x, this.transform.localScale.y + thumbDifference.y, this.transform.localScale.z + thumbDifference.z);
-                break;
-            case "CornerColliderBackBottomLeft":
-                this.transform.localScale = new Vector3(this.transform.localScale.x - thumbDifference.x, this.transform.localScale.y - thumbDifference.y, this.transform.localScale.z - thumbDifference.z);
-                break;
-            case "CornerColliderBackBottomRight":
-                this.transform.localScale = new Vector3(this.transform.localScale.x + thumbDifference.x, this.transform.localScale.y - thumbDifference.y, this.transform.localScale.z - thumbDifference.z);
-                break;
-            case "CornerColliderBackTopLeft":
-                this.transform.localScale = new Vector3(this.transform.localScale.x - thumbDifference.x, this.transform.localScale.y + thumbDifference.y, this.transform.localScale.z - thumbDifference.z);
-                break;
-            case "CornerColliderBackTopRight":
-                this.transform.localScale = new Vector3(this.transform.localScale.x + thumbDifference.x, this.transform.localScale.y + thumbDifference.y, this.transform.localScale.z - thumbDifference.z);
-                break;
-        }
-    }
-
-    void ExitStretch()
-    {
-        stretching = false;
-        Debug.Log("Stopped pinching. Releasing stretch");
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        //If the fingers are hitting the collider, check for a pinch
-        if (activeHand != null)
-            //Checks if the hand is currently pinching
-            pinching = activeHand.GetComponent<LeapDetectPinch>().pinching;
-      
-            //If a pinch was just started and the fingers are colliding
-            if (wasPinching == false && pinching == true && fingertouch == true && thumbtouch == true)
-                OnStretch();
+        GetHandInfo();
+    
+        switch (currentState)
+        {
+            case State.Idle:
+                triggerPinch = LeapDetectPinch();
+                //On a rising edge, check if the pinch happened in a strechablecube collider
+                if (triggerPinch && !pinching)
+                    currentState = OnPinch();
+                else if (!triggerPinch && pinching)
+                    OnPinchRelease();
+                break;
+            case State.StartStretch:
+                currentState = StartStretch();
+                break;
+            case State.Stretch:
+                triggerPinch = LeapDetectPinch();
+                if (triggerPinch)
+                {
+                    Stretching();
+                    CheckCubeSize();
+                }
+                else
+                    currentState = State.ExitStretch;
+                break;
+            case State.ExitStretch:
+                currentState = StopStretch();
+                break;
+        }
+    }
 
-            //If you stop pinching while stretching
-            if (stretching == true && pinching == false)
-                ExitStretch();
+    private void GetHandInfo()
+    {
+        //Get hand info and if there's no hand in the scene, don't run the rest of the update
+        handModel = GetComponent<HandModel>();
+        leapHand = handModel.GetLeapHand();
+        if (leapHand == null)
+            return;
+    }
 
-            if (stretching == true)
-                WhileStretching();
+    private const float pinchDistanceRatio = 0.7f;
+    bool LeapDetectPinch()
+    {
+        triggerPinch = false;
+        //Scales the pinch distance threshold to the size of the hand
+        float proximalLength = leapHand.Fingers[0].Bone(Bone.BoneType.TYPE_PROXIMAL).Length;
+        float triggerDistance = proximalLength * pinchDistanceRatio;
+        // Check thumb tip distance to joints on all other fingers.
+        for (int i = 1; i < HandModel.NUM_FINGERS; ++i)
+        {
+            //Checks if the fingertip is close enough to count as a pinch
+            Vector fingerTipPosition = leapHand.Fingers[i].TipPosition;
+            if (fingerTipPosition.DistanceTo(leapHand.Fingers[0].TipPosition) < triggerDistance)
+                return true;
+        }
+        return false;
+    }
 
-            wasPinching = pinching;
+    private GameObject stretchCube;
+    State OnPinch()
+    {
+        pinching = true;
+        //Defines how far away something has to be from the thumb tip to be stretched when pinched
+        float stretchRadius = .01f;
+        //Converts the pinchPosition to Vector3 absolute position coordinates, which have to be converted from the local coordinates of the HandController
+        thumbTipPrevPosition = handModel.transform.TransformPoint(leapHand.Fingers[0].TipPosition.ToUnityScaled());
+        // Checks if you pinched a movable object and grab the closest one that's not part of the hand.
+        Collider[] closeThings = Physics.OverlapSphere(thumbTipPrevPosition, stretchRadius);
+        //For everything in the radius around the thumbtip
+        for (int j = 0; j < closeThings.Length; ++j)
+        {
+            //If it's colliding with one of the child colliders of the StretchableCube
+            if (closeThings[j].transform.parent.name == "StretchableCube")
+            {
+                stretchCube = closeThings[j].transform.parent.gameObject;
+                stretchCorner = closeThings[j].name;
+                return State.StartStretch;
+            }
+        }
+        //If it didn't start a stretch, change the state to idle
+        return State.Idle;
+    }
+
+    void OnPinchRelease()
+    {
+        pinching = false;
+    }
+
+    State StartStretch()
+    {
+        stretching = true;
+        stretchHands = stretchHands + 1;
+        return State.Stretch;
+    }
+
+    private void CheckCubeSize()
+    {
+        //If the cube has reached max size on any axis, quit stretching and make it a tiny bit smaller on that axis so the user can fix it
+        if (stretchCube.transform.localScale.x >= MaxCubeSize)
+        {
+            // !!! INSERT VIBROBUMP
+            Debug.Log("Cube is too big on X axis");
+            stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x - CubeSizeBuffer, stretchCube.transform.localScale.y, stretchCube.transform.localScale.z);
+            currentState = State.ExitStretch;
+        }
+        else if (stretchCube.transform.localScale.x <= MinCubeSize)
+        {
+            // !!! INSERT VIBROBUMP
+            Debug.Log("Cube is too small on X axis");
+            stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x + CubeSizeBuffer, stretchCube.transform.localScale.y, stretchCube.transform.localScale.z);
+            currentState = State.ExitStretch;
+        }
+        //Y axis size check
+        if (stretchCube.transform.localScale.y >= MaxCubeSize)
+        {
+            // !!! INSERT VIBROBUMP
+            Debug.Log("Cube is too big on Y axis");
+            stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x, stretchCube.transform.localScale.y - CubeSizeBuffer, stretchCube.transform.localScale.z);
+            currentState = State.ExitStretch;
+        }
+        else if (stretchCube.transform.localScale.x <= MinCubeSize)
+        {
+            // !!! INSERT VIBROBUMP
+            Debug.Log("Cube is too small on Y axis");
+            stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x, stretchCube.transform.localScale.y + CubeSizeBuffer, stretchCube.transform.localScale.z);
+            currentState = State.ExitStretch;
+            return;
+        }
+        //Z axis size check
+        if (stretchCube.transform.localScale.y >= MaxCubeSize)
+        {
+            // !!! INSERT VIBROBUMP
+            Debug.Log("Cube is too big on Y axis");
+            stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x, stretchCube.transform.localScale.y, stretchCube.transform.localScale.z - CubeSizeBuffer);
+            currentState = State.ExitStretch;
+        }
+        else if (stretchCube.transform.localScale.z <= MinCubeSize)
+        {
+            // !!! INSERT VIBROBUMP
+            Debug.Log("Cube is too small on Z axis");
+            stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x, stretchCube.transform.localScale.y, stretchCube.transform.localScale.z + CubeSizeBuffer);
+            currentState = State.ExitStretch;
+        }
+    }
+    private void Stretching()
+    {
+        thumbTipPosition = handModel.transform.TransformPoint(leapHand.Fingers[0].TipPosition.ToUnityScaled());
+        //Defines how much the thumb has moved since the last frame. This position difference will be used to stretch the cube      
+        Vector3 thumbDifference = thumbTipPosition - thumbTipPrevPosition;
+        thumbDifference = stretchCube.transform.InverseTransformDirection(thumbDifference);
+        thumbTipPrevPosition = thumbTipPosition;
+        //Moves the cube's position based on how the thumb's moved
+        stretchCube.transform.position = stretchCube.transform.position + stretchCube.transform.TransformDirection(thumbDifference / 2);//new Vector3(stretchCube.transform.position.x - thumbDifference.x / 2, stretchCube.transform.position.y - thumbDifference.y / 2, stretchCube.transform.position.z - thumbDifference.z / 2);
+        //Applies different transformations to scale depending on which corner is being grabbed
+        switch (stretchCorner)
+        {
+            case "CornerColliderFrontBottomLeft":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x + thumbDifference.x, stretchCube.transform.localScale.y - thumbDifference.y, stretchCube.transform.localScale.z + thumbDifference.z);
+                break;
+            case "CornerColliderFrontBottomRight":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x - thumbDifference.x, stretchCube.transform.localScale.y - thumbDifference.y, stretchCube.transform.localScale.z + thumbDifference.z);
+                break;
+            case "CornerColliderFrontTopLeft":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x + thumbDifference.x, stretchCube.transform.localScale.y + thumbDifference.y, stretchCube.transform.localScale.z + thumbDifference.z);
+                break;
+            case "CornerColliderFrontTopRight":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x - thumbDifference.x, stretchCube.transform.localScale.y + thumbDifference.y, stretchCube.transform.localScale.z + thumbDifference.z);
+                break;
+            case "CornerColliderBackBottomLeft":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x + thumbDifference.x, stretchCube.transform.localScale.y - thumbDifference.y, stretchCube.transform.localScale.z - thumbDifference.z);
+                break;
+            case "CornerColliderBackBottomRight":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x - thumbDifference.x, stretchCube.transform.localScale.y - thumbDifference.y, stretchCube.transform.localScale.z - thumbDifference.z);
+                break;
+            case "CornerColliderBackTopLeft":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x + thumbDifference.x, stretchCube.transform.localScale.y + thumbDifference.y, stretchCube.transform.localScale.z - thumbDifference.z);
+                break;
+            case "CornerColliderBackTopRight":
+                stretchCube.transform.localScale = new Vector3(stretchCube.transform.localScale.x - thumbDifference.x, stretchCube.transform.localScale.y + thumbDifference.y, stretchCube.transform.localScale.z - thumbDifference.z);
+                break;
+        }
+    }
+
+    State StopStretch()
+    {
+        stretchHands = stretchHands - 1;
+        Debug.Log(this.name + " exiting Stretch state. Stretchhands is now " + stretchHands);
+        return State.Idle;
     }
 }

@@ -8,12 +8,13 @@ public class LoadGuiTreasureHunt : MonoBehaviour
 
     string comPortFieldString = "COM1";
     int subjectIdentifierInt = 1234567890;
-    int numberOfStimuliInt = 5;
+    int numberOfStimuliInt = 8;
     int numberofTrialsInt = 3;
     string errorString = "";
     int difficulty = 3;
     bool togglePtrn = false;
     bool toggleTimed = false;
+    bool ptrnBool = false;
     int selMode = 0;
     string[] selModeStrings = {  "Practice", "Trial" };
   
@@ -34,6 +35,8 @@ public class LoadGuiTreasureHunt : MonoBehaviour
         // Make a background box
         GUI.BeginGroup(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, 850, 850));
         //GUI.Box (new Rect (10,10,500,500), "");
+
+        
 
         //Haptics Section
         GUI.Label(new Rect(20, 20, 300, 30), "Haptics Com Port");
@@ -121,15 +124,22 @@ public class LoadGuiTreasureHunt : MonoBehaviour
             PlayerPrefs.SetInt("Vibro Gloves", vibroGloves ? 1 : 0);
             PlayerPrefs.SetInt("Difficulty", difficulty);
             temp = (togglePtrn ) ? 1 : 0;
+            if (temp == 1) ptrnBool = true;
+            else ptrnBool = false;
             PlayerPrefs.SetInt("Pattern", temp);
             temp = (toggleTimed) ? 1 : 0;
             PlayerPrefs.SetInt("Timed", temp);
             PlayerPrefs.SetString("Mode", selModeStrings[selMode]);
 
-            if (numberOfTrials != -1 && numberOfStimuli != -1)
+            if (numberOfTrials != -1 && numberOfStimuli != -1 && (ptrnBool && numberOfStimuli <= 8 || !ptrnBool))
             {
                 //Pass values
                 Application.LoadLevel("TreasureHunt");
+            }
+            else if ((ptrnBool && numberOfStimuli > 8))
+            {
+                errorString = "Cannot perform pattern trial with more than 8 stimuli.";
+                ptrnBool = false;
             }
             else
             {
@@ -140,7 +150,7 @@ public class LoadGuiTreasureHunt : MonoBehaviour
 
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.red;
-        GUI.Label(new Rect(20, 240, 300, 30), errorString, style);
+        GUI.Label(new Rect(230, 310, 300, 30), errorString, style);
 
         GUI.EndGroup();
     }

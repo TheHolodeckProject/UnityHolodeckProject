@@ -7,8 +7,8 @@ public class PositionLeapMotion : MonoBehaviour {
     //private GameObject oculuscamera;
     private GameObject rightcamera;
     private Quaternion camrotation;
-//    private bool leftHandLocked = false;
-//    private bool rightHandLocked = false;
+    private bool leftHandLocked = false;
+    private bool rightHandLocked = false;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +18,7 @@ public class PositionLeapMotion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*GameObject leftHand = GameObject.Find("HandLeft");
+        GameObject leftHand = GameObject.Find("HandLeft");
         GameObject rightHand = GameObject.Find("HandRight");
         GameObject leftRiggedHand = GameObject.Find("RiggedLeftHand(Clone)");
         GameObject rightRiggedHand = GameObject.Find("RiggedRightHand(Clone)");
@@ -42,7 +42,7 @@ public class PositionLeapMotion : MonoBehaviour {
         }
         else
             rightHandLocked = false;
-         */
+         
         //Changes the position of the HandController to match the OVRCameraController gameobject
         //this.transform.position = oculuscamera.transform.position;
         //Gets the rotation of the actual camera for the right eye, which is a child of OVRCameraController
