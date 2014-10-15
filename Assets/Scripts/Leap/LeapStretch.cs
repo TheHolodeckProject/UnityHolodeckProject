@@ -32,34 +32,40 @@ public class LeapStretch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetHandInfo();
-    
-        switch (currentState)
+        //If currently moving something, don't bother trying to stretch
+        if (this.GetComponent<LeapMove>().moving == true)
+            return;
+        else
         {
-            case State.Idle:
-                triggerPinch = LeapDetectPinch();
-                //On a rising edge, check if the pinch happened in a strechablecube collider
-                if (triggerPinch && !pinching)
-                    currentState = OnPinch();
-                else if (!triggerPinch && pinching)
-                    OnPinchRelease();
-                break;
-            case State.StartStretch:
-                currentState = StartStretch();
-                break;
-            case State.Stretch:
-                triggerPinch = LeapDetectPinch();
-                if (triggerPinch)
-                {
-                    Stretching();
-                    CheckCubeSize();
-                }
-                else
-                    currentState = State.ExitStretch;
-                break;
-            case State.ExitStretch:
-                currentState = StopStretch();
-                break;
+            GetHandInfo();
+
+            switch (currentState)
+            {
+                case State.Idle:
+                    triggerPinch = LeapDetectPinch();
+                    //On a rising edge, check if the pinch happened in a strechablecube collider
+                    if (triggerPinch && !pinching)
+                        currentState = OnPinch();
+                    else if (!triggerPinch && pinching)
+                        OnPinchRelease();
+                    break;
+                case State.StartStretch:
+                    currentState = StartStretch();
+                    break;
+                case State.Stretch:
+                    triggerPinch = LeapDetectPinch();
+                    if (triggerPinch)
+                    {
+                        Stretching();
+                        CheckCubeSize();
+                    }
+                    else
+                        currentState = State.ExitStretch;
+                    break;
+                case State.ExitStretch:
+                    currentState = StopStretch();
+                    break;
+            }
         }
     }
 
@@ -104,7 +110,7 @@ public class LeapStretch : MonoBehaviour
         for (int j = 0; j < closeThings.Length; ++j)
         {
             //If it's colliding with one of the child colliders of the StretchableCube
-            if (closeThings[j].transform.parent.name == "StretchableCube")
+            if (closeThings[j].transform.parent.name == "StretchableCube(Clone)")
             {
                 stretchCube = closeThings[j].transform.parent.gameObject;
                 stretchCorner = closeThings[j].name;
@@ -218,7 +224,7 @@ public class LeapStretch : MonoBehaviour
     State StopStretch()
     {
         stretchHands = stretchHands - 1;
-        Debug.Log(this.name + " exiting Stretch state. Stretchhands is now " + stretchHands);
+        //Debug.Log(this.name + " exiting Stretch state. Stretchhands is now " + stretchHands);
         return State.Idle;
     }
 }

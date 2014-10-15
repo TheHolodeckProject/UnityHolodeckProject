@@ -79,7 +79,7 @@ public class HolodeckStateMachine : MonoBehaviour
                     //Resets the object positions
                     stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
                     //Makes the objects grabbable
-                    stimuli[i].gameObject.tag = "Grabbable";
+                    stimuli[i].gameObject.tag = "Loggable";
 
                 }
                 currentState = State.IdleRecall;
