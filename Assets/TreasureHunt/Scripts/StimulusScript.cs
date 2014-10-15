@@ -55,7 +55,7 @@ public class StimulusScript : MonoBehaviour {
     {
         active = true;
 
-    }
+    } 
 
     public void setThisInactive()
     {

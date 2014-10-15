@@ -89,9 +89,15 @@ public class SearchSpace : MonoBehaviour {
     private float tStart;
     private int numberOfCompletedTrials = 0;
     private int expectedNumberOfTrials;
+    GameObject OccViewObjLeft;
+    GameObject OccViewObjRight;
+    GameObject MainViewObj;
 
     void Awake()
     {
+         OccViewObjLeft= GameObject.Find("CameraLeft");
+         OccViewObjRight = GameObject.Find("CameraRight");
+         MainViewObj = GameObject.Find("MainCameraView");
         randShape = GameObject.CreatePrimitive(PrimitiveType.Cube);
         randShape.layer = 8;
         randShape.name = "RandShape";
@@ -151,12 +157,21 @@ public class SearchSpace : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (phase == 0)
+        {
 
-       
+            OccViewObjLeft.camera.enabled = false;
+            OccViewObjRight.camera.enabled = false;
+            MainViewObj.camera.enabled = true;
+
+        }
        
 
         if (phase == 1 )
         {
+            OccViewObjLeft.camera.enabled = true;
+            OccViewObjRight.camera.enabled = true;
+            MainViewObj.camera.enabled = false;
             
             if (phaseInit)
             {
