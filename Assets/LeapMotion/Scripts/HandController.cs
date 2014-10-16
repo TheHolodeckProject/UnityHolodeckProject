@@ -146,7 +146,6 @@ public class HandController : MonoBehaviour {
       Hand leap_hand = leap_hands[h];
       
       HandModel model = (mirrorZAxis != leap_hand.IsLeft) ? left_model : right_model;
-      model.gameObject.name = (leap_hand.IsLeft) ? "LeftHandClone" : "RightHandClone";
 
       // If we've mirrored since this hand was updated, destroy it.
       if (all_hands.ContainsKey(leap_hand.Id) &&

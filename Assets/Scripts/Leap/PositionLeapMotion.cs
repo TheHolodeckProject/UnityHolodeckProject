@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Leap;
 using System.Collections.Generic;
 using System;
 
@@ -20,67 +19,31 @@ public class PositionLeapMotion : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        GameObject leftHand = GameObject.Find("HandLeft");
-        GameObject rightHand = GameObject.Find("HandRight");
-        List<GameObject> leftHandsLeap = new List<GameObject>();
-        List<GameObject> rightHandsLeap = new List<GameObject>();
-        foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
+        GameObject kinectLeftHand = GameObject.Find("HandLeft");
+        GameObject kinectRightHand = GameObject.Find("HandRight");
+        GameObject leapLeftHand = GameObject.Find("RiggedLeftHand(Clone)");
+        GameObject leapRightHand = GameObject.Find("RiggedRightHand(Clone)");
+      
+        if (leapLeftHand != null && kinectLeftHand != null && !leftHandLocked)
         {
-            if (gameObj.name == "LeftHandClone(Clone)")
-            {
-                leftHandsLeap.Add(gameObj);
-            }
-            if (gameObj.name == "RightHandClone(Clone)")
-            {
-                rightHandsLeap.Add(gameObj);
-            }
-        }
-        if (leftHand != null && leftHandsLeap.Count > 0 && !leftHandLocked)
-        {
-            foreach (GameObject o in leftHandsLeap)
-            {
-                try
-                {
-                    o.GetComponent<RigidHand>().positionOverride = leftHand.transform.position;
-                    o.GetComponent<RigidHand>().overridePosition = true;
-                }
-                catch (Exception) { }
-                try
-                {
-                    o.GetComponent<RiggedHand>().positionOverride = leftHand.transform.position;
-                    o.GetComponent<RiggedHand>().overridePosition = true;
-                }
-                catch (Exception) { }
-            }
+            leapLeftHand.GetComponent<RiggedHand>().positionOverride = kinectLeftHand.transform.position;
+            leapLeftHand.GetComponent<RiggedHand>().overridePosition = true;
             leftHandLocked = true;
         }
-        else
-            leftHandLocked = false;
+         else leftHandLocked = false;
 
-        if (rightHand != null && rightHandsLeap.Count > 0 && !rightHandLocked)
+        if (leapRightHand != null && kinectRightHand != null && !rightHandLocked)
         {
-            foreach (GameObject o in rightHandsLeap)
-            {
-                try
-                {
-                    o.GetComponent<RigidHand>().positionOverride = rightHand.transform.position;
-                    o.GetComponent<RigidHand>().overridePosition = true;
-                }
-                catch (Exception) { }
-                try{
-                    o.GetComponent<RiggedHand>().positionOverride = rightHand.transform.position;
-                    o.GetComponent<RiggedHand>().overridePosition = true;
-                }
-                catch (Exception) { }
-            }
+            leapRightHand.GetComponent<RiggedHand>().positionOverride = kinectRightHand.transform.position;
+            leapRightHand.GetComponent<RiggedHand>().overridePosition = true;
             rightHandLocked = true;
         }
-        else
-            rightHandLocked = false;
+        else rightHandLocked = false;
+       
+            
          
         //Changes the position of the HandController to match the OVRCameraController gameobject
-        //this.transform.position = oculuscamera.transform.position;
-        //Gets the rotation of the actual camera for the right eye, which is a child of OVRCameraController
+       //Gets the rotation of the actual camera for the right eye, which is a child of OVRCameraController
         //Unchecked "Tracker Rotates Y" on the OVRCameraController object, as that made it so Y rotation only
         //showed up in the OVRCameraController object, not the rightcamera. This way we don't have to get Y
         //rotation from a separate object
