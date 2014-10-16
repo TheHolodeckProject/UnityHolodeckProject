@@ -8,6 +8,24 @@ using UnityEngine;
 using System.Collections.Generic;
 using Leap;
 
+
+public struct grabData
+{
+   public  float grabLevel;
+    public bool isItLeft; // 0= right 1 = left
+
+    public grabData(float g, bool h)
+    {
+        grabLevel = g;
+        isItLeft = h;
+    }
+
+   
+
+
+
+}
+
 // Overall Controller object that will instantiate hands and tools when they appear.
 public class HandController : MonoBehaviour {
 
@@ -128,6 +146,7 @@ public class HandController : MonoBehaviour {
       Hand leap_hand = leap_hands[h];
       
       HandModel model = (mirrorZAxis != leap_hand.IsLeft) ? left_model : right_model;
+      model.gameObject.name = (leap_hand.IsLeft) ? "LeftHandClone" : "RightHandClone";
 
       // If we've mirrored since this hand was updated, destroy it.
       if (all_hands.ContainsKey(leap_hand.Id) &&
@@ -146,6 +165,7 @@ public class HandController : MonoBehaviour {
           new_hand.SetLeapHand(leap_hand);
           new_hand.MirrorZAxis(mirrorZAxis);
           new_hand.SetController(this);
+          
 
           // Set scaling based on reference hand.
           float hand_scale = MM_TO_M * leap_hand.PalmWidth / new_hand.handModelPalmWidth;
@@ -324,5 +344,27 @@ public class HandController : MonoBehaviour {
     else {
       recorder_.NextFrame();
     }
+  }
+
+  public grabData getGrabStrength()
+  {
+      Frame frame = GetFrame();
+
+      HandList hList = frame.Hands;
+
+      foreach (Hand hand in hList) print(hand);
+
+      int place = 0;
+
+      for (int i = 0; i < hList.Count; i++)
+      {
+          if (hList[i].GrabStrength > hList[place].GrabStrength) place = i;
+      }
+
+      
+      grabData grabDat = new grabData(hList[place].GrabStrength, hList[place].IsLeft);
+      return grabDat;
+      
+      
   }
 }

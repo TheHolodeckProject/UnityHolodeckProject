@@ -26,12 +26,12 @@ public class Logger : MonoBehaviour {
 	public void Resume(){
 		paused = false;
 	}
-	void Start() {
+	public void Start() {
 		subID = PlayerPrefs.GetInt ("Subject Identifier");
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void Update () {
 				if (!(loggableObjects == null || loggableObjects.Length <= 0 || rawWriter == null) && !paused) {
 						//Write a timestamp for data stability
 						string timestamp = DateTime.Now.ToBinary () + "";
@@ -76,7 +76,7 @@ public class Logger : MonoBehaviour {
 
 		GenerateLoggableObjectsList ();
 
-		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
+		Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 		
 		//Create the appropriate filename given the options
 		string rawFilename = "RawLog.dat";

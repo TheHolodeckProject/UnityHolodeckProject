@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Leap;
 
 
 public struct Phase{
@@ -76,7 +77,7 @@ public class SearchSpace : MonoBehaviour {
     Vector3[] randShapeCorners = new Vector3[8];
 
     public GUIStyle myGUIStyle;
-
+    private HandController handControlScript;
    
     //Trial variables
     private int phase = 0;
@@ -160,18 +161,18 @@ public class SearchSpace : MonoBehaviour {
         if (phase == 0)
         {
 
-            OccViewObjLeft.camera.enabled = false;
+         /*   OccViewObjLeft.camera.enabled = false;
             OccViewObjRight.camera.enabled = false;
-            MainViewObj.camera.enabled = true;
+            MainViewObj.camera.enabled = true;*/
 
         }
        
 
         if (phase == 1 )
         {
-            OccViewObjLeft.camera.enabled = true;
+           /* OccViewObjLeft.camera.enabled = true;
             OccViewObjRight.camera.enabled = true;
-            MainViewObj.camera.enabled = false;
+            MainViewObj.camera.enabled = false;*/
             
             if (phaseInit)
             {
@@ -264,6 +265,14 @@ public class SearchSpace : MonoBehaviour {
         if (phase == 3)
         {
 
+            handControlScript = GameObject.FindObjectOfType(typeof(HandController)) as HandController;
+            grabData grabD = handControlScript.getGrabStrength();
+            print(grabD.grabLevel);
+            if (grabD.grabLevel > .8)
+            {
+                string side = (grabD.isItLeft) ? "Left" : "Right";
+                print(side + " hand is grabbing");
+            }
             
            
            

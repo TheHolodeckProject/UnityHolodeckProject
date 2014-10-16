@@ -125,8 +125,6 @@ public class BodySourceView : MonoBehaviour
             lr.material = BoneMaterial;
 
             //Makes the hands invisible
-            // ??? Can we make this more efficient? Currently we're generating lines, then making them skinny.
-            // ??? Then we're generating cubes and making them invisible
              if(jt == Kinect.JointType.HandLeft ||
                 jt == Kinect.JointType.HandRight ||
                 jt == Kinect.JointType.HandTipLeft ||

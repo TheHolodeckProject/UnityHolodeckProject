@@ -2,11 +2,12 @@
 using System.Collections;
 using Windows.Kinect;
 using System;
+using System.Collections.Generic;
 
 public class KinectGrab : MonoBehaviour
 {
     //Initialize variables
-    const float minGrabDist = 1.5f;
+    public float minGrabDist = 1.5f;
     private GameObject rhgObj = null;
     private GameObject lhgObj = null;
     private bool grabReadyRight;
@@ -22,12 +23,12 @@ public class KinectGrab : MonoBehaviour
     /******************TOUCH CODE******************************/
     private float rhInitialTouchTime;
     private float lhInitialTouchTime;
-    private GameObject lhPreviousClosestGameObject;
-    private GameObject rhPreviousClosestGameObject;
+    private GameObject lhPreviousClosestGameObject = null;
+    private GameObject rhPreviousClosestGameObject = null;
     private bool rhTouching;
     private bool lhTouching;
     public float touchTimeRequirement = 1000f; //in ms
-    public float touchDistanceThreshold = 1f;
+    public float touchDistanceThreshold = 5f;
     /**********************************************************/
 
     private HolodeckStateMachine stateMachine;
@@ -46,7 +47,15 @@ public class KinectGrab : MonoBehaviour
     {
         //Get body objects (hands) and grabbable objects for manipulation
         BodySourceManager bodyManager = GameObject.Find("BodyManager").GetComponent<BodySourceManager>();
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Grabbable");
+        List<GameObject> objsList = new List<GameObject>();
+        foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
+        {
+            if (gameObj.name.StartsWith("Blob"))
+            {
+                objsList.Add(gameObj);
+            }
+        }
+        GameObject[] objs = objsList.ToArray();
         GameObject leftHand = GameObject.Find("HandLeft");
         GameObject rightHand = GameObject.Find("HandRight");
         //Check to make sure the objects exist before continuing
@@ -59,7 +68,6 @@ public class KinectGrab : MonoBehaviour
             Body[] bodies = bodyManager.GetData();
             Body activeBody = null;
             int activeBodies = 0;
-            /// ??? What's this doing? Is it saying "if there's more than one skeleton in the scene, use the first one"?
             for (int i = 0; i < bodies.Length; i++)
             {
                 if (bodies[i].IsTracked)
@@ -79,7 +87,7 @@ public class KinectGrab : MonoBehaviour
                 grabReadyRight = true;
             //If nothing is currently being grabbed, an object is ready to be grabbed, and the Kinect is confident the hand is closed
             //if (rightDist < minGrabDist && grabStateRight == false && grabReadyRight == true && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
-            if(!grabStateRight && activeBody.HandRightState == HandState.Closed)
+            if (!grabStateRight && activeBody.HandRightState == HandState.Closed && rightDist < minGrabDist)
             {
                 Debug.Log("Grabbed!");
                 //Assign the closest object to the grabbed object variable
@@ -87,7 +95,7 @@ public class KinectGrab : MonoBehaviour
                 //Assign the grabbed object as a child of the right hand
                 rhgObj.transform.parent = rightHand.transform;
                 //Notify the state machine that this object was "moved"
-                //stateMachine.ObjectMoved(rhgObj);
+                stateMachine.ObjectMoved(rhgObj);
                 //Change the grab state to true
                 grabStateRight = true;
                 //grabReadyRight = false;
@@ -148,7 +156,7 @@ public class KinectGrab : MonoBehaviour
                 grabReadyLeft = true;
             //If nothing is currently being grabbed, an object is ready to be grabbed, and the Kinect is confident the hand is closed
             //if (rightDist < minGrabDist && grabStateRight == false && grabReadyRight == true && activeBody.HandRightState == HandState.Closed && activeBody.HandRightConfidence == TrackingConfidence.High)
-            if (!grabStateLeft && activeBody.HandLeftState == HandState.Closed)
+            if (!grabStateLeft && activeBody.HandLeftState == HandState.Closed && leftDist < minGrabDist)
             {
                 Debug.Log("Grabbed!");
                 //Assign the closest object to the grabbed object variable
@@ -156,7 +164,7 @@ public class KinectGrab : MonoBehaviour
                 //Assign the grabbed object as a child of the right hand
                 lhgObj.transform.parent = leftHand.transform;
                 //Notify the state machine that this object was "moved"
-                //stateMachine.ObjectMoved(rhgObj);
+                stateMachine.ObjectMoved(lhgObj);
                 //Change the grab state to true
                 grabStateLeft = true;
                 //grabReadyRight = false;
@@ -170,18 +178,27 @@ public class KinectGrab : MonoBehaviour
                 lhgObj = null;
                 grabStateLeft = false;
             }
+
+
             /******************TOUCH CODE******************************/
+            rhObj = getClosestObject(rightHand.transform.position, objs);
+            lhObj = getClosestObject(leftHand.transform.position, objs);
+            leftDist = Vector3.Distance(lhObj.transform.position, leftHand.transform.position);
+            rightDist = Vector3.Distance(rhObj.transform.position, rightHand.transform.position);
             //Right Hand
             bool previousRhTouchState = rhTouching;
+            //Debug.Log("dist=" + rightDist + " , " + touchDistanceThreshold);
             if (rightDist < touchDistanceThreshold)
             {
-                if (rhPreviousClosestGameObject == null || rhPreviousClosestGameObject != rhgObj)
+                if (rhPreviousClosestGameObject == null || rhPreviousClosestGameObject != rhObj)
                 {
-                    rhPreviousClosestGameObject = rhgObj;
+                    Debug.Log("first r ");
+                    rhPreviousClosestGameObject = rhObj;
                     rhInitialTouchTime = Time.time;
                 }
                 if (Time.time - rhInitialTouchTime > touchTimeRequirement)
                 {
+                    Debug.Log("touch r");
                     rhTouching = true;
                 }
             }
@@ -191,20 +208,22 @@ public class KinectGrab : MonoBehaviour
                 rhTouching = false;
             }
 
-            if (previousRhTouchState == false && rhTouching == true) stateMachine.ObjectTouched(rhgObj);
+            if (previousRhTouchState == false && rhTouching == true) stateMachine.ObjectTouched(rhObj);
 
             //Left Hand
             bool previousLhTouchState = lhTouching;
             if (leftDist < touchDistanceThreshold)
             {
-                if (lhPreviousClosestGameObject == null || lhPreviousClosestGameObject != lhgObj)
+                Debug.Log("Left close");
+                if (lhPreviousClosestGameObject == null || lhPreviousClosestGameObject != lhObj)
                 {
-                    lhPreviousClosestGameObject = lhgObj;
+                    lhPreviousClosestGameObject = lhObj;
                     lhInitialTouchTime = Time.time;
                 }
                 if (Time.time - lhInitialTouchTime > touchTimeRequirement)
                 {
                     lhTouching = true;
+                    Debug.Log("touch l");
                 }
             }
             else
@@ -213,7 +232,7 @@ public class KinectGrab : MonoBehaviour
                 lhTouching = false;
             }
 
-            if (previousLhTouchState == false && lhTouching == true) stateMachine.ObjectTouched(lhgObj);
+            if (previousLhTouchState == false && lhTouching == true) stateMachine.ObjectTouched(lhObj);
             /**********************************************************/
         }
         catch (NullReferenceException)
@@ -225,7 +244,6 @@ public class KinectGrab : MonoBehaviour
     GameObject getClosestObject(Vector3 pos, GameObject[] objs)
     {
         //Initialize variables
-        // ??? What's the rationale for using MaxValue? 
         float minDist = float.MaxValue;
         GameObject minObj = null;
         //For every grabbable object

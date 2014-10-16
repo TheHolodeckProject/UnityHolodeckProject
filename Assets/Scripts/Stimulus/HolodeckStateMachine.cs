@@ -5,12 +5,10 @@ using Windows.Kinect;
 using System;
 
 
-// ??? namespace vs public class? 
 //namespace StateMachineDemoSharp
 public class HolodeckStateMachine : MonoBehaviour
 {
 
-    // ??? Should all of this be here or in TaskStart?
     public int numberOfStimuli = 3; //Static value representing number of stimuli for task
     public float Transparency = .9f; //How transparent the stimuli are (0 = invisible, 1 = opaque)
     private int[] colorNums; //A to-be-randomized list of numbers
@@ -35,38 +33,38 @@ public class HolodeckStateMachine : MonoBehaviour
     enum State { TaskStart = 0, BeginStudy, IdleStudy, BeginRecall, IdleRecall, Evaluate, BeginTaskEnd, IdleTaskEnd };
     private State currentState;
 
+    private Logger logger;
+
     void Start()
     {
         currentState = State.TaskStart;
         currentTrialNumber = 0;
+        logger = GameObject.Find("Logger").GetComponent<Logger>();
     }
 
     void Update()
     {
         switch (currentState)
         {
-            //??? This is where I put all the things that need to happen as soon as the task starts? Like, void Start()?
             case State.TaskStart:
 
                 //Removes the "grabbable" tag from the meshes. Because the meshes are now centered around parent objects, you grab the parents instead.
                 //For every stimulus
                 //Generates the blobs with appropriate shaders and colors
                 generateRandomStimuli();
-
-                // ??? How do I tell it that it's ready to go to the next state? Do I set Transition.Next = true or something?
-
+                
                 currentState = State.BeginStudy;
                 break;
 
-            // ??? Would it make sense to have a separate state for "Set up stimuli"?
             case State.BeginStudy:
                 Debug.Log("Study Phase");
                 //Generates random locations within specified bounds, so that they never overlap
                 generateRandomPositions();
-
+                logger.BeginLogging();
                 currentState = State.IdleStudy;
                 break;
             case State.IdleStudy:
+                Debug.Log("Idle Study");
                 if (idleStudyConditionIsMet())
                     currentState = State.BeginRecall;
                 break;
@@ -75,20 +73,21 @@ public class HolodeckStateMachine : MonoBehaviour
                 //For every stimulus
                 for (int i = 0; i < stimuli.Length; i++)
                 {
-                    // ??? Should resetting the object positions to a line be at the start of Recall, at the end of Study, or in its own separate Phase? Does it matter?
                     //Resets the object positions
                     stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
                     //Makes the objects grabbable
-                    stimuli[i].gameObject.tag = "Loggable";
+                    stimuli[i].gameObject.tag = "Grabbable";
 
                 }
                 currentState = State.IdleRecall;
                 break;
             case State.IdleRecall:
+                Debug.Log("idle recall");
                 if (idleRecallConditionIsMet())
                     currentState = State.Evaluate;
                 break;
             case State.Evaluate:
+                Debug.Log("eval");
                 //output information to logger
                 //generate summary file
                 //etc
@@ -96,9 +95,13 @@ public class HolodeckStateMachine : MonoBehaviour
                 if (currentTrialNumber == expectedNumberOfTrials) //End
                     currentState = State.BeginTaskEnd;
                 else //Reset
+                {
                     currentState = State.TaskStart;
+                    logger.Finish();
+                }
                 break;
             case State.BeginTaskEnd:
+                Debug.Log("begin task end");
                 //Put the system into a safe state
                 currentState = State.IdleTaskEnd;
                 break;
@@ -111,33 +114,47 @@ public class HolodeckStateMachine : MonoBehaviour
     private bool idleRecallConditionIsMet()
     {
         bool allItemsMoved = true;
+        string output = "";
         for (int i = 0; i < stimuliMovedState.Length; i++)
+        {
             allItemsMoved = allItemsMoved && stimuliMovedState[i];
-
+            output += " " + stimuliMovedState[i] + " ";
+        }
+        Debug.Log(output);
         return allItemsMoved;
     }
 
     private bool idleStudyConditionIsMet()
     {
         bool allItemsTouched = true;
+        string output = "";
         for (int i = 0; i < stimuliTouchedState.Length; i++)
+        {
             allItemsTouched = allItemsTouched && stimuliTouchedState[i];
-
+            output += " " + stimuliTouchedState[i] + " ";
+        }
+        Debug.Log(output);
         return allItemsTouched;
     }
 
     public void ObjectTouched(GameObject g)
     {
+        Debug.Log("Found object");
         for (int i = 0; i < stimuli.Length; i++)
         {
-            if (g == stimuli[i]) stimuliTouchedState[i] = true;
-            return;
+            if (g == stimuli[i])
+            {
+                
+                stimuliTouchedState[i] = true;
+                return;
+            }
         }
         throw new KeyNotFoundException("No object found in stimuli array that matches touched object.");
     }
 
     public void ObjectMoved(GameObject g)
     {
+        Debug.Log("moved object");
         for (int i = 0; i < stimuli.Length; i++)
         {
             if (g == stimuli[i]) stimuliMovedState[i] = true;
@@ -146,7 +163,6 @@ public class HolodeckStateMachine : MonoBehaviour
         throw new KeyNotFoundException("No object found in stimuli array that matches touched object.");
     }
 
-    // ??? Where do the functions get defined? Within the relevant state?
     private void generateRandomStimuli()
     {
         if (stimuli != null)
@@ -211,7 +227,6 @@ public class HolodeckStateMachine : MonoBehaviour
                 stimuli[i].gameObject.transform.Find("Meshes").renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
                 stimuli[i].gameObject.transform.Find("Meshes").renderer.material.mainTexture = colors[colorNums[i]];
                 stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color = new Color(stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.r, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.g, stimuli[i].gameObject.transform.Find("Meshes").renderer.material.color.b, Transparency);
-                //stimuli[i].gameObject.transform.Find("Meshes").tag = "Untagged";
                 stimuli[i] = (GameObject)Instantiate(stimuli[i]);
             }
             catch (NullReferenceException) { Debug.Log("NullReferenceException while attempting to generate stimuli."); /* If there's a null reference exception it means we're missing some dependent object. This shouldn't happen, but as at least once. Keep an eye on it. */ }

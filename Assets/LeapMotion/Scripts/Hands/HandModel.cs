@@ -16,24 +16,29 @@ public abstract class HandModel : MonoBehaviour {
   public float handModelPalmWidth = 0.085f;
   public FingerModel[] fingers = new FingerModel[NUM_FINGERS];
 
+    //HACK CODE
+  public bool overridePosition = false;
+  public Vector3 positionOverride;
+
   protected Hand hand_;
   protected HandController controller_;
   protected bool mirror_z_axis_ = false;
 
   public Vector3 GetPalmOffset() {
-    if (controller_ == null || hand_ == null)
-      return Vector3.zero;
+      
+          if (controller_ == null || hand_ == null)
+              return Vector3.zero;
 
-    Vector3 additional_movement = controller_.handMovementScale - Vector3.one;
-    Vector3 scaled_palm_position = Vector3.Scale(additional_movement,
-                                                 hand_.PalmPosition.ToUnityScaled(mirror_z_axis_));
-
-    return controller_.transform.TransformPoint(scaled_palm_position) -
-           controller_.transform.position;
+          Vector3 additional_movement = controller_.handMovementScale - Vector3.one;
+          Vector3 scaled_palm_position = Vector3.Scale(additional_movement,
+                                                       hand_.PalmPosition.ToUnityScaled(mirror_z_axis_));
+          return controller_.transform.TransformPoint(scaled_palm_position) -
+                 controller_.transform.position;
   }
 
   // Returns the palm position of the hand in relation to the controller.
   public Vector3 GetPalmPosition() {
+      if (overridePosition) return positionOverride; //HACK CODE
     return controller_.transform.TransformPoint(hand_.PalmPosition.ToUnityScaled(mirror_z_axis_)) +
            GetPalmOffset();
   }

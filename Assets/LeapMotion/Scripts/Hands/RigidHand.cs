@@ -20,6 +20,7 @@ public class RigidHand : SkeletalHand {
 
   public override void InitHand() {
     base.InitHand();
+      
   }
 
   public override void UpdateHand() {

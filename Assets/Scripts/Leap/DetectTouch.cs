@@ -20,7 +20,6 @@ public class DetectTouch : MonoBehaviour
         //Checks the list of all the things colliding with the cube to see if it contains the index fingertip and the thumb fingertip
         foreach (ContactPoint contact in col.contacts)
         {
-            // ??? How to get this to work with multiple fingers?
             //If the tip of the index finger is touching
             if (contact.otherCollider.gameObject.transform.name == "bone3" && contact.otherCollider.gameObject.transform.parent.name == "index")
                 fingerTouch = true;

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Leap;
+using System.Collections.Generic;
+using System;
 
 public class PositionLeapMotion : MonoBehaviour {
 
@@ -20,24 +22,57 @@ public class PositionLeapMotion : MonoBehaviour {
 	void Update () {
         GameObject leftHand = GameObject.Find("HandLeft");
         GameObject rightHand = GameObject.Find("HandRight");
-        GameObject leftRiggedHand = GameObject.Find("RiggedLeftHand(Clone)");
-        GameObject rightRiggedHand = GameObject.Find("RiggedRightHand(Clone)");
-        GameObject leftRigidHand = GameObject.Find("RigidHandLeft(Clone)");
-        GameObject rightRigidHand = GameObject.Find("RigidHandRight(Clone)");
-
-        if (leftHand != null && leftRiggedHand != null && leftRigidHand != null && !leftHandLocked)
+        List<GameObject> leftHandsLeap = new List<GameObject>();
+        List<GameObject> rightHandsLeap = new List<GameObject>();
+        foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
         {
-            leftRiggedHand.transform.parent = leftHand.transform;
-            leftRigidHand.transform.parent = leftHand.transform;
+            if (gameObj.name == "LeftHandClone(Clone)")
+            {
+                leftHandsLeap.Add(gameObj);
+            }
+            if (gameObj.name == "RightHandClone(Clone)")
+            {
+                rightHandsLeap.Add(gameObj);
+            }
+        }
+        if (leftHand != null && leftHandsLeap.Count > 0 && !leftHandLocked)
+        {
+            foreach (GameObject o in leftHandsLeap)
+            {
+                try
+                {
+                    o.GetComponent<RigidHand>().positionOverride = leftHand.transform.position;
+                    o.GetComponent<RigidHand>().overridePosition = true;
+                }
+                catch (Exception) { }
+                try
+                {
+                    o.GetComponent<RiggedHand>().positionOverride = leftHand.transform.position;
+                    o.GetComponent<RiggedHand>().overridePosition = true;
+                }
+                catch (Exception) { }
+            }
             leftHandLocked = true;
         }
         else
             leftHandLocked = false;
 
-        if (rightHand != null && rightRiggedHand != null && rightRigidHand != null && !rightHandLocked)
+        if (rightHand != null && rightHandsLeap.Count > 0 && !rightHandLocked)
         {
-            rightRiggedHand.transform.parent = rightHand.transform;
-            rightRigidHand.transform.parent = rightHand.transform;
+            foreach (GameObject o in rightHandsLeap)
+            {
+                try
+                {
+                    o.GetComponent<RigidHand>().positionOverride = rightHand.transform.position;
+                    o.GetComponent<RigidHand>().overridePosition = true;
+                }
+                catch (Exception) { }
+                try{
+                    o.GetComponent<RiggedHand>().positionOverride = rightHand.transform.position;
+                    o.GetComponent<RiggedHand>().overridePosition = true;
+                }
+                catch (Exception) { }
+            }
             rightHandLocked = true;
         }
         else
@@ -53,12 +88,5 @@ public class PositionLeapMotion : MonoBehaviour {
         //Applies a weird transformation to get it to face the right way
         camrotation *= Quaternion.Euler(270, 0, -180);
         this.transform.rotation = camrotation;
-
-        // Have to decide whether to just stick the hands onto the Kinect wrists or try to get them to actually line up
-        //If the right hand exists
-        if (GameObject.Find("RiggedRightHand(Clone)") != null)
-        {
-        }
-
 	}
 }

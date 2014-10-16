@@ -2,6 +2,8 @@
 using System.Collections;
 using Leap;
 
+// Global stimulus list created by Stimulus manager, and access that
+
 public class LeapMove : MonoBehaviour
 {
     enum State { Idle, Moving, EndMove }
@@ -13,7 +15,6 @@ public class LeapMove : MonoBehaviour
     private Vector3 middlePosition;
     private Vector3 middlePrevPosition;
     private GameObject moveManager;
-    // ??? For what I'm using this for, should I be using a transform or a gameobject
     private Transform cube;
     // Use this for initialization
     void Start()
@@ -45,7 +46,6 @@ public class LeapMove : MonoBehaviour
     }
 
     void DetectFingerCollisions()
-    // ??? Would it be more efficient to just find the closest cube like we did in iPosition?
     {
         cube = null;
         fingerTouch = false;
@@ -118,7 +118,6 @@ public class LeapMove : MonoBehaviour
         Vector3 thumbPosition = GameObject.Find(this.name + "/thumb/bone3").gameObject.transform.position;
         Vector3 fingerPosition = GameObject.Find(this.name + "/index/bone3").gameObject.transform.position;
         //Previous position gets subtracted from current position in later frames, so we need a previous position to start with
-        // ??? Why does adding Vector3 to this make is inacessible by Move?
         middlePrevPosition = Vector3.Lerp(thumbPosition, fingerPosition, .5f);
         //Moves the grabbed object a little closer to the middle position when you grab it
         cube.position = Vector3.MoveTowards(cube.position, middlePrevPosition, .005f);

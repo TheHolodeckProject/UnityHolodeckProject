@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Leap;
 
-
+// TO DO
+   // 1) Get cubes to generate in differnet colors
+   // 2) Disable grab/stretch (or remove "Loggable" tag) in study phase
+   // 3) Work in timer into study phase
+   // 4) Set up logger in post-trial phase
 public class StretchTaskStateMachine : MonoBehaviour
 {
     public GameObject cube;
@@ -14,8 +18,8 @@ public class StretchTaskStateMachine : MonoBehaviour
     private Vector3[] stimLocations;
     private int currentTrial;
     private Controller controller;
-    public Vector3 randomBoundsP0 = new Vector3(-.3f, -42.1f, -.1f);
-    public Vector3 randomBoundsP1 = new Vector3(.3f, -42.3f, .1f);
+    public Vector3 randomBoundsP0 = new Vector3(-.15f, -42.1f, 0f);
+    public Vector3 randomBoundsP1 = new Vector3(.15f, -42.3f, .2f);
     enum State { TrialStart = 0, TrialIdle, TrialEnd, TaskEnd };
     private State currentState;
 
@@ -61,44 +65,37 @@ public class StretchTaskStateMachine : MonoBehaviour
 
     void GenerateStimLocations()
     {
+        //Position stimuli randomly according to settings (no overlaps)
+        List<Rect> overlapCheckList = new List<Rect>();
+        int retries = 100;
         for (int i = 0; i < numberOfStim; i++)
         {
-            stimLocations[i] = new Vector3 (Random.Range(-.3f, .3f), Random.Range(-42.1f, -42.3f), Random.Range(-.1f, .1f));
-          //  stimSizes[i] = new Vector3(LeapStretchStateMachine.MinCubeSize LeapStretchStateMachine.MaxCubeSize)
-
-            //    //Position stimuli randomly according to settings (no overlaps)
-            //    List<Rect> overlapCheckList = new List<Rect>();
-            //    int retries = 100;
-            //    for (int i = 0; i < numberOfStim; i++)
-            //    {
-            //        stimLocations[i] = new Vector3(
-            //            Random.Range(randomBoundsP0.x > randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x,
-            //                      randomBoundsP0.x < randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x),
-            //            Random.Range(randomBoundsP0.y > randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y,
-            //                      randomBoundsP0.y < randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y),
-            //            Random.Range(randomBoundsP0.z > randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z,
-            //                      randomBoundsP0.z < randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z));
-            //        //Check for overlapping boxes and regenerate box location if overlap occurs
-            //        Rect newBox = new Rect(stimuli[i].x,
-            //                               stimuli[i].z,
-            //                               stimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x * stimuli[i].transform.localScale.x,
-            //                               stimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z * stimuli[i].transform.localScale.z);
-            //        if (boxesOverlapArray(newBox, overlapCheckList))
-            //        {
-            //            retries--;
-            //            if (retries <= 0)
-            //            {
-            //                //Force quit and overlap to prevent hang
-            //               // retries = numRetries;
-            //                overlapCheckList.Add(newBox);
-            //                Debug.Log("Unable to find proper placement of object. Too many objects or incorrect mesh bounds?");
-            //            }
-            //            else i--;
-            //        }
-            //        else
-            //        {
-            //         //   retries = numRetries;
-            //            overlapCheckList.Add(newBox);
+            stimLocations[i] = new Vector3(
+                Random.Range(randomBoundsP0.x > randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x,
+                          randomBoundsP0.x < randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x),
+                Random.Range(randomBoundsP0.y > randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y,
+                          randomBoundsP0.y < randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y),
+                Random.Range(randomBoundsP0.z > randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z,
+                          randomBoundsP0.z < randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z));
+            //Check for overlapping boxes and regenerate box location if overlap occurs
+            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x*2, cube.transform.localScale.z*2);
+            if (boxesOverlapArray(newBox, overlapCheckList))
+            {
+                retries--;
+                if (retries <= 0)
+                {
+                    //Force quit and overlap to prevent hang
+                    // retries = numRetries;
+                    overlapCheckList.Add(newBox);
+                    Debug.Log("Unable to find proper placement of object. Too many objects or incorrect mesh bounds?");
+                }
+                else i--;
+            }
+            else
+            {
+                //   retries = numRetries;
+                overlapCheckList.Add(newBox);
+            }
         }
     }
     private void GenerateStimuli()
@@ -109,46 +106,11 @@ public class StretchTaskStateMachine : MonoBehaviour
             stimuli[i] = cube;
             stimuli[i].transform.position = stimLocations[i];
             stimuli[i].transform.rotation = Random.rotation;
+            // !!! Should the total size be the same for every stimulus?
+            stimuli[i].transform.localScale = new Vector3(Random.Range(LeapStretch.MinCubeSize, LeapStretch.MaxCubeSize), Random.Range(LeapStretch.MinCubeSize, LeapStretch.MaxCubeSize), Random.Range(LeapStretch.MinCubeSize, LeapStretch.MaxCubeSize));
         }
     }
-    //void generateRandomPositions()
-    //{
-    //    //Position stimuli randomly according to settings (no overlaps)
-    //    List<Rect> overlapCheckList = new List<Rect>();
-    //    int retries = 100;
-    //    for (int i = 0; i < numberOfStim; i++)
-    //    {
-    //        stimLocations[i] = new Vector3(
-    //            Random.Range(randomBoundsP0.x > randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x,
-    //                      randomBoundsP0.x < randomBoundsP1.x ? randomBoundsP1.x : randomBoundsP0.x),
-    //            Random.Range(randomBoundsP0.y > randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y,
-    //                      randomBoundsP0.y < randomBoundsP1.y ? randomBoundsP1.y : randomBoundsP0.y),
-    //            Random.Range(randomBoundsP0.z > randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z,
-    //                      randomBoundsP0.z < randomBoundsP1.z ? randomBoundsP1.z : randomBoundsP0.z));
-    //        //Check for overlapping boxes and regenerate box location if overlap occurs
-    //        Rect newBox = new Rect(stimuli[i].x,
-    //                               stimuli[i].z,
-    //                               stimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.x * stimuli[i].transform.localScale.x,
-    //                               stimuli[i].GetComponentInChildren<MeshFilter>().mesh.bounds.size.z * stimuli[i].transform.localScale.z);
-    //        if (boxesOverlapArray(newBox, overlapCheckList))
-    //        {
-    //            retries--;
-    //            if (retries <= 0)
-    //            {
-    //                //Force quit and overlap to prevent hang
-    //               // retries = numRetries;
-    //                overlapCheckList.Add(newBox);
-    //                Debug.Log("Unable to find proper placement of object. Too many objects or incorrect mesh bounds?");
-    //            }
-    //            else i--;
-    //        }
-    //        else
-    //        {
-    //         //   retries = numRetries;
-    //            overlapCheckList.Add(newBox);
-    //        }
-    //    }
-    //}
+  
 
     bool boxesOverlapArray(Rect box, List<Rect> boxArray)
     {

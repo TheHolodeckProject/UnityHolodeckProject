@@ -7,7 +7,7 @@ public class LeapStretch : MonoBehaviour
     public static bool stretching;
     public static int stretchHands = 0;
     public static float MinCubeSize = .05f;
-    public static float MaxCubeSize = .3f;
+    public static float MaxCubeSize = .2f;
     public float CubeSizeBuffer = .025f;
     private bool pinching;
     private bool triggerPinch;
