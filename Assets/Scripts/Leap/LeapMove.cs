@@ -127,10 +127,10 @@ public class LeapMove : MonoBehaviour
     State EndMove()
     {
         moving = false;
-        if (!fingerTouch)
-            Debug.Log("Ending move because the finger stopped touching");
-        else if (!thumbTouch)
-            Debug.Log("Ending move because the thumb stopped touching");
+        //if (!fingerTouch)
+        //    Debug.Log("Ending move because the finger stopped touching");
+        //else if (!thumbTouch)
+        //    Debug.Log("Ending move because the thumb stopped touching");
         return State.Idle;
     }
 }
