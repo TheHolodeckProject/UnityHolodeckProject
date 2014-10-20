@@ -57,19 +57,19 @@ public class HolodeckStateMachine : MonoBehaviour
                 break;
 
             case State.BeginStudy:
-                Debug.Log("Study Phase");
+                //Debug.Log("Study Phase");
                 //Generates random locations within specified bounds, so that they never overlap
                 generateRandomPositions();
                 logger.BeginLogging();
                 currentState = State.IdleStudy;
                 break;
             case State.IdleStudy:
-                Debug.Log("Idle Study");
+                //Debug.Log("Idle Study");
                 if (idleStudyConditionIsMet())
                     currentState = State.BeginRecall;
                 break;
             case State.BeginRecall:
-                Debug.Log("Recall Phase");
+                //Debug.Log("Recall Phase");
                 //For every stimulus
                 for (int i = 0; i < stimuli.Length; i++)
                 {
@@ -133,13 +133,13 @@ public class HolodeckStateMachine : MonoBehaviour
             allItemsTouched = allItemsTouched && stimuliTouchedState[i];
             output += " " + stimuliTouchedState[i] + " ";
         }
-        Debug.Log(output);
+        //Debug.Log(output);
         return allItemsTouched;
     }
 
     public void ObjectTouched(GameObject g)
     {
-        Debug.Log("Found object");
+       // Debug.Log("Found object");
         for (int i = 0; i < stimuli.Length; i++)
         {
             if (g == stimuli[i])
@@ -185,7 +185,7 @@ public class HolodeckStateMachine : MonoBehaviour
             stimuliTouchedState[i] = false;
             stimuliMovedState[i] = false;
         }
-        //Creates a list of integers, 1 for each color
+ 
         //Create a knuth shuffle index list of random indicies within the range of possible colors
         int[] stimNums = new int[100];
         for (int i = 0; i < 100; i++)

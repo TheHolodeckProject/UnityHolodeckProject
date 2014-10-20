@@ -13,11 +13,14 @@ public struct grabData
 {
    public  float grabLevel;
     public bool isItLeft; // 0= right 1 = left
+    public Vector3 position;
 
-    public grabData(float g, bool h)
+    public grabData(float g, bool h, Vector3 i)
     {
         grabLevel = g;
         isItLeft = h;
+        position = i;
+
     }
 
    
@@ -56,6 +59,8 @@ public class HandController : MonoBehaviour {
   public bool recorderLoop = true;
   
   LeapRecorder recorder_ = new LeapRecorder();
+
+  //Vector3 leapContrlPos;
   
   Controller leap_controller_;
 
@@ -70,6 +75,8 @@ public class HandController : MonoBehaviour {
   }
 
   void Awake() {
+
+      //leapContrlPos = GameObject.Find("ControllerSandBox").transform.position;
     leap_controller_ = new Controller();
 
     // Optimize for top-down tracking if on head mounted display.
@@ -344,14 +351,12 @@ public class HandController : MonoBehaviour {
       recorder_.NextFrame();
     }
   }
-
+    /*
   public grabData getGrabStrength()
   {
       Frame frame = GetFrame();
 
       HandList hList = frame.Hands;
-
-      foreach (Hand hand in hList) print(hand);
 
       int place = 0;
 
@@ -361,9 +366,11 @@ public class HandController : MonoBehaviour {
       }
 
       
-      grabData grabDat = new grabData(hList[place].GrabStrength, hList[place].IsLeft);
+      grabData grabDat = new grabData(hList[place].GrabStrength, hList[place].IsLeft, new Vector3(  hList[place].PalmPosition.x, 
+                                                                                                     hList[place].PalmPosition.y,  hList[place].PalmPosition.z));
       return grabDat;
       
       
   }
+     */
 }

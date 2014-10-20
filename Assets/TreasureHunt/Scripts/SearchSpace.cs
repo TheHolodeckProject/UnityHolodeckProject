@@ -75,6 +75,8 @@ public class SearchSpace : MonoBehaviour {
 	//private BluetoothScript rightHand;
     GameObject randShape;
     Vector3[] randShapeCorners = new Vector3[8];
+    Vector3[] markLocations;
+    
 
     public GUIStyle myGUIStyle;
     private HandController handControlScript;
@@ -93,9 +95,16 @@ public class SearchSpace : MonoBehaviour {
     GameObject OccViewObjLeft;
     GameObject OccViewObjRight;
     GameObject MainViewObj;
+    grabData grabD = new grabData();
+    float grabThreshold = 6f;
+    bool grabbingFlag = false;
+    int grabCount = 0;
+    
 
     void Awake()
     {
+      
+        handControlScript = GameObject.FindObjectOfType(typeof(HandController)) as HandController;
          OccViewObjLeft= GameObject.Find("CameraLeft");
          OccViewObjRight = GameObject.Find("CameraRight");
          MainViewObj = GameObject.Find("MainCameraView");
@@ -139,6 +148,7 @@ public class SearchSpace : MonoBehaviour {
          */
 
         numSpheres = PlayerPrefs.GetInt("Number of Stimuli");
+        markLocations = new Vector3[numSpheres];
 
         // Array to hold all stimuli
          
@@ -161,18 +171,18 @@ public class SearchSpace : MonoBehaviour {
         if (phase == 0)
         {
 
-         /*   OccViewObjLeft.camera.enabled = false;
+          OccViewObjLeft.camera.enabled = false;
             OccViewObjRight.camera.enabled = false;
-            MainViewObj.camera.enabled = true;*/
+            MainViewObj.camera.enabled = true;
 
         }
        
 
         if (phase == 1 )
         {
-           /* OccViewObjLeft.camera.enabled = true;
+           OccViewObjLeft.camera.enabled = true;
             OccViewObjRight.camera.enabled = true;
-            MainViewObj.camera.enabled = false;*/
+            MainViewObj.camera.enabled = false;
             
             if (phaseInit)
             {
@@ -264,14 +274,36 @@ public class SearchSpace : MonoBehaviour {
 
         if (phase == 3)
         {
-
-            handControlScript = GameObject.FindObjectOfType(typeof(HandController)) as HandController;
-            grabData grabD = handControlScript.getGrabStrength();
-            print(grabD.grabLevel);
-            if (grabD.grabLevel > .8)
+            
+            
+        //     grabD = handControlScript.getGrabStrength();
+                if (grabD.grabLevel > .85 && !grabbingFlag)
             {
+                tStart = Time.time;
+                grabbingFlag = true;
                 string side = (grabD.isItLeft) ? "Left" : "Right";
                 print(side + " hand is grabbing");
+                    
+            }
+                if (grabbingFlag)
+            {
+                    if( (Time.time - tStart > grabThreshold) && !(grabCount == numSpheres)){
+                        string side = (grabD.isItLeft) ? "Left" : "Right";
+                        markLocations[numSpheres - grabCount - 1] = grabD.position;
+                        grabCount++;
+                        print("Grab by " + side + "Hand recorded" + " at Pos: (" + grabD.position.x + ", " + grabD.position.y + "," + grabD.position.z + ")" + "\n" );
+                        print("Number recorded = " + grabCount + "; " + (numSpheres - grabCount) + " left to record" );
+                        grabbingFlag = false;
+                        for(int i = 0; i < 500; i++){
+                            //wait period between grabs 
+                        }
+                        
+                    }
+                    else if (grabD.grabLevel < .5)
+                    {
+                        grabbingFlag = false;
+                        print("No longer grabbing");
+                    }
             }
             
            
@@ -372,6 +404,8 @@ public class SearchSpace : MonoBehaviour {
 
 
     }
+
+    
 
     bool phaseChangeFlag()
     {

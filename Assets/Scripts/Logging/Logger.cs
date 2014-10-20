@@ -76,7 +76,7 @@ public class Logger : MonoBehaviour {
 
 		GenerateLoggableObjectsList ();
 
-		Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
+		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 		
 		//Create the appropriate filename given the options
 		string rawFilename = "RawLog.dat";
