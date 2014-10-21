@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using Leap;
 
 // TO DO
-// 1) Get cubes to generate in differnet colors
-// 2) Disable grab/stretch (or remove "Loggable" tag) in study phase
-// 4) Set up logger in post-trial phase
-// 5) Insert "Reset Stimuli" button
+//     1) Destroy cubes at the end of every trial
+// ??? 2) Disable grab/stretch (or remove "Loggable" tag) in study phase
+        // What's the best way to do this? 
+// 3) Set up logger
+// 4) Animate reset button (frivolous)
+
 public class MoveTask : MonoBehaviour
 {
     public GameObject cube;
+    public GameObject resetMarker;
     private GameObject[] stimuli;
     private Transform handController;
     public int totalTrials = 3;
@@ -26,7 +29,6 @@ public class MoveTask : MonoBehaviour
     public Vector3 stimLocationOffset = new Vector3(0f, .4f, 0f);
     public Vector3 stimResetSize = new Vector3(.2f, 0f, 0f);
     public Vector3 stimResetOffset = new Vector3(0f, .4f, 0f);
-    private GameObject resetMarker;
     private int grabbedCubes;
     private bool doneRecall;
     enum State { TrialStart, OnStudy, Study, OnRecall, Recall, RecallFinished, TrialEnd, TaskEnd };
@@ -35,6 +37,7 @@ public class MoveTask : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        resetMarker.SetActive(false);
         handController = GameObject.Find("HandController").transform;
         stimLocations = new Vector3[numberOfStim];
         resetLocations = new Vector3[numberOfStim];
@@ -42,15 +45,7 @@ public class MoveTask : MonoBehaviour
         currentState = State.TrialStart;
         currentTrial = 0;
         cube.tag = "Loggable";
-        resetMarker = GameObject.Find("ResetMarker");
         doneRecall = false;
-        // ??? Not working
-        //InteractionBox iBox = GetInteractionBox();
-        //GameObject interactionBoxCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //interactionBoxCube.transform.position = new Vector3(iBox.Center.ToUnityScaled().x, iBox.Center.ToUnityScaled().y, iBox.Center.ToUnityScaled().z);
-        //Vector v = new Vector(iBox.Width, iBox.Height, iBox.Depth);
-        //interactionBoxCube.transform.localScale = new Vector3(v.ToUnityScaled().x, v.ToUnityScaled().y, v.ToUnityScaled().z);
-        //Debug.Log(" x: " + iBox.Center.ToUnityScaled().x + " y:" + iBox.Center.ToUnityScaled().y + " z:" + iBox.Center.ToUnityScaled().z + " width: " + v.ToUnityScaled().x + " height: " + v.ToUnityScaled().y + " depth: " + v.ToUnityScaled().z);
     }
 
     // Update is called once per frame
@@ -60,6 +55,7 @@ public class MoveTask : MonoBehaviour
         switch (currentState)
         {
             case State.TrialStart:
+                currentTrial += 1;
                 GenerateStimLocations();
                 GenerateStimuli();
                 currentState = State.OnStudy;
@@ -83,30 +79,39 @@ public class MoveTask : MonoBehaviour
 
             case State.Recall:
                 grabbedCubes = WaitForResponses();
-                Debug.Log("Grabbed cubes = " + grabbedCubes);
                 if (grabbedCubes >= numberOfStim)
-                    resetMarker.SetActive(true);;
+                {
+                    resetMarker.SetActive(true);
                     currentState = State.RecallFinished;
+                }
                 break;
 
             case State.RecallFinished:
                 doneRecall = WaitForSphereTouch();
                 if (doneRecall)
                 {
-                    Debug.Log("Touched the reset marker");
                     resetMarker.SetActive(false);
                     currentState = State.TrialEnd;
                 }
                 break;
 
             case State.TrialEnd:
+                Debug.Log("Current trial = " + currentTrial);
+                Debug.Log("Total trials = " + totalTrials);
+                if (currentTrial >= totalTrials)
+                    currentState = State.TaskEnd;
+                else
+                {
+                    DestroyStimuli();
+                    currentState = State.TrialStart;
+                }
                 break;
-        }
-    }
 
-    InteractionBox GetInteractionBox()
-    {
-        return GameObject.Find("HandController").GetComponent<HandController>().latestFrame.InteractionBox;
+            case State.TaskEnd:
+                Debug.Log("Task over");
+                break;
+
+        }
     }
 
     void GenerateStimLocations()
@@ -232,10 +237,14 @@ public class MoveTask : MonoBehaviour
 
     bool WaitForSphereTouch()
     {
-        GameObject spherey = resetMarker.transform.Find("Sphere").gameObject;
-        Debug.Log("spherey name = " + spherey.name);
         //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
         return resetMarker.transform.GetComponentInChildren<DetectTouch>().fingerTouch;
     }
 
+    void DestroyStimuli()
+    {
+        Debug.Log("Destroying stimuli");
+        for (int i = 0; i >= stimuli.Length; i++)
+            Destroy(stimuli[i]);
+    }
 }

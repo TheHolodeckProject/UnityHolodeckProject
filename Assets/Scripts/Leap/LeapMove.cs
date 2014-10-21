@@ -111,7 +111,6 @@ public class LeapMove : MonoBehaviour
 
     State OnMove()
     {
-        Debug.Log("Starting move");
         //Changes the global variable to true, so other scripts can access it
         moving = true;
         //Calculates midpoint between thumb and index finger and uses that as the position of the moveManager
