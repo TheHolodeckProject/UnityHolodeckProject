@@ -22,6 +22,8 @@ public class PolyHand : HandModel {
     }
   }
 
+
+ 
   public override void UpdateHand() {
     SetPalmOrientation();
 

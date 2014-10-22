@@ -59,8 +59,10 @@ public class HandController : MonoBehaviour {
   public bool recorderLoop = true;
   
   LeapRecorder recorder_ = new LeapRecorder();
+  LeapRecorder1 recorder1_ = new LeapRecorder1();
 
-  //Vector3 leapContrlPos;
+  //John's additions- 10/22/14
+ // Vector3 leapContrlPos;
   
   Controller leap_controller_;
 
@@ -68,16 +70,16 @@ public class HandController : MonoBehaviour {
   Dictionary<int, HandModel> hand_physics_;
   Dictionary<int, ToolModel> tools_;
   
-  void OnDrawGizmos() {
-    // Draws the little Leap Motion Controller in the Editor view.
-    Gizmos.matrix = Matrix4x4.Scale(GIZMO_SCALE * Vector3.one);
-    Gizmos.DrawIcon(transform.position, "leap_motion.png");
-  }
+  //void OnDrawGizmos() {
+  //  // Draws the little Leap Motion Controller in the Editor view.
+  //  Gizmos.matrix = Matrix4x4.Scale(GIZMO_SCALE * Vector3.one);
+  //  Gizmos.DrawIcon(transform.position, "leap_motion.png");
+  //}
 
   void Awake() {
 
-      //leapContrlPos = GameObject.Find("ControllerSandBox").transform.position;
-    leap_controller_ = new Controller();
+      //John's additions- 10/22/14
+      leap_controller_ = new Controller();
 
     // Optimize for top-down tracking if on head mounted display.
     Controller.PolicyFlag policy_flags = leap_controller_.PolicyFlags;
@@ -102,7 +104,8 @@ public class HandController : MonoBehaviour {
     }
 
     if (enableRecordPlayback && recordingAsset != null)
-      recorder_.Load(recordingAsset);
+          recorder_.Load(recordingAsset);
+    
   }
 
   void IgnoreCollisions(GameObject first, GameObject second, bool ignore = true) {
@@ -174,7 +177,8 @@ public class HandController : MonoBehaviour {
           
 
           // Set scaling based on reference hand.
-          float hand_scale = MM_TO_M * leap_hand.PalmWidth / new_hand.handModelPalmWidth;
+          float hand_scale = (MM_TO_M * leap_hand.PalmWidth / new_hand.handModelPalmWidth) ;
+         
           new_hand.transform.localScale = hand_scale * transform.localScale;
 
           new_hand.InitHand();
@@ -188,7 +192,8 @@ public class HandController : MonoBehaviour {
           hand_model.MirrorZAxis(mirrorZAxis);
 
           // Set scaling based on reference hand.
-          float hand_scale = MM_TO_M * leap_hand.PalmWidth / hand_model.handModelPalmWidth;
+            float hand_scale = (MM_TO_M * leap_hand.PalmWidth / hand_model.handModelPalmWidth);
+           
           hand_model.transform.localScale = hand_scale * transform.localScale;
           hand_model.UpdateHand();
         }
@@ -340,19 +345,21 @@ public class HandController : MonoBehaviour {
   void UpdateRecorder() {
     if (!enableRecordPlayback)
       return;
-
+    
     recorder_.speed = recorderSpeed;
     recorder_.loop = recorderLoop;
-
+   
     if (recorder_.state == RecorderState.Recording) {
       recorder_.AddFrame(leap_controller_.Frame());
+      
     }
     else {
       recorder_.NextFrame();
     }
   }
-    /*
-  public grabData getGrabStrength()
+    
+    //John addition's- 10/22/14
+  /*public grabData getGrabStrength()
   {
       Frame frame = GetFrame();
 
@@ -371,6 +378,6 @@ public class HandController : MonoBehaviour {
       return grabDat;
       
       
-  }
-     */
+  } */
+     
 }

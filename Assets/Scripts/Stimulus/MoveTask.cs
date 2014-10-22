@@ -4,50 +4,51 @@ using System.Collections.Generic;
 using Leap;
 
 // TO DO
-//     1) Destroy cubes at the end of every trial
-// ??? 2) Disable grab/stretch (or remove "Loggable" tag) in study phase
-        // What's the best way to do this? 
-// 3) Set up logger
-// 4) Animate reset button (frivolous)
+// 1) Set up logger
+// 2) Figure out why cubes keep expanding the third time (on last trial?)
+// 3) Get more colors
+// 4) Animate reset button press (frivolous)
 
 public class MoveTask : MonoBehaviour
 {
     public GameObject cube;
-    public GameObject resetMarker;
-    private GameObject[] stimuli;
-    private Transform handController;
+    public GameObject resetButton;
+    public int ITI;
+    public float popRate;
     public int totalTrials = 3;
     public int numberOfStim = 3;
     public float studyTime = 3f;
-    public float Transparency = .9f; //How transparent the stimuli are (0 = invisible, 1 = opaque)
+    public Vector3 stimLocationSize = new Vector3(.2f, .4f, .2f);
+    public Vector3 stimLocationOffset = new Vector3(0f, .4f, 0f);
+    public Vector3 stimOverlapBuffer = new Vector3(0.2f, 0.2f, 0.2f);
+    public Vector3 stimResetSize = new Vector3(.2f, 0f, 0f);
+    public Vector3 stimResetOffset = new Vector3(0f, .4f, 0f);
+    private GameObject[] stimuli;
+    private Transform handController;
     private float timeLeft;
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
     private int currentTrial;
     private Controller controller;
-    public Vector3 stimLocationSize = new Vector3(.2f, .4f, .2f);
-    public Vector3 stimLocationOffset = new Vector3(0f, .4f, 0f);
-    public Vector3 stimResetSize = new Vector3(.2f, 0f, 0f);
-    public Vector3 stimResetOffset = new Vector3(0f, .4f, 0f);
-    private int grabbedCubes;
     private bool doneRecall;
-    enum State { TrialStart, OnStudy, Study, OnRecall, Recall, RecallFinished, TrialEnd, TaskEnd };
+    private Logger logger;
+    enum State { TrialStart, OnStudy, Study, OnRecall, Recall, RecallFinished, TrialEnd, InterTrialInterval, TaskEnd };
     private State currentState;
 
     // Use this for initialization
     void Start()
     {
-        resetMarker.SetActive(false);
         handController = GameObject.Find("HandController").transform;
         stimLocations = new Vector3[numberOfStim];
         resetLocations = new Vector3[numberOfStim];
         stimuli = new GameObject[numberOfStim];
         currentState = State.TrialStart;
         currentTrial = 0;
-        cube.tag = "Loggable";
         doneRecall = false;
+        logger = GameObject.Find("Logger").GetComponent<Logger>();
+        logger.BeginLogging();
+        
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -58,59 +59,92 @@ public class MoveTask : MonoBehaviour
                 currentTrial += 1;
                 GenerateStimLocations();
                 GenerateStimuli();
+                logger.RegenerateStimuliInSameFile();
+                MakeStimuliUngrabbable();
                 currentState = State.OnStudy;
                 break;
 
             case State.OnStudy:
-                timeLeft = studyTime;
-                currentState = State.Study;
+                bool popInComplete = PopInStimuli();
+                if (popInComplete)
+                {
+                    timeLeft = studyTime;
+                    currentState = State.Study;
+                }
                 break;
 
             case State.Study:
                 timeLeft -= Time.deltaTime;
-                if (timeLeft < 0)
-                    currentState = State.OnRecall;
-                break;
-
-            case State.OnRecall:
-                ResetStimuli();
-                currentState = State.Recall;
-                break;
-
-            case State.Recall:
-                grabbedCubes = WaitForResponses();
-                if (grabbedCubes >= numberOfStim)
+                bool popOutComplete = false;
+                if (timeLeft <= 0)
                 {
-                    resetMarker.SetActive(true);
-                    currentState = State.RecallFinished;
+                    popOutComplete = PopOutStimuli();
+                    if (popOutComplete)
+                    {
+                        ResetStimuli();
+                        currentState = State.OnRecall;
+                    }
                 }
                 break;
 
+            case State.OnRecall:
+                popInComplete = PopInStimuli();
+                if (popInComplete)
+                {
+                    MakeStimuliGrabbable();
+                    currentState = State.Recall;
+                }
+                break;
+
+            case State.Recall:
+                int movedCubes = GetNumberOfMovedCubes();
+                if (movedCubes >= numberOfStim)
+                {
+                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r+150, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                    currentState = State.RecallFinished;
+                }
+
+                break;
+
             case State.RecallFinished:
-                doneRecall = WaitForSphereTouch();
+                doneRecall = WaitForResetButtonTouch();
                 if (doneRecall)
                 {
-                    resetMarker.SetActive(false);
-                    currentState = State.TrialEnd;
+                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - 150, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                    if (currentTrial >= totalTrials)
+                    {
+                        currentState = State.TaskEnd;
+                        logger.FinishTrial(currentTrial);
+                        logger.Finish();
+                    }
+                    else
+                    {
+                        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
+                        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
+                        currentState = State.TrialEnd;
+                        logger.FinishTrial(currentTrial);
+                    }
                 }
                 break;
 
             case State.TrialEnd:
-                Debug.Log("Current trial = " + currentTrial);
-                Debug.Log("Total trials = " + totalTrials);
-                if (currentTrial >= totalTrials)
-                    currentState = State.TaskEnd;
-                else
+                popOutComplete = PopOutStimuli();
+                if (popOutComplete)
                 {
                     DestroyStimuli();
-                    currentState = State.TrialStart;
+                    currentState = State.InterTrialInterval;
+                    timeLeft = ITI;
                 }
                 break;
 
-            case State.TaskEnd:
-                Debug.Log("Task over");
+            case State.InterTrialInterval:
+                    timeLeft -= Time.deltaTime;
+                if (timeLeft <= 0)
+                    currentState = State.TrialStart;
                 break;
 
+            case State.TaskEnd:
+                break;
         }
     }
 
@@ -126,7 +160,7 @@ public class MoveTask : MonoBehaviour
                 Random.Range(handController.position.y - stimLocationSize.y / 2, handController.position.y + stimLocationSize.y / 2) + stimLocationOffset.y,
                 Random.Range(handController.position.z - stimLocationSize.z / 2, handController.position.z + stimLocationSize.z / 2) + stimLocationOffset.z);
             //Check for overlapping boxes and regenerate box location if overlap occurs
-            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x * 2, cube.transform.localScale.z * 2);
+            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x * 2 + stimOverlapBuffer.x, cube.transform.localScale.z * 2 + stimOverlapBuffer.z);
             if (boxesOverlapArray(newBox, overlapCheckList))
             {
                 retries--;
@@ -166,19 +200,33 @@ public class MoveTask : MonoBehaviour
             colorNums[index] = colorNums[i];
             colorNums[i] = tmp;
         }
-
+        GameObject template = Resources.Load("StretchableCube") as GameObject;
         //Defines the stimulus properties
         for (int i = 0; i < numberOfStim; i++)
         {
-            stimuli[i] = Resources.Load("StretchableCube") as GameObject;
+            stimuli[i] = (GameObject)Instantiate(template);
             stimuli[i].transform.position = stimLocations[i];
             stimuli[i].transform.rotation = Random.rotation;
-            stimuli[i].transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+            //stimuli[i].transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+            stimuli[i].transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
             stimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
-            stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b, Transparency);
-            //Actually instantiates the stimuli
-            stimuli[i] = (GameObject)Instantiate(stimuli[i]);
+            stimuli[i].name = stimuli[i].name + "-" + stimuli[i].transform.renderer.material.mainTexture.name;
+            stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b);
+            
+            //Makes the stimuli tiny, so they can be poppped in
+            stimuli[i].transform.localScale = new Vector3(0, 0, 0);
+
+            stimuli[i].AddComponent<SimpleObjectLogger>();
         }
+
+        //for (int i = 0; i < stimuli.Length;i++)
+            //stimuli[i].AddComponent<SimpleObjectLogger>();
+    }
+
+    private void MakeStimuliUngrabbable()
+    {
+        for (int i = 0; i < numberOfStim; i++)
+            stimuli[i].tag = "Untagged";
     }
 
     bool boxesOverlapArray(Rect box, List<Rect> boxArray)
@@ -188,6 +236,35 @@ public class MoveTask : MonoBehaviour
         return false;
     }
 
+    //Makes Stimuli grow / shrink rather than just appearinginto their natural size
+    private float grow;
+    private bool PopInStimuli()
+    {
+        for (int i = 0; i < numberOfStim; i++)
+        {
+            stimuli[i].transform.localScale += Vector3.one * grow;
+            grow += popRate * Time.deltaTime;
+        }
+            if (stimuli[0].transform.localScale.x >= cube.transform.localScale.x)
+                return true;
+            else
+                return false;
+    }
+
+    private bool PopOutStimuli()
+    {
+        for (int i = 0; i < numberOfStim; i++)
+        {
+            stimuli[i].transform.localScale -= Vector3.one * grow;
+            grow += popRate * Time.deltaTime;
+        }
+        if (stimuli[0].transform.localScale.x <= 0)
+            return true;
+        else
+            return false;
+    }
+
+
     //Reference: http://gamemath.com/2011/09/detecting-whether-two-boxes-overlap/
     bool boxesOverlap(Rect box0, Rect box1)
     {
@@ -196,6 +273,12 @@ public class MoveTask : MonoBehaviour
         if (box0.y + box0.height < box1.y) return false;
         if (box0.y > box1.y + box1.height) return false;
         return true;
+    }
+
+    private void MakeStimuliGrabbable()
+    {
+        for (int i = 0; i < numberOfStim; i++)
+            stimuli[i].tag = "Grabbable";
     }
 
     void ResetStimuli()
@@ -223,28 +306,26 @@ public class MoveTask : MonoBehaviour
     }
 
     // ??? More efficient way of waiting until all 3 have been grabbed?
-    int WaitForResponses()
+    int GetNumberOfMovedCubes()
     {
-        grabbedCubes = 0;
+        int movedCubes = 0;
         for (int i = 0; i < numberOfStim; i++)
         {
-            //Debug.Log("transform position = " + stimuli[i].transform.position + " ---- Stimlocation[i] = " + stimLocations[i]);
             if (stimuli[i].transform.position != resetLocations[i])
-                grabbedCubes += 1;
+                movedCubes += 1;
         }
-        return grabbedCubes;
+        return movedCubes;
     }
 
-    bool WaitForSphereTouch()
+    bool WaitForResetButtonTouch()
     {
         //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
-        return resetMarker.transform.GetComponentInChildren<DetectTouch>().fingerTouch;
+        return resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch;
     }
 
     void DestroyStimuli()
     {
-        Debug.Log("Destroying stimuli");
-        for (int i = 0; i >= stimuli.Length; i++)
+        for (int i = 0; i < numberOfStim; i++)
             Destroy(stimuli[i]);
     }
 }

@@ -99,6 +99,8 @@ public class SearchSpace : MonoBehaviour {
     float grabThreshold = 6f;
     bool grabbingFlag = false;
     int grabCount = 0;
+    Vector3[] lineRensPoints = new Vector3[4];
+    LineRenderer[] lineRens;
     
 
     void Awake()
@@ -116,6 +118,41 @@ public class SearchSpace : MonoBehaviour {
         Destroy(randShape.transform.rigidbody);
        
         gameObjcorners = CalcSearchCorners(gameObject);
+       int j =0;
+        for(int i = 0; i < gameObjcorners.Length; i++){
+             if(gameObjcorners[i].y > gameObject.transform.position.y){
+                 lineRensPoints[j] = gameObjcorners[i];
+                 j++;
+             }
+             }
+        Vector3 tempVec = lineRensPoints[2];
+        lineRensPoints[2] = lineRensPoints[3];
+        lineRensPoints[3] = tempVec;
+        LineRenderer lineren1 = new GameObject().AddComponent<LineRenderer>();
+        LineRenderer lineren2 = new GameObject().AddComponent<LineRenderer>();
+        LineRenderer lineren3 = new GameObject().AddComponent<LineRenderer>();
+        LineRenderer lineren4 = new GameObject().AddComponent<LineRenderer>();
+            lineRens = new LineRenderer[] {lineren1, lineren2, lineren3, lineren4};
+        
+        for (int i = 0; i < lineRens.Length; i++)
+        {
+            
+            lineRens[i].SetVertexCount(2);
+            lineRens[i].SetColors(Color.red, Color.red);
+            lineRens[i].SetWidth(.05f, .05f);
+            if (i == lineRensPoints.Length - 1)
+            {
+                lineRens[i].SetPosition(0, lineRensPoints[i]);
+                lineRens[i].SetPosition(1, lineRensPoints[0]);
+                
+            }
+            else
+            {
+                lineRens[i].SetPosition(0, lineRensPoints[i]);
+                lineRens[i].SetPosition(1, lineRensPoints[i + 1]);
+              
+            }
+        }
         Color temp = new Color();
         temp.a = .1f;
         gameObject.renderer.material.color= temp;
@@ -128,6 +165,7 @@ public class SearchSpace : MonoBehaviour {
 	 void Start () {
 		//rightHand = new BluetoothScript();
 		//print (rightHand);
+         HandController controller = GetComponent<HandController>();
 		sphereRatio = 1f / ( PlayerPrefs.GetInt("Difficulty") * 5);   // scaling purposes
          modeAry = new Phase[System.Enum.GetValues(typeof(phaseTypes)).Length];
          setPatternBool();
@@ -171,18 +209,20 @@ public class SearchSpace : MonoBehaviour {
         if (phase == 0)
         {
 
-          OccViewObjLeft.camera.enabled = false;
+          /*OccViewObjLeft.camera.enabled = false;
             OccViewObjRight.camera.enabled = false;
-            MainViewObj.camera.enabled = true;
+            MainViewObj.camera.enabled = true;*/
+         
 
         }
        
 
         if (phase == 1 )
         {
-           OccViewObjLeft.camera.enabled = true;
+          /* OccViewObjLeft.camera.enabled = true;
             OccViewObjRight.camera.enabled = true;
-            MainViewObj.camera.enabled = false;
+            MainViewObj.camera.enabled = false;*/
+            
             
             if (phaseInit)
             {
@@ -610,6 +650,7 @@ public class SearchSpace : MonoBehaviour {
                 shape.transform.position.z - Mathf.Pow(-1, i) * shape.transform.localScale.z / 2);
 
         }
+        //foreach (Vector3 vec in shapeCorners) print("(" + vec.x + ", " + vec.y + ", " + vec.z + ")");  //Debugging
 
         return shapeCorners;
     }

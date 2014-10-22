@@ -58,7 +58,8 @@ public class LeapMove : MonoBehaviour
         for (int j = 0; j < thumbTouching.Length; ++j)
         {
             //If it's colliding with one of the child colliders of the StretchableCube
-            if (thumbTouching[j].transform.parent.name == "StretchableCube(Clone)")
+            //if (thumbTouching[j].transform.parent.name == "StretchableCube(Clone)")
+            if (thumbTouching[j].transform.parent.tag == "Grabbable")
             {
                 cube = thumbTouching[j].transform.parent.transform;
                 break;
