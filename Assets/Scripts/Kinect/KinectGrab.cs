@@ -33,26 +33,10 @@ public class KinectGrab : MonoBehaviour
         //Only run the rest of the update function if there's an active body in the scene
         if (activeBody != null)
         {
+            // ??? Right now we're getting object info every frame, but is this wasteful? They only change at the start of every trial.
             GetObjectInfo();
-            //RIGHT HAND
-            switch (rightState)
-            {
-                case State.Idle:
-                    rightState = CheckHandOpen(rightHand, true);
-                    break;
-
-                case State.ReadyToGrab:
-                    rightState = DetectGrab(rightHand, true);
-                    break;
-
-                case State.Grabbing:
-                    rightState = CheckRelease(rightHand, true);
-                    break;
-
-                case State.Release:
-                    rightState = OnRelease(rightHand, true);
-                    break;
-            }
+            CheckRightState();
+            CheckLeftState();
         }
     }
 
@@ -109,19 +93,58 @@ public class KinectGrab : MonoBehaviour
             objs[i] = output[i].gameObject;
     }
     
+    void CheckRightState()
+    {
+        switch (rightState)
+        {
+            case State.Idle:
+                rightState = CheckHandOpen(rightHand, true);
+                break;
+
+            case State.ReadyToGrab:
+                rightState = DetectGrab(rightHand, true);
+                break;
+
+            case State.Grabbing:
+                rightState = CheckRelease(rightHand, true);
+                break;
+
+            case State.Release:
+                rightState = OnRelease(rightHand, true);
+                break;
+        }
+    }
+
+    void CheckLeftState()
+    {
+        switch (leftState)
+        {
+            case State.Idle:
+                leftState = CheckHandOpen(leftHand, false);
+                break;
+
+            case State.ReadyToGrab:
+                leftState = DetectGrab(leftHand, false);
+                break;
+
+            case State.Grabbing:
+                leftState = CheckRelease(leftHand, false);
+                break;
+
+            case State.Release:
+                leftState = OnRelease(leftHand, false);
+                break;
+        }
+    }
+
     State CheckHandOpen(GameObject hand, bool isRightHand)
     {
         //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
         if (isRightHand)
-        {
-            //If the hand is open
+            //If the hand is open, set the state to ReadyToGrab
             if (activeBody.HandRightState == HandState.Open) return State.ReadyToGrab;
-        }
         else
-        {
-            //Do Nothing
-        }
-
+            if (activeBody.HandLeftState == HandState.Open) return State.ReadyToGrab;
         return State.Idle;
     }
 
@@ -133,24 +156,34 @@ public class KinectGrab : MonoBehaviour
             //If the hand is closed
             if (activeBody.HandRightState == HandState.Closed)
             {
-                //Defines the position of the closest object to the right hand
+                //Defines the position of the closest object to the right hand and then checks if it's closer than the grab distnace
                 rhObj = getClosestObject(rightHand.transform.position, objs);
-                //Figure out how far away the hand is from the closest object
                 float rightDist = Vector3.Distance(rhObj.transform.position, rightHand.transform.position);
                 if (rightDist < minGrabDist)
                 {
                     rhObj.transform.parent = rightHand.transform;
                     return State.Grabbing;
                 }
+                //If the hand was closed but no grab was made, goes into the Idle state. It'll only move from Idle to ReadyToGrab if the hand is open. That way, it requires a rising edge to grab stuff, so you can't just make a fist and swing it around
+                else return State.Idle;
             }
-            else return State.ReadyToGrab;
         }
+        //Same thing for the left hand           
         else
         {
-            //Do Nothing
+            if (activeBody.HandLeftState == HandState.Closed)
+            {
+                lhObj = getClosestObject(leftHand.transform.position, objs);
+                float leftDist = Vector3.Distance(lhObj.transform.position, rightHand.transform.position);
+                if (leftDist < minGrabDist)
+                {
+                    lhObj.transform.parent = leftHand.transform;
+                    return State.Grabbing;
+                }
+                else return State.Idle;
+            }
         }
-
-        return State.Idle;
+        return State.ReadyToGrab;
     }
 
     State CheckRelease(GameObject hand, bool isRightHand)
@@ -162,25 +195,19 @@ public class KinectGrab : MonoBehaviour
         }
         else
         {
-            //Do Nothing
+            if (activeBody.HandLeftState == HandState.Open && activeBody.HandLeftConfidence == TrackingConfidence.High)
+                return State.Release;
         }
-
         return State.Grabbing;
     }
 
     State OnRelease(GameObject hand, bool isRightHand)
     {
-        //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
         if (isRightHand)
-        {
             //Make the grabbed object no longer be a child of the hand
             rhObj.transform.parent = null;
-        }
         else
-        {
-            //Do Nothing
-        }
-
+            lhObj.transform.parent = null;
         return State.Idle;
     }
 }

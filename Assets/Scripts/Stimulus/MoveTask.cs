@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using Leap;
 
 // TO DO
-// 1) Set up logger
-// 2) Figure out why cubes keep expanding the third time (on last trial?)
-// 3) Get more colors
-// 4) Animate reset button press (frivolous)
+// 1) Get more colors
+// 2) Animate reset button press (frivolous)
 
 public class MoveTask : MonoBehaviour
 {
