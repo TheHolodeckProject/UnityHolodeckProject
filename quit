@@ -1,0 +1,255 @@
+[33mcommit 195fb5b6d32f88b4ed178b1417dd83321b88df79[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Tue Oct 28 12:18:56 2014 -0500
+
+    Removed Large Textures
+
+[33mcommit e48c4423d913d3c0ddf57ac85960b1bc7e1a4536[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Fri Oct 24 13:29:53 2014 -0500
+
+    Added Audio and Video
+    
+    Clock ticks now, and the tv plays a video on start (reset it with tab).
+
+[33mcommit 1c432e2b20d5fd6122e3f01977007428d285a940[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Oct 23 13:29:55 2014 -0500
+
+    Fixed Logger and Leap Move Task
+
+[33mcommit 5308b12ca5833214c4ea8b81245bb66a5af5c3f2[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Tue Oct 21 19:37:29 2014 -0500
+
+    Deleted unneeded files
+    
+    There was a massively huge texture that was keeping it from pushing the
+    commit. Deleted it, since we're not using it.
+
+[33mcommit 0c02347da29b1f248b8092700a7d265ab3faa970[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Tue Oct 21 19:24:36 2014 -0500
+
+    Floksy Assets, Leap Move Task
+    
+    Imported all the assets Floksy sent me. They look really nice. Also
+    polished up the move task. Now all it's missing is the logger!
+
+[33mcommit 321d4e51c95cfd8f0be8d17e26878a15be58dcd9[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Tue Oct 21 11:25:21 2014 -0500
+
+    MoveTask Changes
+    
+    Got the Reset Marker working, made some minor improvements to the Move
+    task
+
+[33mcommit 78f10f4780677d5347b466da63f57f5f73492397[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Mon Oct 20 18:43:19 2014 -0500
+
+    KinectGrab Update
+    
+    Turned KinectGrab into a state machine. It works well right now, though
+    it's set up to only run on the right hand right now.
+
+[33mcommit 2d7eb674cf257d459455995902b7798fe1fd3aa8[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Fri Oct 17 00:01:45 2014 -0500
+
+    StretchTask Improvements
+    
+    StretchTask now has trials. Made it so stimuli are now placed and reset
+    relative to the handcontroller.
+
+[33mcommit 48fc7afad267491720ae9cdd678b8420f3ce8a93[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Oct 16 18:59:40 2014 -0500
+
+    Leap handmodel name fix
+    
+    Removed a line of code that was renaming the leap prefabs. May have
+    broken the TreasureHunt task.
+
+[33mcommit c21611a68e8fb375f1f7231027e0aa4eaa691251[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Oct 16 17:34:27 2014 -0500
+
+    Modifications to Holodeck
+
+[33mcommit 4602792569597b646c6ff15cd81188c4f89c7a49[m
+Merge: 3efa68b 25235b5
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Wed Oct 15 15:39:07 2014 -0500
+
+    Merge remote-tracking branch 'origin/master'
+    
+    Conflicts:
+    	Assets/Scenes/Test Scenes/TableTopTask.unity
+
+[33mcommit 3efa68be993900955846008b033ae6feacdd2977[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Wed Oct 15 15:38:33 2014 -0500
+
+    Committing to Sync
+    
+    Want to get the most recent Stretch version
+
+[33mcommit 25235b5916ad71b262630fcf1a50d75056fa96ea[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Wed Oct 15 00:44:04 2014 -0500
+
+    TableTopTask Changes
+
+[33mcommit 793e3d750e210b8e4464af402cc9912fe5d41e46[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Tue Oct 14 16:33:42 2014 -0500
+
+    Various Updates
+    
+    It's been a while since I synced the GitHub, so I figured might as well.
+
+[33mcommit 338f16994b38e75407b9dff1ff45aae120f81800[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Tue Oct 7 14:06:47 2014 -0500
+
+    Stretch Fix
+    
+    Got rotation, position, and scale to all work! The last thing is two
+    handed stretch...
+
+[33mcommit 24b0aa389ce4a72f1e68198719566f381e6f0b6e[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Mon Oct 6 17:32:51 2014 -0500
+
+    Stretch & Move
+    
+    It works! Until you try stretching something that's been rotated. Still
+    needs some fixin'.
+
+[33mcommit 102b1afbcc27033e4189735ddb5c1a326062e11d[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Wed Oct 1 16:13:30 2014 -0500
+
+    LeapMove Adjustments
+    
+    It's almost kinda working. I've had to do some really wonky stuff to the
+    rotations and the axes.
+
+[33mcommit 90f1b9d596df214afbfef62d7c139af6a85a58d2[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Wed Oct 1 14:25:22 2014 -0500
+
+    Updating Latest Edits
+
+[33mcommit d04d9d1cf6145fe9ebd6deccca158db602b7e71e[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Mon Sep 29 21:04:11 2014 -0500
+
+    LeapGrab + TreasureHunting Improvements
+    
+    Made it so stretching only commences when you start a pinch. Also put in
+    a max and min size for the cube.
+
+[33mcommit 0853bd50f1b99ef2e3f488c03c0991a109995ed7[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Sep 25 14:56:55 2014 -0500
+
+    Assorted Changes
+
+[33mcommit d8cd9f6f391aac5caf6c674d1083893dda1aa9c4[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Thu Sep 25 00:30:22 2014 -0500
+
+    LeapStretch Improvements
+    
+    Made it so you can now stretch from any corner of the cube. Stretching
+    with both hands even seems to work. This is totally going to work.
+
+[33mcommit 1b5bb381bf714ccfa7d25f80f4dfa0447c798d9c[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Wed Sep 24 16:26:24 2014 -0500
+
+    LeapStretch
+    
+    Finally got a scene running where you can stretch out a virtual cube.
+    Also deleted some older scenes I didn't think we were using anymore.
+
+[33mcommit 2988b0899582fb52597909c29e9fd98a2a67c2af[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Mon Sep 22 17:37:52 2014 -0500
+
+    Troubleshooting Grab
+    
+    Made some changes so that now objects don't disappear when you grab
+    them. Also rearranged the blobs so that there's a Resources folder in
+    Prefabs/Bolbs now.
+
+[33mcommit c438418479b7e71ed25e751a7aeeb2887a7770ef[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Mon Sep 22 14:01:20 2014 -0500
+
+    LeapPinch
+    
+    Working on a script to manipulate objects with Leap
+
+[33mcommit c1a8eead29461bdd1a8c7fa63e25225d8903bda3[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Sep 18 19:58:50 2014 -0500
+
+    TableTopTask
+    
+    Started a new scene to experiment with manipulating objects with
+    leapmotion fingers. Added some lines to the HandModel.cs script so that
+    it only does the Kinect transformations if there's a KinectSkeleton
+    present in the scene. Hope that didn't break it.
+
+[33mcommit e5f7ceb5b1b29ad5ba92c17393f7b4686fbe7c9b[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Sep 18 10:14:53 2014 -0700
+
+    Leap Hands and Project Cleanup
+    
+    -Leap hands are now attached to the kinect skeleton (linked through the
+    palms)
+    -Cleaned the project folder structure and scene for holodeck
+
+[33mcommit c41235dcee9fee75fb2885e235e7faf8048f79d7[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Mon Sep 15 14:56:27 2014 -0700
+
+    Added leap motion examples and tested in holodeck
+    
+    Next step is to properly attach hands to kinect skeleton. This shouldn't
+    be difficult because the objects are simple unity game objects. The
+    hands should also be scaled as their scale relative to the kinect
+    skeleton is far too large.
+
+[33mcommit 177bffebe39f9c1606f9d72c030d6b0b001977f5[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Thu Sep 11 18:29:21 2014 -0700
+
+    Recovered Stimulus Meshes
+    
+    Turns out the blob prefabs still need the Stimulus mesh folder to work.
+    Whoops!
+
+[33mcommit 4dad7d43e44016961604974edb0974b8b0790815[m
+Author: HolodeckPC <theholodeckproject@gmail.com>
+Date:   Mon Sep 8 18:04:39 2014 -0700
+
+    AS - Changes to Grab Script
+    
+    Got the grab script working with the new meshes. Grabs are smoother than
+    ever now.
+    - Got rid of the Stimuli folder, as we're using Prefabs now
+
+[33mcommit 2cfc89053402840dcf32c44afa4dc3e7dcaa1d54[m
+Author: Aldi <aldis.sipolins@gmail.com>
+Date:   Fri Sep 5 01:04:38 2014 -0500
+
+    Centered Blobs
+    
+    Adjusted all the blobs to be centered around their center point, instead
+    of off to the side as th

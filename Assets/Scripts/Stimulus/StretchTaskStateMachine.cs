@@ -43,7 +43,7 @@ public class StretchTaskStateMachine : MonoBehaviour
 
 
 
-        // ??? Not working
+        
         //InteractionBox iBox = GetInteractionBox();
        //GameObject interactionBoxCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
        //interactionBoxCube.transform.position = new Vector3(iBox.Center.ToUnityScaled().x, iBox.Center.ToUnityScaled().y, iBox.Center.ToUnityScaled().z);
@@ -178,7 +178,7 @@ public class StretchTaskStateMachine : MonoBehaviour
         }
     }
 
-    // ??? More efficient way of waiting until all 3 have been grabbed?
+    
     int WaitForResponses()
     {
         grabbedCubes = 0;

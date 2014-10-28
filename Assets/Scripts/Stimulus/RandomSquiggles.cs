@@ -83,7 +83,7 @@
 								MeshFilter cylMesh = cyl.GetComponent<MeshFilter> ();
 								//Initializes a new CombineInstance, which will be used to combine the new sphere to the existing stimulus mesh
 								CombineInstance sphInst = new CombineInstance ();
-								//??? Makes a copy of the spheres mesh?
+								
 								sphInst.mesh = sphMesh.mesh;
 								//Just like earlier, changes from relative to absolute coordinates
 								sphInst.transform = sph.transform.localToWorldMatrix;
@@ -112,7 +112,7 @@
 				//gameObject.renderer.material.shader = Shader.Find ("Self-Illumin/Diffuse");
                 gameObject.renderer.material.shader = Shader.Find ("Specular");
 					
-            //??? - Couldn't figure out how to add a mesh collider to the object
+            
 				//MeshCollider stimMesh = gameObject.AddComponent(typeof(MeshCollider)) as MeshCollider;
 				//Moves the object to a random position on the tabletop
 				transform.position = new Vector3 (Random.Range (-.33F, .33F), Random.Range (-.1F, .1F), Random.Range (-.33F, .33F));

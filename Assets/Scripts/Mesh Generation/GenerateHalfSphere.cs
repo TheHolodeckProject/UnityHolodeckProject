@@ -16,9 +16,9 @@
 //        //Adds a mesh filter and renderer to the empty gameobject
 //        MeshFilter filter = gameObject.AddComponent<MeshFilter>();
 //        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-//        //??? Creates a mesh from the meshfilter?
+
 //        Mesh mesh = filter.mesh;
-//        //??? Clears the mesh?
+
 //        mesh.Clear();
 //        //Assigns the texture to the mesh
 //        //renderer.material.mainTexture = stimTexture;
@@ -41,7 +41,7 @@
 //            //For every vertical slice
 //            for (int lon = 0; lon <= StimRes; lon++)
 //            {
-//				//??? Figures out the other angle of that triangle
+
 //                float a2 = (2 * pi) * (float)(lon == StimRes ? 0 : lon) / StimRes;
 //                float sin2 = Mathf.Sin(a2);
 //                float cos2 = Mathf.Cos(a2);
@@ -57,7 +57,7 @@
 //        Vector3[] normales = new Vector3[vertices.Length];
 //        //For every vertex
 //        for (int n = 0; n < vertices.Length; n++)
-//            //??? Not sure whty this is normalized
+
 //            normales[n] = vertices[n].normalized;
 //
 //        //Creates the triangles
@@ -67,12 +67,12 @@
 //        int nbTriangles = nbFaces * 2;
 //        //Defines the number of indexes there will be
 //        int nbIndexes = nbTriangles * 3;
-//        //??? Not sure what this is doing
+
 //        int[] triangles = new int[nbIndexes];
 //  
 //		//Top Cap
 //        int i = 0;
-//        //??? Not sure what this is doing
+
 //        for (int lon = 0; lon < StimRes; lon++)
 //          //for (int lon = 0; lon < 1; lon++)
 //        {
@@ -91,7 +91,7 @@
 //              {
 //				int current = lon + lat * (StimRes + 1) + 1;
 //				int next = current + StimRes + 1;
-//                  //??? Not sure what this is doing
+
 //                  triangles[i++] = current;
 //                  triangles[i++] = current + 1;
 //                  triangles[i++] = next + 1;

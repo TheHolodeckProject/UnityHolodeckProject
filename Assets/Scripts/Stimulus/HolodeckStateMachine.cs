@@ -52,42 +52,39 @@ public class HolodeckStateMachine : MonoBehaviour
                 //For every stimulus
                 //Generates the blobs with appropriate shaders and colors
                 generateRandomStimuli();
-                
+                Debug.Log("TaskStart");
                 currentState = State.BeginStudy;
                 break;
 
             case State.BeginStudy:
-                //Debug.Log("Study Phase");
+                Debug.Log("BeginStudy");
                 //Generates random locations within specified bounds, so that they never overlap
                 generateRandomPositions();
                 logger.BeginLogging();
                 currentState = State.IdleStudy;
                 break;
             case State.IdleStudy:
-                //Debug.Log("Idle Study");
+                Debug.Log("IdleStudy");
                 if (idleStudyConditionIsMet())
                     currentState = State.BeginRecall;
                 break;
             case State.BeginRecall:
-                //Debug.Log("Recall Phase");
+                Debug.Log("BeginRecall");
                 //For every stimulus
                 for (int i = 0; i < stimuli.Length; i++)
                 {
                     //Resets the object positions
                     stimuli[i].transform.localPosition = Vector3.Lerp(resetPositionP0, resetPositionP1, (((float)i) * (1f / ((float)stimuli.Length))));
-                    //Makes the objects grabbable
-                    stimuli[i].gameObject.tag = "Grabbable";
-
                 }
                 currentState = State.IdleRecall;
                 break;
             case State.IdleRecall:
-                Debug.Log("idle recall");
+                Debug.Log("IdleRecall");
                 if (idleRecallConditionIsMet())
                     currentState = State.Evaluate;
                 break;
             case State.Evaluate:
-                Debug.Log("eval");
+                Debug.Log("Evaluate");
                 //output information to logger
                 //generate summary file
                 //etc
@@ -101,11 +98,12 @@ public class HolodeckStateMachine : MonoBehaviour
                 }
                 break;
             case State.BeginTaskEnd:
-                Debug.Log("begin task end");
+                Debug.Log("BeginTaskEnd");
                 //Put the system into a safe state
                 currentState = State.IdleTaskEnd;
                 break;
             case State.IdleTaskEnd:
+                Debug.Log("IdleTaskEnd");
                 //Do nothing unless influenced from outside
                 break;
         }

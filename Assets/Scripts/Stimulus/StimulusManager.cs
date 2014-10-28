@@ -37,7 +37,7 @@ public class StimulusManager : MonoBehaviour {
 			randomBoundsP1 = reducedRandomBoundsP1;
 		}
 
-		//??? Why do you initialize numberOfStimuli but not expectedNumberOfTrials? Why do I get an error when I try to call subjectIdentifier the same way?
+		
 		//subID = PlayerPrefs.GetInt ("subjectIdentifier");
 		expectedNumberOfTrials = PlayerPrefs.GetInt ("Number of Trials");
 

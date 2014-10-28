@@ -305,7 +305,7 @@ public class MoveTask : MonoBehaviour
         }
     }
 
-    // ??? More efficient way of waiting until all 3 have been grabbed?
+    
     int GetNumberOfMovedCubes()
     {
         int movedCubes = 0;

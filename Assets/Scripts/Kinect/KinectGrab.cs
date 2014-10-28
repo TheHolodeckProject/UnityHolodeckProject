@@ -38,19 +38,19 @@ public class KinectGrab : MonoBehaviour
             switch (rightState)
             {
                 case State.Idle:
-                    rightState = CheckHandOpen(rightHand);
+                    rightState = CheckHandOpen(rightHand, true);
                     break;
 
                 case State.ReadyToGrab:
-                    rightState = DetectGrab(rightHand);
+                    rightState = DetectGrab(rightHand, true);
                     break;
 
                 case State.Grabbing:
-                    rightState = CheckRelease(rightHand);
+                    rightState = CheckRelease(rightHand, true);
                     break;
 
                 case State.Release:
-                    rightState = OnRelease(rightHand);
+                    rightState = OnRelease(rightHand, true);
                     break;
             }
         }
@@ -102,83 +102,85 @@ public class KinectGrab : MonoBehaviour
     }
     void GetObjectInfo()
     {
-        List<GameObject> objsList = new List<GameObject>();
-        foreach (GameObject gameObj in GameObject.FindObjectsOfType<GameObject>())
+        List<Stimulus> output = new List<Stimulus>();
+        HelperFunctions.GetScriptObjectsInScene<Stimulus>(out output);
+        objs = new GameObject[output.Count];
+        for (int i = 0; i < objs.Length; i++)
+            objs[i] = output[i].gameObject;
+    }
+    
+    State CheckHandOpen(GameObject hand, bool isRightHand)
+    {
+        //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
+        if (isRightHand)
         {
-            if (gameObj.name.StartsWith("Blob"))
+            //If the hand is open
+            if (activeBody.HandRightState == HandState.Open) return State.ReadyToGrab;
+        }
+        else
+        {
+            //Do Nothing
+        }
+
+        return State.Idle;
+    }
+
+    State DetectGrab(GameObject hand, bool isRightHand)
+    {
+        //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
+        if (isRightHand)
+        {
+            //If the hand is closed
+            if (activeBody.HandRightState == HandState.Closed)
             {
-                objsList.Add(gameObj);
-            }
-        }
-        objs = objsList.ToArray();
-    }
-    // ??? For all these switch statements, I could either add a default switch, add a return after the switch, or just use a bunch of if statements. Which would be cleanest/most efficient?
-    State CheckHandOpen(GameObject hand)
-    {
-        //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
-        switch (hand.name)
-        {
-            case "HandRight":
-                //If the hand is open
-                if (activeBody.HandRightState == HandState.Open) return State.ReadyToGrab;
-                else return State.Idle;
-
-            default:
-                Debug.Log("DEFAULT CheckhandOpen");
-                return State.Idle;
-        }
-    }
-
-    State DetectGrab(GameObject hand)
-    {
-        //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
-        switch (hand.name)
-        {
-            case "HandRight":
-                //If the hand is closed
-                if (activeBody.HandRightState == HandState.Closed)
+                //Defines the position of the closest object to the right hand
+                rhObj = getClosestObject(rightHand.transform.position, objs);
+                //Figure out how far away the hand is from the closest object
+                float rightDist = Vector3.Distance(rhObj.transform.position, rightHand.transform.position);
+                if (rightDist < minGrabDist)
                 {
-                    //Defines the position of the closest object to the right hand
-                    rhObj = getClosestObject(rightHand.transform.position, objs);
-                    //Figure out how far away the hand is from the closest object
-                    float rightDist = Vector3.Distance(rhObj.transform.position, rightHand.transform.position);
-                    if (rightDist < minGrabDist)
-                    {
-                        rhObj.transform.parent = rightHand.transform;
-                        return State.Grabbing;
-                    }
-                    else return State.Idle;
+                    rhObj.transform.parent = rightHand.transform;
+                    return State.Grabbing;
                 }
-                else return State.ReadyToGrab;
-
-            default:
-                Debug.Log("DEFAULT CheckhandOpen");
-                return State.Idle;
+            }
+            else return State.ReadyToGrab;
         }
+        else
+        {
+            //Do Nothing
+        }
+
+        return State.Idle;
     }
 
-    State CheckRelease(GameObject hand)
+    State CheckRelease(GameObject hand, bool isRightHand)
     {
-        switch (hand.name)
+        if (isRightHand)
         {
-            case "HandRight":
-                if (activeBody.HandRightState == HandState.Open && activeBody.HandRightConfidence == TrackingConfidence.High)
-                    return State.Release;
-                break;
+            if (activeBody.HandRightState == HandState.Open && activeBody.HandRightConfidence == TrackingConfidence.High)
+                return State.Release;
         }
+        else
+        {
+            //Do Nothing
+        }
+
         return State.Grabbing;
     }
 
-    State OnRelease(GameObject hand)
+    State OnRelease(GameObject hand, bool isRightHand)
     {
         //Depending on which hand it's checking, checks the appropriate handstate of the Kinect skeleton
-        switch (hand.name)
+        if (isRightHand)
         {
-            case "HandRight":
-                //Make the grabbed object no longer be a child of the hand
-                rhObj.transform.parent = null;
-                break;
+            //Make the grabbed object no longer be a child of the hand
+            rhObj.transform.parent = null;
         }
+        else
+        {
+            //Do Nothing
+        }
+
         return State.Idle;
     }
 }

@@ -43,7 +43,7 @@ public class HolodeckStimulusManager : MonoBehaviour
     private bool runOncePhase2;
     void Update()
     {
-        // ??? Any difference between multiple if statements and using if else?
+        
 
         //If it's in the setup phase
         if (phase == 0)
@@ -127,7 +127,7 @@ public class HolodeckStimulusManager : MonoBehaviour
             stimNums[i] = tmp;
         }
         //Initializes an list to hold textures created 
-        // ??? Lists vs Arrays
+        
         List<Texture> colors = new List<Texture>();
         colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
@@ -135,7 +135,7 @@ public class HolodeckStimulusManager : MonoBehaviour
         colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
         //TO DO - Figure out how to dynamically create textures based on randomly generated RGB values (within certain ranges to only get pretty colors)
-        // ??? Would it be more efficient to make a 1x1 color texture and repeat it or make a single 1000x1000 color texture?
+        
 
         //Create a knuth shuffle index list of random indicies within the range of possible colors
         int[] colorNums = new int[colors.Count];
@@ -175,8 +175,7 @@ public class HolodeckStimulusManager : MonoBehaviour
         int retries = numRetries;
         for (int i = 0; i < numberOfStimuli; i++)
         {
-            // ??? Object positions are not in the center of the objects.
-            // ??? localPosition vs. global position?
+            
             stimuli[i].transform.localPosition = new Vector3(
             UnityEngine.Random.Range(randomBoundsP0.x, randomBoundsP0.y),
             UnityEngine.Random.Range(randomBoundsP0.y, randomBoundsP1.y),

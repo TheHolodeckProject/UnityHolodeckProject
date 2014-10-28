@@ -19,9 +19,10 @@
 //        //Adds a mesh filter and renderer to the empty gameobject
 //        MeshFilter filter = gameObject.AddComponent<MeshFilter>();
 //        MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-//        //??? Creates a mesh from the meshfilter?
+
 //        Mesh mesh = filter.mesh;
-//        //??? Clears the mesh?
+
+
 //        mesh.Clear();
 //        //Assigns the texture to the mesh
 //        renderer.material.mainTexture = stimTexture;
@@ -56,7 +57,7 @@
 //        Vector3[] normales = new Vector3[vertices.Length];
 //        //For every vertex
 //        for (int n = 0; n < vertices.Length; n++)
-//            //??? Not sure whty this is normalized
+
 //            normales[n] = vertices[n].normalized;
 //        //Creates the triangles
 //        //Defines the number of faces
@@ -65,7 +66,7 @@
 //        int nbTriangles = nbFaces * 2;
 //        //Defines the number of indexes there will be
 //        int nbIndexes = nbTriangles * 3;
-//        //??? Not sure what this is doing
+
 //        int[] triangles = new int[nbIndexes];
 //
 //        //Initializes a counter

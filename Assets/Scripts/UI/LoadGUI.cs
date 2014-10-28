@@ -37,9 +37,9 @@ public class LoadGUI : MonoBehaviour
 
                //Subject Identifier
                GUI.Label (new Rect (200, 20, 300, 30), "Subject Identifier");
-                       ///??? The second argument has to be a string. The last part with the -1?"":"", is that somehow
+                       
                string tmp = GUI.TextField(new Rect(200, 50, 120, 20), subjectIdentifierInt == -1 ? "" : "" + subjectIdentifierInt);
-                       //??? What is this part doing? Without this part, I couldn't modify subjectIdentifier in the Loa
+                       
                if (tmp == "")
                        subjectIdentifierInt = -1;
                else

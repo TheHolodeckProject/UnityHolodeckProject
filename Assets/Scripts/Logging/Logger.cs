@@ -57,20 +57,8 @@ public class Logger : MonoBehaviour {
 
 	public void GenerateLoggableObjectsList(){
 		//Get the list of objects - this is a one-time function. If new objects are created, there is currently no way to log them without creating a new logger.
-		List<ILoggable> logObjs = new List<ILoggable> ();
-		GameObject[] objs = (GameObject[])FindObjectsOfType (typeof(GameObject));
-        
-		//Debug.Log ("Searching " + objs.Length + " GameObject objects for ILoggable interfaces.");
-		for (int i = 0; i < objs.Length; i++) {
-			List<ILoggable> logScripts = new List<ILoggable> ();
-			GetInterfaces<ILoggable> (out logScripts, objs [i]);
-			if (logScripts.Count > 0)
-				logObjs.AddRange (logScripts);
-		}
-		List<ILoggable> output = new List<ILoggable> ();
-		for (int i = 0; i < logObjs.Count; i++)
-						if (logObjs [i] != null)
-								output.Add (logObjs [i]);
+        List<ILoggable> output = new List<ILoggable>();
+        HelperFunctions.GetScriptObjectsInScene<ILoggable>(out output);
 		loggableObjects = output.ToArray ();
 	}
 
@@ -148,16 +136,5 @@ public class Logger : MonoBehaviour {
 		for (int i = 0; i < fileTokens.Length - 1; i++)
 			output += fileTokens [i] + "_";
 		return output + text + "." + fileTokens [fileTokens.Length - 1];
-	}
-
-	public static void GetInterfaces<T>(out List<T> resultList, GameObject objectToSearch) where T: class {
-		MonoBehaviour[] list = objectToSearch.GetComponents<MonoBehaviour>();
-		resultList = new List<T>();
-		foreach(MonoBehaviour mb in list){
-			if(mb is T){
-				//found one
-				resultList.Add((T)((System.Object)mb));
-			}
-		}
 	}
 }
