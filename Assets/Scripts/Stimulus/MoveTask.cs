@@ -3,9 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Leap;
 
+
+// !!! Why does moving lag behind the hand? 
 // TO DO
-// 1) Get more colors
-// 2) Animate reset button press (frivolous)
+// 1) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
+        // When really close to the surface of the table (small y), hand tracking is great when right above the hand tracker but terrible when out of that cone.
+
+// 1) Animate reset button press (frivolous)
 
 public class MoveTask : MonoBehaviour
 {
@@ -14,15 +18,20 @@ public class MoveTask : MonoBehaviour
     public int ITI;
     public float popRate;
     public int totalTrials = 3;
-    public int numberOfStim = 3;
+    public int minNumberOfStim = 2;
+    public int maxNumberOfStim = 5;
     public float studyTime = 3f;
-    public Vector3 stimLocationSize = new Vector3(.2f, .4f, .2f);
-    public Vector3 stimLocationOffset = new Vector3(0f, .4f, 0f);
-    public Vector3 stimOverlapBuffer = new Vector3(0.2f, 0.2f, 0.2f);
-    public Vector3 stimResetSize = new Vector3(.2f, 0f, 0f);
-    public Vector3 stimResetOffset = new Vector3(0f, .4f, 0f);
+    public Vector3 stimLocationSize;
+    public Vector3 stimLocationOffset;
+    public Vector3 stimOverlapBuffer;
+    public Vector3 stimResetSize;
+    public Vector3 stimResetOffset;
     private GameObject[] stimuli;
+    private GameObject template;
+    private GameObject practiceCube;
+    private int trialNumberOfStim;
     private Transform handController;
+    private bool practiceCubeGenerated;
     private float timeLeft;
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
@@ -30,31 +39,93 @@ public class MoveTask : MonoBehaviour
     private Controller controller;
     private bool doneRecall;
     private Logger logger;
-    enum State { TrialStart, OnStudy, Study, OnRecall, Recall, RecallFinished, TrialEnd, InterTrialInterval, TaskEnd };
+    private List<Texture> colors;
+    private float grow;
+    enum State { PracticeStart, Practice, PracticeEnd, TrialStart, OnStudy, Study, OnRecall, Recall, RecallFinished, TrialEnd, InterTrialInterval, TaskEnd };
     private State currentState;
 
     // Use this for initialization
     void Start()
     {
         handController = GameObject.Find("HandController").transform;
-        stimLocations = new Vector3[numberOfStim];
-        resetLocations = new Vector3[numberOfStim];
-        stimuli = new GameObject[numberOfStim];
-        currentState = State.TrialStart;
+        stimLocations = new Vector3[maxNumberOfStim];
+        resetLocations = new Vector3[maxNumberOfStim];
+        stimuli = new GameObject[maxNumberOfStim];
+        template = Resources.Load("MovableCube") as GameObject;
         currentTrial = 0;
         doneRecall = false;
         logger = GameObject.Find("Logger").GetComponent<Logger>();
         logger.BeginLogging();
-        
+        practiceCubeGenerated = false;
+        //Initializes a list to hold the different colors
+        colors = new List<Texture>();
+        colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("DarkRed", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("LightRed", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("LightOrange", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("DarkOrange", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Yellow", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("LightYellow", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("DarkYellow", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("LightGreen", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("DarkGreen", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("LightBlue", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("DarkBlue", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Purple", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("LightPurple", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("DarkPurple", typeof(Texture2D)) as Texture);
+        currentState = State.PracticeStart;
     }
     // Update is called once per frame
     void Update()
     {
         Debug.Log(currentState);
+        //Debug.Log(currentState);
         switch (currentState)
         {
+
+            case State.PracticeStart:
+                if (!practiceCubeGenerated)
+                    GeneratePracticeCube();
+                else
+                {
+                    bool practicePopInComplete = PopInPracticeCube();
+                    if (practicePopInComplete)
+                        currentState = State.Practice;
+                }
+                break;
+        
+
+            case State.Practice:
+                    bool practiceOver = WaitForResetButtonTouch();
+                    if (practiceOver)
+                    {
+                        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
+                        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
+                        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                        currentState = State.PracticeEnd;
+                    }
+                    break;
+
+            case State.PracticeEnd:
+                bool practicePopOutComplete = PopOutPracticeCube();
+                if (practicePopOutComplete)
+                {
+                    //Changes the hand to stop being transparent
+                    handController.Find("RiggedLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
+                    handController.Find("RiggedRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
+
+                    Destroy(practiceCube);
+                    currentState = State.TrialStart;
+                }
+                break;
+            
             case State.TrialStart:
                 currentTrial += 1;
+                trialNumberOfStim = Random.Range(minNumberOfStim, maxNumberOfStim);
                 GenerateStimLocations();
                 GenerateStimuli();
                 logger.RegenerateStimuliInSameFile();
@@ -96,9 +167,9 @@ public class MoveTask : MonoBehaviour
 
             case State.Recall:
                 int movedCubes = GetNumberOfMovedCubes();
-                if (movedCubes >= numberOfStim)
+                if (movedCubes >= trialNumberOfStim)
                 {
-                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r+150, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r + .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
                     currentState = State.RecallFinished;
                 }
 
@@ -108,7 +179,7 @@ public class MoveTask : MonoBehaviour
                 doneRecall = WaitForResetButtonTouch();
                 if (doneRecall)
                 {
-                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - 150, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
                     if (currentTrial >= totalTrials)
                     {
                         currentState = State.TaskEnd;
@@ -146,19 +217,60 @@ public class MoveTask : MonoBehaviour
         }
     }
 
+
+    private void GeneratePracticeCube()
+    {
+        //Generates a random integer that we'll use to pick a color
+        int practiceCubeColor = Random.Range(0, colors.Count - 1);
+        practiceCube = (GameObject)Instantiate(template);
+        practiceCube.transform.position = handController.transform.position + stimLocationOffset;
+        practiceCube.transform.rotation = Random.rotation;
+        practiceCube.transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
+        practiceCube.transform.renderer.material.mainTexture = colors[practiceCubeColor];
+        practiceCube.name = practiceCube.name + "-" + practiceCube.transform.renderer.material.mainTexture.name;
+        practiceCube.transform.renderer.material.color = new Color(practiceCube.gameObject.transform.renderer.material.color.r, practiceCube.gameObject.transform.renderer.material.color.g, practiceCube.gameObject.transform.renderer.material.color.b);
+        //Makes the stimuli tiny, so they can be poppped in
+        practiceCube.transform.localScale = new Vector3(0, 0, 0);
+        practiceCubeGenerated = true;
+    }
+
+    private bool PopInPracticeCube()
+    {
+      practiceCube.transform.localScale += Vector3.one * grow;
+            grow += popRate * Time.deltaTime;
+            //Debug.Log("PracticeCubeSize = " + practiceCube.transform.localScale.x);
+            //Debug.Log("CubeSize = " + cube.transform.localScale.x);
+        if (practiceCube.transform.localScale.x >= cube.transform.localScale.x)
+            return true;
+        else
+            return false;
+    }
+
+    private bool PopOutPracticeCube()
+    {
+        practiceCube.transform.localScale -= Vector3.one * grow;
+            grow += popRate * Time.deltaTime;
+        if (practiceCube.transform.localScale.x <= 0)
+            return true;
+        else
+            return false;
+    }
+
     void GenerateStimLocations()
     {
         //Position stimuli randomly according to settings (no overlaps)
         List<Rect> overlapCheckList = new List<Rect>();
         int retries = 100;
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; i++)
         {
             stimLocations[i] = new Vector3(
                 Random.Range(handController.position.x - stimLocationSize.x / 2, handController.position.x + stimLocationSize.x / 2) + stimLocationOffset.x,
                 Random.Range(handController.position.y - stimLocationSize.y / 2, handController.position.y + stimLocationSize.y / 2) + stimLocationOffset.y,
                 Random.Range(handController.position.z - stimLocationSize.z / 2, handController.position.z + stimLocationSize.z / 2) + stimLocationOffset.z);
             //Check for overlapping boxes and regenerate box location if overlap occurs
-            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x * 2 + stimOverlapBuffer.x, cube.transform.localScale.z * 2 + stimOverlapBuffer.z);
+            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x + stimOverlapBuffer.x, cube.transform.localScale.z + stimOverlapBuffer.z);
+            //Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x * 2 + stimOverlapBuffer.x, cube.transform.localScale.z * 2 + stimOverlapBuffer.z);
+
             if (boxesOverlapArray(newBox, overlapCheckList))
             {
                 retries--;
@@ -179,14 +291,6 @@ public class MoveTask : MonoBehaviour
 
     private void GenerateStimuli()
     {
-        //Initializes a list to hold textures created 
-        List<Texture> colors = new List<Texture>();
-        colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Yellow", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
-
         //Create a knuth shuffle index list of random indicies within the range of possible colors
         int[] colorNums = new int[colors.Count];
         for (int i = 0; i < colors.Count; i++)
@@ -198,14 +302,12 @@ public class MoveTask : MonoBehaviour
             colorNums[index] = colorNums[i];
             colorNums[i] = tmp;
         }
-        GameObject template = Resources.Load("StretchableCube") as GameObject;
         //Defines the stimulus properties
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; i++)
         {
             stimuli[i] = (GameObject)Instantiate(template);
             stimuli[i].transform.position = stimLocations[i];
             stimuli[i].transform.rotation = Random.rotation;
-            //stimuli[i].transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
             stimuli[i].transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
             stimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
             stimuli[i].name = stimuli[i].name + "-" + stimuli[i].transform.renderer.material.mainTexture.name;
@@ -216,14 +318,11 @@ public class MoveTask : MonoBehaviour
 
             stimuli[i].AddComponent<SimpleObjectLogger>();
         }
-
-        //for (int i = 0; i < stimuli.Length;i++)
-            //stimuli[i].AddComponent<SimpleObjectLogger>();
     }
 
     private void MakeStimuliUngrabbable()
     {
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; i++)
             stimuli[i].tag = "Untagged";
     }
 
@@ -235,10 +334,9 @@ public class MoveTask : MonoBehaviour
     }
 
     //Makes Stimuli grow / shrink rather than just appearinginto their natural size
-    private float grow;
     private bool PopInStimuli()
     {
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; i++)
         {
             stimuli[i].transform.localScale += Vector3.one * grow;
             grow += popRate * Time.deltaTime;
@@ -251,7 +349,7 @@ public class MoveTask : MonoBehaviour
 
     private bool PopOutStimuli()
     {
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; i++)
         {
             stimuli[i].transform.localScale -= Vector3.one * grow;
             grow += popRate * Time.deltaTime;
@@ -275,15 +373,15 @@ public class MoveTask : MonoBehaviour
 
     private void MakeStimuliGrabbable()
     {
-        for (int i = 0; i < numberOfStim; i++)
-            stimuli[i].tag = "Grabbable";
+        for (int i = 0; i < trialNumberOfStim; ++i)
+            stimuli[i].tag = "Movable";
     }
 
     void ResetStimuli()
     {
         // Determine start and end points of a line offset from the Hand Controller
         float step = 0f;
-        float stepIncrease = 1f / ((numberOfStim) - 1f);
+        float stepIncrease = 1f / ((trialNumberOfStim) - 1f);
         Vector3 resetLineStart = new Vector3(
             handController.position.x - stimResetSize.x / 2 + stimResetOffset.x,
             handController.position.y - stimResetSize.y / 2 + stimResetOffset.y,
@@ -293,7 +391,7 @@ public class MoveTask : MonoBehaviour
             handController.position.y + stimResetSize.y / 2 + stimResetOffset.y,
             handController.position.z + stimResetSize.z / 2 + stimResetOffset.z);
 
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; ++i)
         {
             // Space the stimuli equally along the line defined earlier
             stimuli[i].transform.position = Vector3.Lerp(resetLineStart, resetLineEnd, step);
@@ -307,7 +405,7 @@ public class MoveTask : MonoBehaviour
     int GetNumberOfMovedCubes()
     {
         int movedCubes = 0;
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; ++i)
         {
             if (stimuli[i].transform.position != resetLocations[i])
                 movedCubes += 1;
@@ -323,7 +421,7 @@ public class MoveTask : MonoBehaviour
 
     void DestroyStimuli()
     {
-        for (int i = 0; i < numberOfStim; i++)
+        for (int i = 0; i < trialNumberOfStim; ++i)
             Destroy(stimuli[i]);
     }
 }

@@ -39,7 +39,7 @@ public class HolodeckStateMachine : MonoBehaviour
     {
         currentState = State.TaskStart;
         currentTrialNumber = 0;
-        logger = GameObject.Find("Logger").GetComponent<Logger>();
+        //logger = GameObject.Find("Logger").GetComponent<Logger>();
     }
 
     void Update()
@@ -60,7 +60,7 @@ public class HolodeckStateMachine : MonoBehaviour
                 Debug.Log("BeginStudy");
                 //Generates random locations within specified bounds, so that they never overlap
                 generateRandomPositions();
-                logger.BeginLogging();
+                //logger.BeginLogging();
                 currentState = State.IdleStudy;
                 break;
             case State.IdleStudy:

@@ -57,10 +57,10 @@ public class HandController : MonoBehaviour {
   public TextAsset recordingAsset;
   public float recorderSpeed = 1.0f;
   public bool recorderLoop = true;
+  public bool activeTrial = false;
   
   LeapRecorder recorder_ = new LeapRecorder();
-  LeapRecorder1 recorder1_ = new LeapRecorder1();
-
+  
   //John's additions- 10/22/14
  // Vector3 leapContrlPos;
   
@@ -69,6 +69,8 @@ public class HandController : MonoBehaviour {
   Dictionary<int, HandModel> hand_graphics_;
   Dictionary<int, HandModel> hand_physics_;
   Dictionary<int, ToolModel> tools_;
+
+  public int phase;
   
   //void OnDrawGizmos() {
   //  // Draws the little Leap Motion Controller in the Editor view.
@@ -138,7 +140,8 @@ public class HandController : MonoBehaviour {
     return hand_model;
   }
 
-  void DestroyHand(HandModel hand_model) {
+    //CHANGED - Made this public so that I can destroy hands at will
+    public void DestroyHand(HandModel hand_model) {
     if (destroyHands)
       Destroy(hand_model.gameObject);
     else
@@ -334,6 +337,12 @@ public class HandController : MonoBehaviour {
     return path;
   }
 
+  public void SaveTrialData()
+  {
+      recorder_.SaveTrialData();
+      
+  }
+
   public void ResetRecording() {
     recorder_.Reset();
   }
@@ -343,23 +352,37 @@ public class HandController : MonoBehaviour {
   }
 
   void UpdateRecorder() {
-    if (!enableRecordPlayback)
-      return;
+      if (enableRecordPlayback)
+      {
+
+
+          recorder_.speed = recorderSpeed;
+          recorder_.loop = recorderLoop;
+
+          if (recorder_.state == RecorderState.Recording)
+          {
+              recorder_.AddFrame(leap_controller_.Frame());
+
+          }
+          else
+          {
+              recorder_.NextFrame();
+          }
+      }
+      else if (activeTrial)
+      {
+          recorder_.AddFrame(leap_controller_.Frame());
+      }
     
-    recorder_.speed = recorderSpeed;
-    recorder_.loop = recorderLoop;
-   
-    if (recorder_.state == RecorderState.Recording) {
-      recorder_.AddFrame(leap_controller_.Frame());
-      
-    }
-    else {
-      recorder_.NextFrame();
-    }
+  }
+
+    public  void setTrialBool(bool value, int phase)
+  {
+      activeTrial = value;
   }
     
     //John addition's- 10/22/14
-  /*public grabData getGrabStrength()
+  public grabData getGrabStrength()
   {
       Frame frame = GetFrame();
 
@@ -373,11 +396,11 @@ public class HandController : MonoBehaviour {
       }
 
       
-      grabData grabDat = new grabData(hList[place].GrabStrength, hList[place].IsLeft, new Vector3(  hList[place].PalmPosition.x, 
-                                                                                                     hList[place].PalmPosition.y,  hList[place].PalmPosition.z));
+      grabData grabDat = new grabData(hList[place].GrabStrength, hList[place].IsLeft, new Vector3(  hList[place].PalmPosition.x  ,
+                                                                                                     hList[place].PalmPosition.y , hList[place].PalmPosition.z  ));
       return grabDat;
       
       
-  } */
+  } 
      
 }

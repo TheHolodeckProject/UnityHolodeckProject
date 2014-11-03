@@ -13,7 +13,6 @@ using Leap;
 public class ConfidenceTransparency : MonoBehaviour {
 
   private Material material;
-
   void Start() {
     material = new Material(Shader.Find("Transparent/Diffuse"));
     Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -37,5 +36,6 @@ public class ConfidenceTransparency : MonoBehaviour {
     Color new_color = render.material.color;
     new_color.a = alpha;
     render.material.color = new_color;
+ 
   }
 }

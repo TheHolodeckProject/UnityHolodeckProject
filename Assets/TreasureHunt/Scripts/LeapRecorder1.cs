@@ -7,6 +7,7 @@
 using UnityEngine;
 using System;
 using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using Leap;
 
@@ -115,8 +116,10 @@ public class LeapRecorder1{
   }
   
   public string SaveToNewFile() {
-    string path = Application.persistentDataPath + "/Recording_" +
-                  System.DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".bytes";
+    string path =  "Assets/TreasureHunt/Logs/Recording_" +
+                  System.DateTime.Now.ToString("yyyyMMdd_hhmmss") + ".txt";
+
+    
 
     if (File.Exists(@path)) {
       File.Delete(@path);
@@ -126,7 +129,8 @@ public class LeapRecorder1{
     for (int i = 0; i < frames_.Count; ++i) {
       byte[] frame_size = new byte[4];
       frame_size = System.BitConverter.GetBytes(frames_[i].Length);
-      stream.Write(frame_size, 0, frame_size.Length);
+         stream.Write(frame_size, 0, frame_size.Length);
+        Debug.Log(Encoding.ASCII.GetString(frames_[i]));
       stream.Write(frames_[i], 0, frames_[i].Length);
     }
     

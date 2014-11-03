@@ -9,6 +9,7 @@ using System.Text;
 
 public class Logger : MonoBehaviour {
     public string loggerDir = "";
+    public string extension = ".HoloLog";
 
 	private ILoggable[] loggableObjects; //This collection contains objects whose state should be logged on Update
 	private const string dateTimeFormat = "HH_mm_ss_dd-MM-yyyy"; //This string represents the DateTime output format for the filename
@@ -72,7 +73,7 @@ public class Logger : MonoBehaviour {
 		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 		
 		//Create the appropriate filename given the options
-        string rawFilename = loggerDir + "/RawLog.dat";
+        string rawFilename = loggerDir + "/RawLog" + extension;
 		currentFileTimestamp = DateTime.Now.ToString (dateTimeFormat);
 		rawFilename = appendTextToFilename (rawFilename,substring);
 		rawFilename = appendTextToFilename (rawFilename,currentFileTimestamp);
@@ -82,7 +83,7 @@ public class Logger : MonoBehaviour {
 		rawWriter.AutoFlush = true;
 
 		//Create the appropriate filename given the options
-        string summaryFilename = loggerDir + "/SummaryLog.dat";
+        string summaryFilename = loggerDir + "/SummaryLog" + extension;
 		summaryFilename = appendTextToFilename (summaryFilename,substring);
 		summaryFilename = appendTextToFilename (summaryFilename,currentFileTimestamp);
 

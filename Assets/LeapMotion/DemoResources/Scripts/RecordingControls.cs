@@ -6,6 +6,7 @@ public class RecordingControls : MonoBehaviour {
   public KeyCode record = KeyCode.R;
   public KeyCode finishAndSave = KeyCode.S;
   public KeyCode resetRecording = KeyCode.Space;
+  public KeyCode saveTrialData = KeyCode.D;
 
   void Update () {
     HandController controller = GetComponent<HandController>();
@@ -18,5 +19,11 @@ public class RecordingControls : MonoBehaviour {
 
     if (Input.GetKeyDown(resetRecording))
       controller.ResetRecording();
+
+    if (Input.GetKeyDown(saveTrialData))
+       
+        controller.SaveTrialData();
   }
+
+    
 }
