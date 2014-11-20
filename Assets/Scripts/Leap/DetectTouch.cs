@@ -5,7 +5,6 @@ public class DetectTouch : MonoBehaviour
 {
     public bool fingerTouch;
     public bool thumbTouch;
-    // ??? Couldn't figure out how to do this without passing strings
     public string activeFinger;
     public string activeThumb;
 
@@ -18,7 +17,6 @@ public class DetectTouch : MonoBehaviour
     //Whenever something starts colliding with the cube, checks if it's the thumb or the index finger.
     void OnCollisionEnter(Collision col)
     {
-        // ??? We're not supposed to use names, but I'm not sure how else to do this
         //Checks the list of all the things colliding with the cube to see if it contains the index fingertip and the thumb fingertip
         foreach (ContactPoint contact in col.contacts)
         {

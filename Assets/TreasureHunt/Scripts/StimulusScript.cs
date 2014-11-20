@@ -41,16 +41,25 @@ private float granularityInt = 2.5f;
         }
     }
 
-    public byte getIntensity(Vector3 handPos, float threshold = 0f)
+    public byte getIntensityByte(Vector3 handPos, float threshold = 0f)
     {
 
         float dist = Vector3.Distance(handPos, gameObject.transform.position);
-        print("Distance is: " + dist);
-        float increment = searchScript.getMaxDist() / (high - low);
+                float increment = searchScript.getMaxDist() / (high - low);
         float level = high - dist / increment;
         if (level > low) return System.Convert.ToByte(level);
         else return System.Convert.ToByte(low);
     }
+
+    public float getIntensityFloat(Vector3 handPos, float threshold = 0f)
+    {
+
+        float dist = Vector3.Distance(handPos, gameObject.transform.position);
+       return dist / searchScript.getMaxDist(); 
+       
+    }
+
+
 
     public void setThisActive( )
     {

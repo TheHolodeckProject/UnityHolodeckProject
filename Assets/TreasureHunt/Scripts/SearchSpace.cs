@@ -146,7 +146,7 @@ public class SearchSpace : MonoBehaviour {
         {
             
             lineRens[i].SetVertexCount(2);
-            lineRens[i].SetColors(Color.red, Color.red);
+            lineRens[i].material.color = Color.black;
             lineRens[i].SetWidth(.05f, .05f);
             if (i == lineRensPoints.Length - 1)
             {
@@ -233,6 +233,10 @@ public class SearchSpace : MonoBehaviour {
     /*    OccViewObjLeft.camera.enabled = true;
             OccViewObjRight.camera.enabled = true;
             MainViewObj.camera.enabled = false; */
+
+            GameObject tempCam = GameObject.Find("CameraDepthView");
+            print
+            tempCam.camera.backgroundColor = Color.Lerp(Color.red, Color.green, activeStimScript.getIntensityFloat(GameObject.Find("RigidHandLeft(Clone)").transform.position));
             
             
             if (phaseInit)
@@ -633,7 +637,7 @@ public class SearchSpace : MonoBehaviour {
 		                gameObject.transform.position.y + gameObject.transform.localScale.y / 2),
 		                Random.Range (gameObject.transform.position.z - gameObject.transform.localScale.z / 2, 
 		                gameObject.transform.position.z + gameObject.transform.localScale.z / 2));
-                        print("Byte sent is: " + activeStimScript.getIntensity(rand));
+                        print("Byte sent is: " + activeStimScript.getIntensityByte(rand));
 
 
 		

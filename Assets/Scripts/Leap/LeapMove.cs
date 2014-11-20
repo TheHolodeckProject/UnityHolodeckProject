@@ -152,7 +152,7 @@ public class LeapMove : MonoBehaviour
         //Makes the cube a child of the middle point
         cube.transform.parent = middle.transform;
         //Moves the grabbed object a little closer to the middle position when you grab it
-        //cube.position = Vector3.MoveTowards(cube.position, middle.transform.position, .005f);
+        cube.transform.position = Vector3.MoveTowards(cube.transform.position, middle.transform.position, .005f);
         return State.Moving;
     }
 
@@ -166,7 +166,7 @@ public class LeapMove : MonoBehaviour
     void testfunc()
     {
         Doable[] objs = getDoables();
-        objs[0].gameObject;
+        //objs[0].gameObject;
     }
 
 }
