@@ -41,12 +41,12 @@ Material:
         second: .078125
       data:
         first:
-          name: _EmissionLM
-        second: 0
-      data:
-        first:
           name: _IllumPow
         second: .078125
+      data:
+        first:
+          name: _EmissionLM
+        second: 0
     m_Colors:
       data:
         first:

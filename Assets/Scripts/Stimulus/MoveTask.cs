@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Leap;
 
+// ??? What's the proper way for other scripts to access the current state? Should I make it a public variable?
 
-// !!! Why does moving lag behind the hand? 
 // TO DO
-// 1) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
+// 1) Figure out how to consistently align the Oculus camera with player position
+// 2) Add a "Press Esc to quit" function
+// 3) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
         // When really close to the surface of the table (small y), hand tracking is great when right above the hand tracker but terrible when out of that cone.
-
-// 1) Animate reset button press (frivolous)
+// 4) Animate reset button press (frivolous)
 
 public class MoveTask : MonoBehaviour
 {
     public GameObject cube;
     public GameObject resetButton;
+    public float studyTransparency = 0.925f;
     public int ITI;
     public float popRate;
     public int totalTrials = 3;
@@ -33,6 +35,7 @@ public class MoveTask : MonoBehaviour
     private Transform handController;
     private bool practiceCubeGenerated;
     private float timeLeft;
+    private int[] colorNums;
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
     private int currentTrial;
@@ -77,6 +80,7 @@ public class MoveTask : MonoBehaviour
         colors.Add(Resources.Load("Purple", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("LightPurple", typeof(Texture2D)) as Texture);
         colors.Add(Resources.Load("DarkPurple", typeof(Texture2D)) as Texture);
+        colorNums = new int[colors.Count];
         currentState = State.PracticeStart;
     }
     // Update is called once per frame
@@ -160,7 +164,6 @@ public class MoveTask : MonoBehaviour
                 popInComplete = PopInStimuli();
                 if (popInComplete)
                 {
-                    MakeStimuliGrabbable();
                     currentState = State.Recall;
                 }
                 break;
@@ -213,6 +216,7 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.TaskEnd:
+                ShowLogo();
                 break;
         }
     }
@@ -225,7 +229,9 @@ public class MoveTask : MonoBehaviour
         practiceCube = (GameObject)Instantiate(template);
         practiceCube.transform.position = handController.transform.position + stimLocationOffset;
         practiceCube.transform.rotation = Random.rotation;
-        practiceCube.transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
+        //practiceCube.transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
+        //practiceCube.transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+        practiceCube.transform.renderer.material = new Material(Shader.Find("Diffuse"));
         practiceCube.transform.renderer.material.mainTexture = colors[practiceCubeColor];
         practiceCube.name = practiceCube.name + "-" + practiceCube.transform.renderer.material.mainTexture.name;
         practiceCube.transform.renderer.material.color = new Color(practiceCube.gameObject.transform.renderer.material.color.r, practiceCube.gameObject.transform.renderer.material.color.g, practiceCube.gameObject.transform.renderer.material.color.b);
@@ -238,8 +244,6 @@ public class MoveTask : MonoBehaviour
     {
       practiceCube.transform.localScale += Vector3.one * grow;
             grow += popRate * Time.deltaTime;
-            //Debug.Log("PracticeCubeSize = " + practiceCube.transform.localScale.x);
-            //Debug.Log("CubeSize = " + cube.transform.localScale.x);
         if (practiceCube.transform.localScale.x >= cube.transform.localScale.x)
             return true;
         else
@@ -292,7 +296,7 @@ public class MoveTask : MonoBehaviour
     private void GenerateStimuli()
     {
         //Create a knuth shuffle index list of random indicies within the range of possible colors
-        int[] colorNums = new int[colors.Count];
+        //int[] colorNums = new int[colors.Count];
         for (int i = 0; i < colors.Count; i++)
             colorNums[i] = i;
         for (int i = 0; i < colors.Count; i++)
@@ -308,11 +312,13 @@ public class MoveTask : MonoBehaviour
             stimuli[i] = (GameObject)Instantiate(template);
             stimuli[i].transform.position = stimLocations[i];
             stimuli[i].transform.rotation = Random.rotation;
-            stimuli[i].transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
+            //stimuli[i].transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
+            //Using transparent shader during study phase
+            //stimuli[i].transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
+            stimuli[i].transform.renderer.material = new Material(Shader.Find("Transparent/Diffuse"));
+            stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b,studyTransparency);
             stimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
             stimuli[i].name = stimuli[i].name + "-" + stimuli[i].transform.renderer.material.mainTexture.name;
-            stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b);
-            
             //Makes the stimuli tiny, so they can be poppped in
             stimuli[i].transform.localScale = new Vector3(0, 0, 0);
 
@@ -371,12 +377,6 @@ public class MoveTask : MonoBehaviour
         return true;
     }
 
-    private void MakeStimuliGrabbable()
-    {
-        for (int i = 0; i < trialNumberOfStim; ++i)
-            stimuli[i].tag = "Movable";
-    }
-
     void ResetStimuli()
     {
         // Determine start and end points of a line offset from the Hand Controller
@@ -398,6 +398,14 @@ public class MoveTask : MonoBehaviour
             step += stepIncrease;
             //Puts the reset position into a vector to be used later to check if the stimuli have been moved
             resetLocations[i] = stimuli[i].transform.position;
+            //ADDED - Makes them movable
+            stimuli[i].tag = "Movable";
+            //ADDED - Makes them opaque
+            //stimuli[i].renderer.material.color = new Color(stimuli[i].renderer.material.color.r, stimuli[i].renderer.material.color.g, stimuli[i].renderer.material.color.b, 255);
+            stimuli[i].transform.renderer.material = new Material(Shader.Find("Diffuse"));
+            stimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
+            //stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b);
+            
         }
     }
 
@@ -423,5 +431,12 @@ public class MoveTask : MonoBehaviour
     {
         for (int i = 0; i < trialNumberOfStim; ++i)
             Destroy(stimuli[i]);
+    }
+
+    void ShowLogo()
+    {
+        GameObject screen = GameObject.Find("BlackScreen");
+        screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
+
     }
 }

@@ -235,7 +235,7 @@ public class SearchSpace : MonoBehaviour {
             MainViewObj.camera.enabled = false; */
 
             GameObject tempCam = GameObject.Find("CameraDepthView");
-            print
+            //print
             tempCam.camera.backgroundColor = Color.Lerp(Color.red, Color.green, activeStimScript.getIntensityFloat(GameObject.Find("RigidHandLeft(Clone)").transform.position));
             
             
