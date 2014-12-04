@@ -16,42 +16,15 @@ public enum RecorderState {
   Playing = 2
 }
 
-public struct FrameData
-{
-    public bool isLeft;
-    public Vector3 handPos, handRotAxis, handTrans;
-    public float handRotX, handRotY, handRotZ;
-    
-
-    public FrameData(bool left, Vector3 pos, Vector3 axis, Vector3 trans, float x, float y, float z)
-    {
-        isLeft = left;
-        handPos = pos;
-        handRotAxis = axis;
-        handTrans = trans;
-        handRotX = x;
-        handRotY = y;
-        handRotZ = z;
-
-    }
-
-
-
-
-
-}
-
 public class LeapRecorder {
 
   public float speed = 1.0f;
   public bool loop = true;
   public RecorderState state = RecorderState.Playing;
-  public Frame sinceFrame;
+
   protected List<byte[]> frames_;
   protected float frame_index_;
   protected Frame current_frame_ = new Frame();
-  private string savePath = "Assets/TreasureHunt/Logs/";
-  private List<FrameData> dataFrames =  new List<FrameData>();
   
   public LeapRecorder() {
     Reset();
@@ -103,27 +76,6 @@ public class LeapRecorder {
   
   public void AddFrame(Frame frame) {
     frames_.Add(frame.Serialize);
-    HandList hands = frame.Hands;
-
-    
-       
-      
-      if (dataFrames.Count ==0)
-      {
-          
-          sinceFrame = frame;
-      }
-     
-      
-          foreach (Hand han in hands)
-          {
-                     
-              dataFrames.Add(new FrameData(han.IsLeft, new Vector3(han.PalmPosition.x, han.PalmPosition.y, han.PalmPosition.z), new Vector3(han.RotationAxis(sinceFrame).x, han.RotationAxis(sinceFrame).y,
-                  han.RotationAxis(sinceFrame).z), new Vector3(han.Translation(sinceFrame).x, han.Translation(sinceFrame).y, han.Translation(sinceFrame).z), han.RotationAngle(sinceFrame, Vector.XAxis),
-                                                                                  han.RotationAngle(sinceFrame, Vector.YAxis), han.RotationAngle(sinceFrame, Vector.ZAxis)));
-          }
-         // SaveTrialData();
-      
   }
 
   public Frame GetCurrentFrame() {
@@ -170,25 +122,20 @@ public class LeapRecorder {
     }
 
     FileStream stream = new FileStream(path, FileMode.Append, FileAccess.Write);
-   
     for (int i = 0; i < frames_.Count; ++i) {
       byte[] frame_size = new byte[4];
-      
-          frame_size = System.BitConverter.GetBytes(frames_[i].Length);
-     
-     
-          stream.Write(frame_size, 0, frame_size.Length);
+      frame_size = System.BitConverter.GetBytes(frames_[i].Length);
+      stream.Write(frame_size, 0, frame_size.Length);
       stream.Write(frames_[i], 0, frames_[i].Length);
     }
-
+    
     stream.Close();
     return path;
   }
-
   
   public void Load(TextAsset text_asset) {
     byte[] data = text_asset.bytes;
-     frame_index_ = 0;
+    frame_index_ = 0;
     frames_.Clear();
     int i = 0;
     while (i < data.Length) {
@@ -200,76 +147,5 @@ public class LeapRecorder {
       i += frame.Length;
       frames_.Add(frame);
     }
-      }
-
-  public void SaveTrialData()
-  {
-     
-      string fileName = savePath + "_" + PlayerPrefs.GetInt("subjectIdentifier") + System.DateTime.Now.ToString("_yyyyMMdd_HHmm") + ".txt";
-     
-      if(!System.IO.File.Exists(fileName)){
-      using ( FileStream fs = File.Create(fileName))
-      {
-          using( StreamWriter sr = new StreamWriter(fs))
-          foreach (FrameData framDat in dataFrames)
-          {
-              string hand = (framDat.isLeft) ? "LeftHand" : "RighHand";
-              sr.WriteLine(hand + ", " + framDat.handPos + ", " + framDat.handRotAxis + ", (" + framDat.handRotX + "," + framDat.handRotY + "," + framDat.handRotZ + "), " + framDat.handTrans + "\n\n");
-          }
-      }
-      }
-      else if (System.IO.File.Exists(fileName))
-      {
-         
-              using (StreamWriter sr = File.AppendText(fileName))
-                  foreach (FrameData framDat in dataFrames)
-                  {
-                      string hand = (framDat.isLeft) ? "LeftHand" : "RighHand";
-                      sr.WriteLine(hand + ", " + framDat.handPos + ", " + framDat.handRotAxis + ", (" + framDat.handRotX + "," + framDat.handRotY + "," + framDat.handRotZ + "), " + framDat.handTrans + "\n\n");
-                  }
-          
-      }
-  
-
-     
   }
-
-  public void SaveTrialData(string header)
-  {
-
-
-    /*  string fileName = savePath + "_" + PlayerPrefs.GetInt("subjectIdentifier") + System.DateTime.Now.ToString("_yyyyMMdd_HHmm") + ".txt";
-
-      if (!System.IO.File.Exists(fileName))
-      {
-          using (FileStream fs = File.Create(fileName))
-          {
-              using (StreamWriter sr = new StreamWriter(fs))
-              {
-                  sr.WriteLine(header + "\n");
-                  foreach (FrameData framDat in dataFrames)
-                  {
-                      string hand = (framDat.isLeft) ? "LeftHand" : "RighHand";
-                      sr.WriteLine(hand + ", " + framDat.handPos + ", " + framDat.handRotAxis + ", (" + framDat.handRotX + "," + framDat.handRotY + "," + framDat.handRotZ + "), " + framDat.handTrans + "\n\n");
-                  }
-              }
-          }
-      }
-      else if (System.IO.File.Exists(fileName))
-      { 
-
-          using (StreamWriter sr = File.AppendText(fileName))
-              foreach (FrameData framDat in dataFrames)
-              {
-                  string hand = (framDat.isLeft) ? "LeftHand" : "RighHand";
-                  sr.WriteLine(hand + ", " + framDat.handPos + ", " + framDat.handRotAxis + ", (" + framDat.handRotX + "," + framDat.handRotY + "," + framDat.handRotZ + "), " + framDat.handTrans + "\n\n");
-              }
-
-      }*/
-
-
-
-  }
-    
-
 }

@@ -1,10 +1,4 @@
-﻿/******************************************************************************\
-* Copyright (C) Leap Motion, Inc. 2011-2014.                                   *
-* Leap Motion proprietary. Licensed under Apache 2.0                           *
-* Available at http://www.apache.org/licenses/LICENSE-2.0.html                 *
-\******************************************************************************/
-
-// ??? It's much more responsive now, but it's a little jumpy. Any way to fix?
+﻿// ??? It's much more responsive now, but it's a little jumpy. Any way to fix?
 
 using UnityEngine;
 using System.Collections;
@@ -14,6 +8,8 @@ public class LeapMove : MonoBehaviour
 {
 
     private bool triggerMove;
+    public AudioClip grabSound;
+    public AudioClip releaseSound;
     private HandModel hand_model;
     private Hand leap_hand;
     private Collider grabbed_;
@@ -118,14 +114,14 @@ public class LeapMove : MonoBehaviour
             }
         //Checks if finger is still colliding with the cube
 
-                fingerTipPosition = leap_hand.Fingers[fingerInt].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-                Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, .01f);
-                for (int k = 0; k < fingerTouching.Length; ++k)
-                    if (fingerTouching[k].transform.parent.gameObject == cube)
-                    {
-                        fingerTouch = true;
-                        break;
-                    }
+        fingerTipPosition = leap_hand.Fingers[fingerInt].TipPosition.ToUnityScaled() + handcontroller.transform.position;
+        Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, .01f);
+        for (int k = 0; k < fingerTouching.Length; ++k)
+            if (fingerTouching[k].transform.parent.gameObject == cube)
+            {
+                fingerTouch = true;
+                break;
+            }
         //If thumb and finger are still touching, we're still moving
         if (thumbTouch && fingerTouch)
         {
@@ -140,6 +136,8 @@ public class LeapMove : MonoBehaviour
             //Destroys the Middle object
             DestroyObject(middle);
             triggerMove = false;
+            //Plays the release sound
+            audio.PlayOneShot(releaseSound);
             return State.Idle;
         }
     }
@@ -153,20 +151,23 @@ public class LeapMove : MonoBehaviour
         cube.transform.parent = middle.transform;
         //Moves the grabbed object a little closer to the middle position when you grab it
         cube.transform.position = Vector3.MoveTowards(cube.transform.position, middle.transform.position, .005f);
+        //ADDED - Plays a sound
+        audio.PlayOneShot(grabSound);
         return State.Moving;
     }
 
-    Doable[] getDoables()
-    {
-        System.Collections.Generic.List<Doable> objsList = new System.Collections.Generic.List<Doable>();
-        HelperFunctions.GetScriptObjectsInScene<Doable>(out objsList);
-        return objsList.ToArray();
-    }
+    //Added by kevin to show how to use scripts instead of tags
+    //Doable[] getDoables()
+    //{
+    //    System.Collections.Generic.List<Doable> objsList = new System.Collections.Generic.List<Doable>();
+    //    HelperFunctions.GetScriptObjectsInScene<Doable>(out objsList);
+    //    return objsList.ToArray();
+    //}
 
-    void testfunc()
-    {
-        Doable[] objs = getDoables();
-        //objs[0].gameObject;
-    }
+    //void testfunc()
+    //{
+    //    Doable[] objs = getDoables();
+    //    //objs[0].gameObject;
+    //}
 
 }

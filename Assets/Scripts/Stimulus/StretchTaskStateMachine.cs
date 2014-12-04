@@ -91,11 +91,6 @@ public class StretchTaskStateMachine : MonoBehaviour
         }
     }
 
-    InteractionBox GetInteractionBox()
-    {
-        return GameObject.Find("HandController").GetComponent<HandController>().latestFrame.InteractionBox;
-    }
-
     void GenerateStimLocations()
     {
         //Position stimuli randomly according to settings (no overlaps)

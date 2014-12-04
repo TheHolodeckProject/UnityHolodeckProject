@@ -98,7 +98,8 @@ public class SearchSpace : MonoBehaviour {
     GameObject OccViewObjLeft;
     GameObject OccViewObjRight;
     GameObject MainViewObj;
-    grabData grabD = new grabData();
+    // !!! Had to comment out
+    //grabData grabD = new grabData();
     float grabThreshold = 3f;
     bool grabbingFlag = false;
     int grabCount = 0;
@@ -338,45 +339,45 @@ public class SearchSpace : MonoBehaviour {
             }
         }
         
-
-        if (phase == 3)
-        {
-            grabD = handControlScript.getGrabStrength();
-            if (grabCount == numSpheres) showLocations();
+        // !!! Had to comment out
+        //if (phase == 3)
+        //{
+        //    grabD = handControlScript.getGrabStrength();
+        //    if (grabCount == numSpheres) showLocations();
             
              
                
-           else if (grabD.grabLevel > .85 && !grabbingFlag)
-            {
-                tStart = Time.time;
-                grabbingFlag = true;
-                string side = (grabD.isItLeft) ? "Left" : "Right";
-                print(side + " hand is grabbing");
+        //   else if (grabD.grabLevel > .85 && !grabbingFlag)
+        //    {
+        //        tStart = Time.time;
+        //        grabbingFlag = true;
+        //        string side = (grabD.isItLeft) ? "Left" : "Right";
+        //        print(side + " hand is grabbing");
                     
-            }
-            else if (grabbingFlag)
-            {
+        //    }
+        //    else if (grabbingFlag)
+        //    {
                  
-                    if( (Time.time - tStart > grabThreshold) && !(grabCount == numSpheres)){
+        //            if( (Time.time - tStart > grabThreshold) && !(grabCount == numSpheres)){
 
-                        string side = (grabD.isItLeft) ? "Left" : "Right";
-                        markLocations[grabCount] = new Vector3(grabD.position.x, grabD.position.y, grabD.position.z);   //Do we want subjects to start with the first object or the second?
-                        grabCount++;
-                        print("Grab by " + side + "Hand recorded" + " at Pos: (" + grabD.position.x + ", " + grabD.position.y + "," + grabD.position.z + ")" + "\n" );
-                        print("Number recorded = " + grabCount + "; " + (numSpheres - grabCount) + " left to record" );
-                        grabbingFlag = false;
-                        for(int i = 0; i < 5000; i++){
-                            // provide wait period between grabs 
-                        }
+        //                string side = (grabD.isItLeft) ? "Left" : "Right";
+        //                markLocations[grabCount] = new Vector3(grabD.position.x, grabD.position.y, grabD.position.z);   //Do we want subjects to start with the first object or the second?
+        //                grabCount++;
+        //                print("Grab by " + side + "Hand recorded" + " at Pos: (" + grabD.position.x + ", " + grabD.position.y + "," + grabD.position.z + ")" + "\n" );
+        //                print("Number recorded = " + grabCount + "; " + (numSpheres - grabCount) + " left to record" );
+        //                grabbingFlag = false;
+        //                for(int i = 0; i < 5000; i++){
+        //                    // provide wait period between grabs 
+        //                }
                         
-                    }
-                    else if (grabD.grabLevel < .5)
-                    {
-                        grabbingFlag = false;
-                        print("No longer grabbing");
-                    }
-            }
-        }
+        //            }
+        //            else if (grabD.grabLevel < .5)
+        //            {
+        //                grabbingFlag = false;
+        //                print("No longer grabbing");
+        //            }
+        //    }
+        //}
 	}
 
     void showLocations()
@@ -545,7 +546,8 @@ public class SearchSpace : MonoBehaviour {
                 phase = 1;
                 phaseInit = true;
                 statusMssg = "Trial in Progress";
-                handControlScript.setTrialBool(true, 1);
+                //!!! Had to comment out
+                //handControlScript.setTrialBool(true, 1);
                
                 
             }

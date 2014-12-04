@@ -13,8 +13,11 @@ using Leap;
 public class ConfidenceTransparency : MonoBehaviour {
 
   private Material material;
+
   void Start() {
-    material = new Material(Shader.Find("Transparent/Diffuse"));
+      // !!! MODIFIED because it was throwing up an error
+    //material = new Material(Shader.Find("Transparent/Diffuse"));
+      material = Resources.Load("TransparentHandMat") as Material;
     Renderer[] renderers = GetComponentsInChildren<Renderer>();
     
     for (int i = 0; i < renderers.Length; ++i)
@@ -36,6 +39,5 @@ public class ConfidenceTransparency : MonoBehaviour {
     Color new_color = render.material.color;
     new_color.a = alpha;
     render.material.color = new_color;
- 
   }
 }

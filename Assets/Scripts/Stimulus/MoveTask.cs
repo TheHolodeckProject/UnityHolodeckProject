@@ -2,20 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using Leap;
+using UnityEngine.UI;
 
-// ??? What's the proper way for other scripts to access the current state? Should I make it a public variable?
+// ??? 64-bit builds aren't working any more. Apparently this is the reason why
+// http://forum.unity3d.com/threads/fallback-handler-could-not-load-library-unity-4-2-osx-10-8-4-standalone.191966/#post-1493495
 
 // TO DO
-// 1) Figure out how to consistently align the Oculus camera with player position
+// 1) Work in some Unity UI stuff
+// 1) Get more colors
+// 2) Animate a dashed line from the stim location to the actual location
 // 2) Add a "Press Esc to quit" function
 // 3) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
-        // When really close to the surface of the table (small y), hand tracking is great when right above the hand tracker but terrible when out of that cone.
+// When really close to the surface of the table (small y), hand tracking is great when right above the hand tracker but terrible when out of that cone.
 // 4) Animate reset button press (frivolous)
 
 public class MoveTask : MonoBehaviour
 {
-    public GameObject cube;
+    public GameObject cubePrefab;
     public GameObject resetButton;
+    public GameObject blackboard;
     public float studyTransparency = 0.925f;
     public int ITI;
     public float popRate;
@@ -29,7 +34,7 @@ public class MoveTask : MonoBehaviour
     public Vector3 stimResetSize;
     public Vector3 stimResetOffset;
     private GameObject[] stimuli;
-    private GameObject template;
+    private GameObject[] transparentStimuli;
     private GameObject practiceCube;
     private int trialNumberOfStim;
     private Transform handController;
@@ -39,12 +44,13 @@ public class MoveTask : MonoBehaviour
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
     private int currentTrial;
-    private Controller controller;
-    private bool doneRecall;
     private Logger logger;
     private List<Texture> colors;
     private float grow;
-    enum State { PracticeStart, Practice, PracticeEnd, TrialStart, OnStudy, Study, OnRecall, Recall, RecallFinished, TrialEnd, InterTrialInterval, TaskEnd };
+    private float timer;
+
+
+    enum State { PracticeStart, Practice, PracticeWaitToDestroyHands, PracticeWaitForNewHands, PracticeGiveInstructions, PracticeEnd, TrialStart, OnStudy, Study, OnRecall, Recall, RecallAllObjectsMoved, RecallFeedback, RecallEnd, TrialEnd, InterTrialInterval, TaskEnd };
     private State currentState;
 
     // Use this for initialization
@@ -54,39 +60,18 @@ public class MoveTask : MonoBehaviour
         stimLocations = new Vector3[maxNumberOfStim];
         resetLocations = new Vector3[maxNumberOfStim];
         stimuli = new GameObject[maxNumberOfStim];
-        template = Resources.Load("MovableCube") as GameObject;
+        transparentStimuli = new GameObject[maxNumberOfStim];
         currentTrial = 0;
-        doneRecall = false;
         logger = GameObject.Find("Logger").GetComponent<Logger>();
         logger.BeginLogging();
         practiceCubeGenerated = false;
-        //Initializes a list to hold the different colors
-        colors = new List<Texture>();
-        colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("DarkRed", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("LightRed", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("LightOrange", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("DarkOrange", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Yellow", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("LightYellow", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("DarkYellow", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("LightGreen", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("DarkGreen", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("LightBlue", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("DarkBlue", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("Purple", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("LightPurple", typeof(Texture2D)) as Texture);
-        colors.Add(Resources.Load("DarkPurple", typeof(Texture2D)) as Texture);
+        colors = GenerateColors();
         colorNums = new int[colors.Count];
         currentState = State.PracticeStart;
     }
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentState);
         //Debug.Log(currentState);
         switch (currentState)
         {
@@ -96,49 +81,90 @@ public class MoveTask : MonoBehaviour
                     GeneratePracticeCube();
                 else
                 {
-                    bool practicePopInComplete = PopInPracticeCube();
+                    blackboard.GetComponentInChildren<Text>().text = "Welcome to the Holodeck\n\nThese are your practice hands\nThey turn transparent as they go out of range\n\n Press the button to continue";
+                    bool practicePopInComplete = PopInSingle(practiceCube);
                     if (practicePopInComplete)
                         currentState = State.Practice;
                 }
                 break;
-        
+
 
             case State.Practice:
-                    bool practiceOver = WaitForResetButtonTouch();
-                    if (practiceOver)
+                //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
+                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                {
+                    TurnOffResetButton();
+                    blackboard.GetComponentInChildren<Text>().text = "Grab the cube with two fingeres\n\nIt's best to grab it like a shot glass\n\nMove your hands above your head to continue";
+                    currentState = State.PracticeWaitToDestroyHands;
+                }
+                break;
+
+            case State.PracticeWaitToDestroyHands:   
+                    //If the hands have been removed from the scene
+                    if (GameObject.Find("RigidFullHand(Clone)") == null)
                     {
-                        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
-                        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
-                        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
-                        currentState = State.PracticeEnd;
+                        //Disables the transparency script
+                        handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
+                        handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
+                        //Changes the material
+                        handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+                        handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+                        blackboard.GetComponentInChildren<Text>().text = "Ok, bring them back down again";
+                        currentState = State.PracticeWaitForNewHands;
                     }
                     break;
 
-            case State.PracticeEnd:
-                bool practicePopOutComplete = PopOutPracticeCube();
-                if (practicePopOutComplete)
-                {
-                    //Changes the hand to stop being transparent
-                    handController.Find("RiggedLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
-                    handController.Find("RiggedRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
+            case State.PracticeWaitForNewHands:
+                    if (GameObject.Find("RigidFullHand(Clone)") != null)
+                    {
+                        TurnOnResetButton();
+                        blackboard.GetComponentInChildren<Text>().text = "These are your real virtual hands\nWay nicer\n\nHit the button again to get started";
+                        currentState = State.PracticeGiveInstructions;
+                    }
+                    break;
 
-                    Destroy(practiceCube);
-                    currentState = State.TrialStart;
-                }
+            case State.PracticeGiveInstructions:
+                    {
+                        if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                        {
+                            TurnOffResetButton();
+                            currentState = State.PracticeEnd;
+                            blackboard.GetComponentInChildren<Text>().text = "Soon you will see some cubes appear\n\n Your job is to remember their locations";
+                            timeLeft = 3f;
+                        }
+                        break;
+                    }
+
+                
+
+            case State.PracticeEnd:
+                    timeLeft -= Time.deltaTime;
+                    if (practiceCube != null)
+                    {
+                        bool practicePopOutComplete = PopOutSingle(practiceCube);
+                        if (practicePopOutComplete)
+                            Destroy(practiceCube);
+                    }
+                    if (timeLeft < 0)
+                    {
+                        blackboard.GetComponentInChildren<Text>().text = "";
+                        currentState = State.TrialStart;
+                    }
                 break;
-            
+
             case State.TrialStart:
                 currentTrial += 1;
                 trialNumberOfStim = Random.Range(minNumberOfStim, maxNumberOfStim);
                 GenerateStimLocations();
                 GenerateStimuli();
                 logger.RegenerateStimuliInSameFile();
-                MakeStimuliUngrabbable();
                 currentState = State.OnStudy;
                 break;
 
             case State.OnStudy:
-                bool popInComplete = PopInStimuli();
+                if (currentTrial <= 3)
+                    blackboard.GetComponentInChildren<Text>().text = "Getting a new perspective can be useful\n\nMove your head around for a better look";
+                bool popInComplete = PopInMultiple(transparentStimuli);
                 if (popInComplete)
                 {
                     timeLeft = studyTime;
@@ -151,9 +177,10 @@ public class MoveTask : MonoBehaviour
                 bool popOutComplete = false;
                 if (timeLeft <= 0)
                 {
-                    popOutComplete = PopOutStimuli();
+                    popOutComplete = PopOutMultiple(transparentStimuli);
                     if (popOutComplete)
                     {
+                        MakeInactive(transparentStimuli);
                         ResetStimuli();
                         currentState = State.OnRecall;
                     }
@@ -161,28 +188,59 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.OnRecall:
-                popInComplete = PopInStimuli();
+                if (currentTrial <= 3)
+                    blackboard.GetComponentInChildren<Text>().text = "Move the cubes back to where they were";
+                popInComplete = PopInMultiple(stimuli);
                 if (popInComplete)
-                {
                     currentState = State.Recall;
-                }
                 break;
 
             case State.Recall:
                 int movedCubes = GetNumberOfMovedCubes();
                 if (movedCubes >= trialNumberOfStim)
                 {
-                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r + .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
-                    currentState = State.RecallFinished;
+                    TurnOnResetButton();
+                    currentState = State.RecallAllObjectsMoved;
                 }
 
                 break;
 
-            case State.RecallFinished:
-                doneRecall = WaitForResetButtonTouch();
-                if (doneRecall)
+            case State.RecallAllObjectsMoved:
+                if (currentTrial <= 3)
+                    blackboard.GetComponentInChildren<Text>().text = "Hit the button to see how you did";
+                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
                 {
-                    resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                    TurnOffResetButton();
+                    PreparePracticeStimuli();
+                    currentState = State.RecallFeedback;
+                }
+                    break;
+
+            case State.RecallFeedback:
+                    if (currentTrial <= 3)
+                        blackboard.GetComponentInChildren<Text>().text = "";
+                bool doneFeedback = StimulusPositionFeedback();
+                    if (doneFeedback)
+                    {
+                        if (currentTrial == 1)
+                            blackboard.GetComponentInChildren<Text>().text = "Not bad! \n\n Let's try again";
+                        if (currentTrial == 2)
+                            blackboard.GetComponentInChildren<Text>().text = "Getting better! \n\n Let's practice one more time";
+                        if (currentTrial == 3)
+                            blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + totalTrials + " trials";
+                        currentState = State.RecallEnd;
+                        logger.FinishTrial(currentTrial);
+                        timeLeft = 2f;                  
+                    }
+                    break;
+
+            case State.RecallEnd:
+
+                timeLeft -= Time.deltaTime;
+                if (timeLeft <= 0)
+                {
+                    if (currentTrial <= 4)
+                        blackboard.GetComponentInChildren<Text>().text = "";
                     if (currentTrial >= totalTrials)
                     {
                         currentState = State.TaskEnd;
@@ -190,17 +248,13 @@ public class MoveTask : MonoBehaviour
                         logger.Finish();
                     }
                     else
-                    {
-                        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
-                        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
                         currentState = State.TrialEnd;
-                        logger.FinishTrial(currentTrial);
-                    }
                 }
-                break;
+                    break;
 
             case State.TrialEnd:
-                popOutComplete = PopOutStimuli();
+                popOutComplete = PopOutMultiple(stimuli);
+                PopOutMultiple(transparentStimuli);
                 if (popOutComplete)
                 {
                     DestroyStimuli();
@@ -210,7 +264,7 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.InterTrialInterval:
-                    timeLeft -= Time.deltaTime;
+                timeLeft -= Time.deltaTime;
                 if (timeLeft <= 0)
                     currentState = State.TrialStart;
                 break;
@@ -221,16 +275,25 @@ public class MoveTask : MonoBehaviour
         }
     }
 
+    List<Texture> GenerateColors()
+    {
+        List<Texture> colors = new List<Texture>();
+        colors.Add(Resources.Load("Red", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Orange", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Yellow", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Green", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Blue", typeof(Texture2D)) as Texture);
+        colors.Add(Resources.Load("Violet", typeof(Texture2D)) as Texture);
+        return colors;
 
-    private void GeneratePracticeCube()
+    }
+    void GeneratePracticeCube()
     {
         //Generates a random integer that we'll use to pick a color
         int practiceCubeColor = Random.Range(0, colors.Count - 1);
-        practiceCube = (GameObject)Instantiate(template);
+        practiceCube = (GameObject)Instantiate(cubePrefab);
         practiceCube.transform.position = handController.transform.position + stimLocationOffset;
         practiceCube.transform.rotation = Random.rotation;
-        //practiceCube.transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
-        //practiceCube.transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
         practiceCube.transform.renderer.material = new Material(Shader.Find("Diffuse"));
         practiceCube.transform.renderer.material.mainTexture = colors[practiceCubeColor];
         practiceCube.name = practiceCube.name + "-" + practiceCube.transform.renderer.material.mainTexture.name;
@@ -238,26 +301,6 @@ public class MoveTask : MonoBehaviour
         //Makes the stimuli tiny, so they can be poppped in
         practiceCube.transform.localScale = new Vector3(0, 0, 0);
         practiceCubeGenerated = true;
-    }
-
-    private bool PopInPracticeCube()
-    {
-      practiceCube.transform.localScale += Vector3.one * grow;
-            grow += popRate * Time.deltaTime;
-        if (practiceCube.transform.localScale.x >= cube.transform.localScale.x)
-            return true;
-        else
-            return false;
-    }
-
-    private bool PopOutPracticeCube()
-    {
-        practiceCube.transform.localScale -= Vector3.one * grow;
-            grow += popRate * Time.deltaTime;
-        if (practiceCube.transform.localScale.x <= 0)
-            return true;
-        else
-            return false;
     }
 
     void GenerateStimLocations()
@@ -272,9 +315,7 @@ public class MoveTask : MonoBehaviour
                 Random.Range(handController.position.y - stimLocationSize.y / 2, handController.position.y + stimLocationSize.y / 2) + stimLocationOffset.y,
                 Random.Range(handController.position.z - stimLocationSize.z / 2, handController.position.z + stimLocationSize.z / 2) + stimLocationOffset.z);
             //Check for overlapping boxes and regenerate box location if overlap occurs
-            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x + stimOverlapBuffer.x, cube.transform.localScale.z + stimOverlapBuffer.z);
-            //Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cube.transform.localScale.x * 2 + stimOverlapBuffer.x, cube.transform.localScale.z * 2 + stimOverlapBuffer.z);
-
+            Rect newBox = new Rect(stimLocations[i].x, stimLocations[i].z, cubePrefab.transform.localScale.x + stimOverlapBuffer.x, cubePrefab.transform.localScale.z + stimOverlapBuffer.z);
             if (boxesOverlapArray(newBox, overlapCheckList))
             {
                 retries--;
@@ -296,7 +337,6 @@ public class MoveTask : MonoBehaviour
     private void GenerateStimuli()
     {
         //Create a knuth shuffle index list of random indicies within the range of possible colors
-        //int[] colorNums = new int[colors.Count];
         for (int i = 0; i < colors.Count; i++)
             colorNums[i] = i;
         for (int i = 0; i < colors.Count; i++)
@@ -306,30 +346,29 @@ public class MoveTask : MonoBehaviour
             colorNums[index] = colorNums[i];
             colorNums[i] = tmp;
         }
-        //Defines the stimulus properties
         for (int i = 0; i < trialNumberOfStim; i++)
         {
-            stimuli[i] = (GameObject)Instantiate(template);
+            // Stimuli - solid, movable
+            stimuli[i] = (GameObject)Instantiate(cubePrefab);
             stimuli[i].transform.position = stimLocations[i];
             stimuli[i].transform.rotation = Random.rotation;
-            //stimuli[i].transform.renderer.material = new Material(Shader.Find("Self-Illumin/Diffuse"));
-            //Using transparent shader during study phase
-            //stimuli[i].transform.renderer.material = new Material(Shader.Find("Custom/TransparentDiffuseWithShadow"));
-            stimuli[i].transform.renderer.material = new Material(Shader.Find("Transparent/Diffuse"));
-            stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b,studyTransparency);
+            stimuli[i].transform.renderer.material = new Material(Shader.Find("Diffuse"));
             stimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
-            stimuli[i].name = stimuli[i].name + "-" + stimuli[i].transform.renderer.material.mainTexture.name;
+            stimuli[i].name = "Cube - " + stimuli[i].transform.renderer.material.mainTexture.name;
             //Makes the stimuli tiny, so they can be poppped in
             stimuli[i].transform.localScale = new Vector3(0, 0, 0);
-
             stimuli[i].AddComponent<SimpleObjectLogger>();
+            // Practice cubes - transparent, unmovable
+            transparentStimuli[i] = (GameObject)Instantiate(cubePrefab);
+            transparentStimuli[i].transform.position = stimLocations[i];
+            transparentStimuli[i].transform.rotation = stimuli[i].transform.rotation;
+            transparentStimuli[i].transform.renderer.material = new Material(Shader.Find("Transparent/Diffuse"));
+            transparentStimuli[i].transform.localScale = new Vector3(0, 0, 0);
+            transparentStimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
+            transparentStimuli[i].name = "TransparentCube - " + stimuli[i].transform.renderer.material.mainTexture.name;
+            transparentStimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b, studyTransparency);
+            transparentStimuli[i].tag = "Untagged";
         }
-    }
-
-    private void MakeStimuliUngrabbable()
-    {
-        for (int i = 0; i < trialNumberOfStim; i++)
-            stimuli[i].tag = "Untagged";
     }
 
     bool boxesOverlapArray(Rect box, List<Rect> boxArray)
@@ -339,28 +378,55 @@ public class MoveTask : MonoBehaviour
         return false;
     }
 
-    //Makes Stimuli grow / shrink rather than just appearinginto their natural size
-    private bool PopInStimuli()
+    void MakeInactive(GameObject[] popthings)
     {
         for (int i = 0; i < trialNumberOfStim; i++)
-        {
-            stimuli[i].transform.localScale += Vector3.one * grow;
-            grow += popRate * Time.deltaTime;
-        }
-            if (stimuli[0].transform.localScale.x >= cube.transform.localScale.x)
-                return true;
-            else
-                return false;
+            popthings[i].SetActive(false);
     }
 
-    private bool PopOutStimuli()
+
+    // ??? Any way to get this to work on single GameObjects and arrays of objects?
+    private bool PopInSingle(GameObject popthing)
+    {
+        popthing.transform.localScale += Vector3.one * grow;
+        grow += popRate * Time.deltaTime;
+        if (popthing.transform.localScale.x >= cubePrefab.transform.localScale.x)
+            return true;
+        else
+            return false;
+    }
+
+    private bool PopOutSingle(GameObject popthing)
+    {
+        popthing.transform.localScale -= Vector3.one * grow;
+        grow += popRate * Time.deltaTime;
+        if (practiceCube.transform.localScale.x <= 0)
+            return true;
+        else
+            return false;
+    }
+    //Makes Stimuli grow / shrink rather than just appearing
+    private bool PopInMultiple(GameObject[] popthings)
     {
         for (int i = 0; i < trialNumberOfStim; i++)
         {
-            stimuli[i].transform.localScale -= Vector3.one * grow;
+            popthings[i].transform.localScale += Vector3.one * grow;
             grow += popRate * Time.deltaTime;
         }
-        if (stimuli[0].transform.localScale.x <= 0)
+        if (popthings[0].transform.localScale.x >= cubePrefab.transform.localScale.x)
+            return true;
+        else
+            return false;
+    }
+
+    private bool PopOutMultiple(GameObject[] popthings)
+    {
+        for (int i = 0; i < trialNumberOfStim; i++)
+        {
+            popthings[i].transform.localScale -= Vector3.one * grow;
+            grow += popRate * Time.deltaTime;
+        }
+        if (popthings[0].transform.localScale.x <= 0)
             return true;
         else
             return false;
@@ -390,7 +456,6 @@ public class MoveTask : MonoBehaviour
             handController.position.x + stimResetSize.x / 2 + stimResetOffset.x,
             handController.position.y + stimResetSize.y / 2 + stimResetOffset.y,
             handController.position.z + stimResetSize.z / 2 + stimResetOffset.z);
-
         for (int i = 0; i < trialNumberOfStim; ++i)
         {
             // Space the stimuli equally along the line defined earlier
@@ -398,18 +463,13 @@ public class MoveTask : MonoBehaviour
             step += stepIncrease;
             //Puts the reset position into a vector to be used later to check if the stimuli have been moved
             resetLocations[i] = stimuli[i].transform.position;
-            //ADDED - Makes them movable
-            stimuli[i].tag = "Movable";
-            //ADDED - Makes them opaque
-            //stimuli[i].renderer.material.color = new Color(stimuli[i].renderer.material.color.r, stimuli[i].renderer.material.color.g, stimuli[i].renderer.material.color.b, 255);
-            stimuli[i].transform.renderer.material = new Material(Shader.Find("Diffuse"));
-            stimuli[i].transform.renderer.material.mainTexture = colors[colorNums[i]];
-            //stimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b);
-            
+            //Makes the feedback stimuli normal size again
+            transparentStimuli[i].transform.localScale = cubePrefab.transform.localScale;
+
         }
     }
 
-    
+
     int GetNumberOfMovedCubes()
     {
         int movedCubes = 0;
@@ -421,22 +481,59 @@ public class MoveTask : MonoBehaviour
         return movedCubes;
     }
 
-    bool WaitForResetButtonTouch()
+    void TurnOffResetButton()
     {
-        //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
-        return resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch;
+        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
+        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
+        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+        resetButton.transform.FindChild("Button").audio.PlayOneShot(Resources.Load("ButtonSound") as AudioClip);
     }
 
+    void TurnOnResetButton()
+    {
+        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r + .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+    }
+    void PreparePracticeStimuli()
+    {
+        for (int i = 0; i < trialNumberOfStim; i++)
+        {
+            transparentStimuli[i].transform.position = stimuli[i].transform.position;
+            transparentStimuli[i].SetActive(true);
+            //Makes stimuli more transparent
+            transparentStimuli[i].renderer.material.color = new Color(transparentStimuli[i].renderer.material.color.r, transparentStimuli[i].renderer.material.color.g, transparentStimuli[i].renderer.material.color.b, transparentStimuli[i].renderer.material.color.a * .5f);
+
+        }
+    }
+
+    bool WaitForHandReset()
+    {
+        if (GameObject.Find("RigidFullHand(Clone)") == null)
+            return true;
+        else
+            return false;
+    }
+
+    bool StimulusPositionFeedback()
+    {
+        //If the stimuli have been moved back to their original position
+        if (stimuli[0].transform.position == stimLocations[0])
+            return true;
+        for (int i = 0; i < trialNumberOfStim; ++i)
+            stimuli[i].transform.position = Vector3.MoveTowards(stimuli[i].transform.position, stimLocations[i], Time.deltaTime * .1f);
+        return false;
+    }
     void DestroyStimuli()
     {
         for (int i = 0; i < trialNumberOfStim; ++i)
+        {
             Destroy(stimuli[i]);
+            Destroy(transparentStimuli[i]);
+        }
     }
 
     void ShowLogo()
     {
         GameObject screen = GameObject.Find("BlackScreen");
         screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
-
     }
 }
