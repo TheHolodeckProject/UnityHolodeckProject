@@ -53,8 +53,7 @@ public class SSAOEffect : MonoBehaviour
 	{
 		if (!SystemInfo.supportsImageEffects || !SystemInfo.SupportsRenderTextureFormat (RenderTextureFormat.Depth))
 		{
-            Debug.Log("System does not support image effects");
-            m_Supported = false;
+			m_Supported = false;
 			enabled = false;
 			return;
 		}
@@ -62,8 +61,7 @@ public class SSAOEffect : MonoBehaviour
 		CreateMaterials ();
 		if (!m_SSAOMaterial || m_SSAOMaterial.passCount != 5)
 		{
-            Debug.Log("No materials created");
-            m_Supported = false;
+			m_Supported = false;
 			enabled = false;
 			return;
 		}
@@ -90,8 +88,7 @@ public class SSAOEffect : MonoBehaviour
 	void OnRenderImage (RenderTexture source, RenderTexture destination)
 	{
 		if (!m_Supported || !m_SSAOShader.isSupported) {
-            Debug.Log("Shader isn't supported");
-            enabled = false;
+			enabled = false;
 			return;
 		}
 		CreateMaterials ();

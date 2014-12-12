@@ -8,11 +8,8 @@ using UnityEngine.UI;
 // http://forum.unity3d.com/threads/fallback-handler-could-not-load-library-unity-4-2-osx-10-8-4-standalone.191966/#post-1493495
 
 // TO DO
-// 1) Work in some Unity UI stuff
-// 1) Get more colors
-// 2) Animate a dashed line from the stim location to the actual location
-// 2) Add a "Press Esc to quit" function
-// 3) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
+// 1) Add in 'Hit Esc to quit' function, as well as startup screen where you enter subject # and path
+// 2) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
 // When really close to the surface of the table (small y), hand tracking is great when right above the hand tracker but terrible when out of that cone.
 // 4) Animate reset button press (frivolous)
 
@@ -72,6 +69,12 @@ public class MoveTask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //ADDED - Esc to quit
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+        
         //Debug.Log(currentState);
         switch (currentState)
         {
@@ -162,7 +165,7 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.OnStudy:
-                if (currentTrial <= 3)
+                if (currentTrial == 2 || currentTrial == 3)
                     blackboard.GetComponentInChildren<Text>().text = "Getting a new perspective can be useful\n\nMove your head around for a better look";
                 bool popInComplete = PopInMultiple(transparentStimuli);
                 if (popInComplete)

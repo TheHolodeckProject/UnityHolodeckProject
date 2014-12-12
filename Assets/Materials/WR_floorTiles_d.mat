@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: WR_floorTiles_d
+  m_Shader: {fileID: 4800000, guid: e3bf57970e5a7a24988fd29f25c626cc, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: bfe1d2cd883e36f4291004d3730eae24, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 1c5c27c558b876347b9954f26afaacb7, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Illum
+        second:
+          m_Texture: {fileID: 2800000, guid: 3780989a8fa279d4b87317002f05557e, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 8900000, guid: ee683fb4365e85448af8c926b7855ab2, type: 2}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Detaile
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Shininess
+        second: .078125
+      data:
+        first:
+          name: _IllumPow
+        second: .300000012
+      data:
+        first:
+          name: _EmissionLM
+        second: 10
+      data:
+        first:
+          name: _RimPower
+        second: 3.76785707
+      data:
+        first:
+          name: _SpecPower
+        second: .5
+      data:
+        first:
+          name: _ReflectPower
+        second: .267857134
+      data:
+        first:
+          name: _RimOffOn
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .498039216, g: .498039216, b: .498039216, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _ReflectColor
+        second: {r: .286764681, g: .286764681, b: .286764681, a: .501960814}
+      data:
+        first:
+          name: _EnvBoxStart
+        second: {r: -3.13000011, g: -.699999988, b: -2.0999999, a: 1}
+      data:
+        first:
+          name: _EnvBoxSize
+        second: {r: 6.30000019, g: 3, b: 4.30000019, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: 1, g: 1, b: 1, a: 0}
+      data:
+        first:
+          name: _CubemapPos
+        second: {r: 0, g: 0, b: 0, a: 1}

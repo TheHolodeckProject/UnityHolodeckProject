@@ -63,7 +63,7 @@ public class LeapMove : MonoBehaviour
         //Gets the thumb position
         thumbTipPosition = leap_hand.Fingers[0].TipPosition.ToUnityScaled() + handcontroller.transform.position;
         // Checks a tiny sphere collider around the thumb
-        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, .01f);
+        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, .02f);
         //For everything in the radius around the thumbtip
         for (int j = 0; j < thumbTouching.Length; ++j)
         {
@@ -77,6 +77,7 @@ public class LeapMove : MonoBehaviour
         }
         //If the thumb was touching a grabbable object
         if (thumbTouch)
+        {
             //Check if any another finger is also colliding with a grabbable object
             for (int f = 1; f < 5; ++f)
             {
@@ -97,6 +98,7 @@ public class LeapMove : MonoBehaviour
                     }
                 }
             }
+        }
     }
 
     State Move()
