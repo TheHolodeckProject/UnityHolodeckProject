@@ -41,7 +41,7 @@ public class MoveTask : MonoBehaviour
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
     private int currentTrial;
-    private Logger logger;
+    //private Logger logger;
     private List<Texture> colors;
     private float grow;
     private float timer;
@@ -59,8 +59,8 @@ public class MoveTask : MonoBehaviour
         stimuli = new GameObject[maxNumberOfStim];
         transparentStimuli = new GameObject[maxNumberOfStim];
         currentTrial = 0;
-        logger = GameObject.Find("Logger").GetComponent<Logger>();
-        logger.BeginLogging();
+        //logger = GameObject.Find("Logger").GetComponent<Logger>();
+        //logger.BeginLogging();
         practiceCubeGenerated = false;
         colors = GenerateColors();
         colorNums = new int[colors.Count];
@@ -69,11 +69,9 @@ public class MoveTask : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ADDED - Esc to quit
+        //ADDED - Press Esc to quit
         if (Input.GetKey(KeyCode.Escape))
-        {
             Application.Quit();
-        }
         
         //Debug.Log(currentState);
         switch (currentState)
@@ -97,7 +95,7 @@ public class MoveTask : MonoBehaviour
                 if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
                 {
                     TurnOffResetButton();
-                    blackboard.GetComponentInChildren<Text>().text = "Grab the cube with two fingeres\n\nIt's best to grab it like a shot glass\n\nMove your hands above your head to continue";
+                    blackboard.GetComponentInChildren<Text>().text = "Grab the cube with two fingers\n\nIt's best to grab it like a shot glass\n\nMove your hands above your head to continue";
                     currentState = State.PracticeWaitToDestroyHands;
                 }
                 break;
@@ -160,7 +158,7 @@ public class MoveTask : MonoBehaviour
                 trialNumberOfStim = Random.Range(minNumberOfStim, maxNumberOfStim);
                 GenerateStimLocations();
                 GenerateStimuli();
-                logger.RegenerateStimuliInSameFile();
+                //logger.RegenerateStimuliInSameFile();
                 currentState = State.OnStudy;
                 break;
 
@@ -230,9 +228,9 @@ public class MoveTask : MonoBehaviour
                         if (currentTrial == 2)
                             blackboard.GetComponentInChildren<Text>().text = "Getting better! \n\n Let's practice one more time";
                         if (currentTrial == 3)
-                            blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + totalTrials + " trials";
+                            blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials - 3f) + " trials";
                         currentState = State.RecallEnd;
-                        logger.FinishTrial(currentTrial);
+                        //logger.FinishTrial(currentTrial);
                         timeLeft = 2f;                  
                     }
                     break;
@@ -247,8 +245,8 @@ public class MoveTask : MonoBehaviour
                     if (currentTrial >= totalTrials)
                     {
                         currentState = State.TaskEnd;
-                        logger.FinishTrial(currentTrial);
-                        logger.Finish();
+                        //logger.FinishTrial(currentTrial);
+                        //logger.Finish();
                     }
                     else
                         currentState = State.TrialEnd;
@@ -360,7 +358,7 @@ public class MoveTask : MonoBehaviour
             stimuli[i].name = "Cube - " + stimuli[i].transform.renderer.material.mainTexture.name;
             //Makes the stimuli tiny, so they can be poppped in
             stimuli[i].transform.localScale = new Vector3(0, 0, 0);
-            stimuli[i].AddComponent<SimpleObjectLogger>();
+            //stimuli[i].AddComponent<SimpleObjectLogger>();
             // Practice cubes - transparent, unmovable
             transparentStimuli[i] = (GameObject)Instantiate(cubePrefab);
             transparentStimuli[i].transform.position = stimLocations[i];
