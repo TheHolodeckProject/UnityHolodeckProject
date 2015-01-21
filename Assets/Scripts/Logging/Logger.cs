@@ -17,6 +17,8 @@ public class Logger : MonoBehaviour {
 	private StreamWriter summaryWriter = null;
 	private string currentFileTimestamp = "";
 	private int subID;
+    private int sessID;
+    private bool enableLogging;
 	string firstTickOutput = "";
 	string lastTickOutput = "";
 	string previousTickOutput = "";
@@ -29,7 +31,10 @@ public class Logger : MonoBehaviour {
 		paused = false;
 	}
 	public void Start() {
-		subID = PlayerPrefs.GetInt ("Subject Identifier");
+		subID = PlayerPrefs.GetInt ("SubjectNumber");
+        sessID = PlayerPrefs.GetInt("SessionNumber");
+        if (extension[0] != '.')
+            extension = "." + extension;
 	}
 	
 	// Update is called once per frame
@@ -66,24 +71,25 @@ public class Logger : MonoBehaviour {
 	public void BeginLogging(){
         if (!Directory.Exists(loggerDir))
             Directory.CreateDirectory(loggerDir);
-		string substring = ("Sub" + subID);
+		string substring = ("Sub" + subID.ToString("D4") + "Sess" + sessID.ToString("D2"));
 
 		GenerateLoggableObjectsList ();
 
 		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
 		
 		//Create the appropriate filename given the options
-        string rawFilename = loggerDir + "/RawLog" + extension;
+        string rawFilename = loggerDir + "RawLog" + extension;
 		currentFileTimestamp = DateTime.Now.ToString (dateTimeFormat);
 		rawFilename = appendTextToFilename (rawFilename,substring);
 		rawFilename = appendTextToFilename (rawFilename,currentFileTimestamp);
-		
+
+        Debug.Log("Raw Filename: " + rawFilename);
 		//Create the file writer
 		rawWriter = new StreamWriter (rawFilename, false);
 		rawWriter.AutoFlush = true;
 
 		//Create the appropriate filename given the options
-        string summaryFilename = loggerDir + "/SummaryLog" + extension;
+        string summaryFilename = loggerDir + "SummaryLog" + extension;
 		summaryFilename = appendTextToFilename (summaryFilename,substring);
 		summaryFilename = appendTextToFilename (summaryFilename,currentFileTimestamp);
 

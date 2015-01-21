@@ -2644,7 +2644,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 25035c5a9abcf0741affa734e579c02b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 25035c5a9abcf0741affa734e579c02b, type: 2}
       propertyPath: loggerDir
@@ -4133,7 +4133,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1798715859}
   m_GameObject: {fileID: 1102704799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe8a27cc3e8f246fe888d1a3b4cae780, type: 3}
   m_Name: 
@@ -4417,7 +4417,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1798715859}
   m_GameObject: {fileID: 1169079215}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe8a27cc3e8f246fe888d1a3b4cae780, type: 3}
   m_Name: 
@@ -5810,9 +5810,6 @@ MonoBehaviour:
   studyTransparency: .699999988
   ITI: 2
   popRate: .00100000005
-  totalTrials: 8
-  minNumberOfStim: 2
-  maxNumberOfStim: 5
   studyTime: 5
   stimLocationSize: {x: .300000012, y: .300000012, z: .25}
   stimLocationOffset: {x: 0, y: .25, z: .100000001}
@@ -6051,7 +6048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1761851579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6315,6 +6312,22 @@ Prefab:
     - target: {fileID: 11400022, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
       propertyPath: grabRadius
       value: .0199999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400030, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400026, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100084, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100074, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}

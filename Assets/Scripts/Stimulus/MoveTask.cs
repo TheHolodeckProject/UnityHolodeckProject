@@ -20,10 +20,9 @@ public class MoveTask : MonoBehaviour
     public GameObject blackboard;
     public float studyTransparency = 0.925f;
     public int ITI;
+    private int totalTrials;
+    private int totalMinutes;
     public float popRate;
-    public int totalTrials = 3;
-    public int minNumberOfStim = 2;
-    public int maxNumberOfStim = 5;
     public float studyTime = 3f;
     public Vector3 stimLocationSize;
     public Vector3 stimLocationOffset;
@@ -41,7 +40,9 @@ public class MoveTask : MonoBehaviour
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
     private int currentTrial;
-    //private Logger logger;
+    private int diff;
+    private bool enableLogging;
+    private Logger logger;
     private List<Texture> colors;
     private float grow;
     private float timer;
@@ -53,39 +54,50 @@ public class MoveTask : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
-        handController = GameObject.Find("HandController").transform;
-        stimLocations = new Vector3[maxNumberOfStim];
-        resetLocations = new Vector3[maxNumberOfStim];
-        stimuli = new GameObject[maxNumberOfStim];
-        transparentStimuli = new GameObject[maxNumberOfStim];
-        currentTrial = 0;
-        //logger = GameObject.Find("Logger").GetComponent<Logger>();
-        //logger.BeginLogging();
-        practiceCubeGenerated = false;
-        colors = GenerateColors();
-        colorNums = new int[colors.Count];
-
         //Grabs player preferences
         // Practice
         if (PlayerPrefs.GetInt("PracticeYesNo") == 1)
-            currentState = State.PracticeStart;
-        else
         {
-            DisableTransparency();
-            currentState = State.NoPractice;
+            ToggleTransparency(true);
+            currentState = State.PracticeStart;
         }
-
+        else
+            currentState = State.NoPractice;
         // Oculus Camera
         if (PlayerPrefs.GetInt("OculusCamYesNo") == 0)
             GameObject.Find("OVRCameraRig").gameObject.SetActive(false);
         else
             GameObject.Find("Regular Camera").gameObject.SetActive(false);
+        //Starting Difficulty
+        diff = PlayerPrefs.GetInt("StartingDifficulty");
+
+        //Session length
+        totalTrials = PlayerPrefs.GetInt("TrialLimit");
+        totalMinutes = PlayerPrefs.GetInt("MinuteLimit");
+
+        //Logging
+        enableLogging = PlayerPrefs.GetInt("LogDataYesNo") == 0 ? false : true;
+
+        int preallocatedStimLocationArraySizes = 10;
+
+        handController = GameObject.Find("HandController").transform;
+        stimLocations = new Vector3[preallocatedStimLocationArraySizes];
+        resetLocations = new Vector3[preallocatedStimLocationArraySizes];
+        stimuli = new GameObject[preallocatedStimLocationArraySizes];
+        transparentStimuli = new GameObject[preallocatedStimLocationArraySizes];
+        currentTrial = 0;
+        if (enableLogging) logger = GameObject.Find("Logger").GetComponent<Logger>();
+        if (enableLogging) logger.BeginLogging();
+        practiceCubeGenerated = false;
+        colors = GenerateColors();
+        colorNums = new int[colors.Count];
+
+        Debug.Log("Starting difficulty = " + diff);
     }
     // Update is called once per frame
     void Update()
     {
-        //ADDED - Press Esc to quit
+        //Press Esc to quit
         if (Input.GetKey(KeyCode.Escape))
             Application.Quit();
         
@@ -120,7 +132,7 @@ public class MoveTask : MonoBehaviour
                     //If the hands have been removed from the scene
                     if (GameObject.Find("RigidFullHand(Clone)") == null)
                     {
-                        DisableTransparency();
+                        ToggleTransparency(false);
                         currentState = State.PracticeWaitForNewHands;
                     }
                     break;
@@ -175,10 +187,10 @@ public class MoveTask : MonoBehaviour
                
             case State.TrialStart:
                 currentTrial += 1;
-                trialNumberOfStim = Random.Range(minNumberOfStim, maxNumberOfStim);
+                trialNumberOfStim = Random.Range(diff - 1, diff + 1);
                 GenerateStimLocations();
                 GenerateStimuli();
-                //logger.RegenerateStimuliInSameFile();
+                if (enableLogging) logger.RegenerateStimuliInSameFile();
                 currentState = State.OnStudy;
                 break;
 
@@ -250,7 +262,7 @@ public class MoveTask : MonoBehaviour
                         if (currentTrial == 3)
                             blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials - 3f) + " trials";
                         currentState = State.RecallEnd;
-                        //logger.FinishTrial(currentTrial);
+                        if (enableLogging) logger.FinishTrial(currentTrial);
                         timeLeft = 2f;                  
                     }
                     break;
@@ -265,8 +277,8 @@ public class MoveTask : MonoBehaviour
                     if (currentTrial >= totalTrials)
                     {
                         currentState = State.TaskEnd;
-                        //logger.FinishTrial(currentTrial);
-                        //logger.Finish();
+                        if (enableLogging) logger.FinishTrial(currentTrial);
+                        if (enableLogging) logger.Finish();
                     }
                     else
                         currentState = State.TrialEnd;
@@ -378,7 +390,7 @@ public class MoveTask : MonoBehaviour
             stimuli[i].name = "Cube - " + stimuli[i].transform.renderer.material.mainTexture.name;
             //Makes the stimuli tiny, so they can be poppped in
             stimuli[i].transform.localScale = new Vector3(0, 0, 0);
-            //stimuli[i].AddComponent<SimpleObjectLogger>();
+            stimuli[i].AddComponent<SimpleObjectLogger>();
             // Practice cubes - transparent, unmovable
             transparentStimuli[i] = (GameObject)Instantiate(cubePrefab);
             transparentStimuli[i].transform.position = stimLocations[i];
@@ -558,14 +570,25 @@ public class MoveTask : MonoBehaviour
         screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
     }
 
-    void DisableTransparency()
+    void ToggleTransparency(bool enable)
     {
-        //Disables the transparency script
-        handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
-        handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
-        //Changes the material
-        handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
-        handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+        //Debug.Log("Finding component" + handController.;
+        if (enable)
+        {
+            
+       //     handController.GetComponent<HandController>().leftGraphicsModel.GetComponent<ConfidenceTransparency>().enabled = true;
+            //handController.GetComponentInChildren<ConfidenceTransparency>().enabled = true;
+            //handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = true;
+            //handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = true;
+        }
+        else
+        {
+            //Disables the transparency script
+            handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
+            handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
+            //Changes the material
+            handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+            handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+        }
     }
-
 }

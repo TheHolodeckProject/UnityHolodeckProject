@@ -45,7 +45,9 @@ public class StimulusManager : MonoBehaviour {
 
 		generateRandomPositions ();
 
-		GameObject.Find ("Logger").GetComponent<Logger> ().BeginLogging ();
+        
+
+        GameObject.Find ("Logger").GetComponent<Logger> ().BeginLogging ();
 	}
 
 	private void decideRandomStimuli()
@@ -214,17 +216,17 @@ public class StimulusManager : MonoBehaviour {
 							if(numberOfCompletedTrials<expectedNumberOfTrials){
 								labelString = "Click Objects";
 								phase = 0;
-								GameObject.Find ("Logger").GetComponent<Logger> ().Pause ();
-								GameObject.Find ("Logger").GetComponent<Logger> ().FinishTrial (numberOfCompletedTrials);
+                                GameObject.Find("Logger").GetComponent<Logger>().Pause();
+                                GameObject.Find("Logger").GetComponent<Logger>().FinishTrial(numberOfCompletedTrials);
 								decideRandomStimuli ();
 								generateRandomPositions ();
-								GameObject.Find ("Logger").GetComponent<Logger> ().GenerateLoggableObjectsList();
-								GameObject.Find ("Logger").GetComponent<Logger> ().Resume ();
+                                GameObject.Find("Logger").GetComponent<Logger>().GenerateLoggableObjectsList();
+                                GameObject.Find("Logger").GetComponent<Logger>().Resume();
 								phaseWaitTimeStart = Time.time;
 								phaseInit = true;
 							}
 							else{
-								GameObject.Find ("Logger").GetComponent<Logger>().Finish ();
+                                GameObject.Find("Logger").GetComponent<Logger>().Finish();
 								//Trials all complete
 								Application.LoadLevel (1);
 							}
