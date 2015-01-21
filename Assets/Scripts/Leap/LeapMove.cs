@@ -6,7 +6,7 @@ using Leap;
 
 public class LeapMove : MonoBehaviour
 {
-
+    public float grabRadius;
     private bool triggerMove;
     public AudioClip grabSound;
     public AudioClip releaseSound;
@@ -63,7 +63,7 @@ public class LeapMove : MonoBehaviour
         //Gets the thumb position
         thumbTipPosition = leap_hand.Fingers[0].TipPosition.ToUnityScaled() + handcontroller.transform.position;
         // Checks a tiny sphere collider around the thumb
-        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, .02f);
+        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, grabRadius);
         //For everything in the radius around the thumbtip
         for (int j = 0; j < thumbTouching.Length; ++j)
         {
@@ -84,7 +84,7 @@ public class LeapMove : MonoBehaviour
                 if (!triggerMove)
                 {
                     fingerTipPosition = leap_hand.Fingers[f].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-                    Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, .01f);
+                    Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, grabRadius);
                     for (int k = 0; k < fingerTouching.Length; ++k)
                     {
                         //Checks if the finger is touching the same object as the thumb
@@ -107,7 +107,7 @@ public class LeapMove : MonoBehaviour
         bool fingerTouch = false;
         //Checks if thumb is still colliding with the cube
         thumbTipPosition = leap_hand.Fingers[0].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, .01f);
+        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, grabRadius);
         for (int j = 0; j < thumbTouching.Length; ++j)
             if (thumbTouching[j].transform.parent.gameObject == cube)
             {
@@ -117,7 +117,7 @@ public class LeapMove : MonoBehaviour
         //Checks if finger is still colliding with the cube
 
         fingerTipPosition = leap_hand.Fingers[fingerInt].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-        Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, .01f);
+        Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, grabRadius);
         for (int k = 0; k < fingerTouching.Length; ++k)
             if (fingerTouching[k].transform.parent.gameObject == cube)
             {

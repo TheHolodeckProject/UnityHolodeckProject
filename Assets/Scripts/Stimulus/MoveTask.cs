@@ -47,12 +47,13 @@ public class MoveTask : MonoBehaviour
     private float timer;
 
 
-    enum State { PracticeStart, Practice, PracticeWaitToDestroyHands, PracticeWaitForNewHands, PracticeGiveInstructions, PracticeEnd, TrialStart, OnStudy, Study, OnRecall, Recall, RecallAllObjectsMoved, RecallFeedback, RecallEnd, TrialEnd, InterTrialInterval, TaskEnd };
+    enum State { PracticeStart, Practice, PracticeWaitToDestroyHands, PracticeWaitForNewHands, PracticeGiveInstructions, PracticeEnd, NoPractice, TrialStart, OnStudy, Study, OnRecall, Recall, RecallAllObjectsMoved, RecallFeedback, RecallEnd, TrialEnd, InterTrialInterval, TaskEnd };
     private State currentState;
 
     // Use this for initialization
     void Start()
-    {
+    {   
+ 
         handController = GameObject.Find("HandController").transform;
         stimLocations = new Vector3[maxNumberOfStim];
         resetLocations = new Vector3[maxNumberOfStim];
@@ -64,7 +65,18 @@ public class MoveTask : MonoBehaviour
         practiceCubeGenerated = false;
         colors = GenerateColors();
         colorNums = new int[colors.Count];
-        currentState = State.PracticeStart;
+
+        //Grabs player preferences
+        //Debug.Log("PracticeYesNo = " + PlayerPrefs.GetInt("PracticeYesNo"));
+        bool practiceYesNo = PlayerPrefs.GetInt("PracticeYesNo") == 1 ? true : false;
+        if (practiceYesNo)
+            currentState = State.PracticeStart;
+        else
+        {
+            DisableTransparency();
+            currentState = State.NoPractice;
+        }
+
     }
     // Update is called once per frame
     void Update()
@@ -83,7 +95,7 @@ public class MoveTask : MonoBehaviour
                 else
                 {
                     blackboard.GetComponentInChildren<Text>().text = "Welcome to the Holodeck\n\nThese are your practice hands\nThey turn transparent as they go out of range\n\n Press the button to continue";
-                    bool practicePopInComplete = PopInSingle(practiceCube);
+                    bool practicePopInComplete = PopIn(practiceCube);
                     if (practicePopInComplete)
                         currentState = State.Practice;
                 }
@@ -104,13 +116,7 @@ public class MoveTask : MonoBehaviour
                     //If the hands have been removed from the scene
                     if (GameObject.Find("RigidFullHand(Clone)") == null)
                     {
-                        //Disables the transparency script
-                        handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
-                        handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
-                        //Changes the material
-                        handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
-                        handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
-                        blackboard.GetComponentInChildren<Text>().text = "Ok, bring them back down again";
+                        DisableTransparency();
                         currentState = State.PracticeWaitForNewHands;
                     }
                     break;
@@ -142,7 +148,7 @@ public class MoveTask : MonoBehaviour
                     timeLeft -= Time.deltaTime;
                     if (practiceCube != null)
                     {
-                        bool practicePopOutComplete = PopOutSingle(practiceCube);
+                        bool practicePopOutComplete = PopOut(practiceCube);
                         if (practicePopOutComplete)
                             Destroy(practiceCube);
                     }
@@ -153,6 +159,16 @@ public class MoveTask : MonoBehaviour
                     }
                 break;
 
+            case State.NoPractice:
+                blackboard.GetComponentInChildren<Text>().text = "Welcome back! \n\n\n Press the button to begin";
+                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                {
+                    TurnOffResetButton();
+                    blackboard.GetComponentInChildren<Text>().text = "";
+                    currentState = State.TrialStart;
+                }
+                break;
+               
             case State.TrialStart:
                 currentTrial += 1;
                 trialNumberOfStim = Random.Range(minNumberOfStim, maxNumberOfStim);
@@ -165,7 +181,7 @@ public class MoveTask : MonoBehaviour
             case State.OnStudy:
                 if (currentTrial == 2 || currentTrial == 3)
                     blackboard.GetComponentInChildren<Text>().text = "Getting a new perspective can be useful\n\nMove your head around for a better look";
-                bool popInComplete = PopInMultiple(transparentStimuli);
+                bool popInComplete = PopIn(transparentStimuli);
                 if (popInComplete)
                 {
                     timeLeft = studyTime;
@@ -178,7 +194,7 @@ public class MoveTask : MonoBehaviour
                 bool popOutComplete = false;
                 if (timeLeft <= 0)
                 {
-                    popOutComplete = PopOutMultiple(transparentStimuli);
+                    popOutComplete = PopOut(transparentStimuli);
                     if (popOutComplete)
                     {
                         MakeInactive(transparentStimuli);
@@ -191,7 +207,7 @@ public class MoveTask : MonoBehaviour
             case State.OnRecall:
                 if (currentTrial <= 3)
                     blackboard.GetComponentInChildren<Text>().text = "Move the cubes back to where they were";
-                popInComplete = PopInMultiple(stimuli);
+                popInComplete = PopIn(stimuli);
                 if (popInComplete)
                     currentState = State.Recall;
                 break;
@@ -254,8 +270,8 @@ public class MoveTask : MonoBehaviour
                     break;
 
             case State.TrialEnd:
-                popOutComplete = PopOutMultiple(stimuli);
-                PopOutMultiple(transparentStimuli);
+                popOutComplete = PopOut(stimuli);
+                PopOut(transparentStimuli);
                 if (popOutComplete)
                 {
                     DestroyStimuli();
@@ -386,8 +402,8 @@ public class MoveTask : MonoBehaviour
     }
 
 
-    // ??? Any way to get this to work on single GameObjects and arrays of objects?
-    private bool PopInSingle(GameObject popthing)
+    // ??? Any way to get this to work on  GameObjects and arrays of objects?
+    private bool PopIn(GameObject popthing)
     {
         popthing.transform.localScale += Vector3.one * grow;
         grow += popRate * Time.deltaTime;
@@ -397,7 +413,7 @@ public class MoveTask : MonoBehaviour
             return false;
     }
 
-    private bool PopOutSingle(GameObject popthing)
+    private bool PopOut(GameObject popthing)
     {
         popthing.transform.localScale -= Vector3.one * grow;
         grow += popRate * Time.deltaTime;
@@ -407,7 +423,7 @@ public class MoveTask : MonoBehaviour
             return false;
     }
     //Makes Stimuli grow / shrink rather than just appearing
-    private bool PopInMultiple(GameObject[] popthings)
+    private bool PopIn(GameObject[] popthings)
     {
         for (int i = 0; i < trialNumberOfStim; i++)
         {
@@ -420,7 +436,7 @@ public class MoveTask : MonoBehaviour
             return false;
     }
 
-    private bool PopOutMultiple(GameObject[] popthings)
+    private bool PopOut(GameObject[] popthings)
     {
         for (int i = 0; i < trialNumberOfStim; i++)
         {
@@ -537,4 +553,15 @@ public class MoveTask : MonoBehaviour
         GameObject screen = GameObject.Find("BlackScreen");
         screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
     }
+
+    void DisableTransparency()
+    {
+        //Disables the transparency script
+        handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
+        handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
+        //Changes the material
+        handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+        handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+    }
+
 }

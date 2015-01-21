@@ -11,11 +11,18 @@ public class NBodySimulation : MonoBehaviour {
     public float[] masses;
     public float renderScale = 0.1f;
 
-    public bool pauseSimulation = false;
+    public GameObject playerPrefab = null;
+    public GameObject playerTarget = null;
+    public float playerVelocityScaling = 0.001f;
+    private GBody playerGBody = null;
+
+    public bool pauseSimulation = true;
 
     private GBody[] bodies; //Body field controls all the gravitational bodies
     private NumericalMethod numericalMethod = euler;
     private bool isValidSimulation = false;
+
+    private bool prevSpaceButtonState = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,13 +33,14 @@ public class NBodySimulation : MonoBehaviour {
             return;
         }
 
-        bodies = new GBody[templateObjects.Length];
-        for (int i = 0; i < bodies.Length; i++){
+        bodies = new GBody[templateObjects.Length + 1];
+        for (int i = 0; i < bodies.Length - 1; i++){
             GameObject renderObject = (GameObject)GameObject.Instantiate(templateObjects[i]);
             renderObject.transform.parent = this.transform;
             bodies[i] = new GBody(initialPositions[i], initialVelocities[i], masses[i], renderObject, renderScale);
         }
-
+        playerGBody = new GBody(playerPrefab.transform.localPosition, Vector3.zero, 0.0001f, playerPrefab, 200f);
+        bodies[bodies.Length - 1] = playerGBody;
         isValidSimulation = true;
 	}
 
@@ -59,6 +67,23 @@ public class NBodySimulation : MonoBehaviour {
                 this.bodies[i].Velocity = new Vector3(new_x_vals.y, new_y_vals.y, new_z_vals.y);
             }
         }
+
+        bool spaceButtonState = Input.GetKey(KeyCode.Space);
+        if (spaceButtonState == true)
+        {
+            playerTarget.SetActive(false);
+            Debug.Log((playerTarget.transform.localPosition - playerPrefab.transform.localPosition));
+            Vector3 vel = (playerTarget.transform.localPosition - playerPrefab.transform.localPosition);
+            Debug.Log(vel.x);
+            Debug.Log(playerVelocityScaling);
+            Debug.Log(vel.x * playerVelocityScaling);
+            vel = new Vector3(vel.x * playerVelocityScaling, vel.y * playerVelocityScaling, vel.z * playerVelocityScaling);
+            Debug.Log(vel);
+            playerGBody.Velocity = vel;
+        }
+        if (spaceButtonState == false && prevSpaceButtonState == true)
+            pauseSimulation = !pauseSimulation; 
+        prevSpaceButtonState = spaceButtonState;
 	}
 
     private delegate Vector2 NumericalMethod(float a, float r, float v, float dt);
@@ -92,13 +117,14 @@ class GBody{
     private GameObject obj;
 
     public GBody(Vector3 position, Vector3 velocity, float mass, GameObject renderObject, float renderScale){
-        pos = position;
-        vel = velocity;
         m = mass;
 
         obj = renderObject;
-        float logMass = Mathf.Log(mass+1);
+        float logMass = Mathf.Log(mass + 1);
         obj.transform.localScale = new Vector3(logMass * renderScale, logMass * renderScale, logMass * renderScale);
+
+        this.Position = position;
+        this.Velocity = velocity;
     }
 
     public Vector3 calculateForce(GBody body, float gravityDistanceThreshold, float G){ //Simple force calculation function
