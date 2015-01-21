@@ -52,8 +52,8 @@ public class MoveTask : MonoBehaviour
 
     // Use this for initialization
     void Start()
-    {   
- 
+    {
+
         handController = GameObject.Find("HandController").transform;
         stimLocations = new Vector3[maxNumberOfStim];
         resetLocations = new Vector3[maxNumberOfStim];
@@ -67,9 +67,8 @@ public class MoveTask : MonoBehaviour
         colorNums = new int[colors.Count];
 
         //Grabs player preferences
-        //Debug.Log("PracticeYesNo = " + PlayerPrefs.GetInt("PracticeYesNo"));
-        bool practiceYesNo = PlayerPrefs.GetInt("PracticeYesNo") == 1 ? true : false;
-        if (practiceYesNo)
+        // Practice
+        if (PlayerPrefs.GetInt("PracticeYesNo") == 1)
             currentState = State.PracticeStart;
         else
         {
@@ -77,6 +76,11 @@ public class MoveTask : MonoBehaviour
             currentState = State.NoPractice;
         }
 
+        // Oculus Camera
+        if (PlayerPrefs.GetInt("OculusCamYesNo") == 0)
+            GameObject.Find("OVRCameraRig").gameObject.SetActive(false);
+        else
+            GameObject.Find("Regular Camera").gameObject.SetActive(false);
     }
     // Update is called once per frame
     void Update()
