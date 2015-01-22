@@ -13,6 +13,7 @@ public class NBodySimulation : MonoBehaviour {
 
     public GameObject playerPrefab = null;
     public GameObject playerTarget = null;
+    public float shipMass = 0.0001f;
     public float playerVelocityScaling = 0.001f;
     private GBody playerGBody = null;
 
@@ -39,7 +40,7 @@ public class NBodySimulation : MonoBehaviour {
             renderObject.transform.parent = this.transform;
             bodies[i] = new GBody(initialPositions[i], initialVelocities[i], masses[i], renderObject, renderScale);
         }
-        playerGBody = new GBody(playerPrefab.transform.localPosition, Vector3.zero, 0.0001f, playerPrefab, 200f);
+        playerGBody = new GBody(gameObject.transform.position - playerPrefab.transform.position, Vector3.zero, shipMass, playerPrefab, -1);
         bodies[bodies.Length - 1] = playerGBody;
         isValidSimulation = true;
 	}
@@ -121,7 +122,8 @@ class GBody{
 
         obj = renderObject;
         float logMass = Mathf.Log(mass + 1);
-        obj.transform.localScale = new Vector3(logMass * renderScale, logMass * renderScale, logMass * renderScale);
+        if(renderScale != -1f)
+            obj.transform.localScale = new Vector3(logMass * renderScale, logMass * renderScale, logMass * renderScale);
 
         this.Position = position;
         this.Velocity = velocity;
