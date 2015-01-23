@@ -14,7 +14,7 @@ public class NBodySimulation : MonoBehaviour {
     public GameObject playerPrefab = null;
     public GameObject playerTarget = null;
     public float shipMass = 0.0001f;
-    public float playerVelocityScaling = 0.001f;
+    public float playerVelocityScaling = 0.0001f; //0.0001f is the velocity scaling at which the position of the target relative to the player == the velocity
     private GBody playerGBody = null;
 
     public bool pauseSimulation = true;
@@ -22,7 +22,7 @@ public class NBodySimulation : MonoBehaviour {
     private GBody[] bodies; //Body field controls all the gravitational bodies
     private NumericalMethod numericalMethod = euler;
     private bool isValidSimulation = false;
-
+    private bool simulationStarted = false;
     private bool prevSpaceButtonState = false;
 
 	// Use this for initialization
@@ -40,7 +40,7 @@ public class NBodySimulation : MonoBehaviour {
             renderObject.transform.parent = this.transform;
             bodies[i] = new GBody(initialPositions[i], initialVelocities[i], masses[i], renderObject, renderScale);
         }
-        playerGBody = new GBody(gameObject.transform.position - playerPrefab.transform.position, Vector3.zero, shipMass, playerPrefab, -1);
+        playerGBody = new GBody(playerPrefab.transform.position, Vector3.zero, shipMass, playerPrefab, -1);
         bodies[bodies.Length - 1] = playerGBody;
         isValidSimulation = true;
 	}
@@ -72,18 +72,25 @@ public class NBodySimulation : MonoBehaviour {
         bool spaceButtonState = Input.GetKey(KeyCode.Space);
         if (spaceButtonState == true)
         {
-            playerTarget.SetActive(false);
-            Debug.Log((playerTarget.transform.localPosition - playerPrefab.transform.localPosition));
-            Vector3 vel = (playerTarget.transform.localPosition - playerPrefab.transform.localPosition);
-            Debug.Log(vel.x);
-            Debug.Log(playerVelocityScaling);
-            Debug.Log(vel.x * playerVelocityScaling);
-            vel = new Vector3(vel.x * playerVelocityScaling, vel.y * playerVelocityScaling, vel.z * playerVelocityScaling);
-            Debug.Log(vel);
-            playerGBody.Velocity = vel;
+            if (!simulationStarted)
+            {
+                playerPrefab.transform.parent = this.gameObject.transform;
+                playerTarget.transform.parent = this.gameObject.transform;
+                playerPrefab.tag = "Untagged";
+                playerTarget.tag = "Untagged";
+                playerTarget.SetActive(false);
+                Vector3 vel = (playerTarget.transform.localPosition - playerPrefab.transform.localPosition);
+                vel = new Vector3(vel.x * playerVelocityScaling, vel.y * playerVelocityScaling, vel.z * playerVelocityScaling);
+                playerGBody.Velocity = vel;
+                playerGBody.Position = playerPrefab.transform.localPosition;
+                simulationStarted = true;
+            }
         }
-        if (spaceButtonState == false && prevSpaceButtonState == true)
-            pauseSimulation = !pauseSimulation; 
+        else
+        {
+            if (prevSpaceButtonState == true)
+                pauseSimulation = !pauseSimulation;
+        }
         prevSpaceButtonState = spaceButtonState;
 	}
 

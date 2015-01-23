@@ -20,6 +20,8 @@ public class MoveTask : MonoBehaviour
     public GameObject blackboard;
     public float studyTransparency = 0.925f;
     public int ITI;
+    public GameObject oculusCamera;
+    public GameObject regularCamera;
     private int totalTrials;
     private int totalMinutes;
     public float popRate;
@@ -46,6 +48,7 @@ public class MoveTask : MonoBehaviour
     private List<Texture> colors;
     private float grow;
     private float timer;
+    private bool handsReset;
 
 
     enum State { PracticeStart, Practice, PracticeWaitToDestroyHands, PracticeWaitForNewHands, PracticeGiveInstructions, PracticeEnd, NoPractice, TrialStart, OnStudy, Study, OnRecall, Recall, RecallAllObjectsMoved, RecallFeedback, RecallEnd, TrialEnd, InterTrialInterval, TaskEnd };
@@ -55,25 +58,30 @@ public class MoveTask : MonoBehaviour
     void Start()
     {
         //Grabs player preferences
-        // Practice
+        //Practice
         if (PlayerPrefs.GetInt("PracticeYesNo") == 1)
-        {
-            ToggleTransparency(true);
             currentState = State.PracticeStart;
-        }
         else
+        {
             currentState = State.NoPractice;
-        // Oculus Camera
+            handsReset = false;
+        }
+            // Oculus Camera
         if (PlayerPrefs.GetInt("OculusCamYesNo") == 0)
-            GameObject.Find("OVRCameraRig").gameObject.SetActive(false);
-        else
-            GameObject.Find("Regular Camera").gameObject.SetActive(false);
+        {
+            oculusCamera.SetActive(false);
+            regularCamera.SetActive(true);
+        }
+
         //Starting Difficulty
         diff = PlayerPrefs.GetInt("StartingDifficulty");
 
         //Session length
         totalTrials = PlayerPrefs.GetInt("TrialLimit");
         totalMinutes = PlayerPrefs.GetInt("MinuteLimit");
+        //If no session length is entered, goes on forever (999 trials)
+        if (totalTrials == 0 && totalMinutes == 0)
+            totalTrials = 999;
 
         //Logging
         enableLogging = PlayerPrefs.GetInt("LogDataYesNo") == 0 ? false : true;
@@ -91,8 +99,6 @@ public class MoveTask : MonoBehaviour
         practiceCubeGenerated = false;
         colors = GenerateColors();
         colorNums = new int[colors.Count];
-
-        Debug.Log("Starting difficulty = " + diff);
     }
     // Update is called once per frame
     void Update()
@@ -100,7 +106,7 @@ public class MoveTask : MonoBehaviour
         //Press Esc to quit
         if (Input.GetKey(KeyCode.Escape))
             Application.Quit();
-        
+
         //Debug.Log(currentState);
         switch (currentState)
         {
@@ -128,54 +134,57 @@ public class MoveTask : MonoBehaviour
                 }
                 break;
 
-            case State.PracticeWaitToDestroyHands:   
-                    //If the hands have been removed from the scene
-                    if (GameObject.Find("RigidFullHand(Clone)") == null)
-                    {
-                        ToggleTransparency(false);
-                        currentState = State.PracticeWaitForNewHands;
-                    }
-                    break;
-
-            case State.PracticeWaitForNewHands:
-                    if (GameObject.Find("RigidFullHand(Clone)") != null)
-                    {
-                        TurnOnResetButton();
-                        blackboard.GetComponentInChildren<Text>().text = "These are your real virtual hands\nWay nicer\n\nHit the button again to get started";
-                        currentState = State.PracticeGiveInstructions;
-                    }
-                    break;
-
-            case State.PracticeGiveInstructions:
-                    {
-                        if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
-                        {
-                            TurnOffResetButton();
-                            currentState = State.PracticeEnd;
-                            blackboard.GetComponentInChildren<Text>().text = "Soon you will see some cubes appear\n\n Your job is to remember their locations";
-                            timeLeft = 3f;
-                        }
-                        break;
-                    }
-
-                
-
-            case State.PracticeEnd:
-                    timeLeft -= Time.deltaTime;
-                    if (practiceCube != null)
-                    {
-                        bool practicePopOutComplete = PopOut(practiceCube);
-                        if (practicePopOutComplete)
-                            Destroy(practiceCube);
-                    }
-                    if (timeLeft < 0)
-                    {
-                        blackboard.GetComponentInChildren<Text>().text = "";
-                        currentState = State.TrialStart;
-                    }
+            case State.PracticeWaitToDestroyHands:
+                //If the hands have been removed from the scene
+                if (GameObject.Find("RigidFullHand(Clone)") == null)
+                {
+                    blackboard.GetComponentInChildren<Text>().text = "Ok now bring them back in front of you";
+                    DisableTransparency();
+                    currentState = State.PracticeWaitForNewHands;
+                }
                 break;
 
+            case State.PracticeWaitForNewHands:
+                if (GameObject.Find("RigidFullHand(Clone)") != null)
+                {
+                    TurnOnResetButton();
+                    blackboard.GetComponentInChildren<Text>().text = "These are your real virtual hands\nWay nicer\n\nHit the button again to get started";
+                    currentState = State.PracticeGiveInstructions;
+                }
+                break;
+
+            case State.PracticeGiveInstructions:
+                    if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                    {
+                        TurnOffResetButton();
+                        currentState = State.PracticeEnd;
+                        blackboard.GetComponentInChildren<Text>().text = "Soon you will see some cubes appear\n\n Your job is to remember their locations";
+                        timeLeft = 3f;
+                    }
+                    break;
+
+            case State.PracticeEnd:
+                timeLeft -= Time.deltaTime;
+                if (practiceCube != null)
+                {
+                    bool practicePopOutComplete = PopOut(practiceCube);
+                    if (practicePopOutComplete)
+                        Destroy(practiceCube);
+                }
+                if (timeLeft < 0)
+                {
+                    blackboard.GetComponentInChildren<Text>().text = "";
+                    currentState = State.TrialStart;
+                }
+                break;
+                
             case State.NoPractice:
+                // Disables hand transparency
+                if (!handsReset)
+                {
+                    DisableTransparency();
+                    handsReset = true;
+                }
                 blackboard.GetComponentInChildren<Text>().text = "Welcome back! \n\n\n Press the button to begin";
                 if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
                 {
@@ -184,7 +193,7 @@ public class MoveTask : MonoBehaviour
                     currentState = State.TrialStart;
                 }
                 break;
-               
+
             case State.TrialStart:
                 currentTrial += 1;
                 trialNumberOfStim = Random.Range(diff - 1, diff + 1);
@@ -247,28 +256,28 @@ public class MoveTask : MonoBehaviour
                     PreparePracticeStimuli();
                     currentState = State.RecallFeedback;
                 }
-                    break;
+                break;
 
             case State.RecallFeedback:
-                    if (currentTrial <= 3)
-                        blackboard.GetComponentInChildren<Text>().text = "";
+                if (currentTrial <= 3)
+                    blackboard.GetComponentInChildren<Text>().text = "";
                 bool doneFeedback = StimulusPositionFeedback();
-                    if (doneFeedback)
-                    {
-                        if (currentTrial == 1)
-                            blackboard.GetComponentInChildren<Text>().text = "Not bad! \n\n Let's try again";
-                        if (currentTrial == 2)
-                            blackboard.GetComponentInChildren<Text>().text = "Getting better! \n\n Let's practice one more time";
-                        if (currentTrial == 3)
-                            blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials - 3f) + " trials";
-                        currentState = State.RecallEnd;
-                        if (enableLogging) logger.FinishTrial(currentTrial);
-                        timeLeft = 2f;                  
-                    }
-                    break;
+                if (doneFeedback)
+                {
+                    if (currentTrial == 1)
+                        blackboard.GetComponentInChildren<Text>().text = "Not bad! \n\n Let's try again";
+                    if (currentTrial == 2)
+                        blackboard.GetComponentInChildren<Text>().text = "Getting better! \n\n Let's practice one more time";
+                    if (currentTrial == 3)
+                        blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials - 3f) + " trials";
+                    if (enableLogging)
+                        logger.FinishTrial(currentTrial);
+                    timeLeft = 2f;
+                    currentState = State.RecallEnd;
+                }
+                break;
 
             case State.RecallEnd:
-
                 timeLeft -= Time.deltaTime;
                 if (timeLeft <= 0)
                 {
@@ -283,9 +292,10 @@ public class MoveTask : MonoBehaviour
                     else
                         currentState = State.TrialEnd;
                 }
-                    break;
+                break;
 
             case State.TrialEnd:
+                Debug.Log("Popping Out");
                 popOutComplete = PopOut(stimuli);
                 PopOut(transparentStimuli);
                 if (popOutComplete)
@@ -570,25 +580,13 @@ public class MoveTask : MonoBehaviour
         screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
     }
 
-    void ToggleTransparency(bool enable)
+    void DisableTransparency()
     {
-        //Debug.Log("Finding component" + handController.;
-        if (enable)
-        {
-            
-       //     handController.GetComponent<HandController>().leftGraphicsModel.GetComponent<ConfidenceTransparency>().enabled = true;
-            //handController.GetComponentInChildren<ConfidenceTransparency>().enabled = true;
-            //handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = true;
-            //handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = true;
-        }
-        else
-        {
-            //Disables the transparency script
-            handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
-            handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
-            //Changes the material
-            handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
-            handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
-        }
+       //Disables the transparency script
+        handController.Find("ToonLeftHand").GetComponent<ConfidenceTransparency>().enabled = false;
+        handController.Find("ToonRightHand").GetComponent<ConfidenceTransparency>().enabled = false;
+        //Changes the material
+        handController.Find("ToonLeftHand").Find("toon_hand_left").transform.renderer.material = Resources.Load("ToonyHand") as Material;
+        handController.Find("ToonRightHand").Find("toon_hand_right").transform.renderer.material = Resources.Load("ToonyHand") as Material;
     }
 }

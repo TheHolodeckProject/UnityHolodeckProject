@@ -22,15 +22,15 @@ public class LoadScene : MonoBehaviour {
         // ??? How to get this to easily enable / disable the logger?
         PlayerPrefs.SetInt("LogDataYesNo", logDataCheckBox.isOn ? 1 : 0);
 
-        //If no Subject # was entered, uses 9999 as the default
+        //If no Subject # was entered, uses 0000 as the default
         if (subNumInputField.text == "")
-            PlayerPrefs.SetInt("SubjectNumber", 9999);
+            PlayerPrefs.SetInt("SubjectNumber", 0000);
         else
             PlayerPrefs.SetInt("SubjectNumber", int.Parse(subNumInputField.text));
 
-        //If no Session # was entered, uses 1 as the default
+        //If no Session # was entered, uses 0 as the default
         if (sessNumInputField.text == "")
-            PlayerPrefs.SetInt("SessionNumber", 1);
+            PlayerPrefs.SetInt("SessionNumber", 0);
         else
             PlayerPrefs.SetInt("SessionNumber", int.Parse(sessNumInputField.text));
 

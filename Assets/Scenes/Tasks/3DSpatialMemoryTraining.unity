@@ -2008,9 +2008,9 @@ Transform:
   m_PrefabParentObject: {fileID: 400024, guid: 4eb62b14e0ba95442a7b75ed5baaadd7, type: 3}
   m_PrefabInternal: {fileID: 943533515}
   m_GameObject: {fileID: 671032290}
-  m_LocalRotation: {x: .64652133, y: -.64652133, z: -.286374211, w: .286374211}
+  m_LocalRotation: {x: .646521389, y: -.64652133, z: -.286374241, w: .286374241}
   m_LocalPosition: {x: .0405681506, y: .363200039, z: .0730897486}
-  m_LocalScale: {x: 1, y: .99999994, z: .99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 732397362}
   m_RootOrder: 15
@@ -4129,11 +4129,10 @@ MonoBehaviour:
 --- !u!114 &1102704802
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400030, guid: 3373122148f328f4993a06a5a4a5cd9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1798715859}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1102704799}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe8a27cc3e8f246fe888d1a3b4cae780, type: 3}
   m_Name: 
@@ -4413,11 +4412,10 @@ Transform:
 --- !u!114 &1169079217
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400026, guid: 3373122148f328f4993a06a5a4a5cd9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1798715859}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1169079215}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe8a27cc3e8f246fe888d1a3b4cae780, type: 3}
   m_Name: 
@@ -5809,6 +5807,8 @@ MonoBehaviour:
   blackboard: {fileID: 433480818}
   studyTransparency: .699999988
   ITI: 2
+  oculusCamera: {fileID: 73229015}
+  regularCamera: {fileID: 2067848691}
   popRate: .00100000005
   studyTime: 5
   stimLocationSize: {x: .300000012, y: .300000012, z: .25}
@@ -6329,7 +6329,9 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400026, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
+    - {fileID: 11400030, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3373122148f328f4993a06a5a4a5cd9e, type: 2}
   m_RootGameObject: {fileID: 1586425041}
   m_IsPrefabParent: 0
@@ -7994,7 +7996,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &2067848692
 AudioListener:
   m_ObjectHideFlags: 0

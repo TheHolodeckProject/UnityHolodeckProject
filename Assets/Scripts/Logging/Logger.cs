@@ -69,8 +69,9 @@ public class Logger : MonoBehaviour {
 	}
 
 	public void BeginLogging(){
-        if (!Directory.Exists(loggerDir))
-            Directory.CreateDirectory(loggerDir);
+        // !!! COMMENTED OUT!
+        //if (!Directory.Exists(loggerDir))
+        //    Directory.CreateDirectory(loggerDir);
 		string substring = ("Sub" + subID.ToString("D4") + "Sess" + sessID.ToString("D2"));
 
 		GenerateLoggableObjectsList ();
@@ -83,7 +84,7 @@ public class Logger : MonoBehaviour {
 		rawFilename = appendTextToFilename (rawFilename,substring);
 		rawFilename = appendTextToFilename (rawFilename,currentFileTimestamp);
 
-        Debug.Log("Raw Filename: " + rawFilename);
+        //Debug.Log("Raw Filename: " + rawFilename);
 		//Create the file writer
 		rawWriter = new StreamWriter (rawFilename, false);
 		rawWriter.AutoFlush = true;
