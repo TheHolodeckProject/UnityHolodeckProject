@@ -28,9 +28,9 @@ public class LoadScene : MonoBehaviour {
         else
             PlayerPrefs.SetInt("SubjectNumber", int.Parse(subNumInputField.text));
 
-        //If no Session # was entered, uses 0 as the default
+        //If no Session # was entered, uses 1 as the default
         if (sessNumInputField.text == "")
-            PlayerPrefs.SetInt("SessionNumber", 0);
+            PlayerPrefs.SetInt("SessionNumber", 1);
         else
             PlayerPrefs.SetInt("SessionNumber", int.Parse(sessNumInputField.text));
 

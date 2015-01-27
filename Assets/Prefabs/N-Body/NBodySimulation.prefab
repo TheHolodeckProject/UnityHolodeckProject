@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &119600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 419600}
+  - 114: {fileID: 11419600}
+  m_Layer: 0
+  m_Name: NBodySimulation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &419600
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: .814999998, z: -.104000002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11419600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7931b4c90346d447973a8f1d0c64f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityDistanceThreshold: .100000001
+  G: 6.67383988e-20
+  timestep: 500
+  templateObjects:
+  - {fileID: 100000, guid: 248c58f94dc278c4999b0e7d5c5b91da, type: 2}
+  - {fileID: 100000, guid: e893fde242091df40a075952d95445bc, type: 2}
+  - {fileID: 100000, guid: d86ecb01b7d80314696d510c12761b6b, type: 2}
+  - {fileID: 100000, guid: 6daa48bb42b8cae4aa2aadc2539dffe2, type: 2}
+  initialPositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: .200000003}
+  - {x: .150000006, y: 0, z: 0}
+  - {x: .300000012, y: .0299999993, z: 0}
+  initialVelocities:
+  - {x: 0, y: 0, z: 0}
+  - {x: 4.99999987e-06, y: 0, z: 0}
+  - {x: 0, y: 0, z: -7.99999998e-06}
+  - {x: 0, y: 0, z: -3.99999999e-06}
+  masses:
+  - 1e+08
+  - 3e+06
+  - 2e+06
+  - 1e+06
+  renderScale: .00999999978
+  playerPrefab: {fileID: 0}
+  playerTarget: {fileID: 0}
+  shipMass: 9.99999975e-05
+  playerVelocityScaling: 4.99999987e-05
+  pauseSimulation: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 119600}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

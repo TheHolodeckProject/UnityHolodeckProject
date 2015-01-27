@@ -89,7 +89,7 @@ public class OVRUGUI
     public static bool InitUIComponent = false;
     private static float offsetY = 55.0f;
     private static bool isInited = false;
-    private static int numOfGUI = 0;
+    //private static int numOfGUI = 0;
     private static GameObject text;
 
     /// <summary>

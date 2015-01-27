@@ -6,14 +6,7 @@ public class PassthroughEnabler : MonoBehaviour {
   public GameObject passthroughLeft;
   public GameObject passthroughRight;
 
-  private HandController controller_;
-
   private bool show_passthrough_ = true;
-
-	// Use this for initialization
-	void Start () {
-    controller_ = GetComponent<HandController>();
-	}
 	
 	// Update is called once per frame
 	void Update () {

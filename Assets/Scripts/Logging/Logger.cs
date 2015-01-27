@@ -30,12 +30,6 @@ public class Logger : MonoBehaviour {
 	public void Resume(){
 		paused = false;
 	}
-	public void Start() {
-		subID = PlayerPrefs.GetInt ("SubjectNumber");
-        sessID = PlayerPrefs.GetInt("SessionNumber");
-        if (extension[0] != '.')
-            extension = "." + extension;
-	}
 	
 	// Update is called once per frame
 	public void Update () {
@@ -69,10 +63,16 @@ public class Logger : MonoBehaviour {
 	}
 
 	public void BeginLogging(){
+        // !!! Had to move this down here because it was runnnig before Start, for some reason
+        subID = PlayerPrefs.GetInt("SubjectNumber");
+        sessID = PlayerPrefs.GetInt("SessionNumber");
+        if (extension[0] != '.')
+            extension = "." + extension;
         // !!! COMMENTED OUT!
         //if (!Directory.Exists(loggerDir))
         //    Directory.CreateDirectory(loggerDir);
-		string substring = ("Sub" + subID.ToString("D4") + "Sess" + sessID.ToString("D2"));
+        string substring = ("Sub" + subID.ToString("D4") + "_Sess" + sessID.ToString("D2") + "_Timestamp");
+      
 
 		GenerateLoggableObjectsList ();
 
@@ -106,6 +106,7 @@ public class Logger : MonoBehaviour {
         Resume();
     }
 
+    // !!!! GET IT TO OUTPUT DIFFICULTY
 	public void FinishTrial(int trialNum){
 		string[] trialLines = firstTickOutput.Split (new string[]{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
 		string[] trialLinesEnd = lastTickOutput.Split (new string[]{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
