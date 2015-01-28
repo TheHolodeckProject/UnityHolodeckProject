@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: WR_polishedMetal_d
-  m_Shader: {fileID: 22, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 23, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -41,6 +41,13 @@ Material:
           m_Texture: {fileID: 8900000, guid: 30160015fc3a3334d9c851a990d5f780, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -48,12 +55,16 @@ Material:
         second: .238947332
       data:
         first:
+          name: _EmissionLM
+        second: 0
+      data:
+        first:
           name: _IllumPow
         second: .078125
       data:
         first:
-          name: _EmissionLM
-        second: 0
+          name: _Parallax
+        second: .0199999996
     m_Colors:
       data:
         first:

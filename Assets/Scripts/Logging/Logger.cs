@@ -96,6 +96,9 @@ public class Logger : MonoBehaviour {
 
 		//Create the file writer
 		summaryWriter = new StreamWriter (summaryFilename);
+
+        // ??? How to change what variables get logged? EndRotXYZ shouldn't be there, but I want to add difficulty (called "diff" in movetask)
+
 		summaryWriter.WriteLine ("Trial\tStimulus\tStimulusID\tStartPosXYZ\tEndPosXYZ\tStartRotXYZ\tEndRotXYZ");
 	}
 

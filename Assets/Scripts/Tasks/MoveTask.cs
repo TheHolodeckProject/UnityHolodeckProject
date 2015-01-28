@@ -16,8 +16,9 @@ using UnityEngine.UI;
 public class MoveTask : MonoBehaviour
 {
     public GameObject cubePrefab;
-    public GameObject resetButton;
+    public GameObject button;
     public GameObject blackboard;
+    public Slider feedbackSlider;
     public float studyTransparency = 0.925f;
     public int ITI;
     public GameObject oculusCamera;
@@ -72,15 +73,20 @@ public class MoveTask : MonoBehaviour
             oculusCamera.SetActive(false);
             regularCamera.SetActive(true);
         }
+        else
+        {
+            oculusCamera.SetActive(true);
+            regularCamera.SetActive(false);
+        }
 
         //Starting Difficulty
         diff = PlayerPrefs.GetInt("StartingDifficulty");
 
         //Session length
-        totalTrials = PlayerPrefs.GetInt("TrialLimit");
+        totalTrials = PlayerPrefs.GetInt("TrialLimit") + 3;
         totalMinutes = PlayerPrefs.GetInt("MinuteLimit");
         //If no session length is entered, goes on forever (999 trials)
-        if (totalTrials == 0 && totalMinutes == 0)
+        if (totalTrials == 3 && totalMinutes == 0)
             totalTrials = 999;
 
         //Logging
@@ -126,9 +132,9 @@ public class MoveTask : MonoBehaviour
 
             case State.Practice:
                 //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
-                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
                 {
-                    TurnOffResetButton();
+                    TurnOffbutton();
                     blackboard.GetComponentInChildren<Text>().text = "Grab the cube with two fingers\n\nIt's best to grab it like a shot glass\n\nMove your hands above your head to continue";
                     currentState = State.PracticeWaitToDestroyHands;
                 }
@@ -147,16 +153,16 @@ public class MoveTask : MonoBehaviour
             case State.PracticeWaitForNewHands:
                 if (GameObject.Find("RigidFullHand(Clone)") != null)
                 {
-                    TurnOnResetButton();
+                    TurnOnbutton();
                     blackboard.GetComponentInChildren<Text>().text = "These are your real virtual hands\nWay nicer\n\nHit the button again to get started";
                     currentState = State.PracticeGiveInstructions;
                 }
                 break;
 
             case State.PracticeGiveInstructions:
-                    if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                    if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
                     {
-                        TurnOffResetButton();
+                        TurnOffbutton();
                         currentState = State.PracticeEnd;
                         blackboard.GetComponentInChildren<Text>().text = "Soon you will see some cubes appear\n\n Your job is to remember their locations";
                         timeLeft = 3f;
@@ -186,9 +192,9 @@ public class MoveTask : MonoBehaviour
                     handsReset = true;
                 }
                 blackboard.GetComponentInChildren<Text>().text = "Welcome back! \n\n\n Press the button to begin";
-                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
                 {
-                    TurnOffResetButton();
+                    TurnOffbutton();
                     blackboard.GetComponentInChildren<Text>().text = "";
                     currentState = State.TrialStart;
                 }
@@ -241,7 +247,7 @@ public class MoveTask : MonoBehaviour
                 int movedCubes = GetNumberOfMovedCubes();
                 if (movedCubes >= trialNumberOfStim)
                 {
-                    TurnOnResetButton();
+                    TurnOnbutton();
                     currentState = State.RecallAllObjectsMoved;
                 }
 
@@ -250,11 +256,13 @@ public class MoveTask : MonoBehaviour
             case State.RecallAllObjectsMoved:
                 if (currentTrial <= 3)
                     blackboard.GetComponentInChildren<Text>().text = "Hit the button to see how you did";
-                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
                 {
-                    TurnOffResetButton();
+                    TurnOffbutton();
                     PreparePracticeStimuli();
                     currentState = State.RecallFeedback;
+                    feedbackSlider.value = 0;
+                    feedbackSlider.gameObject.SetActive(true);
                 }
                 break;
 
@@ -264,16 +272,18 @@ public class MoveTask : MonoBehaviour
                 bool doneFeedback = StimulusPositionFeedback();
                 if (doneFeedback)
                 {
-                    if (currentTrial == 1)
+                    if (currentTrial == 1) 
                         blackboard.GetComponentInChildren<Text>().text = "Not bad! \n\n Let's try again";
                     if (currentTrial == 2)
                         blackboard.GetComponentInChildren<Text>().text = "Getting better! \n\n Let's practice one more time";
                     if (currentTrial == 3)
-                        blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials - 3f) + " trials";
+                        blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials) + " trials";
                     if (enableLogging)
                         logger.FinishTrial(currentTrial);
                     timeLeft = 2f;
                     currentState = State.RecallEnd;
+                    AdaptDifficulty(feedbackSlider.value);
+ 
                 }
                 break;
 
@@ -295,7 +305,6 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.TrialEnd:
-                Debug.Log("Popping Out");
                 popOutComplete = PopOut(stimuli);
                 PopOut(transparentStimuli);
                 if (popOutComplete)
@@ -524,17 +533,20 @@ public class MoveTask : MonoBehaviour
         return movedCubes;
     }
 
-    void TurnOffResetButton()
+    void TurnOffbutton()
     {
-        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
-        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
-        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
-        resetButton.transform.FindChild("Button").audio.PlayOneShot(Resources.Load("ButtonSound") as AudioClip);
+        //Have to reset fingertouch or else it's still true when the button gets reactivated in the next trial
+        button.transform.GetComponentInChildren<DetectTouch>().fingerTouch = false;
+        button.transform.GetComponentInChildren<DetectTouch>().thumbTouch = false;
+        // ??? Is GetComponentInChildren more efficient than Find with 2 child objects?
+        // ??? What's the proper way to change components of child objects? I'm already loading button, but I need to change the material. Here I'm changing RGB values of the existing material. Should I change to a different material?
+        button.transform.FindChild("ButtonSwitch").transform.renderer.material.color = new UnityEngine.Color(button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.r - .5f, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.g, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.b, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.a);
+        button.transform.FindChild("ButtonSwitch").audio.PlayOneShot(Resources.Load("ButtonSound") as AudioClip);
     }
 
-    void TurnOnResetButton()
+    void TurnOnbutton()
     {
-        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r + .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+        button.transform.FindChild("ButtonSwitch").transform.renderer.material.color = new UnityEngine.Color(button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.r + .5f, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.g, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.b, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.a);
     }
     void PreparePracticeStimuli()
     {
@@ -548,6 +560,25 @@ public class MoveTask : MonoBehaviour
         }
     }
 
+    public int AdaptDifficulty(float distance)
+    {
+        if (distance < .25)
+        {
+            blackboard.GetComponentInChildren<Text>().text = "Great job!\n\nWe'll make it a little harder...";
+            return diff + 1;
+        }
+        else if (distance < .75)
+        {
+            blackboard.GetComponentInChildren<Text>().text = "Nicely done.";
+            return diff;
+        }
+        else
+        {
+            blackboard.GetComponentInChildren<Text>().text = "Yeesh.\n\nWe'll make it a little easier";
+            return diff - 1;
+        }
+    }
+
     bool WaitForHandReset()
     {
         if (GameObject.Find("RigidFullHand(Clone)") == null)
@@ -558,12 +589,19 @@ public class MoveTask : MonoBehaviour
 
     bool StimulusPositionFeedback()
     {
+        float addToSlider = 0;
         //If the stimuli have been moved back to their original position
         if (stimuli[0].transform.position == stimLocations[0])
             return true;
         for (int i = 0; i < trialNumberOfStim; ++i)
+        {
+            addToSlider = addToSlider + .0005f;
             stimuli[i].transform.position = Vector3.MoveTowards(stimuli[i].transform.position, stimLocations[i], Time.deltaTime * .1f);
-        return false;
+        }
+        Debug.Log("Adding " + addToSlider + " to " + feedbackSlider.value);
+        feedbackSlider.value += addToSlider;
+
+            return false;
     }
     void DestroyStimuli()
     {
