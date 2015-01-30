@@ -7,7 +7,7 @@ public class DetectTouch : MonoBehaviour
     public bool thumbTouch;
     public string activeFinger;
     public string activeThumb;
-
+    public bool isAButton = false;
     void Start()
     {
         fingerTouch = false;
@@ -32,6 +32,15 @@ public class DetectTouch : MonoBehaviour
                 activeFinger = contact.otherCollider.gameObject.transform.parent.name;
 
         }
+
+        if (isAButton && (thumbTouch || fingerTouch))
+        {
+            Debug.Log("Button State Changed");
+            gameObject.GetComponent<ButtonManager>().ToggleButtonState();
+            fingerTouch = false;
+            thumbTouch = false;
+        }
+
     }
 
     void OnCollisionExit(Collision col)

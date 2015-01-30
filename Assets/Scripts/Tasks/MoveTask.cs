@@ -132,7 +132,7 @@ public class MoveTask : MonoBehaviour
 
             case State.Practice:
                 //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
-                if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
+                if (!button.GetComponentInChildren<ButtonManager>().GetButtonState())
                 {
                     TurnOffbutton();
                     blackboard.GetComponentInChildren<Text>().text = "Grab the cube with two fingers\n\nIt's best to grab it like a shot glass\n\nMove your hands above your head to continue";
@@ -160,7 +160,7 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.PracticeGiveInstructions:
-                    if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
+                if (!button.GetComponentInChildren<ButtonManager>().GetButtonState())
                     {
                         TurnOffbutton();
                         currentState = State.PracticeEnd;
@@ -192,7 +192,7 @@ public class MoveTask : MonoBehaviour
                     handsReset = true;
                 }
                 blackboard.GetComponentInChildren<Text>().text = "Welcome back! \n\n\n Press the button to begin";
-                if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
+                if (!button.GetComponentInChildren<ButtonManager>().GetButtonState())
                 {
                     TurnOffbutton();
                     blackboard.GetComponentInChildren<Text>().text = "";
@@ -247,6 +247,7 @@ public class MoveTask : MonoBehaviour
                 int movedCubes = GetNumberOfMovedCubes();
                 if (movedCubes >= trialNumberOfStim)
                 {
+                    Debug.Log("Cubes touched");
                     TurnOnbutton();
                     currentState = State.RecallAllObjectsMoved;
                 }
@@ -256,7 +257,7 @@ public class MoveTask : MonoBehaviour
             case State.RecallAllObjectsMoved:
                 if (currentTrial <= 3)
                     blackboard.GetComponentInChildren<Text>().text = "Hit the button to see how you did";
-                if (button.transform.GetComponentInChildren<DetectTouch>().fingerTouch || button.transform.GetComponentInChildren<DetectTouch>().thumbTouch)
+                if (!button.GetComponentInChildren<ButtonManager>().GetButtonState())
                 {
                     TurnOffbutton();
                     PreparePracticeStimuli();
@@ -279,7 +280,7 @@ public class MoveTask : MonoBehaviour
                     if (currentTrial == 3)
                         blackboard.GetComponentInChildren<Text>().text = "Looks like you've got the hang of it \n\n Now let's do it for real \n\n You'll do " + (totalTrials) + " trials";
                     if (enableLogging)
-                        logger.FinishTrial(currentTrial);
+                        logger.FinishTrial(currentTrial, diff);
                     timeLeft = 2f;
                     currentState = State.RecallEnd;
                     AdaptDifficulty(feedbackSlider.value);
@@ -296,7 +297,7 @@ public class MoveTask : MonoBehaviour
                     if (currentTrial >= totalTrials)
                     {
                         currentState = State.TaskEnd;
-                        if (enableLogging) logger.FinishTrial(currentTrial);
+                        if (enableLogging) logger.FinishTrial(currentTrial, diff);
                         if (enableLogging) logger.Finish();
                     }
                     else
@@ -437,7 +438,6 @@ public class MoveTask : MonoBehaviour
     }
 
 
-    // ??? Any way to get this to work on  GameObjects and arrays of objects?
     private bool PopIn(GameObject popthing)
     {
         popthing.transform.localScale += Vector3.one * grow;
@@ -535,18 +535,15 @@ public class MoveTask : MonoBehaviour
 
     void TurnOffbutton()
     {
-        //Have to reset fingertouch or else it's still true when the button gets reactivated in the next trial
-        button.transform.GetComponentInChildren<DetectTouch>().fingerTouch = false;
-        button.transform.GetComponentInChildren<DetectTouch>().thumbTouch = false;
-        // ??? Is GetComponentInChildren more efficient than Find with 2 child objects?
-        // ??? What's the proper way to change components of child objects? I'm already loading button, but I need to change the material. Here I'm changing RGB values of the existing material. Should I change to a different material?
-        button.transform.FindChild("ButtonSwitch").transform.renderer.material.color = new UnityEngine.Color(button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.r - .5f, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.g, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.b, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.a);
-        button.transform.FindChild("ButtonSwitch").audio.PlayOneShot(Resources.Load("ButtonSound") as AudioClip);
+        button.GetComponentInChildren<DetectTouch>().enabled = false;
+        button.GetComponentInChildren<BoxCollider>().enabled = false;
     }
 
     void TurnOnbutton()
     {
-        button.transform.FindChild("ButtonSwitch").transform.renderer.material.color = new UnityEngine.Color(button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.r + .5f, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.g, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.b, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.a);
+        button.GetComponentInChildren<DetectTouch>().enabled = true;
+        button.GetComponentInChildren<BoxCollider>().enabled = true;
+        button.GetComponentInChildren<ButtonManager>().SetButtonState(true);
     }
     void PreparePracticeStimuli()
     {

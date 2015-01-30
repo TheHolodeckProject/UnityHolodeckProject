@@ -3,29 +3,20 @@ using System.Collections;
 using UnityEngine.UI;
 
 //TO DO
-// Configure Logger
-// Transcribe instructions
-// Add fade-in, fade-out animation -- ??? how to get the FadeObjectInOut script to work?
+// Add fade-in, fade-out animation
 
 public class MentalRotationTask : MonoBehaviour
 {
     public GameObject oculusCamera;
     public GameObject regularCamera;
     public GameObject resetButton;
-    public GameObject practicePrefab;
-    private GameObject[] targetPrefabs;
-    private GameObject[] distractorPrefabs;
-    private GameObject target;
-    private GameObject[] distractors;
-    public float stimScale;
     private bool enableLogging;
     private Logger logger;
     private Vector3[] stimLocations;
     public GameObject blackboard;
     private GameObject[] stimuli;
-    private float timeRemaining;
 
-    enum State { SampleStart, Sample, SampleEnd, PracticeStart, Practice, PracticeImagine, PracticeSomethingLikeThis, PracticePractice, PracticeEnd, TrialStart, TrialEnd };
+    enum State { SampleStart, Sample, SampleEnd, PracticeStart, Practice, PracticeEnd, TrialStart, TrialEnd };
     private State currentState;
 
     // Use this for initialization
@@ -47,26 +38,19 @@ public class MentalRotationTask : MonoBehaviour
         }
 
         //Logging
-        //enableLogging = PlayerPrefs.GetInt("LogDataYesNo") == 0 ? false : true;
-        //if (enableLogging) logger = GameObject.Find("Logger").GetComponent<Logger>();
-        //if (enableLogging) logger.BeginLogging();
-
-        distractors = new GameObject[4];
-        stimLocations = new Vector3[5];
-        stimLocations[0] = new Vector3(0f, 1.1f, -.2f);
-        stimLocations[1] = new Vector3(-.3f, .8f, -.2f);
-        stimLocations[2] = new Vector3(-.15f, .8f, -.2f);
-        stimLocations[3] = new Vector3(.15f, .8f, -.2f);
-        stimLocations[4] = new Vector3(.3f, .8f, -.2f);
-
-        //Define gameobject arrays - ??? More efficient way to do this?
-        //practiceStim1 = new GameObject[]
+        enableLogging = PlayerPrefs.GetInt("LogDataYesNo") == 0 ? false : true;
+        if (enableLogging) logger = GameObject.Find("Logger").GetComponent<Logger>();
+        if (enableLogging) logger.BeginLogging();
+        
+        stimLocations = new Vector3[3];
+        stimLocations[0] = new Vector3 (2, 3, 4);
+        stimLocations[1] = new Vector3(2, 3, 4);
+        stimLocations[2] = new Vector3(2, 3, 4);
+        stimLocations[4] = new Vector3(2, 3, 4);
     }
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentState);
-
         //Press Esc to quit
         if (Input.GetKey(KeyCode.Escape))
             Application.Quit();
@@ -76,48 +60,23 @@ public class MentalRotationTask : MonoBehaviour
         {
 
             case State.PracticeStart:
-                blackboard.GetComponentInChildren<Text>().text = "Welcome to the Holodeck\n\n\n\n Press the button to continue";
-                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
-                {
-                    TurnOffResetButton();
-                    currentState = State.PracticeImagine;
-                    target = (GameObject)Instantiate(practicePrefab, stimLocations[0], Quaternion.Euler(30, 45, 20));
-                    target.transform.localScale = new Vector3 (stimScale, stimScale, stimScale);
-                    timeRemaining = 1f;
-                }
-                    break;
-
-
-            case State.PracticeImagine:
-                blackboard.GetComponentInChildren<Text>().text = "Check out this object \n\n Try to imagine what it would look like if it was rotated";
-                timeRemaining = timeRemaining - Time.deltaTime;
-                if (timeRemaining < 0)
-                {
-                    blackboard.GetComponentInChildren<Text>().text = "It might look something like this. \n\n All of these objects are the identical shape \n\n They've just been rotated";
-                    
-                    distractors[0] = (GameObject)Instantiate(practicePrefab, stimLocations[1], Quaternion.Euler(30, 45, 20));
-                    distractors[1] = (GameObject)Instantiate(practicePrefab, stimLocations[2], Quaternion.Euler(120, 45, 90));
-                    distractors[2] = (GameObject)Instantiate(practicePrefab, stimLocations[3], Quaternion.Euler(90, 0, 110));
-                    distractors[3] = (GameObject)Instantiate(practicePrefab, stimLocations[4], Quaternion.Euler(45, 145, 0));
-
-                    distractors[0].transform.localScale = new Vector3(stimScale, stimScale, stimScale);
-                    distractors[1].transform.localScale = new Vector3(stimScale, stimScale, stimScale);
-                    distractors[2].transform.localScale = new Vector3(stimScale, stimScale, stimScale);
-                    distractors[3].transform.localScale = new Vector3(stimScale, stimScale, stimScale);
-                    currentState = State.PracticeSomethingLikeThis;
-                }
+                blackboard.GetComponentInChildren<Text>().text = "Welcome to the Holodeck\n\nThese are your practice hands\nThey turn transparent as they go out of range\n\n Press the button to continue";
                 break;
 
-            case State.PracticeSomethingLikeThis:
-                  break;
+
+            case State.Practice:
+                //Grabs the fingerTouch variable from the DetectTouch script, which has been placed on a smaller sphere collider in the middle of the EndTrail sphere
+                if (resetButton.transform.GetComponentInChildren<DetectTouch>().fingerTouch)
+                    TurnOffbutton();
+                break;
         }
     }
 
-
+          
 
     private void GenerateStimuli()
     {
-        for (var i = 0; i <= 3; i++)
+        for (var i = 0; i <=3; i++)
 
             // Stimuli - solid, movable
             //stimuli[i] = (GameObject)Instantiate(cubePrefab);
@@ -140,38 +99,24 @@ public class MentalRotationTask : MonoBehaviour
             //transparentStimuli[i].transform.renderer.material.color = new Color(stimuli[i].gameObject.transform.renderer.material.color.r, stimuli[i].gameObject.transform.renderer.material.color.g, stimuli[i].gameObject.transform.renderer.material.color.b, studyTransparency);
             //transparentStimuli[i].tag = "Untagged";
 
-            if (enableLogging) stimuli[i].AddComponent<SimpleObjectLogger>();
-    }
-
-    void TurnOffResetButton()
-    {
-        //Have to reset fingertouch or else it's still true when the resetButton gets reactivated in the next trial
-        resetButton.transform.FindChild("Button").GetComponent<DetectTouch>().fingerTouch = false;
-        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r - .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
-        resetButton.transform.FindChild("Button").audio.PlayOneShot(Resources.Load("ButtonSound") as AudioClip);
-    }
-
-    void TurnOnResetButton()
-    {
-        resetButton.transform.FindChild("Button").transform.renderer.material.color = new UnityEngine.Color(resetButton.transform.FindChild("Button").transform.renderer.material.color.r + .5f, resetButton.transform.FindChild("Button").transform.renderer.material.color.g, resetButton.transform.FindChild("Button").transform.renderer.material.color.b, resetButton.transform.FindChild("Button").transform.renderer.material.color.a);
+                    if (enableLogging) stimuli[i].AddComponent<SimpleObjectLogger>();
     }
 
 
-    bool MentalRotationFeedback()
+    void TurnOffbutton()
     {
-        ////If the stimuli have been moved back to their original position
-        //if (stimuli[0].transform.position == stimLocations[0])
-        //    return true;
-        //for (int i = 0; i < trialNumberOfStim; ++i)
-        //    stimuli[i].transform.position = Vector3.MoveTowards(stimuli[i].transform.position, stimLocations[i], Time.deltaTime * .1f);
-        //return false;
-        return false;
+        //Have to reset fingertouch or else it's still true when the button gets reactivated in the next trial
+        //button.transform.GetComponentInChildren<DetectTouch>().fingerTouch = false;
+        //button.transform.GetComponentInChildren<DetectTouch>().thumbTouch = false;
+        // ??? Is GetComponentInChildren more efficient than Find with 2 child objects?
+        // ??? What's the proper way to change components of child objects? I'm already loading button, but I need to change the material. Here I'm changing RGB values of the existing material. Should I change to a different material?
+        //button.transform.FindChild("ButtonSwitch").transform.renderer.material.color = new UnityEngine.Color(button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.r - .5f, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.g, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.b, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.a);
+        //button.transform.FindChild("ButtonSwitch").audio.PlayOneShot(Resources.Load("ButtonSound") as AudioClip);
     }
 
-    void ShowLogo()
+    void TurnOnbutton()
     {
-        GameObject screen = GameObject.Find("BlackScreen");
-        screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
+        //button.transform.FindChild("ButtonSwitch").transform.renderer.material.color = new UnityEngine.Color(button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.r + .5f, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.g, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.b, button.transform.FindChild("ButtonSwitch").transform.renderer.material.color.a);
     }
 
 }
