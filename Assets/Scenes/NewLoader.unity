@@ -989,7 +989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &840896373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2401,7 +2401,7 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 52.9000015, y: 25}
+  m_AnchoredPosition: {x: 10.3000002, y: 25}
   m_SizeDelta: {x: 80, y: 20}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1535635251
@@ -3150,7 +3150,6 @@ MonoBehaviour:
   sessNumInputField: {fileID: 2144550614}
   startDiffInputField: {fileID: 1349987181}
   sessLengthInputField: {fileID: 165200471}
-  minuteLimit: {fileID: 840896374}
   trialLimit: {fileID: 1535635251}
 --- !u!1 &2144550612
 GameObject:

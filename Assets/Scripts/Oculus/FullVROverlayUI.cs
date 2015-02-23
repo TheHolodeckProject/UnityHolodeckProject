@@ -19,7 +19,7 @@ public class FullVROverlayUI : MonoBehaviour {
             Vector3 position = new Vector3(center.transform.position.x + positionOffset.x, center.transform.position.y + positionOffset.y, center.transform.position.z + positionOffset.z);
             //!!! - Replaced this line to find the player instead of specifically the OVRPlayerController, as I don't think we should be using it
             //GameObject.Find("OVRPlayerController").transform.position = position;
-            GameObject.Find("OVRCameraController").transform.position = position;
+            GameObject.Find("OVRCameraRig").transform.position = position;
         }
     }
 }

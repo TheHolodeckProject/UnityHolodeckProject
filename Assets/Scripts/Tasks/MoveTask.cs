@@ -8,7 +8,6 @@ using UnityEngine.UI;
 // http://forum.unity3d.com/threads/fallback-handler-could-not-load-library-unity-4-2-osx-10-8-4-standalone.191966/#post-1493495
 
 // TO DO
-// 1) Add in 'Hit Esc to quit' function, as well as startup screen where you enter subject # and path
 // 2) The area for generating stimuli shoulnd't be a rectangle. it should be a pyramid extending out from the handcontroller with a rectangle on top of it OR if we can access the Leap InteractionBox, we could probably use that, but I couldn't figure it out.
 // When really close to the surface of the table (small y), hand tracking is great when right above the hand tracker but terrible when out of that cone.
 // 4) Animate reset button press (frivolous)
@@ -19,12 +18,13 @@ public class MoveTask : MonoBehaviour
     public GameObject button;
     public GameObject blackboard;
     public Slider feedbackSlider;
+    public UnityEngine.UI.Image highAccPanel;
+    public UnityEngine.UI.Image lowAccPanel;
     public float studyTransparency = 0.925f;
     public int ITI;
     public GameObject oculusCamera;
     public GameObject regularCamera;
     private int totalTrials;
-    private int totalMinutes;
     public float popRate;
     public float studyTime = 3f;
     public Vector3 stimLocationSize;
@@ -35,14 +35,15 @@ public class MoveTask : MonoBehaviour
     private GameObject[] stimuli;
     private GameObject[] transparentStimuli;
     private GameObject practiceCube;
-    private int trialNumberOfStim;
     private Transform handController;
     private bool practiceCubeGenerated;
+    private int preallocatedStimLocationArraySizes;
     private float timeLeft;
     private int[] colorNums;
     private Vector3[] stimLocations;
     private Vector3[] resetLocations;
     private int currentTrial;
+    private int newDiff;
     private int diff;
     private bool enableLogging;
     private Logger logger;
@@ -81,19 +82,14 @@ public class MoveTask : MonoBehaviour
 
         //Starting Difficulty
         diff = PlayerPrefs.GetInt("StartingDifficulty");
+        newDiff = diff;
 
         //Session length
-        totalTrials = PlayerPrefs.GetInt("TrialLimit") + 3;
-        totalMinutes = PlayerPrefs.GetInt("MinuteLimit");
-        //If no session length is entered, goes on forever (999 trials)
-        if (totalTrials == 3 && totalMinutes == 0)
-            totalTrials = 999;
+        totalTrials = PlayerPrefs.GetInt("TrialLimit");
 
         //Logging
         enableLogging = PlayerPrefs.GetInt("LogDataYesNo") == 0 ? false : true;
-
-        int preallocatedStimLocationArraySizes = 10;
-
+        preallocatedStimLocationArraySizes = 10;
         handController = GameObject.Find("HandController").transform;
         stimLocations = new Vector3[preallocatedStimLocationArraySizes];
         resetLocations = new Vector3[preallocatedStimLocationArraySizes];
@@ -107,7 +103,7 @@ public class MoveTask : MonoBehaviour
         colorNums = new int[colors.Count];
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Press Esc to quit
         if (Input.GetKey(KeyCode.Escape))
@@ -192,6 +188,10 @@ public class MoveTask : MonoBehaviour
                     handsReset = true;
                 }
                 blackboard.GetComponentInChildren<Text>().text = "Welcome back! \n\n\n Press the button to begin";
+                //For some reason these were activating at the start of the scene. 
+                  feedbackSlider.gameObject.SetActive(false);
+                    lowAccPanel.gameObject.SetActive(false);
+                    highAccPanel.gameObject.SetActive(false);
                 if (!button.GetComponentInChildren<ButtonManager>().GetButtonState())
                 {
                     TurnOffbutton();
@@ -202,7 +202,6 @@ public class MoveTask : MonoBehaviour
 
             case State.TrialStart:
                 currentTrial += 1;
-                trialNumberOfStim = Random.Range(diff - 1, diff + 1);
                 GenerateStimLocations();
                 GenerateStimuli();
                 if (enableLogging) logger.RegenerateStimuliInSameFile();
@@ -245,9 +244,8 @@ public class MoveTask : MonoBehaviour
 
             case State.Recall:
                 int movedCubes = GetNumberOfMovedCubes();
-                if (movedCubes >= trialNumberOfStim)
+                if (movedCubes >= diff)
                 {
-                    Debug.Log("Cubes touched");
                     TurnOnbutton();
                     currentState = State.RecallAllObjectsMoved;
                 }
@@ -283,7 +281,11 @@ public class MoveTask : MonoBehaviour
                         logger.FinishTrial(currentTrial, diff);
                     timeLeft = 2f;
                     currentState = State.RecallEnd;
-                    AdaptDifficulty(feedbackSlider.value);
+                    newDiff = AdaptDifficulty(feedbackSlider.value);
+                    if (newDiff != diff)
+                        Debug.Log("Changing diff from " + diff + " to " + newDiff);
+                    else
+                        Debug.Log("The difficulty will stay at " + newDiff);
  
                 }
                 break;
@@ -292,6 +294,10 @@ public class MoveTask : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 if (timeLeft <= 0)
                 {
+                    feedbackSlider.value = 0;
+                    feedbackSlider.gameObject.SetActive(false);
+                    lowAccPanel.gameObject.SetActive(false);
+                    highAccPanel.gameObject.SetActive(false);
                     if (currentTrial <= 4)
                         blackboard.GetComponentInChildren<Text>().text = "";
                     if (currentTrial >= totalTrials)
@@ -311,6 +317,9 @@ public class MoveTask : MonoBehaviour
                 if (popOutComplete)
                 {
                     DestroyStimuli();
+                    stimuli = new GameObject[preallocatedStimLocationArraySizes];
+                    transparentStimuli = new GameObject[preallocatedStimLocationArraySizes];
+                    diff = newDiff;
                     currentState = State.InterTrialInterval;
                     timeLeft = ITI;
                 }
@@ -323,7 +332,8 @@ public class MoveTask : MonoBehaviour
                 break;
 
             case State.TaskEnd:
-                ShowLogo();
+                DestroyStimuli();
+                blackboard.GetComponentInChildren<Text>().text = "All done!";
                 break;
         }
     }
@@ -361,7 +371,7 @@ public class MoveTask : MonoBehaviour
         //Position stimuli randomly according to settings (no overlaps)
         List<Rect> overlapCheckList = new List<Rect>();
         int retries = 100;
-        for (int i = 0; i < trialNumberOfStim; i++)
+        for (int i = 0; i < diff; i++)
         {
             stimLocations[i] = new Vector3(
                 Random.Range(handController.position.x - stimLocationSize.x / 2, handController.position.x + stimLocationSize.x / 2) + stimLocationOffset.x,
@@ -389,6 +399,7 @@ public class MoveTask : MonoBehaviour
 
     private void GenerateStimuli()
     {
+        Debug.Log("Generating " + diff + " stimuli");
         //Create a knuth shuffle index list of random indicies within the range of possible colors
         for (int i = 0; i < colors.Count; i++)
             colorNums[i] = i;
@@ -399,7 +410,7 @@ public class MoveTask : MonoBehaviour
             colorNums[index] = colorNums[i];
             colorNums[i] = tmp;
         }
-        for (int i = 0; i < trialNumberOfStim; i++)
+        for (int i = 0; i < diff; i++)
         {
             // Stimuli - solid, movable
             stimuli[i] = (GameObject)Instantiate(cubePrefab);
@@ -433,7 +444,8 @@ public class MoveTask : MonoBehaviour
 
     void MakeInactive(GameObject[] popthings)
     {
-        for (int i = 0; i < trialNumberOfStim; i++)
+        Debug.Log("Making" + diff + " things inactive");
+        for (int i = 0; i < diff; i++)
             popthings[i].SetActive(false);
     }
 
@@ -460,7 +472,7 @@ public class MoveTask : MonoBehaviour
     //Makes Stimuli grow / shrink rather than just appearing
     private bool PopIn(GameObject[] popthings)
     {
-        for (int i = 0; i < trialNumberOfStim; i++)
+        for (int i = 0; i < diff; i++)
         {
             popthings[i].transform.localScale += Vector3.one * grow;
             grow += popRate * Time.deltaTime;
@@ -473,7 +485,7 @@ public class MoveTask : MonoBehaviour
 
     private bool PopOut(GameObject[] popthings)
     {
-        for (int i = 0; i < trialNumberOfStim; i++)
+        for (int i = 0; i < diff; i++)
         {
             popthings[i].transform.localScale -= Vector3.one * grow;
             grow += popRate * Time.deltaTime;
@@ -499,7 +511,7 @@ public class MoveTask : MonoBehaviour
     {
         // Determine start and end points of a line offset from the Hand Controller
         float step = 0f;
-        float stepIncrease = 1f / ((trialNumberOfStim) - 1f);
+        float stepIncrease = 1f / ((diff) - 1f);
         Vector3 resetLineStart = new Vector3(
             handController.position.x - stimResetSize.x / 2 + stimResetOffset.x,
             handController.position.y - stimResetSize.y / 2 + stimResetOffset.y,
@@ -508,7 +520,7 @@ public class MoveTask : MonoBehaviour
             handController.position.x + stimResetSize.x / 2 + stimResetOffset.x,
             handController.position.y + stimResetSize.y / 2 + stimResetOffset.y,
             handController.position.z + stimResetSize.z / 2 + stimResetOffset.z);
-        for (int i = 0; i < trialNumberOfStim; ++i)
+        for (int i = 0; i < diff; ++i)
         {
             // Space the stimuli equally along the line defined earlier
             stimuli[i].transform.position = Vector3.Lerp(resetLineStart, resetLineEnd, step);
@@ -525,7 +537,7 @@ public class MoveTask : MonoBehaviour
     int GetNumberOfMovedCubes()
     {
         int movedCubes = 0;
-        for (int i = 0; i < trialNumberOfStim; ++i)
+        for (int i = 0; i < diff; ++i)
         {
             if (stimuli[i].transform.position != resetLocations[i])
                 movedCubes += 1;
@@ -535,19 +547,20 @@ public class MoveTask : MonoBehaviour
 
     void TurnOffbutton()
     {
-        button.GetComponentInChildren<DetectTouch>().enabled = false;
-        button.GetComponentInChildren<BoxCollider>().enabled = false;
+        //button.GetComponentInChildren<DetectTouch>().enabled = false;
+        //button.GetComponentInChildren<BoxCollider>().enabled = false;
+        button.GetComponentInChildren<ButtonManager>().SetButtonState(false);
     }
 
     void TurnOnbutton()
     {
-        button.GetComponentInChildren<DetectTouch>().enabled = true;
-        button.GetComponentInChildren<BoxCollider>().enabled = true;
+        //button.GetComponentInChildren<DetectTouch>().enabled = true;
+        //button.GetComponentInChildren<BoxCollider>().enabled = true;
         button.GetComponentInChildren<ButtonManager>().SetButtonState(true);
     }
     void PreparePracticeStimuli()
     {
-        for (int i = 0; i < trialNumberOfStim; i++)
+        for (int i = 0; i < diff; i++)
         {
             transparentStimuli[i].transform.position = stimuli[i].transform.position;
             transparentStimuli[i].SetActive(true);
@@ -590,29 +603,22 @@ public class MoveTask : MonoBehaviour
         //If the stimuli have been moved back to their original position
         if (stimuli[0].transform.position == stimLocations[0])
             return true;
-        for (int i = 0; i < trialNumberOfStim; ++i)
+        for (int i = 0; i < diff; ++i)
         {
-            addToSlider = addToSlider + .0005f;
-            stimuli[i].transform.position = Vector3.MoveTowards(stimuli[i].transform.position, stimLocations[i], Time.deltaTime * .1f);
+            addToSlider = addToSlider + .0015f;
+            stimuli[i].transform.position = Vector3.MoveTowards(stimuli[i].transform.position, stimLocations[i], Time.deltaTime * .075f);
         }
-        Debug.Log("Adding " + addToSlider + " to " + feedbackSlider.value);
         feedbackSlider.value += addToSlider;
 
             return false;
     }
     void DestroyStimuli()
     {
-        for (int i = 0; i < trialNumberOfStim; ++i)
+        for (int i = 0; i < diff; ++i)
         {
             Destroy(stimuli[i]);
             Destroy(transparentStimuli[i]);
-        }
-    }
-
-    void ShowLogo()
-    {
-        GameObject screen = GameObject.Find("BlackScreen");
-        screen.renderer.material = Resources.Load("Holodeck Logo") as Material;
+        }        
     }
 
     void DisableTransparency()

@@ -95,11 +95,10 @@ public class OVRMainMenu : MonoBehaviour
 	private int    	WidthY			= 23;
 	
 	// Spacing for variables that users can change
-    // !!! COMMENTED OUT
-    //private int    	VRVarsSX		= 553;
-    //private int		VRVarsSY		= 250;
-    //private int    	VRVarsWidthX 	= 175;
-    //private int    	VRVarsWidthY 	= 23;
+	private int    	VRVarsSX		= 553;
+	private int		VRVarsSY		= 250;
+	private int    	VRVarsWidthX 	= 175;
+	private int    	VRVarsWidthY 	= 23;
 
     private int    	StepY			= 25;
 
@@ -143,7 +142,7 @@ public class OVRMainMenu : MonoBehaviour
 	private string strSpeedRotationMultipler    = "Spd. X: 0.0f Rot. X: 0.0f";
 	
 	private bool   LoadingLevel 	= false;		
-	//private float  AlphaFadeValue	= 1.0f;
+	private float  AlphaFadeValue	= 1.0f;
 	private int    CurrentLevel		= 0;
 	
 	// Rift detection
@@ -261,7 +260,7 @@ public class OVRMainMenu : MonoBehaviour
 	/// </summary>
 	void Start()
 	{		
-		//AlphaFadeValue = 1.0f;
+		AlphaFadeValue = 1.0f;
 		CurrentLevel   = 0;
 		PrevStartDown  = false;
 		PrevHatDown    = false;

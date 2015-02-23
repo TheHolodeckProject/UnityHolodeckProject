@@ -28,6 +28,8 @@ GameObject:
   - 65: {fileID: 6519658}
   - 82: {fileID: 8219658}
   - 114: {fileID: 11419658}
+  - 114: {fileID: 11453262}
+  - 114: {fileID: 11494150}
   m_Layer: 0
   m_Name: ButtonSwitch
   m_TagString: Untagged
@@ -226,6 +228,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebb4df02dd4cdb41a62975947a2c6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11453262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d544aa12a21c64c90cc828ae0f5ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonOnMaterial: {fileID: 2100000, guid: 852b25410751aec4a983966de1a8be45, type: 2}
+  buttonOffMaterial: {fileID: 2100000, guid: dcdb3bce5e2dfb04d85edf87a9686b9e, type: 2}
+--- !u!114 &11494150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791e3dc633273b747b66dd24bb4bcd8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerTouch: 0
+  thumbTouch: 0
+  activeFinger: 
+  activeThumb: 
+  isAButton: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

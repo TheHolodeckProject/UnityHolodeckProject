@@ -60,11 +60,7 @@ namespace Windows.Kinect
                 var args = new Windows.Kinect.CoordinateMappingChangedEventArgs(result);
                 foreach(var func in callbackList)
                 {
-#if UNITY_METRO || UNITY_XBOXONE
-                    UnityEngine.WSA.Application.InvokeOnAppThread(() => { try { func(objThis, args); } catch { } }, true);
-#else
                     Helper.EventPump.Instance.Enqueue(() => { try { func(objThis, args); } catch { } });
-#endif
                 }
             }
         }
@@ -74,9 +70,7 @@ namespace Windows.Kinect
         {
             add
             {
-#if !UNITY_METRO && !UNITY_XBOXONE
                 Helper.EventPump.EnsureInitialized();
-#endif
 
                 Windows_Kinect_CoordinateMappingChangedEventArgs_Delegate_callbacks.TryAddDefault(_pNative);
                 var callbackList = Windows_Kinect_CoordinateMappingChangedEventArgs_Delegate_callbacks[_pNative];

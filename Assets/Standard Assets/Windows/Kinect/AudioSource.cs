@@ -193,11 +193,7 @@ namespace Windows.Kinect
                 var args = new Windows.Kinect.FrameCapturedEventArgs(result);
                 foreach(var func in callbackList)
                 {
-#if UNITY_METRO || UNITY_XBOXONE
-                    UnityEngine.WSA.Application.InvokeOnAppThread(() => { try { func(objThis, args); } catch { } }, true);
-#else
                     Helper.EventPump.Instance.Enqueue(() => { try { func(objThis, args); } catch { } });
-#endif
                 }
             }
         }
@@ -207,9 +203,7 @@ namespace Windows.Kinect
         {
             add
             {
-#if !UNITY_METRO && !UNITY_XBOXONE
                 Helper.EventPump.EnsureInitialized();
-#endif
 
                 Windows_Kinect_FrameCapturedEventArgs_Delegate_callbacks.TryAddDefault(_pNative);
                 var callbackList = Windows_Kinect_FrameCapturedEventArgs_Delegate_callbacks[_pNative];
@@ -260,11 +254,7 @@ namespace Windows.Kinect
                 var args = new Windows.Data.PropertyChangedEventArgs(result);
                 foreach(var func in callbackList)
                 {
-#if UNITY_METRO || UNITY_XBOXONE
-                    UnityEngine.WSA.Application.InvokeOnAppThread(() => { try { func(objThis, args); } catch { } }, true);
-#else
                     Helper.EventPump.Instance.Enqueue(() => { try { func(objThis, args); } catch { } });
-#endif
                 }
             }
         }
@@ -274,9 +264,7 @@ namespace Windows.Kinect
         {
             add
             {
-#if !UNITY_METRO && !UNITY_XBOXONE
                 Helper.EventPump.EnsureInitialized();
-#endif
 
                 Windows_Data_PropertyChangedEventArgs_Delegate_callbacks.TryAddDefault(_pNative);
                 var callbackList = Windows_Data_PropertyChangedEventArgs_Delegate_callbacks[_pNative];

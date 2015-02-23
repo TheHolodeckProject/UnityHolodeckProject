@@ -1317,7 +1317,7 @@ Light:
   m_Type: 2
   m_Color: {r: .985294104, g: .600569725, b: .188365057, a: .53725493}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 2
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: {r: 1, g: 1, b: 1, a: 1}
-  Brightness: 1
+  Brightness: .100000001
   RenderQueue: 3000
   RenderQueueOffset: 0
   Fog: 0

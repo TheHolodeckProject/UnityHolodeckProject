@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// ??? Why does the button change color whenever you touch it, in any MoveTask state?
 public class ButtonManager : MonoBehaviour
 {
 

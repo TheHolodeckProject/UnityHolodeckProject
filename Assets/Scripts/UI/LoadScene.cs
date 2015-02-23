@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class LoadScene : MonoBehaviour {
+public class LoadScene : MonoBehaviour
+{
 
     public Toggle practiceCheckBox;
     public Toggle oculusCheckBox;
@@ -11,7 +12,6 @@ public class LoadScene : MonoBehaviour {
     public InputField sessNumInputField;
     public InputField startDiffInputField;
     public InputField sessLengthInputField;
-    public Toggle minuteLimit;
     public Toggle trialLimit;
 
     public void LoadLevelButton(int index)
@@ -40,37 +40,42 @@ public class LoadScene : MonoBehaviour {
         else
             PlayerPrefs.SetInt("StartingDifficulty", int.Parse(startDiffInputField.text));
 
-        //If no Session Length is entered, will output a 0 as the default
-        if (minuteLimit.isOn) PlayerPrefs.SetInt("MinuteLimit", int.Parse(sessLengthInputField.text));
-        else PlayerPrefs.SetInt("MinuteLimit", 0);
+        //If no trial limit is entered, will output 999 as the default
         if (trialLimit.isOn) PlayerPrefs.SetInt("TrialLimit", int.Parse(sessLengthInputField.text));
-        else PlayerPrefs.SetInt("TrialLimit", 0);
+        else PlayerPrefs.SetInt("TrialLimit", 999);
 
         Application.LoadLevel(index);
     }
 
     public void EnableSessionLimitInputField(Toggle checkbox)
     {
-        // ??? How to shorten this? Took me an hour, and this was the only way I could get it to work.
-        if (checkbox.name == "TrialsToggle")
-        {
-            if (checkbox.isOn)
-                if (minuteLimit.isOn)
-                    minuteLimit.isOn = false;
-                else
-                    sessLengthInputField.image.enabled = true;
-            else
-                if (!minuteLimit.isOn)
-                    sessLengthInputField.image.enabled = false;
-        }
 
-        else if (checkbox.isOn)
-                if (trialLimit.isOn)
-                    trialLimit.isOn = false;
-                else
-                    sessLengthInputField.image.enabled = true;
-            else
-                if (!trialLimit.isOn)
-                    sessLengthInputField.image.enabled = false;
+        if (checkbox.isOn)
+            sessLengthInputField.image.enabled = true;
+        else
+            sessLengthInputField.image.enabled = false;
+
+        // ??? How to shorten this? Took me an hour, and this was the only way I could get it to work.
+        //    if (checkbox.name == "TrialsToggle")
+        //    {
+        //        if (checkbox.isOn)
+        //            if (minuteLimit.isOn)
+        //                minuteLimit.isOn = false;
+        //            else
+        //                sessLengthInputField.image.enabled = true;
+        //        else
+        //            if (!minuteLimit.isOn)
+        //                sessLengthInputField.image.enabled = false;
+        //    }
+
+        //    else if (checkbox.isOn)
+        //            if (trialLimit.isOn)
+        //                trialLimit.isOn = false;
+        //            else
+        //                sessLengthInputField.image.enabled = true;
+        //        else
+        //            if (!trialLimit.isOn)
+        //                sessLengthInputField.image.enabled = false;
+        //}
     }
- }
+}

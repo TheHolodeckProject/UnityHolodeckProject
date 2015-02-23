@@ -101,7 +101,7 @@ namespace Windows.Kinect
                 var objectPointer = Windows_Kinect_BodyFrame_get_FloorClipPlane(_pNative);
                 Helper.ExceptionHelper.CheckLastError();
                 var obj = (Windows.Kinect.Vector4)RootSystem.Runtime.InteropServices.Marshal.PtrToStructure(objectPointer, typeof(Windows.Kinect.Vector4));
-                RootSystem.Runtime.InteropServices.Marshal.FreeHGlobal(objectPointer);
+                Windows.Kinect.KinectUnityAddinUtils.FreeMemory(objectPointer);
                 return obj;
             }
         }

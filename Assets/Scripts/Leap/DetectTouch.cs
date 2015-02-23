@@ -35,7 +35,6 @@ public class DetectTouch : MonoBehaviour
 
         if (isAButton && (thumbTouch || fingerTouch))
         {
-            Debug.Log("Button State Changed");
             gameObject.GetComponent<ButtonManager>().ToggleButtonState();
             fingerTouch = false;
             thumbTouch = false;
