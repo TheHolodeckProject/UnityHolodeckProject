@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .814999998, z: -.104000002}
+  m_LocalPosition: {x: -1, y: 1, z: .200000003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,8 +43,8 @@ MonoBehaviour:
   G: 6.67383988e-20
   timestep: 500
   templateObjects:
-  - {fileID: 100000, guid: 248c58f94dc278c4999b0e7d5c5b91da, type: 2}
-  - {fileID: 100000, guid: e893fde242091df40a075952d95445bc, type: 2}
+  - {fileID: 121426, guid: 716e0267d2e8ec5489e78e924ec24c80, type: 2}
+  - {fileID: 100314, guid: 4caee52de23dd204a953e421a50bc87c, type: 2}
   - {fileID: 100000, guid: d86ecb01b7d80314696d510c12761b6b, type: 2}
   - {fileID: 100000, guid: 6daa48bb42b8cae4aa2aadc2539dffe2, type: 2}
   initialPositions:
@@ -59,10 +59,10 @@ MonoBehaviour:
   - {x: 0, y: 0, z: -3.99999999e-06}
   masses:
   - 1e+08
-  - 3e+06
-  - 2e+06
-  - 1e+06
-  renderScale: .00999999978
+  - 300
+  - 200
+  - 100
+  renderScale: .00400000019
   playerPrefab: {fileID: 0}
   playerTarget: {fileID: 0}
   shipMass: 9.99999975e-05

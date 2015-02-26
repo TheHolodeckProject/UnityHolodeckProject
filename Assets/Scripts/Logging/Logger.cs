@@ -8,9 +8,6 @@ using System.Collections.Generic;
 using System.Text;
 
 public class Logger : MonoBehaviour {
-    //TODO: Add ability to disable raw logger
-    public string loggerDir = "";
-    public string extension = ".HoloLog";
 
 	private ILoggable[] loggableObjects; //This collection contains objects whose state should be logged on Update
 	private const string dateTimeFormat = "HH_mm_ss_dd-MM-yyyy"; //This string represents the DateTime output format for the filename
@@ -18,21 +15,10 @@ public class Logger : MonoBehaviour {
 	private StreamWriter summaryWriter = null;
 	private string currentFileTimestamp = "";
 	private int subID;
-    private int sessID;
-    private bool enableLogging;
 	string firstTickOutput = "";
 	string lastTickOutput = "";
 	string previousTickOutput = "";
 	private bool paused = false;
-
-    public bool EnableRawFile = true;
-
-    public bool EnableTrialNumberInSummaryFile = true;
-    public bool EnableDifficultyInSummaryFile = true;
-    public bool EnableNameOfObjectInSummaryFile = true;
-    public bool EnablePositionInSummaryFile = true;
-    public bool EnableRotationInSummaryFile = true;
-    //ADD NEW ENABLE DISABLE SUMMARY FILE OPTION VARIABLES HERE
 
 	public void Pause(){
 		paused = true;
@@ -40,15 +26,16 @@ public class Logger : MonoBehaviour {
 	public void Resume(){
 		paused = false;
 	}
+	public void Start() {
+		subID = PlayerPrefs.GetInt ("Subject Identifier");
+	}
 	
 	// Update is called once per frame
 	public void Update () {
-        if (loggableObjects != null && (!EnableRawFile || rawWriter != null) && loggableObjects.Length > 0 && !paused)
-        {
+				if (!(loggableObjects == null || loggableObjects.Length <= 0 || rawWriter == null) && !paused) {
 						//Write a timestamp for data stability
 						string timestamp = DateTime.Now.ToBinary () + "";
-                        if (EnableRawFile)
-						    rawWriter.WriteLine (timestamp);
+						rawWriter.WriteLine (timestamp);
 						//Output all object information
 						StringBuilder tickOutputBuilder = new StringBuilder();
 						for (int i = 0; i < loggableObjects.Length; i++) {
@@ -59,8 +46,7 @@ public class Logger : MonoBehaviour {
 						if(!tickOutput.Equals(previousTickOutput)){
 							if(firstTickOutput=="")
 								firstTickOutput = timestamp+"\r\n"+tickOutput;
-                            if (EnableRawFile)
-							    rawWriter.Write(tickOutput);
+							rawWriter.Write(tickOutput);
 							lastTickOutput = timestamp+"\r\n"+tickOutput;
 						}
 						previousTickOutput = tickOutput;
@@ -69,164 +55,77 @@ public class Logger : MonoBehaviour {
 
 	public void GenerateLoggableObjectsList(){
 		//Get the list of objects - this is a one-time function. If new objects are created, there is currently no way to log them without creating a new logger.
-        List<ILoggable> output = new List<ILoggable>();
-        HelperFunctions.GetScriptObjectsInScene<ILoggable>(out output);
+		List<ILoggable> logObjs = new List<ILoggable> ();
+		GameObject[] objs = (GameObject[])FindObjectsOfType (typeof(GameObject));
+		//Debug.Log ("Searching " + objs.Length + " GameObject objects for ILoggable interfaces.");
+		for (int i = 0; i < objs.Length; i++) {
+			List<ILoggable> logScripts = new List<ILoggable> ();
+			GetInterfaces<ILoggable> (out logScripts, objs [i]);
+			if (logScripts.Count > 0)
+				logObjs.AddRange (logScripts);
+		}
+		List<ILoggable> output = new List<ILoggable> ();
+		for (int i = 0; i < logObjs.Count; i++)
+						if (logObjs [i] != null)
+								output.Add (logObjs [i]);
 		loggableObjects = output.ToArray ();
 	}
 
-    public void BeginLogging()
-    {
-        // !!! Had to move this down here because it was runnnig before Start, for some reason
-        subID = PlayerPrefs.GetInt("SubjectNumber");
-        sessID = PlayerPrefs.GetInt("SessionNumber");
-        if (extension[0] != '.')
-            extension = "." + extension;
-        // !!! COMMENTED OUT!
-        //if (!Directory.Exists(loggerDir))
-        //    Directory.CreateDirectory(loggerDir);
-        string substring = ("Sub" + subID.ToString("D4") + "_Sess" + sessID.ToString("D2") + "_Timestamp");
+	public void BeginLogging(){
+		string substring = ("Sub" + subID);
 
+		GenerateLoggableObjectsList ();
 
-        GenerateLoggableObjectsList();
+		//Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
+		
+		//Create the appropriate filename given the options
+		string rawFilename = "RawLog.dat";
+		currentFileTimestamp = DateTime.Now.ToString (dateTimeFormat);
+		rawFilename = appendTextToFilename (rawFilename,substring);
+		rawFilename = appendTextToFilename (rawFilename,currentFileTimestamp);
+		
+		//Create the file writer
+		rawWriter = new StreamWriter (rawFilename, false);
+		rawWriter.AutoFlush = true;
 
-        //Debug.Log ("Found " + loggableObjects.Length + " ILoggable objects.");
+		//Create the appropriate filename given the options
+		string summaryFilename = "SummaryLog.dat";
+		summaryFilename = appendTextToFilename (summaryFilename,substring);
+		summaryFilename = appendTextToFilename (summaryFilename,currentFileTimestamp);
 
-        //Create the appropriate filename given the options
-        currentFileTimestamp = DateTime.Now.ToString(dateTimeFormat);
-        if (EnableRawFile)
-        {
-            string rawFilename = loggerDir + "RawLog" + extension;
-            rawFilename = appendTextToFilename(rawFilename, substring);
-            rawFilename = appendTextToFilename(rawFilename, currentFileTimestamp);
+		//Create the file writer
+		summaryWriter = new StreamWriter (summaryFilename);
+		summaryWriter.WriteLine ("Trial\tStimulus\tBlobNum\tStartPosXYZ\tEndPosXYZ\tStartRotXYZ\tEndRotXYZ");
+	}
 
-            //Debug.Log("Raw Filename: " + rawFilename);
-            //Create the file writer
-            rawWriter = new StreamWriter(rawFilename, false);
-            rawWriter.AutoFlush = true;
-        }
-        //Create the appropriate filename given the options
-        string summaryFilename = loggerDir + "SummaryLog" + extension;
-        summaryFilename = appendTextToFilename(summaryFilename, substring);
-        summaryFilename = appendTextToFilename(summaryFilename, currentFileTimestamp);
-
-        //Create the file writer
-        summaryWriter = new StreamWriter(summaryFilename);
-
-        // ??? How to change what variables get logged? EndRotXYZ shouldn't be there, but I want to add difficulty (called "diff" in movetask)
-
-        StringBuilder summaryHeaderBuilder = new StringBuilder();
-        
-        if (EnableTrialNumberInSummaryFile)
-            summaryHeaderBuilder.Append("Trial\t");
-        if (EnableDifficultyInSummaryFile)
-            summaryHeaderBuilder.Append("Difficulty\t");
-        if (EnableNameOfObjectInSummaryFile)
-            summaryHeaderBuilder.Append("Stimulus\tStimulusID\t");
-        if (EnablePositionInSummaryFile)
-            summaryHeaderBuilder.Append("StartPosXYZ\tEndPosXYZ\t");
-        if (EnableRotationInSummaryFile)
-            summaryHeaderBuilder.Append("StartRotXYZ\tEndRotXYZ\t");
-        //ADD NEW ENABLE OR DISABLE HEADER INFO HERE
-
-        summaryHeaderBuilder.AppendLine();
-        summaryWriter.WriteLine(summaryHeaderBuilder.ToString().Trim());
-    }
-
-    public void RegenerateStimuliInSameFile()
-    {
-        if (EnableRawFile)
-            rawWriter.WriteLine("----------New Stimuli List Generated----------");
-        GenerateLoggableObjectsList();
-        Resume();
-    }
-
-    // !!!! GET IT TO OUTPUT DIFFICULTY
-	public void FinishTrial(int trialNum, int difficulty = -1){
+	public void FinishTrial(int trialNum){
 		string[] trialLines = firstTickOutput.Split (new string[]{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
 		string[] trialLinesEnd = lastTickOutput.Split (new string[]{"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
 		for (int i = 1; i < trialLines.Length; i++) {
 			string[] lineSplit = trialLines[i].Split (new string[]{":",","},StringSplitOptions.None);
 			string[] endLineSplit = trialLinesEnd[i].Split(new string[]{":",","},StringSplitOptions.None);
-            StringBuilder sampleString = new StringBuilder();
-            if (EnableTrialNumberInSummaryFile)
-            {
-                sampleString.Append(trialNum);
-                sampleString.Append("\t");
-            }
-            if (EnableDifficultyInSummaryFile)
-            {
-                sampleString.Append(difficulty);
-                sampleString.Append("\t");
-            }
-            if (EnableNameOfObjectInSummaryFile)
-            {
-                sampleString.Append(i);
-                sampleString.Append("\t");
-                sampleString.Append(lineSplit[0]);
-                sampleString.Append("\t");
-            }
-            if (EnablePositionInSummaryFile)
-            {
-                sampleString.Append(lineSplit[1]);
-                sampleString.Append(",");
-                sampleString.Append(lineSplit[2]);
-                sampleString.Append(",");
-                sampleString.Append(lineSplit[3]);
-                sampleString.Append("\t");
-                sampleString.Append(endLineSplit[1]);
-                sampleString.Append(",");
-                sampleString.Append(endLineSplit[2]);
-                sampleString.Append(",");
-                sampleString.Append(endLineSplit[3]);
-                sampleString.Append("\t");
-            }
-            if (EnableRotationInSummaryFile)
-            {
-                sampleString.Append(lineSplit[4]);
-                sampleString.Append(",");
-                sampleString.Append(lineSplit[5]);
-                sampleString.Append(",");
-                sampleString.Append(lineSplit[6]);
-                sampleString.Append("\t");
-                sampleString.Append(endLineSplit[4]);
-                sampleString.Append(",");
-                sampleString.Append(endLineSplit[5]);
-                sampleString.Append(",");
-                sampleString.Append(endLineSplit[6]);
-                sampleString.Append("\t");
-            }
-            //ADD NEW SAMPLE RENDER CODE HERE
-
-            summaryWriter.WriteLine(sampleString.ToString().Trim());
+			summaryWriter.Write (trialNum + "\t");
+			summaryWriter.Write ((i-1)+"\t"+lineSplit[0]+"\t");
+			summaryWriter.Write (lineSplit[1]+","+lineSplit[2]+","+lineSplit[3]+"\t");
+			summaryWriter.Write (endLineSplit[1]+","+endLineSplit[2]+","+endLineSplit[3]+"\t");
+			summaryWriter.Write (lineSplit[4]+","+lineSplit[5]+","+lineSplit[6]+"\t");
+			summaryWriter.WriteLine (endLineSplit[4]+","+endLineSplit[5]+","+endLineSplit[6]);
 		}
 		firstTickOutput = "";
 		lastTickOutput = "";
 		previousTickOutput = "";
-        if (EnableRawFile)
-        {
-            rawWriter.WriteLine("End of Trial " + trialNum);
-            rawWriter.Flush();
-        }
-        summaryWriter.Flush();
-        Pause();
+		rawWriter.WriteLine ("End of Trial " + trialNum);
 	}
 
 	public void Finish(){
-        if (EnableRawFile)
-        {
-            rawWriter.WriteLine("End of File");
-            rawWriter.Close();
-        }
+		rawWriter.WriteLine ("End of File");
+		rawWriter.Close ();
 		summaryWriter.Close ();
 	}
 
 	//When quitting, attempt to close the streams
 	void OnApplicationQuit() {
-        try { 
-            if (EnableRawFile)
-                rawWriter.Close(); 
-        }
-        catch (Exception) { }
+		try{rawWriter.Close ();}catch(Exception){}
 		try{summaryWriter.Close ();}catch(Exception){}
 	}
 
@@ -236,5 +135,16 @@ public class Logger : MonoBehaviour {
 		for (int i = 0; i < fileTokens.Length - 1; i++)
 			output += fileTokens [i] + "_";
 		return output + text + "." + fileTokens [fileTokens.Length - 1];
+	}
+
+	public static void GetInterfaces<T>(out List<T> resultList, GameObject objectToSearch) where T: class {
+		MonoBehaviour[] list = objectToSearch.GetComponents<MonoBehaviour>();
+		resultList = new List<T>();
+		foreach(MonoBehaviour mb in list){
+			if(mb is T){
+				//found one
+				resultList.Add((T)((System.Object)mb));
+			}
+		}
 	}
 }

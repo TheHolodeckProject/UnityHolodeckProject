@@ -1,39 +1,39 @@
-/************************************************************************************
+﻿/************************************************************************************
+	
+	Filename    	:   OVRGridCube.cs
+		Content     :   Renders a grid of cubes (useful for positional tracking)
+		Created     :   February 14, 2014
+		Authors     :   Peter Giokaris
+		
+		Copyright   :   Copyright 2014 Oculus VR, Inc. All Rights reserved.
 
-Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
-
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
-you may not use the Oculus VR Rift SDK except in compliance with the License,
-which is provided at the time of installation or download, or which
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+you may not use the Oculus VR Rift SDK except in compliance with the License, 
+which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
+http://www.oculusvr.com/licenses/LICENSE-3.1 
 
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK 
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
+				
 ************************************************************************************/
-
 using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Diagnostic display with a regular grid of cubes for visual testing of
-/// tracking and distortion.
+/// OVR grid cube.
 /// </summary>
-public class OVRGridCube : MonoBehaviour
+public class OVRGridCube : MonoBehaviour 
 {
-	/// <summary>
-	/// The key that toggles the grid of cubes.
-	/// </summary>
 	public KeyCode GridKey                     = KeyCode.G;
-
 	private GameObject 	CubeGrid			   = null;
+	private OVRCameraGameObject CameraCubeGrid = null;
 
 	private bool 	CubeGridOn		    	   = false;
 	private bool 	CubeSwitchColorOld  	   = false;
@@ -45,8 +45,15 @@ public class OVRGridCube : MonoBehaviour
 	private float gridScale  = 0.3f;
 	private float cubeScale  = 0.03f;
 
-	// Handle to OVRCameraRig
-	private OVRCameraRig CameraController = null;
+	// Handle to OVRCameraController
+	private OVRCameraController CameraController = null;
+
+	/// <summary>
+	/// Start this instance.
+	/// </summary>
+	void Start () 
+	{
+	}
 	
 	/// <summary>
 	/// Update this instance.
@@ -60,11 +67,14 @@ public class OVRGridCube : MonoBehaviour
 	/// Sets the OVR camera controller.
 	/// </summary>
 	/// <param name="cameraController">Camera controller.</param>
-	public void SetOVRCameraController(ref OVRCameraRig cameraController)
+	public void SetOVRCameraController(ref OVRCameraController cameraController)
 	{
 		CameraController = cameraController;
 	}
 
+	/// <summary>
+	/// Updates the cube grid.
+	/// </summary>
 	void UpdateCubeGrid()
 	{
 		// Toggle the grid cube display on 'G'
@@ -78,6 +88,9 @@ public class OVRGridCube : MonoBehaviour
 					CubeGrid.SetActive(true);	
 				else
 					CreateCubeGrid();
+
+				// Add the CameraCubeGrid to the camera list for update
+				OVRCamera.AddToLocalCameraSetList(ref CameraCubeGrid);
 			}
 			else
 			{
@@ -86,20 +99,26 @@ public class OVRGridCube : MonoBehaviour
 				
 				if(CubeGrid != null)
 					CubeGrid.SetActive(false);
+
+				// Remove the CameraCubeGrid from the camera list
+				OVRCamera.RemoveFromLocalCameraSetList(ref CameraCubeGrid);
 			}
 		}
 		
 		if(CubeGrid != null)
 		{
 			// Set cube colors to let user know if camera is tracking
-			CubeSwitchColor = !OVRManager.tracker.isPositionTracked;
+			CubeSwitchColor = !OVRDevice.IsCameraTracking();
 			
 			if(CubeSwitchColor != CubeSwitchColorOld)
 				CubeGridSwitchColor(CubeSwitchColor);
 			CubeSwitchColorOld = CubeSwitchColor;
 		}
 	}
-
+	
+	/// <summary>
+	/// Creates the cube grid.
+	/// </summary>
 	void CreateCubeGrid()
 	{
 		Debug.LogWarning("Create CubeGrid");
@@ -108,6 +127,13 @@ public class OVRGridCube : MonoBehaviour
 		CubeGrid = new GameObject("CubeGrid");
 		// Set a layer to target a specific camera
 		CubeGrid.layer = CameraController.gameObject.layer;
+
+		// Create a CameraGameObject to update within Camera
+		CameraCubeGrid = new OVRCameraGameObject();
+		// Set CubeGrid GameObject and CameraController 
+		// to allow for targeting depth within OVRCamera update
+		CameraCubeGrid.CameraGameObject = CubeGrid;
+		CameraCubeGrid.CameraController = CameraController;
 
 		for (int x = -gridSizeX; x <= gridSizeX; x++)
 			for (int y = -gridSizeY; y <= gridSizeY; y++)
@@ -134,17 +160,16 @@ public class OVRGridCube : MonoBehaviour
 				cube.layer = CameraController.gameObject.layer;
 				
 				// No shadows
-				Renderer r = cube.GetComponent<Renderer>();
-				r.castShadows    = false;
-				r.receiveShadows = false;
+				cube.renderer.castShadows    = false;
+				cube.renderer.receiveShadows = false;
 				
 				// Cube line is white down the middle
 				if (CubeType == 0)
-					r.material.color = Color.red;
+					cube.renderer.material.color = Color.red;
 				else if (CubeType == 1)	
-					r.material.color = Color.white;
+					cube.renderer.material.color = Color.white;
 				else
-					r.material.color = Color.yellow;
+					cube.renderer.material.color = Color.yellow;
 				
 				cube.transform.position = 
 					new Vector3(((float)x * gridScale), 
@@ -179,10 +204,10 @@ public class OVRGridCube : MonoBehaviour
 		
 		foreach(Transform child in CubeGrid.transform)
 		{
-			Material m = child.GetComponent<Renderer>().material;
 			// Cube line is white down the middle
-			if(m.color == Color.red || m.color == Color.blue)
-				m.color = c;
+			if((child.renderer.material.color == Color.red) ||
+			   (child.renderer.material.color == Color.blue))
+				child.renderer.material.color = c;
 		}
 	}
 }

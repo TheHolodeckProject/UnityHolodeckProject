@@ -11,7 +11,7 @@ public class StimulusScript : MonoBehaviour {
   [SerializeField] private bool isFound = false;
   private int low = 150;
   private int high = 255;
-private float granularityInt = 2.5f;
+  private int granularityInt = 10;
   
   
 	// Use this for initialization
@@ -27,39 +27,29 @@ private float granularityInt = 2.5f;
 
     void OnTriggerEnter(Collider other)
     {
-        print(other.name);
+        
         if (!(other.gameObject.layer == 8) && active)
         {
-            setThisInactive();
             print("Collision Detected");    /*For debugging purposes*/
             gameObject.renderer.enabled = true;
             gameObject.renderer.material.color = Color.yellow;
             isFound = true;
-            
+            setThisInactive();
             foundPos = searchScript.getNumFound();
             searchScript.incNumFound();
         }
     }
 
-    public byte getIntensityByte(Vector3 handPos, float threshold = 0f)
+    public byte getIntensity(Vector3 handPos)
     {
 
         float dist = Vector3.Distance(handPos, gameObject.transform.position);
-                float increment = searchScript.getMaxDist() / (high - low);
-        float level = high - dist / increment;
+        float increment = searchScript.getMaxDist() / granularityInt;
+        int bin = Mathf.FloorToInt( dist / increment);
+        int level = high - granularityInt * bin;
         if (level > low) return System.Convert.ToByte(level);
         else return System.Convert.ToByte(low);
     }
-
-    public float getIntensityFloat(Vector3 handPos, float threshold = 0f)
-    {
-
-        float dist = Vector3.Distance(handPos, gameObject.transform.position);
-       return dist / searchScript.getMaxDist(); 
-       
-    }
-
-
 
     public void setThisActive( )
     {

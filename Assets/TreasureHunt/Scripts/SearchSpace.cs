@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using Leap;
 
 
@@ -71,7 +70,6 @@ public class SearchSpace : MonoBehaviour {
     private int startClick = 0;
     private int mode;
     private string statusMssg = "";
-    private string studyTimeLeft = "";
     private Vector3[] gameObjcorners = new Vector3[8];
 	private Vector3 rand;
 	//private BluetoothScript rightHand;
@@ -85,12 +83,11 @@ public class SearchSpace : MonoBehaviour {
    
     //Trial variables
     private int phase = 0;
-    private float studyTime = 10.0f; //in s
+    private float phaseWaitTime = 10; //in s
     private float phaseWaitTimeStart;
     private bool phaseInit;
-    private bool timeExpired = false;
     private float testTime = 5000f;
-    private float searchTime = 5000f; //in s
+    private float searchTime = 5f; //in s
     private float restTime = 3.000f; //in s
     private float tStart;
     private int numberOfCompletedTrials = 0;
@@ -98,24 +95,16 @@ public class SearchSpace : MonoBehaviour {
     GameObject OccViewObjLeft;
     GameObject OccViewObjRight;
     GameObject MainViewObj;
-    // !!! Had to comment out
-    //grabData grabD = new grabData();
-    float grabThreshold = 3f;
+    grabData grabD = new grabData();
+    float grabThreshold = 6f;
     bool grabbingFlag = false;
     int grabCount = 0;
-    Vector3[] lineRensPoints = new Vector3[4];
-    LineRenderer[] lineRens;
-    HandController controller;
-
-    // Haptic Glove Variables
-    public GameObject RigidHandRight;
-    public UnitySerialPort UnitySerialPortRightHand;
+    
 
     void Awake()
     {
-
-        print(GameObject.Find("ControllerSandBox").transform.position);
-        handControlScript = GameObject.FindObjectOfType(typeof(HandController)) as HandController; //Redundant code....TODO: need to fix/clean up later
+      
+        handControlScript = GameObject.FindObjectOfType(typeof(HandController)) as HandController;
          OccViewObjLeft= GameObject.Find("CameraLeft");
          OccViewObjRight = GameObject.Find("CameraRight");
          MainViewObj = GameObject.Find("MainCameraView");
@@ -127,41 +116,6 @@ public class SearchSpace : MonoBehaviour {
         Destroy(randShape.transform.rigidbody);
        
         gameObjcorners = CalcSearchCorners(gameObject);
-       int j =0;
-        for(int i = 0; i < gameObjcorners.Length; i++){
-             if(gameObjcorners[i].y > gameObject.transform.position.y){
-                 lineRensPoints[j] = gameObjcorners[i];
-                 j++;
-             }
-             }
-        Vector3 tempVec = lineRensPoints[2];
-        lineRensPoints[2] = lineRensPoints[3];
-        lineRensPoints[3] = tempVec;
-        LineRenderer lineren1 = new GameObject().AddComponent<LineRenderer>();
-        LineRenderer lineren2 = new GameObject().AddComponent<LineRenderer>();
-        LineRenderer lineren3 = new GameObject().AddComponent<LineRenderer>();
-        LineRenderer lineren4 = new GameObject().AddComponent<LineRenderer>();
-            lineRens = new LineRenderer[] {lineren1, lineren2, lineren3, lineren4};
-        
-        for (int i = 0; i < lineRens.Length; i++)
-        {
-            
-            lineRens[i].SetVertexCount(2);
-            lineRens[i].material.color = Color.black;
-            lineRens[i].SetWidth(.05f, .05f);
-            if (i == lineRensPoints.Length - 1)
-            {
-                lineRens[i].SetPosition(0, lineRensPoints[i]);
-                lineRens[i].SetPosition(1, lineRensPoints[0]);
-                
-            }
-            else
-            {
-                lineRens[i].SetPosition(0, lineRensPoints[i]);
-                lineRens[i].SetPosition(1, lineRensPoints[i + 1]);
-              
-            }
-        }
         Color temp = new Color();
         temp.a = .1f;
         gameObject.renderer.material.color= temp;
@@ -172,19 +126,16 @@ public class SearchSpace : MonoBehaviour {
     
 
 	 void Start () {
-
-         print("In start");
 		//rightHand = new BluetoothScript();
 		//print (rightHand);
-         HandController controller = GetComponent<HandController>();
-		sphereRatio = 1f / ( PlayerPrefs.GetInt("Difficulty") *2.5f );   // scaling purposes
+		sphereRatio = 1f / ( PlayerPrefs.GetInt("Difficulty") * 5);   // scaling purposes
          modeAry = new Phase[System.Enum.GetValues(typeof(phaseTypes)).Length];
          setPatternBool();
          setTimedBool();
         
         for (int i = 0; i < modeAry.Length  ; i++)
         {
-            if (timed & i != 0) modeAry[i] = new Phase(i, true, testTime, studyTime, searchTime, restTime);
+            if (timed & i != 0) modeAry[i] = new Phase(i, true, testTime, phaseWaitTime, searchTime, restTime);
             else modeAry[i] = new Phase(i, false);
         }
          
@@ -210,35 +161,28 @@ public class SearchSpace : MonoBehaviour {
 
       //  GameObject.Find("Logger").GetComponent<Logger>().BeginLogging();
         phaseInit = true;
+         
 
-       // UnitySerialPortRightHand = this.GetComponent("UnitySerialPort") as UnitySerialPort;
         
      }
 	
 	// Update is called once per frame
 	void Update () {
-
         if (phase == 0)
         {
 
-     /*  OccViewObjLeft.camera.enabled = false;
+          OccViewObjLeft.camera.enabled = false;
             OccViewObjRight.camera.enabled = false;
-            MainViewObj.camera.enabled = true; */
-         
+            MainViewObj.camera.enabled = true;
 
         }
        
 
         if (phase == 1 )
         {
-    /*    OccViewObjLeft.camera.enabled = true;
+           OccViewObjLeft.camera.enabled = true;
             OccViewObjRight.camera.enabled = true;
-            MainViewObj.camera.enabled = false; */
-
-            GameObject tempCam = GameObject.Find("CameraDepthView");
-            //print
-            tempCam.camera.backgroundColor = Color.Lerp(Color.red, Color.green, activeStimScript.getIntensityFloat(GameObject.Find("RigidHandLeft(Clone)").transform.position));
-            
+            MainViewObj.camera.enabled = false;
             
             if (phaseInit)
             {
@@ -247,23 +191,15 @@ public class SearchSpace : MonoBehaviour {
                 phaseInit = false;
                 activeSphere = 0;
                 activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
-                print(activeStimScript.name);
                 activeStimScript.setThisActive();
 
             }
 
-            /*UnitySerialPortRightHand.thumbTip = activeStimScript.getIntensity(GameObject.Find("palmR").transform.position);
-            UnitySerialPortRightHand.indexTip = activeStimScript.getIntensity(GameObject.Find("palmR").transform.position);
-            UnitySerialPortRightHand.middleTip = activeStimScript.getIntensity(GameObject.Find("palmR").transform.position);
-            UnitySerialPortRightHand.ringTip = activeStimScript.getIntensity(GameObject.Find("palmR").transform.position);
-            UnitySerialPortRightHand.pinkyTip = activeStimScript.getIntensity(GameObject.Find("palmR").transform.position);
-            print(activeStimScript.getIntensity(GameObject.Find("palmR").transform.position));*/
-
             if (!timed && activeStimScript.getFound() && !phaseChangeFlag())
             {
-                //print("ActiveSphere is: " + active); /* For debugging */
+                print("ActiveSphere is: " + active);
                 //print("I'm here"); /* For debugging */
-                
+                activeStimScript.setThisActive();
                 activeSphere++;
                 activeStimScript = findSpheres[activeSphere].GetComponent("StimulusScript") as StimulusScript;
                 activeStimScript.setThisActive();
@@ -293,7 +229,7 @@ public class SearchSpace : MonoBehaviour {
             if (phaseChangeFlag())
             {
                 
-                statusMssg = "TRIAL COMPLETED; Now Entering Study Phase";       
+                statusMssg = "TRIAL COMPLETED; Please Wait";       
                 phase = 2;
                 
                     }
@@ -316,14 +252,10 @@ public class SearchSpace : MonoBehaviour {
 
             }
 
-            
-            if(!timeExpired) studyTimeLeft = (studyTime - Time.time).ToString();
-           
 
-            if (Time.time - tStart > studyTime)
+            if (Time.time - tStart > phaseWaitTime)
             {
-                timeExpired = true;
-                studyTimeLeft = (0).ToString();
+
                 numFound = 0;
                 startClick = 0;
                 phaseInit = true;
@@ -335,64 +267,52 @@ public class SearchSpace : MonoBehaviour {
                 List<GameObject> delList = new List<GameObject>();
                 delList.AddRange(GameObject.FindGameObjectsWithTag("TestCube"));
                 foreach (GameObject delObj in delList) Destroy(delObj);
-                statusMssg = "Study Phase Complete; Click Start for next trial"; 
+                statusMssg = "Click Start for next trial"; 
             }
         }
         
-        // !!! Had to comment out
-        //if (phase == 3)
-        //{
-        //    grabD = handControlScript.getGrabStrength();
-        //    if (grabCount == numSpheres) showLocations();
-            
-             
-               
-        //   else if (grabD.grabLevel > .85 && !grabbingFlag)
-        //    {
-        //        tStart = Time.time;
-        //        grabbingFlag = true;
-        //        string side = (grabD.isItLeft) ? "Left" : "Right";
-        //        print(side + " hand is grabbing");
-                    
-        //    }
-        //    else if (grabbingFlag)
-        //    {
-                 
-        //            if( (Time.time - tStart > grabThreshold) && !(grabCount == numSpheres)){
 
-        //                string side = (grabD.isItLeft) ? "Left" : "Right";
-        //                markLocations[grabCount] = new Vector3(grabD.position.x, grabD.position.y, grabD.position.z);   //Do we want subjects to start with the first object or the second?
-        //                grabCount++;
-        //                print("Grab by " + side + "Hand recorded" + " at Pos: (" + grabD.position.x + ", " + grabD.position.y + "," + grabD.position.z + ")" + "\n" );
-        //                print("Number recorded = " + grabCount + "; " + (numSpheres - grabCount) + " left to record" );
-        //                grabbingFlag = false;
-        //                for(int i = 0; i < 5000; i++){
-        //                    // provide wait period between grabs 
-        //                }
-                        
-        //            }
-        //            else if (grabD.grabLevel < .5)
-        //            {
-        //                grabbingFlag = false;
-        //                print("No longer grabbing");
-        //            }
-        //    }
-        //}
-	}
-
-    void showLocations()
-    {
-        foreach (GameObject sphere in findSpheres) sphere.renderer.enabled = true;
-        foreach (Vector3 mark in markLocations)
+        if (phase == 3)
         {
             
-           GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-           sphere.transform.position = new Vector3(mark.x, mark.y, mark.z);
-           sphere.transform.localScale = findSpheres[0].transform.localScale;
-
+            
+        //     grabD = handControlScript.getGrabStrength();
+                if (grabD.grabLevel > .85 && !grabbingFlag)
+            {
+                tStart = Time.time;
+                grabbingFlag = true;
+                string side = (grabD.isItLeft) ? "Left" : "Right";
+                print(side + " hand is grabbing");
+                    
+            }
+                if (grabbingFlag)
+            {
+                    if( (Time.time - tStart > grabThreshold) && !(grabCount == numSpheres)){
+                        string side = (grabD.isItLeft) ? "Left" : "Right";
+                        markLocations[numSpheres - grabCount - 1] = grabD.position;
+                        grabCount++;
+                        print("Grab by " + side + "Hand recorded" + " at Pos: (" + grabD.position.x + ", " + grabD.position.y + "," + grabD.position.z + ")" + "\n" );
+                        print("Number recorded = " + grabCount + "; " + (numSpheres - grabCount) + " left to record" );
+                        grabbingFlag = false;
+                        for(int i = 0; i < 500; i++){
+                            //wait period between grabs 
+                        }
+                        
+                    }
+                    else if (grabD.grabLevel < .5)
+                    {
+                        grabbingFlag = false;
+                        print("No longer grabbing");
+                    }
+            }
+            
+           
+           
         }
-        phase = 4;
-    }
+
+            
+	
+	}
 
 
     
@@ -520,7 +440,6 @@ public class SearchSpace : MonoBehaviour {
         GUI.backgroundColor = Color.black;
         GUI.color = Color.white;
 
-        GUI.Label(new Rect(0, 0, 350, 20), studyTimeLeft);
         GUI.Label(new Rect(0, 25, 350, 20), statusMssg);
         
         GUI.Label(new Rect(0 , 0 , 100, 90), message);
@@ -546,9 +465,6 @@ public class SearchSpace : MonoBehaviour {
                 phase = 1;
                 phaseInit = true;
                 statusMssg = "Trial in Progress";
-                //!!! Had to comment out
-                //handControlScript.setTrialBool(true, 1);
-               
                 
             }
             else if (startHit && phase == 2)
@@ -639,7 +555,7 @@ public class SearchSpace : MonoBehaviour {
 		                gameObject.transform.position.y + gameObject.transform.localScale.y / 2),
 		                Random.Range (gameObject.transform.position.z - gameObject.transform.localScale.z / 2, 
 		                gameObject.transform.position.z + gameObject.transform.localScale.z / 2));
-                        print("Byte sent is: " + activeStimScript.getIntensityByte(rand));
+                        print("Byte sent is: " + activeStimScript.getIntensity(rand));
 
 
 		
@@ -675,7 +591,7 @@ public class SearchSpace : MonoBehaviour {
             float temp = Vector3.Distance(gameObjcorners[0], compare);
             if (temp > maxDist) maxDist = temp;
             }
-       return maxDist;
+        return maxDist;
     }
 
 
@@ -694,7 +610,6 @@ public class SearchSpace : MonoBehaviour {
                 shape.transform.position.z - Mathf.Pow(-1, i) * shape.transform.localScale.z / 2);
 
         }
-        //foreach (Vector3 vec in shapeCorners) print("(" + vec.x + ", " + vec.y + ", " + vec.z + ")");  //Debugging
 
         return shapeCorners;
     }
@@ -711,7 +626,5 @@ public class SearchSpace : MonoBehaviour {
 
 
     }
-
-    
 
 	}

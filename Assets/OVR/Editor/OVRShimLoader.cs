@@ -1,30 +1,31 @@
 ﻿/************************************************************************************
 
-Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
+Filename    :   OVRShimLoader.cs
+Content     :   Wraps each standalone build in a proxy executable that loads shims.
+Created     :   July 20, 2014
+Authors     :   David Borel
 
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
-you may not use the Oculus VR Rift SDK except in compliance with the License,
-which is provided at the time of installation or download, or which
+Copyright   :   Copyright 2014 Oculus VR, Inc. All Rights reserved.
+
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+you may not use the Oculus VR Rift SDK except in compliance with the License, 
+which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
+http://www.oculusvr.com/licenses/LICENSE-3.1 
 
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK 
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
 ************************************************************************************/
-
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using System;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.IO;
 
 //-------------------------------------------------------------------------------------
@@ -37,42 +38,21 @@ class OVRShimLoader
 {
 	static OVRShimLoader()
 	{
-		if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows &&
-		    EditorUserBuildSettings.activeBuildTarget != BuildTarget.StandaloneWindows64)
-			return;
+		EditorApplication.update += Update;
+	}
 
-		PlayerSettings.displayResolutionDialog = ResolutionDialogSetting.HiddenByDefault;
-
-// forcibly enable exclusive mode only in 4.6.0b22+ and Unity 4.5.5p3+
-#if (UNITY_4_6 || (UNITY_4_5 && !(UNITY_4_5_0 || UNITY_4_5_1 || UNITY_4_5_2 || UNITY_4_5_3 || UNITY_4_5_4)))
-		bool unity_4_6 = false;
-		bool unity_4_5_5 = false;
-
-#if (UNITY_4_6)
-		unity_4_6 = true;
-#elif (UNITY_4_5_5)
-		unity_4_5_5 = true;
-#endif
-
-		// Detect correct Unity releases which contain the fix for D3D11 exclusive mode.
-		string version = Application.unityVersion;
-		int releaseNumber;
-		bool releaseNumberFound = Int32.TryParse(Regex.Match(version, @"\d+$").Value, out releaseNumber);
-
-		bool unsupportedUnityVersion = (unity_4_6 && version.Last(char.IsLetter) == 'b' && releaseNumberFound && releaseNumber < 22)
-			|| (unity_4_5_5 && version.Last(char.IsLetter) == 'f')
-			|| (unity_4_5_5 && version.Last(char.IsLetter) == 'p' && releaseNumberFound && releaseNumber < 3);
-
-		bool useExclusiveModeD3D11 = true;
-		if (unsupportedUnityVersion)
+	static void Update()
+	{
+		#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
+		// Suppresses the resolution dialog and sets Rift-optimized launch settings.
+		if (_isEnabled)
 		{
-			useExclusiveModeD3D11 = false;
+			PlayerSettings.displayResolutionDialog = ResolutionDialogSetting.HiddenByDefault;
+			PlayerSettings.defaultIsFullScreen = false;
+			PlayerSettings.defaultScreenWidth = 1920;
+			PlayerSettings.defaultScreenHeight = 1080;
 		}
-
-		PlayerSettings.d3d11ForceExclusiveMode = useExclusiveModeD3D11;
-		PlayerSettings.d3d9FullscreenMode = D3D9FullscreenMode.ExclusiveMode;
-		PlayerSettings.visibleInBackground = true;
-#endif
+		#endif
 	}
 
 	[PreferenceItem("Oculus VR")]
@@ -80,24 +60,16 @@ class OVRShimLoader
 	{
 		// Load the preferences
 		if (!_prefsLoaded) {
-			_isEnabled = EditorPrefs.GetBool("OculusBuild", false);
+			_isEnabled = EditorPrefs.GetBool ("OculusBuild", false);
 			_prefsLoaded = true;
 		}
 		
 		// Preferences GUI
-
-		bool isEnabled = EditorGUILayout.Toggle("Optimize Builds for Rift", _isEnabled);
-
-		if (isEnabled && !_isEnabled &&
-		    (EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows ||
-		    EditorUserBuildSettings.activeBuildTarget == BuildTarget.StandaloneWindows64))
-			PlayerSettings.displayResolutionDialog = ResolutionDialogSetting.HiddenByDefault;
-
-		_isEnabled = isEnabled;
+		_isEnabled = EditorGUILayout.Toggle ("Optimize Builds for Rift", _isEnabled);
 		
 		// Save the preferences
 		if (GUI.changed)
-			EditorPrefs.SetBool("OculusBuild", _isEnabled);
+			EditorPrefs.SetBool ("OculusBuild", _isEnabled);
 	}
 
 	/// <summary>
@@ -123,11 +95,8 @@ class OVRShimLoader
 			File.Delete(targetPath);
 
 		File.Copy(autoPatcherPath, targetPath);
-
-		string appInfoPath = pathToBuiltProject.Replace(".exe", "_Data/OVRAppInfo");
-		var file = new System.IO.StreamWriter(appInfoPath);
-		file.Write(PlayerSettings.companyName + "\\" + PlayerSettings.productName);
-		file.Dispose();
+		
+		Debug.Log ("Patched " + pathToBuiltProject + " for " + target.ToString() + ".");
 	}
 
 	static bool _isEnabled = true;

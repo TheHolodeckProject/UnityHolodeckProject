@@ -32,9 +32,9 @@ public class LeapStretch : MonoBehaviour
     void Update()
     {
         //If currently moving something, don't bother trying to stretch
-        //if (this.GetComponent<LeapMove>().moving == true)
-        //    return;
-        //else
+        if (this.GetComponent<LeapMove>().moving == true)
+            return;
+        else
         {
             GetHandInfo();
 

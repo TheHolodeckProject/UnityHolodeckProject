@@ -15,9 +15,7 @@ public class ConfidenceTransparency : MonoBehaviour {
   private Material material;
 
   void Start() {
-      // !!! MODIFIED because it was throwing up an error
-    //material = new Material(Shader.Find("Transparent/Diffuse"));
-      material = Resources.Load("TransparentHandMat") as Material;
+    material = new Material(Shader.Find("Transparent/Diffuse"));
     Renderer[] renderers = GetComponentsInChildren<Renderer>();
     
     for (int i = 0; i < renderers.Length; ++i)

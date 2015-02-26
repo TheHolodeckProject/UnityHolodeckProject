@@ -1,46 +1,32 @@
-﻿// ??? It's much more responsive now, but it's a little jumpy. Any way to fix?
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using Leap;
 
+// Global stimulus list created by Stimulus manager, and access that
+
 public class LeapMove : MonoBehaviour
 {
-    public float grabRadius;
-    private bool triggerMove;
-    public AudioClip grabSound;
-    public AudioClip releaseSound;
-    private HandModel hand_model;
-    private Hand leap_hand;
-    private Collider grabbed_;
-    private GameObject cube;
-    private GameObject handcontroller;
-    private GameObject middle;
-    private Vector3 thumbTipPosition;
-    private Vector3 fingerTipPosition;
-    private int fingerInt;
     enum State { Idle, Moving, EndMove }
     private State currentState;
-
+    private bool triggerMove;
+    public bool moving;
+    private bool fingerTouch;
+    private bool thumbTouch;
+    private Vector3 middlePosition;
+    private Vector3 middlePrevPosition;
+    private GameObject moveManager;
+    private Transform cube;
+    // Use this for initialization
     void Start()
     {
         currentState = State.Idle;
         triggerMove = false;
-        handcontroller = GameObject.Find("HandController");
+        moving = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Gets Leap hand info.
-        hand_model = GetComponent<HandModel>();
-        leap_hand = hand_model.GetLeapHand();
-
-        //If there's no hand in the frame, don't bother running the rest of the update
-        if (leap_hand == null)
-            return;
-
-        //Debug.Log(currentState);
         switch (currentState)
         {
             case State.Idle:
@@ -50,7 +36,11 @@ public class LeapMove : MonoBehaviour
                 break;
 
             case State.Moving:
-                currentState = Move();
+                DetectFingerCollisions();
+                if (triggerMove)
+                    Move();
+                else
+                    currentState = EndMove();
                 break;
         }
     }
@@ -58,118 +48,89 @@ public class LeapMove : MonoBehaviour
     void DetectFingerCollisions()
     {
         cube = null;
-        bool thumbTouch = false;
-        int thumbInt = 0;
+        fingerTouch = false;
+        thumbTouch = false;
         //Gets the thumb position
-        thumbTipPosition = leap_hand.Fingers[0].TipPosition.ToUnityScaled() + handcontroller.transform.position;
+        Vector3 thumbTipPosition = GameObject.Find(this.name + "/thumb/bone3").transform.position;
         // Checks a tiny sphere collider around the thumb
-        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, grabRadius);
+        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, .01f);
         //For everything in the radius around the thumbtip
         for (int j = 0; j < thumbTouching.Length; ++j)
         {
-            // ??? Should I avoid checking the tag?
-            if (thumbTouching[j].transform.parent.tag == "Movable")
+            //If it's colliding with one of the child colliders of the StretchableCube
+            if (thumbTouching[j].transform.parent.name == "StretchableCube(Clone)")
             {
-                thumbInt = j;
-                thumbTouch = true;
+                cube = thumbTouching[j].transform.parent.transform;
                 break;
             }
         }
-        //If the thumb was touching a grabbable object
-        if (thumbTouch)
+        //If it found a cube    
+        if (cube != null)
         {
-            //Check if any another finger is also colliding with a grabbable object
-            for (int f = 1; f < 5; ++f)
+            //For everything the cube is touching
+            foreach (Transform child in cube)
             {
-                if (!triggerMove)
+                //Check if the thumb and index finger are touching different colliders
+                if (child.gameObject.GetComponent<DetectTouch>().thumbTouch)
                 {
-                    fingerTipPosition = leap_hand.Fingers[f].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-                    Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, grabRadius);
-                    for (int k = 0; k < fingerTouching.Length; ++k)
-                    {
-                        //Checks if the finger is touching the same object as the thumb
-                        if (thumbTouching[thumbInt].transform.parent.gameObject == fingerTouching[k].transform.parent.gameObject)
-                        {
-                            cube = thumbTouching[k].transform.parent.gameObject;
-                            triggerMove = true;
-                            fingerInt = f;
-                            break;
-                        }
-                    }
+                    thumbTouch = true;
+                    //Debug.Log("Thumb touching" + child.name);
+                    continue;
+                }
+                if (child.gameObject.GetComponent<DetectTouch>().fingerTouch)
+                {
+                    fingerTouch = true;
+                    //Debug.Log("Finger touching" + child.name);
+                    continue;
                 }
             }
         }
+        if (fingerTouch && thumbTouch)
+            triggerMove = true;
+        else
+            triggerMove = false;
     }
 
-    State Move()
+    void Move()
     {
-        bool thumbTouch = false;
-        bool fingerTouch = false;
-        //Checks if thumb is still colliding with the cube
-        thumbTipPosition = leap_hand.Fingers[0].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-        Collider[] thumbTouching = Physics.OverlapSphere(thumbTipPosition, grabRadius);
-        for (int j = 0; j < thumbTouching.Length; ++j)
-            if (thumbTouching[j].transform.parent.gameObject == cube)
-            {
-                thumbTouch = true;
-                break;
-            }
-        //Checks if finger is still colliding with the cube
-
-        fingerTipPosition = leap_hand.Fingers[fingerInt].TipPosition.ToUnityScaled() + handcontroller.transform.position;
-        Collider[] fingerTouching = Physics.OverlapSphere(fingerTipPosition, grabRadius);
-        for (int k = 0; k < fingerTouching.Length; ++k)
-            if (fingerTouching[k].transform.parent.gameObject == cube)
-            {
-                fingerTouch = true;
-                break;
-            }
-        //If thumb and finger are still touching, we're still moving
-        if (thumbTouch && fingerTouch)
+        //Sometimes the hand drops out for a frame. This doesn't update the object's position if the hands aren't there.
+        if (GameObject.Find(this.name + "/thumb/bone3").gameObject.transform != null)
         {
-            //Updates the position of the middle point
-            middle.transform.position = Vector3.Lerp(thumbTipPosition, fingerTipPosition, .5f);
-            return State.Moving;
-        }
-        else
-        {
-            //Makes the cube no longer a transform of the middle object
-            cube.transform.parent = null;
-            //Destroys the Middle object
-            DestroyObject(middle);
-            triggerMove = false;
-            //Plays the release sound
-            audio.PlayOneShot(releaseSound);
-            return State.Idle;
+            //Calculates midpoint between thumb and index finger and uses that as the position of the moveManager
+            Vector3 thumbPosition = GameObject.Find(this.name + "/thumb/bone3").gameObject.transform.position;
+            Vector3 fingerPosition = GameObject.Find(this.name + "/index/bone3").gameObject.transform.position;
+            middlePosition = Vector3.Lerp(thumbPosition, fingerPosition, .5f);
+            //Calculates the difference between where the middle point is now and where it was a frame ago
+            Vector3 diffPosition = middlePrevPosition - middlePosition;
+            //Applies that difference to the grabbed cube
+            cube.position = cube.transform.position - diffPosition;
+            //Logs the middle position to be used as a reference next frame
+            middlePrevPosition = middlePosition;
         }
     }
 
     State OnMove()
     {
-        //Creates a new game object
-        middle = new GameObject("Middle");
-        middle.transform.position = Vector3.Lerp(thumbTipPosition, fingerTipPosition, .5f);
-        //Makes the cube a child of the middle point
-        cube.transform.parent = middle.transform;
+        Debug.Log("Starting move");
+        //Changes the global variable to true, so other scripts can access it
+        moving = true;
+        //Calculates midpoint between thumb and index finger and uses that as the position of the moveManager
+        Vector3 thumbPosition = GameObject.Find(this.name + "/thumb/bone3").gameObject.transform.position;
+        Vector3 fingerPosition = GameObject.Find(this.name + "/index/bone3").gameObject.transform.position;
+        //Previous position gets subtracted from current position in later frames, so we need a previous position to start with
+        middlePrevPosition = Vector3.Lerp(thumbPosition, fingerPosition, .5f);
         //Moves the grabbed object a little closer to the middle position when you grab it
-        cube.transform.position = Vector3.MoveTowards(cube.transform.position, middle.transform.position, .005f);
-        //ADDED - Plays a sound
-        audio.PlayOneShot(grabSound);
+        cube.position = Vector3.MoveTowards(cube.position, middlePrevPosition, .005f);
         return State.Moving;
     }
 
-    //Added by kevin to show how to use scripts instead of tags
-    //Doable[] getDoables()
-    //{
-    //    System.Collections.Generic.List<Doable> objsList = new System.Collections.Generic.List<Doable>();
-    //    HelperFunctions.GetScriptObjectsInScene<Doable>(out objsList);
-    //    return objsList.ToArray();
-    //}
-
-    //void testfunc()
-    //{
-    //    Doable[] objs = getDoables();
-    //    //objs[0].gameObject;
-    //}
-
+    State EndMove()
+    {
+        moving = false;
+        //if (!fingerTouch)
+        //    Debug.Log("Ending move because the finger stopped touching");
+        //else if (!thumbTouch)
+        //    Debug.Log("Ending move because the thumb stopped touching");
+        return State.Idle;
+    }
 }

@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: ToonyNails
-  m_Shader: {fileID: 10, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: d84268709d11078d11005b9844295342, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -16,13 +16,6 @@ Material:
       data:
         first:
           name: _MainTex
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Illum
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -41,17 +34,13 @@ Material:
         second: .699999988
       data:
         first:
-          name: _EmissionLM
-        second: 0
-      data:
-        first:
           name: _Outline
-        second: .00200000009
+        second: .00701886788
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .313725501, g: .313725501, b: .313725501, a: 1}
+        second: {r: .433823526, g: .433823526, b: .433823526, a: 1}
       data:
         first:
           name: _SpecColor

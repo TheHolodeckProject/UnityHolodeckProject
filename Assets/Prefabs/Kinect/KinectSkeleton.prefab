@@ -98,6 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoneMaterial: {fileID: 2100000, guid: f2ea145c63353784985576f08398a815, type: 2}
   BodySourceManager: {fileID: 100004}
+  joinScale: {x: .00999999978, y: .00999999978, z: .00999999978}
+  bodyScale: {x: .300000012, y: .300000012, z: .300000012}
+  bodyOffset: {x: 0, y: 1.60000002, z: 0}
+  bodyRotation: {x: 0, y: -90, z: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

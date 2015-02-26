@@ -17,6 +17,8 @@ public class RiggedHand : HandModel {
   public Vector3 modelFingerPointing = Vector3.forward;
   public Vector3 modelPalmFacing = -Vector3.up;
 
+  protected Quaternion model_reorientation_;
+
   public override void InitHand() {
     UpdateHand();
   }
@@ -32,7 +34,7 @@ public class RiggedHand : HandModel {
     }
 
     if (foreArm != null)
-      foreArm.rotation = GetArmRotation() * Reorientation();
+      foreArm.rotation = GetArmRotation();
 
     for (int i = 0; i < fingers.Length; ++i) {
       if (fingers[i] != null)

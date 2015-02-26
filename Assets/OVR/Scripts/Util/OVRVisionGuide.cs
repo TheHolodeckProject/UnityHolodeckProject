@@ -1,31 +1,35 @@
 /************************************************************************************
+	
+Filename    :   OVRVisionGuide.cs
+Content     :   Guides user back to optimal vision volume 
+Created     :   February 19, 2014
+Authors     :   Peter Giokaris
+		
+Copyright   :   Copyright 2014 Oculus VR, Inc. All Rights reserved.
 
-Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
-
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
-you may not use the Oculus VR Rift SDK except in compliance with the License,
-which is provided at the time of installation or download, or which
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+you may not use the Oculus VR Rift SDK except in compliance with the License, 
+which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
+http://www.oculusvr.com/licenses/LICENSE-3.1 
 
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK 
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
+				
 ************************************************************************************/
-
 using UnityEngine;
 using System.Collections;
 
 /// <summary>
 /// OVR vision guide.
 /// </summary>
-public class OVRVisionGuide : MonoBehaviour
+public class OVRVisionGuide : MonoBehaviour 
 {
 	// Manual fade (used when out of view; will add textures on top)
 	private Texture FadeTexture 			= null;
@@ -37,10 +41,10 @@ public class OVRVisionGuide : MonoBehaviour
 	private float   CameraPositionOverlap  = 0.125f;
 	private float   CameraPositionMaxFade  = 0.65f;
 
-	// Handle to OVRCameraRig
-	private OVRCameraRig CameraController = null;
-
-	// Handle to Vision Guide
+	// Handle to OVRCameraController
+	private OVRCameraController CameraController = null;
+	 
+	// Handle to Vision Guide 
 	private GameObject VisionGuide = null;
 	private float VisionGuideFlashSpeed = 5.0f; // Radians / sec
 
@@ -50,20 +54,18 @@ public class OVRVisionGuide : MonoBehaviour
 	/// <summary>
 	/// Start this instance.
 	/// </summary>
-	void Start ()
-	{
+	void Start () 
+	{	
 		if(CameraController != null)
 		{
-			// Set the GUI target
+			// Set the GUI target 
 			VisionGuide = GameObject.Instantiate(Resources.Load("OVRVisionGuideMessage")) as GameObject;
 			// Grab transform of GUI object
 			Transform t = VisionGuide.transform;
 			// Attach the GUI object to the camera
-			VisionGuide.transform.parent = CameraController.centerEyeAnchor;
+			CameraController.AttachGameObjectToCamera(ref VisionGuide);
 			// Reset the transform values
-			VisionGuide.transform.localPosition = t.position;
-			VisionGuide.transform.localRotation = t.rotation;
-			VisionGuide.transform.localScale    = t.localScale;
+			OVRUtils.SetLocalTransform(ref VisionGuide, ref t);
 			// Deactivate the object
 			VisionGuide.SetActive(false);
 			// Set layer on object
@@ -74,17 +76,41 @@ public class OVRVisionGuide : MonoBehaviour
 	/// <summary>
 	/// Update this instance.
 	/// </summary>
-	void Update()
+	void Update () 
 	{
+		Vector3 absVisionCam = Vector3.zero;
+		OVRCamera.GetAbsoluteCameraFromVisionPosition(ref absVisionCam);
 		Vector3 relVisionCam = Vector3.zero;
+		OVRCamera.GetRelativeCameraFromVisionPosition(ref relVisionCam);
+/*
+		Debug.LogWarning(System.String.Format("ABS: {0:F2} {1:F2} {2:F2}",
+		                                      absVisionCam.x, absVisionCam.y, absVisionCam.z));
+		Debug.LogWarning(System.String.Format("REL: {0:F2} {1:F2} {2:F2}",
+		                                      relVisionCam.x, relVisionCam.y, relVisionCam.z));
+*/
+		// R will reset the orientation based on player input ('R' key)
+		UpdateResetOrientation();
 		// Fade screen out based on location of relative Vision Camera
 		UpdateFadeValueFromRelCamPosition(ref relVisionCam);
 				
 		if (Input.GetKeyDown(KeyCode.T))
-			OVRManager.instance.timeWarp = !OVRManager.instance.timeWarp;
+			CameraController.TimeWarp = !CameraController.TimeWarp;
 		
 		if (Input.GetKeyDown(KeyCode.F))
-			OVRManager.instance.freezeTimeWarp = !OVRManager.instance.freezeTimeWarp;
+			CameraController.FreezeTimeWarp = !CameraController.FreezeTimeWarp;
+	}
+
+	/// <summary>
+	/// Updates the reset orientation.
+	/// </summary>
+	void UpdateResetOrientation()
+	{
+		// Reset the view on 'R'
+		if (Input.GetKeyDown(KeyCode.R) == true)
+		{
+			// Reset tracker position.
+			OVRCamera.ResetCameraPositionOrientation(Vector3.one, Vector3.zero, Vector3.up, Vector3.zero);
+		}
 	}
 
 	/// <summary>
@@ -95,38 +121,38 @@ public class OVRVisionGuide : MonoBehaviour
 	bool UpdateFadeValueFromRelCamPosition(ref Vector3 relCamPosition)
 	{
 		bool result = false;
-		FadeTextureAlpha = 0.0f;
+		FadeTextureAlpha = 0.0f;	
 
 		// Clip camera to min amd max values
 		// MIN
-		if((relCamPosition.x < CameraPositionClampMin.x) &&
-		   (CalculateFadeValue(ref FadeTextureAlpha,
+		if((relCamPosition.x < CameraPositionClampMin.x) && 
+		   (CalculateFadeValue(ref FadeTextureAlpha, 
 		                       relCamPosition.x, CameraPositionClampMin.x) == true))
 			result = true;
 
-		if((relCamPosition.y < CameraPositionClampMin.y) &&
-		   (CalculateFadeValue(ref FadeTextureAlpha,
+		if((relCamPosition.y < CameraPositionClampMin.y) && 
+		   (CalculateFadeValue(ref FadeTextureAlpha, 
 		                    relCamPosition.y, CameraPositionClampMin.y) == true))
 			result = true;
 
-		if((relCamPosition.z < CameraPositionClampMin.z) &&
-		   (CalculateFadeValue(ref FadeTextureAlpha,
+		if((relCamPosition.z < CameraPositionClampMin.z) && 
+		   (CalculateFadeValue(ref FadeTextureAlpha, 
 		                    relCamPosition.z, CameraPositionClampMin.z) == true))
 			result = true;
 
 		// MAX
-		if((relCamPosition.x > CameraPositionClampMax.x) &&
-		   (CalculateFadeValue(ref FadeTextureAlpha,
+		if((relCamPosition.x > CameraPositionClampMax.x) && 
+		   (CalculateFadeValue(ref FadeTextureAlpha, 
 		                    CameraPositionClampMax.x, relCamPosition.x ) == true))
 			result = true;
 
-		if((relCamPosition.y > CameraPositionClampMax.y) &&
-		   (CalculateFadeValue(ref FadeTextureAlpha,
+		if((relCamPosition.y > CameraPositionClampMax.y) && 
+		   (CalculateFadeValue(ref FadeTextureAlpha, 
 		                    CameraPositionClampMax.y, relCamPosition.y ) == true))
 			result = true;
 
-		if((relCamPosition.z > CameraPositionClampMax.z) &&
-		   (CalculateFadeValue(ref FadeTextureAlpha,
+		if((relCamPosition.z > CameraPositionClampMax.z) && 
+		   (CalculateFadeValue(ref FadeTextureAlpha, 
 		                    CameraPositionClampMax.z, relCamPosition.z ) == true))
 			result = true;
 
@@ -172,7 +198,7 @@ public class OVRVisionGuide : MonoBehaviour
 	/// Sets the camera controller.
 	/// </summary>
 	/// <param name="cameraController">Camera controller.</param>
-	public void SetOVRCameraController(ref OVRCameraRig cameraController)
+	public void SetOVRCameraController(ref OVRCameraController cameraController)
 	{
 		CameraController = cameraController;
 	}
@@ -208,12 +234,12 @@ public class OVRVisionGuide : MonoBehaviour
 	/// Raises the GUI vision guide event.
 	/// </summary>
 	public void OnGUIVisionGuide()
-	{
+	{	
 		// Separate fade value (externally driven)
 		if((FadeTexture != null) && (FadeTextureAlpha > 0.0f))
 		{
 			GUI.color = new Color(0.1f, 0.1f, 0.1f, FadeTextureAlpha);
-			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), FadeTexture );
+			GUI.DrawTexture( new Rect(0, 0, Screen.width, Screen.height ), FadeTexture );	
 			GUI.color = Color.white;
 
 			if(VisionGuide != null)
@@ -226,13 +252,12 @@ public class OVRVisionGuide : MonoBehaviour
 				fade *= fade;
 
 				// Fade and flash the VisionGuide message
-				float VisionGuideAlpha =
+				float VisionGuideAlpha = 
 				fade * ((Mathf.Sin(Time.time * VisionGuideFlashSpeed) + 1.0f) * 0.5f);
 				          
-				Material m = VisionGuide.GetComponent<Renderer>().material;
-				Color c = m.GetColor("_Color");
+				Color c = VisionGuide.renderer.material.GetColor("_Color");
 				c.a = VisionGuideAlpha;
-				m.SetColor("_Color", c);
+				VisionGuide.renderer.material.SetColor("_Color", c);
 			}
 		}
 		else

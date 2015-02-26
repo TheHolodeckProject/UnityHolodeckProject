@@ -7,10 +7,7 @@ public class BodySourceView : MonoBehaviour
 {
     public Material BoneMaterial;
     public GameObject BodySourceManager;
-    public Vector3 joinScale = new Vector3(0.01f, 0.01f, 0.01f);
-    public Vector3 bodyScale = new Vector3(0.3f, 0.3f, 0.3f);
-    public Vector3 bodyOffset = new Vector3(0f, 1.6f, 0f);
-    public Vector3 bodyRotation = new Vector3(0f, -90f, 0f);
+    
     private Dictionary<ulong, GameObject> _Bodies = new Dictionary<ulong, GameObject>();
     private BodySourceManager _BodyManager;
 //    private Plane mirrorPlane = new Plane(Vector3.zero,Vector3.up,Vector3.forward);
@@ -108,6 +105,7 @@ public class BodySourceView : MonoBehaviour
                 {
                     _Bodies[body.TrackingId] = CreateBodyObject(body.TrackingId);
                 }
+                
                 RefreshBodyObject(body, _Bodies[body.TrackingId]);
             }
         }
@@ -125,12 +123,32 @@ public class BodySourceView : MonoBehaviour
             LineRenderer lr = jointObj.AddComponent<LineRenderer>();
             lr.SetVertexCount(2);
             lr.material = BoneMaterial;
-            lr.SetWidth(0.05f, 0.05f);
-            jointObj.transform.localScale = joinScale;
+
+            //Makes the hands invisible
+             if(jt == Kinect.JointType.HandLeft ||
+                jt == Kinect.JointType.HandRight ||
+                jt == Kinect.JointType.HandTipLeft ||
+                jt == Kinect.JointType.HandTipRight ||
+                jt == Kinect.JointType.ThumbLeft ||
+                jt == Kinect.JointType.ThumbRight)
+                 lr.SetWidth(0.00f, 0.00f);
+            else
+                lr.SetWidth(0.05f, 0.05f);
+
+             if (jt == Kinect.JointType.HandLeft ||
+                 jt == Kinect.JointType.HandRight ||
+                 jt == Kinect.JointType.HandTipLeft ||
+                 jt == Kinect.JointType.HandTipRight ||
+                 jt == Kinect.JointType.ThumbLeft ||
+                 jt == Kinect.JointType.ThumbRight)
+                 jointObj.GetComponent<MeshRenderer>().enabled = false;
+             else
+
+                 jointObj.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
             jointObj.name = jt.ToString();
             jointObj.transform.parent = body.transform;
         }
-        body.transform.Rotate(bodyRotation);
+        
         return body;
     }
     
@@ -178,9 +196,9 @@ public class BodySourceView : MonoBehaviour
         }
     }
     
-    private Vector3 GetVector3FromJoint(Kinect.Joint joint)
+    private static Vector3 GetVector3FromJoint(Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * bodyScale.x + bodyOffset.x, joint.Position.Y * bodyScale.y + bodyOffset.y, joint.Position.Z * -1 * bodyScale.z + bodyOffset.z);
+        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * -10);
 
     }
 }

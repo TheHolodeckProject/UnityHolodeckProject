@@ -26,17 +26,16 @@ public class PositionLeapMotion : MonoBehaviour {
       
         if (leapLeftHand != null && kinectLeftHand != null && !leftHandLocked)
         {
-            //!!! Had to comment out after Leap Motion update
-            //leapLeftHand.GetComponent<RiggedHand>().positionOverride = kinectLeftHand.transform.position;
-            //leapLeftHand.GetComponent<RiggedHand>().overridePosition = true;
+            leapLeftHand.GetComponent<RiggedHand>().positionOverride = kinectLeftHand.transform.position;
+            leapLeftHand.GetComponent<RiggedHand>().overridePosition = true;
             leftHandLocked = true;
         }
          else leftHandLocked = false;
 
         if (leapRightHand != null && kinectRightHand != null && !rightHandLocked)
         {
-            //leapRightHand.GetComponent<RiggedHand>().positionOverride = kinectRightHand.transform.position;
-            //leapRightHand.GetComponent<RiggedHand>().overridePosition = true;
+            leapRightHand.GetComponent<RiggedHand>().positionOverride = kinectRightHand.transform.position;
+            leapRightHand.GetComponent<RiggedHand>().overridePosition = true;
             rightHandLocked = true;
         }
         else rightHandLocked = false;

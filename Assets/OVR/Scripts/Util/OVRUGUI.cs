@@ -1,29 +1,28 @@
 ﻿/************************************************************************************
 
-Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
+Filename    :   OVRNewGUI.cs
+Content     :   Main script to use new Unity GUI
+Created     :   July 8, 2014
+Authors     :   Homin Lee
 
-Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
-you may not use the Oculus VR Rift SDK except in compliance with the License,
-which is provided at the time of installation or download, or which
+Copyright   :   Copyright 2014 Oculus VR, Inc. All Rights reserved.
+
+Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
+you may not use the Oculus VR Rift SDK except in compliance with the License, 
+which is provided at the time of installation or download, or which 
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.2
+http://www.oculusvr.com/licenses/LICENSE-3.1 
 
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK 
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
 ************************************************************************************/
-
-// Use the Unity new GUI with Unity 4.6 or above.
-#if UNITY_4_6 || UNITY_5_0
-#define USE_NEW_GUI
-#endif
-
 using UnityEngine;
 #if USE_NEW_GUI
 using UnityEngine.UI;
@@ -39,6 +38,7 @@ public class OVRUGUI
 #if USE_NEW_GUI
 
     #region UIGameObject
+
     private static GameObject NewGUIManager;
     private static GameObject RiftPresent;
     private static GameObject LowPersistence;
@@ -76,9 +76,9 @@ public class OVRUGUI
     [HideInInspector]
     public static OVRPlayerController PlayerController = null;
     [HideInInspector]
-    public static OVRCameraRig CameraController = null;
-    //[HideInInspector]
-    //public static string strDeviceDetection = null;// Device attach / detach
+    public static OVRCameraController CameraController = null;
+    [HideInInspector]
+    public static string strDeviceDetection = null;// Device attach / detach
     [HideInInspector]
     public static string strResolutionEyeTexture = null;// "Resolution : {0} x {1}"
     [HideInInspector]
@@ -100,15 +100,12 @@ public class OVRUGUI
         RiftPresent = ComponentComposition(RiftPresent);
         RiftPresent.transform.parent = GUIMainOBj.transform;
         RiftPresent.name = "RiftPresent";
-		RectTransform r = RiftPresent.GetComponent<RectTransform>();
-        r.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        r.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        r.localEulerAngles = Vector3.zero;
-
-		Text t = RiftPresent.GetComponentInChildren<Text>();
-        t.text = strRiftPresent;
-        t.fontSize = 20;        
-    }  
+        RiftPresent.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        RiftPresent.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        RiftPresent.GetComponent<RectTransform>().localEulerAngles = Vector3.zero;
+        RiftPresent.GetComponentInChildren<Text>().text = strRiftPresent;
+        RiftPresent.GetComponentInChildren<Text>().fontSize = 20;        
+    }
 
     /// <summary>
     /// It's for rift present GUI
@@ -123,7 +120,6 @@ public class OVRUGUI
         UpdateVariable();
     }
 
-
     /// <summary>
     /// Update VR Variables
     /// </summary>
@@ -136,7 +132,7 @@ public class OVRUGUI
         if (!string.IsNullOrEmpty(strVisionMode))
             VisionMode.GetComponentInChildren<Text>().text = strVisionMode;
         if (!string.IsNullOrEmpty(strFPS))
-             FPS.GetComponentInChildren<Text>().text = strFPS;
+            FPS.GetComponentInChildren<Text>().text = strFPS;
         if (!string.IsNullOrEmpty(strPrediction))
             Prediction.GetComponentInChildren<Text>().text = strPrediction;
         if (!string.IsNullOrEmpty(strIPD))
@@ -174,38 +170,83 @@ public class OVRUGUI
         
         // Print out for Low Persistence Mode
         if (!string.IsNullOrEmpty(strLPM))
-        {           
-            LowPersistence = UIObjectManager(LowPersistence, "LowPersistence", posY -= offsetY, strLPM, fontSize);
+        {
+            LowPersistence = ComponentComposition(LowPersistence);
+            LowPersistence.name = "LowPersistence";
+            LowPersistence.transform.parent = NewGUIManager.transform;
+            LowPersistence.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            LowPersistence.GetComponentInChildren<Text>().text = strLPM;
+            LowPersistence.GetComponentInChildren<Text>().fontSize = fontSize;
+            LowPersistence.transform.localEulerAngles = Vector3.zero;
+            LowPersistence.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
+
+
 
         // Print out for VisionMode
         if (!string.IsNullOrEmpty(strVisionMode))
         {
-            VisionMode = UIObjectManager(VisionMode, "VisionMode", posY -= offsetY, strVisionMode, fontSize);
+            VisionMode = ComponentComposition(VisionMode);
+            VisionMode.name = "VisionMode";
+            VisionMode.transform.parent = NewGUIManager.transform;
+            VisionMode.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            VisionMode.GetComponentInChildren<Text>().text = strVisionMode;
+            VisionMode.GetComponentInChildren<Text>().fontSize = fontSize;
+            VisionMode.transform.localEulerAngles = Vector3.zero;
+            VisionMode.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
         }
 
-        // Print out for FPS
         if (!string.IsNullOrEmpty(strFPS))
         {
-            FPS = UIObjectManager(FPS, "FPS", posY -= offsetY, strFPS, fontSize);
+            FPS = ComponentComposition(FPS);
+            FPS.name = "FPS";
+            FPS.transform.parent = NewGUIManager.transform;
+            FPS.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            FPS.GetComponentInChildren<Text>().text = strFPS;
+            FPS.GetComponentInChildren<Text>().fontSize = fontSize;
+            FPS.transform.localEulerAngles = Vector3.zero;
+            FPS.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
+
 
         // Print out for Prediction
         if (!string.IsNullOrEmpty(strPrediction))
         {
-            Prediction = UIObjectManager(Prediction, "Prediction", posY -= offsetY, strPrediction, fontSize);
+            Prediction = ComponentComposition(Prediction);
+            Prediction.name = "Prediction";
+            Prediction.transform.parent = NewGUIManager.transform;
+            Prediction.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            Prediction.GetComponentInChildren<Text>().text = strPrediction;
+            Prediction.GetComponentInChildren<Text>().fontSize = fontSize;
+            Prediction.transform.localEulerAngles = Vector3.zero;
+            Prediction.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
         // Print out for IPD
         if (!string.IsNullOrEmpty(strIPD))
         {
-            IPD = UIObjectManager(IPD, "IPD", posY -= offsetY, strIPD, fontSize);
+            IPD = ComponentComposition(IPD);
+            IPD.name = "IPD";
+            IPD.transform.parent = NewGUIManager.transform;
+            IPD.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            IPD.GetComponentInChildren<Text>().text = strIPD;
+            IPD.GetComponentInChildren<Text>().fontSize = fontSize;
+            IPD.transform.localEulerAngles = Vector3.zero;
+            IPD.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
-        // Print out for FOV
+        // Print out for FOV{
         if (!string.IsNullOrEmpty(strFOV))
         {
-            FOV = UIObjectManager(FOV, "FOV", posY -= offsetY, strFOV, fontSize);
+            FOV = ComponentComposition(FOV);
+            FOV.name = "FOV";
+            FOV.transform.parent = NewGUIManager.transform;
+            FOV.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            FOV.GetComponentInChildren<Text>().text = strFOV;
+            FOV.GetComponentInChildren<Text>().fontSize = fontSize;
+            FOV.transform.localEulerAngles = Vector3.zero;
+            FOV.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
         if (PlayerController != null)
@@ -213,26 +254,53 @@ public class OVRUGUI
             // Print out for Height
             if (!string.IsNullOrEmpty(strHeight))
             {
-                Height = UIObjectManager(Height, "Height", posY -= offsetY, strHeight, fontSize);
+                Height = ComponentComposition(Height);
+                Height.name = "Height";
+                Height.transform.parent = NewGUIManager.transform;
+                Height.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+                Height.GetComponentInChildren<Text>().text = strHeight;
+                Height.GetComponentInChildren<Text>().fontSize = fontSize;
+                Height.transform.localEulerAngles = Vector3.zero;
+                Height.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
 
             // Print out for Speed Rotation Multiplier
             if (!string.IsNullOrEmpty(strSpeedRotationMultipler))
             {
-                SpeedRotationMutipler = UIObjectManager(SpeedRotationMutipler, "SpeedRotationMutipler", posY -= offsetY, strSpeedRotationMultipler, fontSize);
+                SpeedRotationMutipler = ComponentComposition(SpeedRotationMutipler);
+                SpeedRotationMutipler.name = "SpeedRotationMutipler";
+                SpeedRotationMutipler.transform.parent = NewGUIManager.transform;
+                SpeedRotationMutipler.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+                SpeedRotationMutipler.GetComponentInChildren<Text>().text = strSpeedRotationMultipler;
+                SpeedRotationMutipler.GetComponentInChildren<Text>().fontSize = fontSize;
+                SpeedRotationMutipler.transform.localEulerAngles = Vector3.zero;
+                SpeedRotationMutipler.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }
 
-        // Print out for Resoulution of Eye Texture
         if (!string.IsNullOrEmpty(strResolutionEyeTexture))
         {
-            ResolutionEyeTexture = UIObjectManager(ResolutionEyeTexture, "Resolution", posY -= offsetY, strResolutionEyeTexture, fontSize);
+            ResolutionEyeTexture = ComponentComposition(ResolutionEyeTexture);
+            ResolutionEyeTexture.name = "Resolution";
+            ResolutionEyeTexture.transform.parent = NewGUIManager.transform;
+            ResolutionEyeTexture.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            ResolutionEyeTexture.GetComponentInChildren<Text>().text = strResolutionEyeTexture;
+            ResolutionEyeTexture.GetComponentInChildren<Text>().fontSize = fontSize;
+            ResolutionEyeTexture.transform.localEulerAngles = Vector3.zero;
+            ResolutionEyeTexture.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
-        // Print out for Latency
         if (!string.IsNullOrEmpty(strLatencies))
         {
-            Latencies = UIObjectManager(Latencies, "Latency", posY -= offsetY, strLatencies, 17);
+            Latencies = ComponentComposition(Latencies);
+            Latencies.name = "Latency";
+            Latencies.transform.parent = NewGUIManager.transform;
+            Latencies.GetComponent<RectTransform>().localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
+            Latencies.GetComponentInChildren<Text>().text = strLatencies;
+            Latencies.GetComponentInChildren<Text>().fontSize = 17;
+            Latencies.transform.localEulerAngles = Vector3.zero;
+            Latencies.GetComponent<RectTransform>().localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
             posY = 0.0f;
         }
 
@@ -241,26 +309,6 @@ public class OVRUGUI
 
     }
 
-    static GameObject UIObjectManager(GameObject gameObject, string name, float posY, string text, int fontSize)
-    {
-        gameObject = ComponentComposition(gameObject);
-        gameObject.name = name;
-        gameObject.transform.parent = NewGUIManager.transform;
-
-		RectTransform r = gameObject.GetComponent<RectTransform>();
-        r.localPosition = new Vector3(0.0f, posY -= offsetY, 0.0f);
-
-		Text t = gameObject.GetComponentInChildren<Text>();
-        t.text = text;
-        t.fontSize = fontSize;
-        gameObject.transform.localEulerAngles = Vector3.zero;
-
-        r.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-        return gameObject;
-
-    }
-    
     /// <summary>
     /// Component composition
     /// </summary>

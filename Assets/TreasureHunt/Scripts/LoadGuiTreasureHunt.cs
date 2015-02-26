@@ -7,11 +7,11 @@ public class LoadGuiTreasureHunt : MonoBehaviour
 {
 
     string comPortFieldString = "COM1";
-    int subjectIdentifierInt = 000001;
-    int numberOfStimuliInt = 2;
+    int subjectIdentifierInt = 1234567890;
+    int numberOfStimuliInt = 8;
     int numberofTrialsInt = 3;
     string errorString = "";
-    int difficulty = 4;
+    int difficulty = 3;
     bool togglePtrn = false;
     bool toggleTimed = false;
     bool ptrnBool = false;
@@ -52,9 +52,9 @@ public class LoadGuiTreasureHunt : MonoBehaviour
 
         //Subject Identifier
         GUI.Label(new Rect(200, 20, 300, 30), "Subject Identifier");
-        
+        ///??? The second argument has to be a string. The last part with the -1?"":"", is that somehow
         string tmp = GUI.TextField(new Rect(200, 50, 120, 20), subjectIdentifierInt == -1 ? "" : "" + subjectIdentifierInt);
-        
+        //??? What is this part doing? Without this part, I couldn't modify subjectIdentifier in the Loa
         if (tmp == "")
             subjectIdentifierInt = -1;
         else
@@ -174,6 +174,4 @@ public class LoadGuiTreasureHunt : MonoBehaviour
     {
         //INSERT TEST CODE FOR HAPTICS HERE!
     }
-
-
 }

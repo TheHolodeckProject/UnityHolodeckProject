@@ -23,7 +23,6 @@ public class NBodySimulation : MonoBehaviour {
     private NumericalMethod numericalMethod = euler;
     private bool isValidSimulation = false;
     private bool simulationStarted = false;
-    private bool prevSpaceButtonState = false;
 
 	// Use this for initialization
 	void Start () {
@@ -67,32 +66,26 @@ public class NBodySimulation : MonoBehaviour {
                 this.bodies[i].Position = new Vector3(new_x_vals.x, new_y_vals.x, new_z_vals.x);
                 this.bodies[i].Velocity = new Vector3(new_x_vals.y, new_y_vals.y, new_z_vals.y);
             }
-        }
-
-        bool spaceButtonState = Input.GetKey(KeyCode.Space);
-        if (spaceButtonState == true)
-        {
-            if (!simulationStarted)
-            {
-                playerPrefab.transform.parent = this.gameObject.transform;
-                playerTarget.transform.parent = this.gameObject.transform;
-                playerPrefab.tag = "Untagged";
-                playerTarget.tag = "Untagged";
-                playerTarget.SetActive(false);
-                Vector3 vel = (playerTarget.transform.localPosition - playerPrefab.transform.localPosition);
-                vel = new Vector3(vel.x * playerVelocityScaling, vel.y * playerVelocityScaling, vel.z * playerVelocityScaling);
-                playerGBody.Velocity = vel;
-                playerGBody.Position = playerPrefab.transform.localPosition;
-                simulationStarted = true;
-            }
-        }
-        else
-        {
-            if (prevSpaceButtonState == true)
-                pauseSimulation = !pauseSimulation;
-        }
-        prevSpaceButtonState = spaceButtonState;
+        }            
 	}
+
+    public void StartSimulation()
+    {
+        if (!simulationStarted)
+        {
+            playerPrefab.transform.parent = this.gameObject.transform;
+            playerTarget.transform.parent = this.gameObject.transform;
+            playerPrefab.tag = "Untagged";
+            playerTarget.tag = "Untagged";
+            playerTarget.SetActive(false);
+            Vector3 vel = (playerTarget.transform.localPosition - playerPrefab.transform.localPosition);
+            vel = new Vector3(vel.x * playerVelocityScaling, vel.y * playerVelocityScaling, vel.z * playerVelocityScaling);
+            playerGBody.Velocity = vel;
+            playerGBody.Position = playerPrefab.transform.localPosition;
+            simulationStarted = true;
+            pauseSimulation = false;
+        }
+    }
 
     private delegate Vector2 NumericalMethod(float a, float r, float v, float dt);
 

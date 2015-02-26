@@ -18,8 +18,7 @@ public class SkeletalHand : HandModel {
   public GameObject wristJoint;
 
   void Start() {
-    // Ignore collisions with self.
-    Leap.Utils.IgnoreCollisions(gameObject, gameObject);
+    IgnoreCollisionsWithSelf();
   }
 
   public override void InitHand() {
