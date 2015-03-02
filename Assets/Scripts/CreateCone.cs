@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -205,3 +207,5 @@ public class CreateCone : ScriptableWizard
         Selection.activeObject = newCone;
     }
 }
+
+#endif

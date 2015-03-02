@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: MovableCube
-  m_TagString: Movable
+  m_TagString: Loggable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   fingerTouch: 0
   thumbTouch: 0
   activeFinger: 
-  activeThumb: 
+  activeHand: 
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -128,7 +128,7 @@ MonoBehaviour:
   fingerTouch: 0
   thumbTouch: 0
   activeFinger: 
-  activeThumb: 
+  activeHand: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -1,35 +1,26 @@
-﻿/************************************************************************************
+/************************************************************************************
 
-Filename    :   OVRCrosshair.cs
-Content     :   Implements a hud cross-hair, rendered into a texture and mapped to a
-				3D plane projected in front of the camera
-Created     :   May 21 8, 2013
-Authors     :   Peter Giokaris
+Copyright   :   Copyright 2014 Oculus VR, LLC. All Rights reserved.
 
-Copyright   :   Copyright 2014 Oculus VR, Inc. All Rights reserved.
-
-Licensed under the Oculus VR Rift SDK License Version 3.1 (the "License"); 
-you may not use the Oculus VR Rift SDK except in compliance with the License, 
-which is provided at the time of installation or download, or which 
+Licensed under the Oculus VR Rift SDK License Version 3.2 (the "License");
+you may not use the Oculus VR Rift SDK except in compliance with the License,
+which is provided at the time of installation or download, or which
 otherwise accompanies this software in either electronic or hard copy form.
 
 You may obtain a copy of the License at
 
-http://www.oculusvr.com/licenses/LICENSE-3.1 
+http://www.oculusvr.com/licenses/LICENSE-3.2
 
-Unless required by applicable law or agreed to in writing, the Oculus VR SDK 
+Unless required by applicable law or agreed to in writing, the Oculus VR SDK
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
 ************************************************************************************/
+
 using UnityEngine;
 
-//-------------------------------------------------------------------------------------
-// ***** OVRCrosshair
-//
- 
 /// <summary>
 /// OVRCrosshair is a component that adds a stereoscoppic cross-hair into a scene.
 /// </summary>
@@ -38,7 +29,7 @@ public class OVRCrosshair
 	#region Variables
 	public Texture ImageCrosshair 	  = null;
 	
-	public OVRCameraController CameraController = null;
+	public OVRCameraRig CameraController = null;
 	public OVRPlayerController PlayerController = null;
 	
 	public float   FadeTime			  = 0.3f;
@@ -56,7 +47,7 @@ public class OVRCrosshair
 	private bool   DisplayCrosshair;
 	private bool   CollisionWithGeometry;
 	private float  FadeVal;
-	private Camera MainCam;
+	private Transform UIAnchor;
 	
 	private float  XL 				  = 0.0f;
 	private float  YL 				  = 0.0f;
@@ -81,10 +72,10 @@ public class OVRCrosshair
 	/// Sets the OVR camera controller.
 	/// </summary>
 	/// <param name="cameraController">Camera controller.</param>
-	public void SetOVRCameraController(ref OVRCameraController cameraController)
+	public void SetOVRCameraController(ref OVRCameraRig cameraController)
 	{
 		CameraController = cameraController;
-		CameraController.GetCamera(ref MainCam);
+		UIAnchor = CameraController.centerEyeAnchor;
 	}
 
 	/// <summary>
@@ -130,15 +121,17 @@ public class OVRCrosshair
 	/// </summary>
 	public void UpdateCrosshair()
 	{
-		// Do not do these tests within OnGUI since they will be called twice
-		ShouldDisplayCrosshair();
-		CollisionWithGeometryCheck();
+		if (ShouldDisplayCrosshair())
+		{
+			// Do not do these tests within OnGUI since they will be called twice
+			CollisionWithGeometryCheck();
+		}
 	}
 	
 	/// <summary>
 	/// The GUI crosshair event.
 	/// </summary>
-	public void  OnGUICrosshair()
+	public void OnGUICrosshair()
 	{
 		if ((DisplayCrosshair == true) && (CollisionWithGeometry == false))
 			FadeVal += Time.deltaTime / FadeTime;
@@ -243,14 +236,14 @@ public class OVRCrosshair
 	{
 		CollisionWithGeometry = false;
 		
-		Vector3 startPos = MainCam.transform.position;
+		Vector3 startPos = UIAnchor.position;
 		Vector3 dir = Vector3.forward;
-		dir = MainCam.transform.rotation * dir;
+		dir = UIAnchor.rotation * dir;
 		dir *= CrosshairDistance;
 		Vector3 endPos = startPos + dir;
 		
 		RaycastHit hit;
-		if (Physics.Linecast(startPos, endPos, out hit)) 
+		if (Physics.Linecast(startPos, endPos, out hit))
 		{
 			if (!hit.collider.isTrigger)
 			{
