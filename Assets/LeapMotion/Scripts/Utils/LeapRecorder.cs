@@ -132,6 +132,29 @@ public class LeapRecorder {
     stream.Close();
     return path;
   }
+
+
+  public string SaveToNamedFile(string p)
+  {
+      string path = p + ".txt";
+
+      if (File.Exists(@path))
+      {
+          File.Delete(@path);
+      }
+
+      FileStream stream = new FileStream(path, FileMode.Append, FileAccess.Write);
+      for (int i = 0; i < frames_.Count; ++i)
+      {
+          byte[] frame_size = new byte[4];
+          frame_size = System.BitConverter.GetBytes(frames_[i].Length);
+          stream.Write(frame_size, 0, frame_size.Length);
+          stream.Write(frames_[i], 0, frames_[i].Length);
+      }
+
+      stream.Close();
+      return path;
+  }
   
   public void Load(TextAsset text_asset) {
     byte[] data = text_asset.bytes;

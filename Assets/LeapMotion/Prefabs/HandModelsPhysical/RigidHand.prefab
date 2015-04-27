@@ -1191,6 +1191,8 @@ MonoBehaviour:
   - {fileID: 11400004}
   - {fileID: 11400002}
   - {fileID: 11400000}
+  overridePosition: 0
+  positionOverride: {x: 0, y: 0, z: 0}
   palm: {fileID: 100034}
   forearm: {fileID: 0}
   wristJoint: {fileID: 0}

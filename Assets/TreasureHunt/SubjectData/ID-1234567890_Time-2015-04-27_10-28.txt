@@ -1,0 +1,6 @@
+Object Swap Task- Subj: 1234567890, Mode: Practice,Pattern Type: Random, Trials: 3, #Stim: 3, Difficulty: 2
+
+
+Search Phase Time Start: 13.3621
+
+

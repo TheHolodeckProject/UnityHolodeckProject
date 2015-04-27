@@ -9,9 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/NewLoader.unity
   - enabled: 0
     path: Assets/Scenes/Tasks/3DSpatialMemoryTraining.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tasks/NBodyTask.unity
   - enabled: 0
     path: Assets/TreasureHunt/Scenes/TreasureHunt.unity
-  - enabled: 0
+  - enabled: 1
+    path: Assets/TreasureHunt/Scenes/TreasureHuntLoader.unity
+  - enabled: 1
     path: Assets/TreasureHunt/Scenes/TreasureHunt.unity
+  - enabled: 0
+    path: Assets/BrainAwarenessDemo/Scenes/LeapDemo.unity

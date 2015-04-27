@@ -8,7 +8,7 @@ public class LoadGuiTreasureHunt : MonoBehaviour
 
     string comPortFieldString = "COM1";
     int subjectIdentifierInt = 1234567890;
-    int numberOfStimuliInt = 8;
+    int numberOfStimuliInt = 2;
     int numberofTrialsInt = 3;
     string errorString = "";
     int difficulty = 3;

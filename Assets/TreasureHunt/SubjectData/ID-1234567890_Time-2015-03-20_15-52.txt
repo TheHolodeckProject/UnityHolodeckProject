@@ -1,0 +1,21 @@
+Object Swap Task- Subj: 1234567890, Mode: Practice,Pattern Type: Random, Trials: 3, #Stim: 2, Difficulty: 3
+
+
+Search Phase Time Start: 2.967484
+
+
+Found Times 
+
+4.626667,    
+4.826667,    
+
+
+Found Times 
+
+Sphere 1 location: (-1.068198, 4.530381, 0.9992279),   
+Sphere 1 location: (-1.453194, 3.109784, 1.126519),   
+Recall Phase Time Start: 35.48153
+
+Search Phase Time Start: 42.56752
+
+

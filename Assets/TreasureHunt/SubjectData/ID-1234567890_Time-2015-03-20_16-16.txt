@@ -1,0 +1,8588 @@
+Object Swap Task- Subj: 1234567890, Mode: Practice,Pattern Type: Random, Trials: 3, #Stim: 2, Difficulty: 3
+
+
+Search Phase Time Start: 2.051269
+
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.18209
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.18887
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.20769
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.21467
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.22134
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.22967
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.24592
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.26268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.28004
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.29663
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.31269
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.32998
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.3484
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.36263
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.37985
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.39664
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.41364
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.42946
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.44601
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.46263
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.48062
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.49662
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.51323
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.52944
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.54705
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.56377
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.57948
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.59689
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.61391
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.63179
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.64616
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.66279
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.68025
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.69639
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.7131
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.73019
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.74751
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.76267
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.77943
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.79622
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.81395
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.82977
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.8461
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.86279
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.88028
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.89603
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.91299
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.93
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.94859
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.96263
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.97924
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 36.99624
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.01373
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.02967
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.04683
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.06251
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.08041
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.09598
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.11287
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.12983
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.14716
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.16307
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.17932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.19611
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.21361
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.22964
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.24621
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.26278
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.28045
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.2961
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.31274
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.32962
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.34721
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.36297
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.37926
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.396
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.41381
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.42955
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.44617
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.46265
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.48014
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.49595
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.51286
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.52958
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.54664
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.56354
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.58016
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.596
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.61385
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.62944
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.64634
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.66341
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.68078
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.69615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.71308
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.72956
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.74716
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.76312
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.77955
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.79643
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.81415
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.82952
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.84591
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.86278
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.88031
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.89615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.91299
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.92964
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.94699
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.96275
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.97947
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 37.99615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.01369
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.02927
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.04588
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.06285
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.08036
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.09623
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.11319
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.1293
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.14701
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.16262
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.17924
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.19605
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.21371
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.22923
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.24619
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.26261
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.28032
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.29604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.31304
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.3299
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.34727
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.36277
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.37922
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.39628
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.41398
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.42965
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.44622
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.46262
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.48029
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.49615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.51266
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.52941
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.54771
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.56409
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.57932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.59617
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.61342
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.62969
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.6464
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.6628
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.68033
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.69607
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.71299
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.72982
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.74799
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.76284
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.77932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.79608
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.81367
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.82992
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.84676
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.86337
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.88267
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.8964
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.91286
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.92973
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.94744
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.96375
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.97989
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 38.99645
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.01346
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.02953
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.04607
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.06309
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.08029
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.09619
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.1132
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.1295
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.1472
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.16324
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.17987
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.19604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.21355
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.22942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.24615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.2628
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.28023
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.29612
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.3127
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.32927
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.34718
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.36261
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.37979
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.39622
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.41426
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.42931
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.44607
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.46275
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.4804
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.4967
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.51326
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.5292
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.54686
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.56271
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.5795
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.59626
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.61386
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.62929
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.64603
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.66302
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.6802
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.69642
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.71355
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.7296
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.74725
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.76286
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.77964
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.79626
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.81375
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.82944
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.84627
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.8629
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.88046
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.89612
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.91294
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.92976
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.94762
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.96281
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.97944
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 39.996
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.01371
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.02966
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.0463
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.06268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.08032
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.09604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.11288
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.1297
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.14693
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.16288
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.17984
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.19677
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.21424
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.22971
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.24642
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.2633
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.28001
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.29612
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.31296
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.32957
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.34666
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.36349
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.37935
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.39608
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.41356
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.42945
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.44625
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.46284
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.48034
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.49615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.5126
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.52936
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.5472
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.56303
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.5794
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.59607
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.61388
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.62952
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.64634
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.66353
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.6806
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.6961
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.71275
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.73009
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.74876
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.76298
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.78023
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.79637
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.8138
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.82942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.8461
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.86272
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.88037
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.89635
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.91282
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.92927
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.94699
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.96259
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.97961
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 40.99621
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.01376
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.02922
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.04598
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.06268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.08035
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.09645
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.11326
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.1292
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.1471
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.16261
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.17932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.19608
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.21324
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.22942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.24632
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.26255
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.28017
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.29649
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.31314
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.32981
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.34702
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.36259
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.37932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.39603
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.41324
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.42947
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.44612
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.46278
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.48051
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.49593
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.51279
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.52959
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.5475
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.56286
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.57953
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.59593
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.61369
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.62989
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.64637
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.66335
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.6801
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.6959
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.71251
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.72981
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.74694
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.76279
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.77924
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.79597
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.81392
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.82987
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.84631
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.86321
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.88012
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.89601
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.9128
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.92928
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.94704
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.96313
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.97932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 41.99607
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.01366
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.02937
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.04628
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.06288
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.08055
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.09588
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.11264
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.12942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.14721
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.16291
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.17985
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.19592
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.21356
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.22927
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.246
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.26269
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.28037
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.29601
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.31271
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.32938
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.34683
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.36277
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.37943
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.39666
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.41367
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.42935
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.44623
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.46259
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.48068
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.49612
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.51279
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.52933
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.54699
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.56264
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.57942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.596
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.61373
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.62922
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.64616
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.66271
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.68032
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.69645
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.71289
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.72925
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.74703
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.7626
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.77965
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.79641
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.81351
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.82938
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.84599
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.86275
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.88026
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.89621
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.91316
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.93012
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.94639
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.96267
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.9793
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 42.99613
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.01322
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.02962
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.04631
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.06263
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.08029
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.096
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.11325
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.12963
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.14726
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.1627
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.17945
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.1962
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.21379
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.22963
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.24677
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.26262
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.28023
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.29602
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.31276
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.32993
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.3469
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.36278
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.3794
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.396
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.41373
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.42953
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.44625
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.46338
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.4803
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.49591
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.5126
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.52934
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.54675
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.56314
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.57924
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.596
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.6138
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.62942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.64629
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.66295
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.68025
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.69593
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.71262
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.72931
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.74686
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.76285
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.78002
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.79609
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.81366
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.82917
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.84604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.86293
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.88061
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.89587
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.91283
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.92918
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.94684
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.96251
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.9796
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 43.99649
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.01382
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.02934
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.04617
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.06264
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.08054
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.09678
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.11269
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.12938
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.14705
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.16286
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.18013
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.19614
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.21379
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.22945
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.24575
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.26289
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.27981
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.29686
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.31277
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.32954
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.34682
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.36253
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.37921
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.39589
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.41323
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.42966
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.44604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.46262
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.48058
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.49607
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.51278
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.52988
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.54753
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.56268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.57928
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.59608
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.61365
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.62949
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.64597
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.6627
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.68045
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.69593
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.71288
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.72953
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.74752
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.7627
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.77941
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.79603
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.81374
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.82965
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.84696
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.86261
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.88005
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.89604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.91285
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.92951
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.94712
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.96259
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.97939
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 44.99618
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.01361
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.02949
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.04604
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.06346
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.08033
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.09586
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.11256
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.12941
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.14679
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.16292
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.17945
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.19615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.21356
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.22955
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.24615
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.2629
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.28004
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.29595
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.31268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.32952
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.34725
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.363
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.37932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.39611
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.41336
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.42942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.44618
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.46334
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.48105
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.49597
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.51281
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.52947
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.54697
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.56288
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.57998
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.59655
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.614
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.63022
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.64674
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.66311
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.68075
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.69616
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.71291
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.72953
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.74659
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.76254
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.77948
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.79596
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.81363
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.82927
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.84584
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.86279
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.88036
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.89645
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.91312
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.9296
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.94713
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.96261
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.97943
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 45.99633
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.01397
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.02973
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.04602
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.06274
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.08014
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.09632
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.1129
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.13023
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.14733
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.16269
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.17928
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.19609
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.21363
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.22938
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.24603
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.26258
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.28009
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.2961
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.31299
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.32937
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.3471
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.36271
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.3795
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.3963
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.41362
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.42966
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.4464
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.46301
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.48021
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.49596
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.51268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.53003
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.54731
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.56283
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.57954
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.59613
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.61383
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.62941
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.64692
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.66321
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.6807
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.69601
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.71285
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.72966
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.74639
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.76357
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.77983
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.79634
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.81356
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.8293
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.84653
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.86333
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.88039
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.89647
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.91245
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.92944
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.94668
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.96341
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.97998
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 46.99656
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.01334
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.03
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.0465
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.06306
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.07975
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.09624
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.11267
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.12996
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.14703
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.1628
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.17967
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.19667
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.21445
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.22928
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.24619
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.26275
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.28009
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.29627
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.3131
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.32932
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.34714
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.36268
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.37943
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.39608
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.41341
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.42919
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.44595
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.4627
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.48037
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.4968
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.51299
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.52931
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.54675
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.56271
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.57936
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.59614
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.61367
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.62988
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.64625
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.66262
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.68023
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.69597
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.7129
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.72979
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.74737
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.76271
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.77936
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.79614
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.8136
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.82942
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.8463
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.86266
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.88024
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.89602
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.91282
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.92961
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.94703
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.96265
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.9793
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 47.99623
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 48.01366
+
+Found Times 
+
+5.413333,    
+6.773334,    
+
+
+Found Times 
+
+Sphere 1 location: (-0.959725, 4.070335, -1.063238),   
+Sphere 1 location: (-1.638906, 3.659412, 0.3952218),   
+Recall Phase Time Start: 48.0298
+
+
+
+
+Mark Times 
+
+ Point recorded at 40.61388
+,   
+
+ Point recorded at 48.01366
+,   
+
+(-13.57824, 64.50295, -2.84963),    
+(37.51468, 58.76105, -13.62956),    
+End trial

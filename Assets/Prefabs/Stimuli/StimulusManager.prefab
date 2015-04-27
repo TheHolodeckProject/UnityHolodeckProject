@@ -40,7 +40,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797c1360ce5f0d04e92dd1355b15dada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGrabDist: 1.5
+  grabStateRight: 0
+  grabStateLeft: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

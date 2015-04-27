@@ -9,25 +9,7 @@ using System.Collections.Generic;
 using Leap;
 
 
-public struct grabData
-{
-   public  float grabLevel;
-    public bool isItLeft; // 0= right 1 = left
-    public Vector3 position;
 
-    public grabData(float g, bool h, Vector3 i)
-    {
-        grabLevel = g;
-        isItLeft = h;
-        position = i;
-
-    }
-
-   
-
-
-
-}
 
 // Overall Controller object that will instantiate hands and tools when they appear.
 public class HandController : MonoBehaviour {
@@ -329,6 +311,13 @@ public class HandController : MonoBehaviour {
     return path;
   }
 
+  public string FinishAndSaveRecordingToFile(string p)
+  {
+      string path = recorder_.SaveToNewFile();
+      recorder_.Play();
+      return path;
+  }
+
   public void ResetRecording() {
     recorder_.Reset();
   }
@@ -351,26 +340,5 @@ public class HandController : MonoBehaviour {
       recorder_.NextFrame();
     }
   }
-    /*
-  public grabData getGrabStrength()
-  {
-      Frame frame = GetFrame();
-
-      HandList hList = frame.Hands;
-
-      int place = 0;
-
-      for (int i = 0; i < hList.Count; i++)
-      {
-          if (hList[i].GrabStrength > hList[place].GrabStrength) place = i;
-      }
-
-      
-      grabData grabDat = new grabData(hList[place].GrabStrength, hList[place].IsLeft, new Vector3(  hList[place].PalmPosition.x, 
-                                                                                                     hList[place].PalmPosition.y,  hList[place].PalmPosition.z));
-      return grabDat;
-      
-      
-  }
-     */
+    
 }

@@ -1033,6 +1033,8 @@ MonoBehaviour:
   - {fileID: 11400006}
   - {fileID: 11400002}
   - {fileID: 11400004}
+  overridePosition: 0
+  positionOverride: {x: 0, y: 0, z: 0}
   palm: {fileID: 400052}
   foreArm: {fileID: 0}
   modelFingerPointing: {x: 0, y: 0, z: 1}

@@ -9,9 +9,11 @@ public class StimulusScript : MonoBehaviour {
    [SerializeField] private int foundPos;
    [SerializeField]private bool active = false;
   [SerializeField] private bool isFound = false;
-  private int low = 150;
-  private int high = 255;
-  private int granularityInt = 10;
+  private int low = 0;
+  private int high = 15;
+  private int granularityInt = 16;
+  private float foundTime;
+  public bool hittingOtherSphere = false;
   
   
 	// Use this for initialization
@@ -27,12 +29,20 @@ public class StimulusScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        
-        if (!(other.gameObject.layer == 8) && active)
+
+
+        if (other.gameObject.layer == 8)
         {
+            hittingOtherSphere = true;
+        }
+        
+        else if(active)
+        {
+
+            
+            foundTime = Time.time;
             print("Collision Detected");    /*For debugging purposes*/
             gameObject.renderer.enabled = true;
-            gameObject.renderer.material.color = Color.yellow;
             isFound = true;
             setThisInactive();
             foundPos = searchScript.getNumFound();
@@ -40,15 +50,24 @@ public class StimulusScript : MonoBehaviour {
         }
     }
 
-    public byte getIntensity(Vector3 handPos)
+    public int getIntensity(Vector3 handPos)
     {
 
         float dist = Vector3.Distance(handPos, gameObject.transform.position);
         float increment = searchScript.getMaxDist() / granularityInt;
-        int bin = Mathf.FloorToInt( dist / increment);
-        int level = high - granularityInt * bin;
-        if (level > low) return System.Convert.ToByte(level);
-        else return System.Convert.ToByte(low);
+        int bin = Mathf.FloorToInt( (dist-1) / increment);
+        int level = high - bin;
+
+        if (level < low)
+        {
+            level = low;
+        }
+        if (level > high) level=high;
+        print("Level is: " + level);
+        
+        return level;
+        
+        
     }
 
     public void setThisActive( )
@@ -74,6 +93,11 @@ public class StimulusScript : MonoBehaviour {
         gameObject.renderer.material.color = Color.blue;
         gameObject.renderer.enabled = false;
         
+    }
+
+    public string getFoundTime()
+    {
+        return foundTime.ToString();
     }
     
 }
