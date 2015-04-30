@@ -72,7 +72,7 @@ public class SSAOEffect : MonoBehaviour
 	}
 	
 	void OnEnable () {
-		camera.depthTextureMode |= DepthTextureMode.DepthNormals;
+		GetComponent<Camera>().depthTextureMode |= DepthTextureMode.DepthNormals;
 	}
 
 	private void CreateMaterials ()
@@ -96,16 +96,16 @@ public class SSAOEffect : MonoBehaviour
 		m_Downsampling = Mathf.Clamp (m_Downsampling, 1, 6);
 		m_Radius = Mathf.Clamp (m_Radius, 0.05f, 1.0f);
 		m_MinZ = Mathf.Clamp (m_MinZ, 0.00001f, 0.5f);
-		m_OcclusionIntensity = Mathf.Clamp (m_OcclusionIntensity, 0.5f, 4.0f);
+		m_OcclusionIntensity = Mathf.Clamp (m_OcclusionIntensity, 0.3f, 4.0f);
 		m_OcclusionAttenuation = Mathf.Clamp (m_OcclusionAttenuation, 0.2f, 2.0f);
 		m_Blur = Mathf.Clamp (m_Blur, 0, 4);
 
 		// Render SSAO term into a smaller texture
 		RenderTexture rtAO = RenderTexture.GetTemporary (source.width / m_Downsampling, source.height / m_Downsampling, 0);
-		float fovY = camera.fieldOfView;
-		float far = camera.farClipPlane;
+		float fovY = GetComponent<Camera>().fieldOfView;
+		float far = GetComponent<Camera>().farClipPlane;
 		float y = Mathf.Tan (fovY * Mathf.Deg2Rad * 0.5f) * far;
-		float x = y * camera.aspect;
+		float x = y * GetComponent<Camera>().aspect;
 		m_SSAOMaterial.SetVector ("_FarCorner", new Vector3(x,y,far));
 		int noiseWidth, noiseHeight;
 		if (m_RandomTexture) {

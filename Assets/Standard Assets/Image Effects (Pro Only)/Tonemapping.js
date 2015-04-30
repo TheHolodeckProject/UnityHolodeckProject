@@ -49,6 +49,14 @@ class Tonemapping extends PostEffectsBase {
 	private var rt : RenderTexture = null;
 	private var rtFormat : RenderTextureFormat =  RenderTextureFormat.ARGBHalf;
 	
+	function ChangeTonemapperTypeToAdaptiveReinhard () {
+	type = TonemapperType.AdaptiveReinhard;
+	}
+	
+	function ChangeTonemapperTypeToUserCurve () {
+	type = TonemapperType.UserCurve;
+	}
+	
 	function CheckResources () : boolean {	
 		CheckSupport (false, true);	
 	
